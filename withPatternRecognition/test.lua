@@ -1,0 +1,6 @@
+r,g,b=getColor(Location(1000,1000))
+toast(r)
+wait(2)
+toast(g)
+wait(2)
+toast(b)
