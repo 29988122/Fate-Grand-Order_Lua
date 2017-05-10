@@ -18,12 +18,12 @@ and click the transprent arrow. You're good to go.
 
 
 Behavior details:
--It is custoimized for events that I'm playing, hence some minor adjustments.
+- It is custoimized for events that I'm playing, hence some minor adjustments.
 Most of the time it can run any quest without problem.
 
--Stamina does NOT automatically refilled, you have to eat those precious apples manually.
+- Stamina does NOT automatically refilled, you have to eat those precious apples manually.
 
--Script automatically chooses weak cards, until "boss" fight.
+- Script automatically chooses weak cards, until "boss" fight.
 It will switch target to any "servant", cast Noble Phantasm immediately and after until battle ended.
 You can manually replace target.png inside image folder to customize your priority target.
 1. screenshot your phone
