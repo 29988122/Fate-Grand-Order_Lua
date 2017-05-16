@@ -20,6 +20,7 @@ target2 = (Location(570,80))
 target3 = (Location(1050,80))
 
 Settings:setCompareDimension(true, 1280)
+Settings:setScriptDimension(true, 2560)
 
 atkround = 1
 --Settings:set("MinSimilarity", 0.6)
