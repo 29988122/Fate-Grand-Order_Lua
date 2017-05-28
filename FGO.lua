@@ -51,12 +51,6 @@ function menu()
 end
 
 function battle()
-	--因應bbb活動轉盤
-	if temp == 1 then
-	wait(6)
-	temp = 0
-	end
-	
 	
 	if targetchoosen ~= 1 then
 		targetchoose()
@@ -189,10 +183,9 @@ end
 
 while(1) do
     if rMenu:exists("menu.png", 0) then
-		toast("記得設定boss圖片，否則不會放寶具也不會切換目標")
+		toast("Will only select servant as noble phantasm target, please check github for further detail")
         menu()
-		--因應bbb活動轉盤
-		temp = 1
+
 		
 		targetchoosen = 0
     end
