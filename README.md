@@ -1,5 +1,5 @@
 # Fate-Grand-Order_Lua
-AS OF 2017.06.10, THIS SCRIPT IS WORKING WITHOUT ROOT / BEING BLOCKED, I DO NOT TAKE RESPONSIBILITY FOR YOUR BANNED ACCOUNT! (Alghough I highly doubt it, they are terrible coders, let alone this script run at human speed.)
+AS OF 2017.08.10, THIS SCRIPT IS WORKING WITHOUT ROOT / BEING BLOCKED, I DO NOT TAKE RESPONSIBILITY FOR YOUR BANNED ACCOUNT! (Alghough I highly doubt it, they are terrible coders, let alone this script run at human speed.)
 
 Screw those farming events - I only wanna enjoy the (kinoko) story!
 Therefore I brought you this: FGO automation script.
