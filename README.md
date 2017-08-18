@@ -15,12 +15,14 @@ Download the latest version of sikuli framework here.
 Put your game in either:
 - menu, put your desired quest as the 1st item on the screen(upper-right corner).
 - battle screen.
+
 and click the transprent arrow. You're good to go.
 
 Please choice the corresponding lua file accroding to your:
 - FGO server (supported Japan / Taiwan currently).
 - Used in event or regular stages. 
 Because events have extra window options to click, hence different version of scripts.
+
 I only update events in JP server, unless requested.
 
 Behavior details:
