@@ -21,11 +21,11 @@ target1 = (Location(90,80))
 target2 = (Location(570,80))
 target3 = (Location(1050,80))
 
-rSummer = Region(0,0,2560,1440)
 --ultcard1 = Region(900,100,200,200)
 --ultcard2 = Region(1350,100,200,200)
 --ultcard3 = Region(1800,100,200,200)
-
+dir = scriptPath()
+setImagePath(dir .. "image_JP")							   
 Settings:setCompareDimension(true, 1280)
 Settings:setScriptDimension(true, 2560)
 atkround = 1
@@ -166,49 +166,11 @@ function result()
     click(Location(1000, 1000))
     wait(3)
     click(Location(2200, 1350))
-    wait(10)
+    wait(13)
 	r1 = sQuestreward:exists("questreward.png")
 	if r1 ~= nil then
 		click(questreward)
 	end
-end
-
-function summermenu()
-	atkround = 1
-	wait (1)
-	click(sTar)
-    wait (1)
-    click(Location(1900,400))
-    wait (1)
-    click(Location(1900,500))
-    wait (1)
-    click(Location(2400,1350))
-	wait (1)
-	if OIL == 1 then
-		click(Location(1600,1300))
-		wait (1)
-		click(Location(1600,1100))
-	end
-	if OIL == 2 then
-		click(Location(1200,400))
-		wait (1)
-		click(Location(1600,1100))
-	end
-	if OIL == 3 then
-		click(Location(1200,700))
-		wait (1)
-		click(Location(1600,1100))
-	end
-	if OIL == 4 then
-		click(Location(1200,1000))
-		wait (1)
-		click(Location(1600,1100))
-	end
-	if OIL == nil then
-		toast("Please start from battle stage!")
-		wait(100)
-	end
-	wait (8)
 end
 
 --[[
@@ -228,36 +190,12 @@ end
 ]]
 
 while(1) do
-	--summer special
-	if OIL == 99 then
-		toast("Summer Racing Special: Please start this script IN THE TARGET FARMING BATTLE STAGE.")
-	end
-	
-	if rSummer:exists("summer.png", 3) then
-		sTar = rSummer:getLastMatch()
-		summermenu()
-		targetchoosen = 0
-	end
-	
-    --[[if rMenu:exists("menu.png", 0) then
+    if rMenu:exists("menu.png", 0) then
 		toast("Will only select servant/danger enemy as noble phantasm target, please check github for further detail")
         menu()
-		targetchoosen = 0		
-    end]]
-	
+		targetchoosen = 0
+    end
     if rBattle:exists("battle.png", 0) then
-		if OIL == nil then
-			dialogInit()
-			addTextView("Please select desired oil:")
-			newRow()
-			addRadioGroup("rgIndex", 1)
-			addRadioButton("Don't use oil", 1)
-			addRadioButton("Quick Oil", 2)
-			addRadioButton("Arts Oil", 3)
-			addRadioButton("Buster Oil", 4)
-			dialogShow("Oil Select")
-			OIL = rgIndex
-		end
         battle()
     end
     if rResult:exists("result.png", 0) then
