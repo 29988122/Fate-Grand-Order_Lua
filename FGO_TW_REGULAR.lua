@@ -21,7 +21,6 @@ target1 = (Location(90,80))
 target2 = (Location(570,80))
 target3 = (Location(1050,80))
 
-rSummer = Region(0,0,2560,1440)
 --ultcard1 = Region(900,100,200,200)
 --ultcard2 = Region(1350,100,200,200)
 --ultcard3 = Region(1800,100,200,200)
@@ -41,11 +40,11 @@ recognize speed realated functions:
 
 function menu()
     atkround = 1
-    wait (1)
+    wait (2)
     click(Location(1900,400))
-    wait (1)
+    wait (2)
     click(Location(1900,500))
-    wait (1)
+    wait (2)
     click(Location(2400,1350))
 	wait (8)
 end
@@ -144,30 +143,30 @@ function targetchoose()
 	t3a = sTarget3:exists("target_danger.png")
     if t1 ~= nil or t1a ~= nil then
         click(target1)
-		toast("Switched to priority target")
+		toast("切換到優先目標。")
 		targetchoosen = 1
 	elseif t2 ~= nil or t2a ~= nil then
 		click(target2)
-		toast("Switched to priority target")
+		toast("切換到優先目標。")
 		targetchoosen = 1
 	elseif t3 ~= nil or t3a ~= nil then
 		click(target3)
-		toast("Switched to priority target")
+		toast("切換到優先目標。")
 		targetchoosen = 1
 	else
-		toast("No priority target selected")
+		toast("沒有優先目標。")
     end
 	usePreviousSnap(false)
 end
 
 function result()
-    wait(2)
+    wait(3)
     click(Location(1000, 1000))
     wait(3)
     click(Location(1000, 1000))
     wait(3)
     click(Location(2200, 1350))
-    wait(13)
+    wait(16)
 	r1 = sQuestreward:exists("questreward.png")
 	if r1 ~= nil then
 		click(questreward)
@@ -193,7 +192,7 @@ end
 while(1) do
 	
     if rMenu:exists("menu.png", 0) then
-		toast("Will only select servant/danger enemy as noble phantasm target, please check github for further detail")
+		toast("寶具只會對高優先度目標使用，細節請查看github上的說明。")
         menu()
 		targetchoosen = 0		
     end
