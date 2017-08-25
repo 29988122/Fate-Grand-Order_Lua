@@ -43,7 +43,9 @@ You can manually replace target_servant.png inside image folder to customize you
 
 ---
 Any feature request or bugreport are welcomed. Please create a new issue and I'll do my best!
+
 有功能需要加入，腳本有問題，請去上面的issue討論版發新的討論文章，我會盡力做到。
+
 バグとか機能要望とかは大歓迎。issue掲示板で新たなスレを立ち上げてください。
 
 Enjoy the game!
