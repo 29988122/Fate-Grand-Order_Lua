@@ -50,7 +50,7 @@ function menu()
 end
 
 function battle()
-	
+	wait (1)
 	if targetchoosen ~= 1 then
 		targetchoose()
 	end
