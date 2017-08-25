@@ -24,11 +24,13 @@ target3 = (Location(1050,80))
 --ultcard1 = Region(900,100,200,200)
 --ultcard2 = Region(1350,100,200,200)
 --ultcard3 = Region(1800,100,200,200)
+setImmersiveMode(true)
 dir = scriptPath()
-setImagePath(dir .. "image_TW")
+setImagePath(dir .. "image_EN")							   
 Settings:setCompareDimension(true, 1280)
 Settings:setScriptDimension(true, 2560)
 atkround = 1
+
 --[[
 recognize speed realated functions:
 1.setScanInterval(1)
@@ -40,11 +42,11 @@ recognize speed realated functions:
 
 function menu()
     atkround = 1
-    wait (2)
+    wait (1)
     click(Location(1900,400))
-    wait (2)
+    wait (1)
     click(Location(1900,500))
-    wait (2)
+    wait (1)
     click(Location(2400,1350))
 	wait (8)
 end
@@ -160,13 +162,13 @@ function targetchoose()
 end
 
 function result()
-    wait(3)
+    wait(2)
     click(Location(1000, 1000))
     wait(3)
     click(Location(1000, 1000))
     wait(3)
     click(Location(2200, 1350))
-    wait(16)
+    wait(13)
 	r1 = sQuestreward:exists("questreward.png")
 	if r1 ~= nil then
 		click(questreward)
@@ -190,13 +192,11 @@ end
 ]]
 
 while(1) do
-	
     if rMenu:exists("menu.png", 0) then
 		toast("Will only select servant/danger enemy as noble phantasm target, please check github for further detail")
         menu()
-		targetchoosen = 0		
+		targetchoosen = 0
     end
-	
     if rBattle:exists("battle.png", 0) then
         battle()
     end
