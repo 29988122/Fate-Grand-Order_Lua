@@ -1,10 +1,11 @@
 # Fate-Grand-Order_Lua
-AS OF 2017.08.18, THIS SCRIPT IS WORKING WITHOUT ROOT / BEING BLOCKED, I DO NOT TAKE RESPONSIBILITY FOR YOUR BANNED ACCOUNT! (Alghough I highly doubt it, they are terrible coders, let alone this script runs at human speed.)
+AS OF 2017.08.18, THIS SCRIPT IS WORKING WITHOUT ROOT / BEING BLOCKED, I DO NOT TAKE RESPONSIBILITY FOR YOUR BANNED ACCOUNT! (Alghough I highly doubt it, they really should not add extra detection method as it will only drag the game EVEN slower, let alone this script runs at human speed.)
+This script supported TW, JP and USA server.
 
 Screw those farming events - I only wanna enjoy the (kinoko) story!
 Therefore I brought you this: FGO automation script.
 
-Install:
+**Install**:
 1. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
 Download the latest version of sikuli framework here.
 
@@ -19,18 +20,20 @@ Put your game in either:
 and click the transprent arrow. You're good to go.
 
 Please choice the corresponding lua file accroding to your:
-- FGO server (supported Japan / Taiwan currently).
+- FGO server (supported Japan / Taiwan / USA currently).
 - Used in event or regular stages. 
 Because events have extra window options to click, hence different version of scripts.
 
 I only update events in JP server, unless requested.
 
-Behavior details:
+---
+**Behavior details**:
 - It is custoimized for events that I'm playing, hence some minor adjustments will be done frequently. Remember to update!
 - Stamina does NOT automatically refilled, you have to eat those precious apples manually.
+- Script sometimes stucked at certain screen - that's because FGO and delightworks SUCKED. If loading took too long, script will think it already finished loading and click when game's in fact not ready. Restart the script manually should suffice, or adjust all the wait() function in the .lua yourself. 3-5 seconds more would be enough. 
 - Script automatically chooses weak cards, until "boss" fight.
 - It will switch target to any "servant" or "danger" enemy, cast Noble Phantasm immediately and after until battle ended.
-
+- Choose your party member wisely. Because this script does not do B/A/Q or brave chains, you have to observe the behavior of the script, and arrange your party accordingly in order to gain max clear efficiency / prevent party wipe from highest level event stage. 
 
 Extra:
 You can manually replace target_servant.png inside image folder to customize your priority target.
@@ -39,5 +42,12 @@ You can manually replace target_servant.png inside image folder to customize you
 3. resize it to 1280 WIDTH (1920*1080->1280*720, 2560*1440->1280*720, etc.)
 4. crop the desired pattern(ex: danger, servant, or particular enemy name) for the script to recognize.
 5. replace target.png and test.
+
+---
+Any feature request or bugreport are welcomed. Please create a new issue and I'll do my best!
+
+有功能需要加入，腳本有問題，請去上面的issue討論版發新的討論文章，我會盡力做到。
+
+バグとか機能要望とかは大歓迎。issue掲示板で新たなスレを立ち上げてください。
 
 Enjoy the game!

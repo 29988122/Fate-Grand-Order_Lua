@@ -1,3 +1,8 @@
+--[[
+このスクリプトは人の動きを真似してるだけなので、サーバーには余計な負担を掛からないはず。
+私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
+お願いします。このプログラムを禁止しないでください。
+]]
 rMenu = Region(2100,1200,1000,1000)
 rBattle = Region(2200,200,1000,600)
 rResult = Region(100,300,700,200)
@@ -50,7 +55,7 @@ function menu()
 end
 
 function battle()
-	
+	wait (1)
 	if targetchoosen ~= 1 then
 		targetchoose()
 	end

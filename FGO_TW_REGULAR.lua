@@ -50,7 +50,7 @@ function menu()
 end
 
 function battle()
-	
+	wait (1)
 	if targetchoosen ~= 1 then
 		targetchoose()
 	end
@@ -143,18 +143,18 @@ function targetchoose()
 	t3a = sTarget3:exists("target_danger.png")
     if t1 ~= nil or t1a ~= nil then
         click(target1)
-		toast("切換到優先目標。")
+		toast("Switched to priority target")
 		targetchoosen = 1
 	elseif t2 ~= nil or t2a ~= nil then
 		click(target2)
-		toast("切換到優先目標。")
+		toast("Switched to priority target")
 		targetchoosen = 1
 	elseif t3 ~= nil or t3a ~= nil then
 		click(target3)
-		toast("切換到優先目標。")
+		toast("Switched to priority target")
 		targetchoosen = 1
 	else
-		toast("沒有優先目標。")
+		toast("No priority target selected")
     end
 	usePreviousSnap(false)
 end
@@ -192,7 +192,7 @@ end
 while(1) do
 	
     if rMenu:exists("menu.png", 0) then
-		toast("寶具只會對高優先度目標使用，細節請查看github上的說明。")
+		toast("Will only select servant/danger enemy as noble phantasm target, please check github for further detail")
         menu()
 		targetchoosen = 0		
     end
