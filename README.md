@@ -49,6 +49,7 @@ If you really want to refill automatically, please modify the lua file you are e
 There are 3 variables - Refill_or_Not, Use_Stone, How_Many. 
 You should change Refill_or_Not to 1 to enable auto refill feature, Use_stone to 1 if you don't have enough apple, and How_Many to your planned refill rounds.
 For example, Refill_or_Not = 1 Use_Stone = 1 How_Many = 3 will let me enable the auto refill feature, use stone 3 times, and stop at the "not enough stamina" screen, without useing 4th stone.
+
 ---
 Any feature request or bugreport are welcomed. Please create a new issue and I'll do my best!
 
