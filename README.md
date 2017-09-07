@@ -1,5 +1,5 @@
 # Fate-Grand-Order_Lua
-AS OF 2017.08.18, THIS SCRIPT IS WORKING WITHOUT ROOT / BEING BLOCKED, I DO NOT TAKE RESPONSIBILITY FOR YOUR BANNED ACCOUNT! (Alghough I highly doubt it, they really should not add extra detection method as it will only drag the game EVEN slower, let alone this script runs at human speed.)
+AS OF 2017.09.07, THIS SCRIPT IS WORKING WITHOUT ROOT / BEING BLOCKED, I DO NOT TAKE RESPONSIBILITY FOR YOUR BANNED ACCOUNT! (Alghough I highly doubt it, they really should not add extra detection method as it will only drag the game EVEN slower, let alone this script runs at human speed.)
 This script supported TW, JP and USA server.
 
 Screw those farming events - I only wanna enjoy the (kinoko) story!
@@ -22,7 +22,8 @@ and click the transprent arrow. You're good to go.
 Please choice the corresponding lua file accroding to your:
 - FGO server (supported Japan / Taiwan / USA currently).
 - Used in event or regular stages. 
-Because events have extra window options to click, hence different version of scripts.
+Because sometimes events have extra window options to click, hence different version of scripts.
+If there's no extra options for the current event during battle sequence, please use the regular one.
 
 I only update events in JP server, unless requested.
 
