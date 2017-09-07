@@ -46,8 +46,11 @@ You can manually replace target_servant.png inside image folder to customize you
 
 Extra2:
 If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
+
 There are 3 variables - Refill_or_Not = 0, Use_Stone = 0, How_Many = 0. 
+
 You should change Refill_or_Not to 1 to enable the auto refill feature, Use_Stone to 1 if you don't have enough apple (default Use_Stone = 0 will use apple), and How_Many to your planned refill rounds.
+
 For example, Refill_or_Not = 1 Use_Stone = 1 How_Many = 3 will enable the auto refill feature, use stone 3 times, and stop at the "not enough stamina" screen, without useing 4th stone.
 
 ---
