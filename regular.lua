@@ -53,6 +53,15 @@ function menu()
     click(Location(1900,400))
     wait(1.5)
     if Refill_or_Not == 1 and stoneused < How_Many then
+		if Use_Stone == 1 then
+			temp = "stones"
+		else
+			temp = "apples"
+		end
+		toast(temp)
+		dialogInit()
+		addTextView("You are going to use "..How_Many.." "..temp..", remember to check those values everytime you execute the script!")
+		dialogShow("Auto Refilling Stamina")
         refillstamina()
     end
     click(Location(1900,500))
