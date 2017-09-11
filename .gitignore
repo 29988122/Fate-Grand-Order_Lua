@@ -1,34 +1,16 @@
 # Compiled Lua sources
 
 # luarocks build files
-*.src.rock
-*.tar.gz
 
 # Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
 
 # Precompiled Headers
-*.gch
-*.pch
 
 # Libraries
 
 # Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
 
 # Executables
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
 
 screenshot examples(offline backup)/
 resize.bat
