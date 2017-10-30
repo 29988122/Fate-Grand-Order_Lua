@@ -1,5 +1,5 @@
 # Fate-Grand-Order_Lua
-AS OF 2017.09.07, THIS SCRIPT IS WORKING WITHOUT ROOT / BEING BLOCKED, I DO NOT TAKE RESPONSIBILITY FOR YOUR BANNED ACCOUNT! (Alghough I highly doubt it, they really should not add extra detection method as it will only drag the game EVEN slower, let alone this script runs at human speed.)
+AS OF 2017.10.30, THIS SCRIPT IS WORKING WITHOUT ROOT / BEING BLOCKED, I DO NOT TAKE RESPONSIBILITY FOR YOUR BANNED ACCOUNT! (Alghough I highly doubt it, they really should not add extra detection method as it will only drag the game EVEN slower, let alone this script runs at human speed.)
 This script supported TW, JP and USA server.
 
 Screw those farming events - I only wanna enjoy the (kinoko) story!
