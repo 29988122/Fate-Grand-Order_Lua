@@ -6,7 +6,7 @@
 MenuRegion = Region(2100,1200,1000,1000)
 BattleRegion = Region(2200,200,1000,600)
 ResultRegion = Region(100,300,700,200)
-StaminaRegion = Region(1940,170,320,1130)
+StaminaRegion = Region(600,200,300,300)
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
 Card1Region = Region(330,650,200,200)
