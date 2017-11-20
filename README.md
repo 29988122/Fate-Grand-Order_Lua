@@ -24,6 +24,7 @@ Therefore I proudly brought you this: FGO automation script.
 * [Behavior details](#behavior-details)
   * [Auto refill](#auto-refill)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
+* [Feature requests, 說明, 要望](#feature-requests)
 
 
 
@@ -93,7 +94,8 @@ You can manually replace target_servant.png inside image folder to customize you
 3. resize it to 1280 WIDTH (1920*1080->1280*720, 2560*1440->1280*720, etc.)
 4. crop the desired pattern(ex: danger, servant, or particular enemy name) for the script to recognize.
 5. replace target.png and test.
----
+
+## Feature requests:
 Any feature request or bugreport are welcomed. Please create a new issue and I'll do my best!
 
 有功能需要加入，腳本有問題，請去上面的issue討論版發新的討論文章，我會盡力做到。
