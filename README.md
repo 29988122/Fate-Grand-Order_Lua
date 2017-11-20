@@ -9,7 +9,12 @@ let alone this script runs at human speed.)
 
 This script supported TW, JP and USA server.
 
-[Imgur](http://i.imgur.com/go5rxWf.jpg)
+<p align="center">
+  <a href="https://i.imgur.com/go5rxWf.jpg">
+    <img alt="Chaldea" src="https://i.imgur.com/go5rxWf.jpg" width="400"/>
+  </a>
+</p>
+
 
 [!Imgur](https://i.imgur.com/go5rxWf.jpg)
 
