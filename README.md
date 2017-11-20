@@ -19,9 +19,7 @@ Therefore I proudly brought you this: FGO automation script.
 
 # Table of Contents:
 * [Install](#install)
-
 * [Use](#use)
-
 * [Behavior details](#behavior-details)
   * [Auto refill](#auto-refill)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
