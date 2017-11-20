@@ -18,18 +18,18 @@ Screw those farming events - I only wanna enjoy the (kinoko) story!
 Therefore I proudly brought you this: FGO automation script.
 
 # Table of Contents:
-[Install](#install)
+* [Install](#install)
 
-[Use](#use)
+* [Use](#use)
 
-[Behavior details](#behavior-details)
-  [Auto refill](#auto-refill)
-  [How to capture screen for recognition](#
-
-
+* [Behavior details](#behavior-details)
+  * [Auto refill](#auto-refill)
+  * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 
 
-## Install
+
+
+## Install:
 1. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
 Download the latest version of sikuli framework here.
 
@@ -39,7 +39,7 @@ Download the latest version of sikuli framework here.
 
 
 
-## Use
+## Use:
 Please choice the corresponding lua file in AnkuLua accroding to your:
 - FGO server (supported Japan / Taiwan / USA currently).
 - Used in event or regular stages. 
@@ -57,7 +57,7 @@ I only update events in JP server, unless requested.
 
 
 
-## Behavior details
+## Behavior details:
 - It is custoimized for events that I'm playing, hence some minor adjustments will be done frequently. **Remember to update!**
 - Stamina does NOT automatically refilled, if you need to refill them automatically, please check [Auto refill](#auto-refill)
 - Script sometimes stucked at certain screen - that's because FGO and delightworks SUCKED. If loading took too long, script will think it already finished loading and click when game's in fact not ready. Restart the script manually should suffice, or adjust all the wait() function in the .lua yourself. 3-5 seconds more would be enough. 
@@ -66,7 +66,7 @@ I only update events in JP server, unless requested.
 - Choose your party member wisely. Because this script does not do B/A/Q or brave chains, you have to observe the behavior of the script, and arrange your party accordingly in order to gain max clear efficiency / prevent party wipe from highest level event stage. 
 
 
-## Auto refill
+## Auto refill:
 If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
 
 There are 3 variables - Refill_or_Not = 0, Use_Stone = 0, How_Many = 0. 
@@ -76,7 +76,7 @@ You should change Refill_or_Not to 1 to enable the auto refill feature, Use_Ston
 For example, Refill_or_Not = 1 Use_Stone = 1 How_Many = 3 will enable the auto refill feature, use stone 3 times, and stop at the "not enough stamina" screen, without useing 4th stone.
 
 
-Extra:
+## How to capture screen for recognition:
 You can manually replace target_servant.png inside image folder to customize your priority target.
 1. screenshot your phone
 2. convert it to png format
