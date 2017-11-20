@@ -83,18 +83,18 @@ Use for Nero matsuri or Christmas events. Their UI really sucked.
 ## Auto refill:
 If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
 
-There are 3 variables - Refill_or_Not = 0, Use_Stone = 0, How_Many = 0. 
+There are 3 variables - Refill\_or\_Not = 0, Use\_Stone = 0, How\_Many = 0. 
 
-You should change Refill_or_Not to 1 to enable the auto refill feature, Use_Stone to 1 if you don't have enough apple (default Use_Stone = 0 will use apple), and How_Many to your planned refill rounds.
+You should change Refill\_or\_Not to 1 to enable the auto refill feature, Use\_Stone to 1 if you don't have enough apple (default Use\_Stone = 0 will use apple), and How\_Many to your planned refill rounds.
 
-For example, Refill_or_Not = 1 Use_Stone = 1 How_Many = 3 will enable the auto refill feature, use stone 3 times, and stop at the "not enough stamina" screen, without using 4th stone.
+For example, Refill\_or\_Not = 1 Use\_Stone = 1 How\_Many = 3 will enable the auto refill feature, use stone 3 times, and stop at the "not enough stamina" screen, without using 4th stone.
 
 
 ## How to capture screen for recognition:
-You can manually replace target_servant.png inside image folder to customize your priority target.
+You can manually replace target\_servant.png inside image folder to customize your priority target.
 1. screenshot your phone
 2. convert it to png format
-3. resize it to 1280 WIDTH (1920*1080->1280*720, 2560*1440->1280*720, etc.)
+3. resize it to 1280 WIDTH (1920\*1080->1280\*720, 2560\*1440->1280\*720, etc.)
 4. crop the desired pattern(ex: danger, servant, or particular enemy name) for the script to recognize.
 5. replace target.png and test.
 
