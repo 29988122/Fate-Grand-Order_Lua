@@ -11,7 +11,7 @@ This script supported TW, JP and USA server.
 
 <p align="center">
   <a href="https://imgur.com/a/c6vKI">
-    <img alt="Chaldea" src="https://imgur.com/a/c6vKI" width="300"/>
+    <img alt="Chaldea" src="https://imgur.com/a/c6vKI" width="400"/>
   </a>
 </p>
 
