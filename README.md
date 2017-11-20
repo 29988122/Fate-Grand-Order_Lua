@@ -7,14 +7,14 @@ let alone this script runs at human speed.)
 ```
 This script supported TW, JP and USA server.
 
-[Imgur](https://i.imgur.com/go5rxWf.jpg)
+[!Imgur](https://i.imgur.com/go5rxWf.jpg)
 
 Screw those farming events - I only wanna enjoy the (kinoko) story!
 Therefore I proudly brought you this: FGO automation script.
 
 # Table of Contents:
 * [Install](#Install)
-* [Behavior details](#Behavior details:)
+* [Behavior details](#Behavior-details)
 
 
 ## Install:
