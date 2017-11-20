@@ -20,6 +20,7 @@ Therefore I proudly brought you this: FGO automation script.
 # Table of Contents:
 * [Install](#install)
 * [Use](#use)
+* [Extra scripts](#extra-scripts)
 * [Behavior details](#behavior-details)
   * [Auto refill](#auto-refill)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
@@ -52,15 +53,24 @@ and click the transprent arrow. You're good to go.
 
 I only update events in JP server, unless requested.
 
+## Extra scripts:
+* \_auto\_friendgacha.lua
+As title. It will keep gacha until your bag's full.
 
-
+* \_auto\_gift\_exchange
+Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 ## Behavior details:
 - It is custoimized for events that I'm playing, hence some minor adjustments will be done frequently. **Remember to update!**
+
 - Stamina does NOT automatically refilled, if you need to refill them automatically, please check [Auto refill](#auto-refill)
+
 - Script sometimes stucked at certain screen - that's because FGO and delightworks SUCKED. If loading took too long, script will think it already finished loading and click when game's in fact not ready. Restart the script manually should suffice, or adjust all the wait() function in the .lua yourself. 3-5 seconds more would be enough. 
+
 - Script automatically chooses weak cards, until "boss" fight.
+
 - It will switch target to any "servant" or "danger" enemy, cast Noble Phantasm immediately and after until battle ended.
+
 - Choose your party member wisely. Because this script does not do B/A/Q or brave chains, you have to observe the behavior of the script, and arrange your party accordingly in order to gain max clear efficiency / prevent party wipe from highest level event stage. 
 
 
