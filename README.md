@@ -14,6 +14,9 @@ This script supported TW, JP and USA server.
   </a>
 </p>
 
+![Lua-Sikuli](https://img.shields.io/badge/Lua--Sikuli-5.1-blue.svg) [![GitHub license](https://img.shields.io/github/license/29988122/Fate-Grand-Order_Lua.svg)](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/LICENSE)
+
+
 Screw those farming events - I only wanna enjoy the (kinoko) story!
 Therefore I proudly brought you this: FGO automation script.
 
