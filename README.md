@@ -20,8 +20,8 @@ Therefore I proudly brought you this: FGO automation script.
 #Table of Contents:
 [[ Link text | page_title#header_title ]]
 
-[Install](##Install)
-[Behavior details](##Behavior-details)
+[Install](##install)
+[Behavior details](##behavior-details)
 
 
 ##Install
