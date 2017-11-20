@@ -1,11 +1,11 @@
 # Fate-Grand-Order_Lua
 
 As of 2017.11.20, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
-
->(Alghough I highly doubt it, 
->they really should not add extra detection method as it will only drag the game EVEN slower, 
->let alone this script runs at human speed.)
-
+```
+(Alghough I highly doubt it, 
+they really should not add extra detection method as it will only drag the game EVEN slower, 
+let alone this script runs at human speed.)
+```
 This script supported TW, JP and USA server.
 
 <p align="center">
