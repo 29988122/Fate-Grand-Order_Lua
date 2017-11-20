@@ -6,7 +6,7 @@ As of 2017.11.20, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT 
 let alone this script runs at human speed.)
 ```
 This script supported TW, JP and USA server.
-
+[Imgur](http://i.imgur.com/go5rxWf.jpg)
 [!Imgur](https://i.imgur.com/go5rxWf.jpg)
 
 Screw those farming events - I only wanna enjoy the (kinoko) story!
