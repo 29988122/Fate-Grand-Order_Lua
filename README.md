@@ -55,9 +55,11 @@ I only update events in JP server, unless requested.
 
 ## Extra scripts:
 * \_auto\_friendgacha.lua
+
 As title. It will keep gacha until your bag's full.
 
 * \_auto\_gift\_exchange
+
 Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 ## Behavior details:
