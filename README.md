@@ -1,11 +1,22 @@
 # Fate-Grand-Order_Lua
-AS OF 2017.10.30, THIS SCRIPT IS WORKING WITHOUT ROOT / BEING BLOCKED, I DO NOT TAKE RESPONSIBILITY FOR YOUR BANNED ACCOUNT! (Alghough I highly doubt it, they really should not add extra detection method as it will only drag the game EVEN slower, let alone this script runs at human speed.)
+
+As of 2017.11.20, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
+```
+(Alghough I highly doubt it, they really should not add extra detection method as it will only drag the game EVEN slower, let alone this script runs at human speed.)
+```
 This script supported TW, JP and USA server.
 
-Screw those farming events - I only wanna enjoy the (kinoko) story!
-Therefore I brought you this: FGO automation script.
+![Imgur Image](https://imgur.com/a/96YaR)
 
-**Install**:
+Screw those farming events - I only wanna enjoy the (kinoko) story!
+Therefore I proudly brought you this: FGO automation script.
+
+# Table of Contents:
+* [Install](#Install)
+* [Behavior details](#Behavior details)
+
+
+##Install:
 1. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
 Download the latest version of sikuli framework here.
 
@@ -28,7 +39,7 @@ If there's no extra options for the current event during battle sequence, please
 I only update events in JP server, unless requested.
 
 ---
-**Behavior details**:
+##Behavior details:
 - It is custoimized for events that I'm playing, hence some minor adjustments will be done frequently. Remember to update!
 - Stamina does NOT automatically refilled, you have to eat those precious apples manually.
 - Script sometimes stucked at certain screen - that's because FGO and delightworks SUCKED. If loading took too long, script will think it already finished loading and click when game's in fact not ready. Restart the script manually should suffice, or adjust all the wait() function in the .lua yourself. 3-5 seconds more would be enough. 
