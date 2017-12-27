@@ -33,6 +33,7 @@ QuestrewardRegion = Region(1630,140,370,250)
 Ultcard1Click = (Location(1000,220))
 Ultcard2Click = (Location(1300,400))
 Ultcard3Click = (Location(1740,400))
+saberstage2ndwave = Region(0,0,600,200)
 
 setImmersiveMode(true)			   
 Settings:setCompareDimension(true,1280)
@@ -162,9 +163,9 @@ function targetchoose()
 	usePreviousSnap(true)
 	t2 = Target2Type:exists("target_servant.png")
 	t3 = Target3Type:exists("target_servant.png")
-	t1a = Target1Type:exists("target_danger.png")
-	t2a = Target2Type:exists("target_danger.png")
-	t3a = Target3Type:exists("target_danger.png")
+	t1a = saberstage2ndwave:exists("201712jpevent_saber_stage.png")
+	t2a = saberstage2ndwave:exists("201712jpevent_saber_stage.png")
+	t3a = saberstage2ndwave:exists("201712jpevent_saber_stage.png")
     if t1 ~= nil or t1a ~= nil then
         click(Target1Choose)
 		toast("Switched to priority target")
@@ -196,6 +197,22 @@ function result()
 		click(Location(100,100))
 	end
 end
+
+--[[
+function berserkeBattleRegion()
+    click(Location(2300,1200))
+    if atkround >= 4 then
+        ultcard()
+    end
+    click(card1)
+    click(card2)
+    click(card3)
+    click(card4)
+    click(card5)
+    atkround = atkround + 1
+    wait (3)
+end
+]]
 
 while(1) do
 	if Refill_or_Not == 1 and refillshown == 0 then
