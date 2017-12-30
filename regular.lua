@@ -94,23 +94,59 @@ function battle()
     norcard()
 
     if i < 3 then
-        if f1 == nil then
+        r1 = Card1Region:exists("resist.png")
+        r2 = Card2Region:exists("resist.png")
+        r3 = Card3Region:exists("resist.png")
+        r4 = Card4Region:exists("resist.png")
+        r5 = Card5Region:exists("resist.png")
+
+        if r1 == nil and w1 == nil then
             click(Card1Click)
+            Card1Clicked = 1
+            i = i + 1
         end
-        if f2 == nil then
+        if r2 == nil and w2 == nil then
             click(Card2Click)
+            Card2Clicked = 1
+            i = i + 1
         end
-        if f3 == nil then
+        if r3 == nil and w3 == nil then
             click(Card3Click)
+            Card3Clicked = 1
+            i = i + 1
         end
-        if f4 == nil then
+        if r4 == nil and w4 == nil then
             click(Card4Click)
+            Card4Clicked = 1
+            i = i + 1
         end
-        if f5 == nil then
+        if r5 == nil and w5 == nil then
+            click(Card5Click)
+            Card5Clicked = 1
+            i = i + 1
+        end      
+    end
+
+    if i < 3 then
+        if Card1Clicked == 0 then
+            click(Card1Click)
+        elseif Card2Clicked == 0 then
+            click(Card2Click)
+        elseif Card3Clicked == 0 then
+            click(Card3Click)
+        elseif Card4Clicked == 0 then
+            click(Card4Click)
+        elseif Card5Clicked == 0 then
             click(Card5Click)
         end
     end
 
+    Card1Clicked = 0
+    Card2Clicked = 0
+    Card3Clicked = 0
+    Card4Clicked = 0
+    Card5Clicked = 0
+    usePreviousSnap(false)
     i = 0
     atkround = atkround + 1
     wait(3)
@@ -118,37 +154,41 @@ end
 
 function norcard()
     i = 0
-    f1 = Card1Region:exists("weak.png")
+    w1 = Card1Region:exists("weak.png")
 	usePreviousSnap(true)
-    if f1 ~= nil then
+    if w1 ~= nil then
         click(Card1Click)
+        Card1Clicked = 1
         i = i + 1
     end
 
-    f2 = Card2Region:exists("weak.png")
-    if f2 ~= nil then
+    w2 = Card2Region:exists("weak.png")
+    if w2 ~= nil then
         click(Card2Click)
+        Card2Clicked = 1
         i = i + 1
     end
 
-    f3 = Card3Region:exists("weak.png")
-    if f3 ~= nil then
+    w3 = Card3Region:exists("weak.png")
+    if w3 ~= nil then
         click(Card3Click)
+        Card3Clicked = 1
         i = i + 1
     end
 
-    f4 = Card4Region:exists("weak.png")
-    if f4 ~= nil then
+    w4 = Card4Region:exists("weak.png")
+    if w4 ~= nil then
         click(Card4Click)
+        Card4Clicked = 1
         i = i + 1
     end
 
-    f5 = Card5Region:exists("weak.png")
-    if f5 ~= nil then
+    w5 = Card5Region:exists("weak.png")
+    if w5 ~= nil then
         click(Card5Click)
+        Card5Clicked = 1
         i = i + 1
     end
-	usePreviousSnap(false)
 end
 
 function ultcard()
@@ -191,8 +231,8 @@ function result()
     wait(3.5)
     click(Location(2200, 1350))
     wait(15)
-	r1 = QuestrewardRegion:exists("questreward.png")
-	if r1 ~= nil then
+	rw1 = QuestrewardRegion:exists("questreward.png")
+	if rw1 ~= nil then
 		click(Location(100,100))
 	end
 end
