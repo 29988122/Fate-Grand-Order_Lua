@@ -7,24 +7,34 @@ MenuRegion = Region(2100,1200,1000,1000)
 BattleRegion = Region(2200,200,1000,600)
 ResultRegion = Region(100,300,700,200)
 StaminaRegion = Region(600,200,300,300)
+
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
+
 Card1Region = Region(330,650,200,200)
 Card2Region = Region(840,650,200,200)
 Card3Region = Region(1340,650,200,200)
 Card4Region = Region(1850,650,200,200)
 Card5Region = Region(2370,650,200,200)
+
+CardAffinRegion = {Card1Region, Card2Region, Card3Region, Card4Region, Card5Region}
+
 Card1Click = (Location(300,1000))
 Card2Click = (Location(750,1000))
 Card3Click = (Location(1300,1000))
 Card4Click = (Location(1800,1000))
 Card5Click = (Location(2350,1000))
+
+CardClickArray = {Card1Click, Card2Click, Card3Click, Card4Click, Card5Click}
+
 Target1Type = Region(0,0,485,220)
 Target2Type = Region(485,0,482,220)
 Target3Type = Region(967,0,476,220)
+
 Target1Choose = (Location(90,80))
 Target2Choose = (Location(570,80))
 Target3Choose = (Location(1050,80))
+
 QuestrewardRegion = Region(1630,140,370,250)
 --NpbarRegion = Region(280,1330,1620,50)
 --Ultcard1Region = Region(900,100,200,200)
@@ -34,9 +44,31 @@ Ultcard1Click = (Location(1000,220))
 Ultcard2Click = (Location(1300,400))
 Ultcard3Click = (Location(1740,400))
 
+Card1TypeRegion = Region(200,1060,200,200)
+Card2TypeRegion = Region(730,1060,200,200)
+Card3TypeRegion = Region(1240,1060,200,200)
+Card4TypeRegion = Region(1750,1060,200,200)
+Card5TypeRegion = Region(2280,1060,200,200)
+
+CardTypeRegionArray = {Card1TypeRegion, Card2TypeRegion, Card3TypeRegion, Card4TypeRegion, Card5TypeRegion}
+
+WeakMulti = 2.0
+NormalMulti = 1.0
+ResistMulti = 0.5
+
+BCard = 150
+ACard = 100
+QCard = 80
+
+ResistBuster =  BCard * ResistMulti
+WeakBuster = BCard * WeakMulti
+WeakArt = ACard * WeakMulti
+WeakQuick = QCard * WeakMulti
+
 setImmersiveMode(true)			   
 Settings:setCompareDimension(true,1280)
 Settings:setScriptDimension(true,2560)
+
 atkround = 1
 stoneused = 0
 refillshown = 0
@@ -74,7 +106,7 @@ function refillstamina()
             stoneused = stoneused + 1
         end
     end
-    wait(1.5)
+    wait(2)
 end
 
 function battle()
@@ -91,71 +123,118 @@ function battle()
     end
 
     wait(0.5)
-    norcard()
-
-    if i < 3 then
-        r1 = Card1Region:exists("resist.png")
-        r2 = Card2Region:exists("resist.png")
-        r3 = Card3Region:exists("resist.png")
-        r4 = Card4Region:exists("resist.png")
-        r5 = Card5Region:exists("resist.png")
-
-        if r1 == nil and w1 == nil then
-            click(Card1Click)
-            Card1Clicked = 1
-            i = i + 1
-        end
-        if r2 == nil and w2 == nil then
-            click(Card2Click)
-            Card2Clicked = 1
-            i = i + 1
-        end
-        if r3 == nil and w3 == nil then
-            click(Card3Click)
-            Card3Clicked = 1
-            i = i + 1
-        end
-        if r4 == nil and w4 == nil then
-            click(Card4Click)
-            Card4Clicked = 1
-            i = i + 1
-        end
-        if r5 == nil and w5 == nil then
-            click(Card5Click)
-            Card5Clicked = 1
-            i = i + 1
-        end      
-    end
-
-    if i < 3 then
-        if Card1Clicked == 0 then
-            click(Card1Click)
-        elseif Card2Clicked == 0 then
-            click(Card2Click)
-        elseif Card3Clicked == 0 then
-            click(Card3Click)
-        elseif Card4Clicked == 0 then
-            click(Card4Click)
-        elseif Card5Clicked == 0 then
-            click(Card5Click)
-        end
-    end
-
-    Card1Clicked = 0
-    Card2Clicked = 0
-    Card3Clicked = 0
-    Card4Clicked = 0
-    Card5Clicked = 0
+    doBattleLogic()
+    
     usePreviousSnap(false)
-    i = 0
+    
     atkround = atkround + 1
     wait(3)
 end
 
+function checkCardAffin(region)
+	weakAvail = region:exists("weak.png")
+	usePreviousSnap(true)
+	if weakAvail ~= nil then
+		return WeakMulti
+	end
+	
+	resistAvail = region:exists("resist.png")
+	if  resistAvail ~= nil then
+		return ResistMulti
+	else
+		return NormalMulti
+	end	
+end
+
+function checkCardType(region)
+	b = region:exists("buster.png")
+	if b ~= nil then
+		return BCard
+	end
+	
+	a = region:exists("art.png")
+	if  a ~= nil then
+		return ACard
+	end
+	
+	q = region:exists("quick.png")
+	if q ~= nil then
+		return QCard
+	else
+		return BCard
+	end		
+end
+
+function doBattleLogic()
+	affinArray = 0
+	typeArray = 0
+	cardScore = 0
+	cardCount = 0
+	storage = {}
+	
+	WBLocation = {}
+	BLocation = {}
+	RBLocation = {}
+	WALocation = {}
+	WQLocation = {}
+	ALocation = {}
+	QLocation = {}
+	
+	for cardSlot = 1, 5 do
+		affinArray = checkCardAffin(CardAffinRegion[cardSlot])
+		typeArray = checkCardType(CardTypeRegionArray[cardSlot])
+		cardScore = affinArray * typeArray
+		
+		if cardScore >= ResistBuster then
+			if cardScore == WeakBuster then
+				table.insert(WBLocation, cardSlot)
+			
+			elseif cardScore == BCard then
+				table.insert(BLocation, cardSlot)
+			
+			elseif cardScore == ResistBuster then
+				table.insert(RBLocation, cardSlot)
+				
+			elseif cardScore == WeakQuick then
+				table.insert(WQLocation, cardSlot)
+			
+			elseif cardScore == WeakArt then
+				table.insert(WALocation, cardSlot)
+			
+			elseif cardScore == QCard then
+				table.insert(QLocation, cardSlot)
+			
+			elseif cardScore == ACard then
+				table.insert(ALocation, cardSlot)
+			end		
+		end
+	end
+	
+	storage[1] = WBLocation
+	storage[2] = BLocation
+	storage[3] = WALocation
+	storage[4] = WQLocation
+	storage[5] = RBLocation
+	storage[6] = ALocation
+	storage[7] = QLocation
+	
+	
+	for i, storageNum in ipairs(storage) do
+		for j, nCard in pairs(storageNum) do
+			click(CardClickArray[nCard])
+			cardCount = cardCount + 1
+			if cardCount == 3 then
+				break
+			end
+		end
+	end	
+end
+
 function norcard()
     i = 0
+    
     w1 = Card1Region:exists("weak.png")
-	usePreviousSnap(true)
+	usePreviousSnap(true)   
     if w1 ~= nil then
         click(Card1Click)
         Card1Clicked = 1
@@ -236,6 +315,7 @@ function result()
 		click(Location(100,100))
 	end
 end
+
 
 while(1) do
 	if Refill_or_Not == 1 and refillshown == 0 then
