@@ -6,50 +6,24 @@
 MenuRegion = Region(2100,1200,1000,1000)
 BattleRegion = Region(2200,200,1000,600)
 ResultRegion = Region(100,300,700,200)
+QuestrewardRegion = Region(1630,140,370,250)
 StaminaRegion = Region(600,200,300,300)
 
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
 
-Card1Region = Region(330,650,200,200)
-Card2Region = Region(840,650,200,200)
-Card3Region = Region(1340,650,200,200)
-Card4Region = Region(1850,650,200,200)
-Card5Region = Region(2370,650,200,200)
-
-CardAffinRegion = {Card1Region, Card2Region, Card3Region, Card4Region, Card5Region}
-
-Card1Click = (Location(300,1000))
-Card2Click = (Location(750,1000))
-Card3Click = (Location(1300,1000))
-Card4Click = (Location(1800,1000))
-Card5Click = (Location(2350,1000))
-
-CardClickArray = {Card1Click, Card2Click, Card3Click, Card4Click, Card5Click}
-
-Target1Type = Region(0,0,485,220)
-Target2Type = Region(485,0,482,220)
-Target3Type = Region(967,0,476,220)
-
-Target1Choose = (Location(90,80))
-Target2Choose = (Location(570,80))
-Target3Choose = (Location(1050,80))
-
-QuestrewardRegion = Region(1630,140,370,250)
---NpbarRegion = Region(280,1330,1620,50)
---Ultcard1Region = Region(900,100,200,200)
---Ultcard2Region = Region(1350,100,200,200)
---Ultcard3Region = Region(1800,100,200,200)
-Ultcard1Click = (Location(1000,220))
-Ultcard2Click = (Location(1300,400))
-Ultcard3Click = (Location(1740,400))
+Card1AffinRegion = Region(330,650,200,200)
+Card2AffinRegion = Region(840,650,200,200)
+Card3AffinRegion = Region(1340,650,200,200)
+Card4AffinRegion = Region(1850,650,200,200)
+Card5AffinRegion = Region(2370,650,200,200)
+CardAffinRegionArray = {Card1AffinRegion, Card2AffinRegion, Card3AffinRegion, Card4AffinRegion, Card5AffinRegion}
 
 Card1TypeRegion = Region(200,1060,200,200)
 Card2TypeRegion = Region(730,1060,200,200)
 Card3TypeRegion = Region(1240,1060,200,200)
 Card4TypeRegion = Region(1750,1060,200,200)
 Card5TypeRegion = Region(2280,1060,200,200)
-
 CardTypeRegionArray = {Card1TypeRegion, Card2TypeRegion, Card3TypeRegion, Card4TypeRegion, Card5TypeRegion}
 
 WeakMulti = 2.0
@@ -65,6 +39,28 @@ WeakBuster = BCard * WeakMulti
 WeakArt = ACard * WeakMulti
 WeakQuick = QCard * WeakMulti
 
+Card1Click = (Location(300,1000))
+Card2Click = (Location(750,1000))
+Card3Click = (Location(1300,1000))
+Card4Click = (Location(1800,1000))
+Card5Click = (Location(2350,1000))
+CardClickArray = {Card1Click, Card2Click, Card3Click, Card4Click, Card5Click}
+
+Ultcard1Click = (Location(1000,220))
+Ultcard2Click = (Location(1300,400))
+Ultcard3Click = (Location(1740,400))
+
+Target1Type = Region(0,0,485,220)
+Target2Type = Region(485,0,482,220)
+Target3Type = Region(967,0,476,220)
+Target1Choose = (Location(90,80))
+Target2Choose = (Location(570,80))
+Target3Choose = (Location(1050,80))
+
+--NpbarRegion = Region(280,1330,1620,50)
+--Ultcard1Region = Region(900,100,200,200)
+--Ultcard2Region = Region(1350,100,200,200)
+--Ultcard3Region = Region(1800,100,200,200)
 setImmersiveMode(true)			   
 Settings:setCompareDimension(true,1280)
 Settings:setScriptDimension(true,2560)
@@ -181,7 +177,7 @@ function doBattleLogic()
 	QLocation = {}
 	
 	for cardSlot = 1, 5 do
-		affinArray = checkCardAffin(CardAffinRegion[cardSlot])
+		affinArray = checkCardAffin(CardAffinRegionArray[cardSlot])
 		typeArray = checkCardType(CardTypeRegionArray[cardSlot])
 		cardScore = affinArray * typeArray
 		
@@ -230,10 +226,10 @@ function doBattleLogic()
 	end	
 end
 
-function norcard()
+--[[function norcard()
     i = 0
     
-    w1 = Card1Region:exists("weak.png")
+    w1 = Card1AffinRegion:exists("weak.png")
 	usePreviousSnap(true)   
     if w1 ~= nil then
         click(Card1Click)
@@ -241,34 +237,34 @@ function norcard()
         i = i + 1
     end
 
-    w2 = Card2Region:exists("weak.png")
+    w2 = Card2AffinRegion:exists("weak.png")
     if w2 ~= nil then
         click(Card2Click)
         Card2Clicked = 1
         i = i + 1
     end
 
-    w3 = Card3Region:exists("weak.png")
+    w3 = Card3AffinRegion:exists("weak.png")
     if w3 ~= nil then
         click(Card3Click)
         Card3Clicked = 1
         i = i + 1
     end
 
-    w4 = Card4Region:exists("weak.png")
+    w4 = Card4AffinRegion:exists("weak.png")
     if w4 ~= nil then
         click(Card4Click)
         Card4Clicked = 1
         i = i + 1
     end
 
-    w5 = Card5Region:exists("weak.png")
+    w5 = Card5AffinRegion:exists("weak.png")
     if w5 ~= nil then
         click(Card5Click)
         Card5Clicked = 1
         i = i + 1
     end
-end
+end]]
 
 function ultcard()
 	click(Ultcard1Click)
