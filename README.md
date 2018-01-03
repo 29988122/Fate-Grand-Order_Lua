@@ -43,11 +43,11 @@ On Android, install the latest version of sikuli framework here.
 4. On Android, enable developer options->usb debugging, connect your PC to android and execute run.bat inside Fate-Grand-Order_Lua
 \ama\_daemon folder **ON PC**. After daemon has been installed, you can disable usb debugging and unplug. DAEMON NEEDS TO BE REINSTALLED UPON PHONE REBOOT.
 
-4.1 If daemon installation was not successful / driver not properly installed, please install this: https://forum.xda-developers.com/showthread.php?t=2317790
+5.(optional) If daemon installation was not successful / driver not properly installed, please install this: https://forum.xda-developers.com/showthread.php?t=2317790
 
-5. Open ankulua to check if daemon is properly installed - and load the script inside your phone - you're done.
+6. Open ankulua to check if daemon is properly installed - and load the script inside your phone - you're done.
 
-6. Remember to update Fate-Grand-Order_Lua, just download the latest version from here, replace the old version in you phone.
+7. Remember to update Fate-Grand-Order_Lua, just download the latest version from here, replace the old version in you phone.
 
 
 ## Use:
