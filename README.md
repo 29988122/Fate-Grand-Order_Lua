@@ -6,7 +6,7 @@ As of 2017.11.20, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT 
 they really should not add extra detection method as it will only drag the game EVEN slower, 
 let alone this script runs at human speed.)
 ```
-This script supported TW, JP and USA server.
+This script supported TW, JP and USA server. KR and CN server support can be added if user - you - can help us! Check issue forum for further info.
 
 <p align="center">
   <a href="https://imgur.com/a/c6vKI">
@@ -34,12 +34,20 @@ Therefore I proudly brought you this: FGO automation script.
 
 ## Install:
 1. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
-Download the latest version of sikuli framework here.
+On Android, install the latest version of sikuli framework here.
 
-2. Enable usb debugging, connect your PC to android and execute run.bat inside ama\_daemon folder. After daemon has been installed, you can disable usb debugging and unplug. DAEMON NEEDS TO BE REINSTALLED UPON PHONE REBOOT.
+2. Download the latest release version of Fate-Grand-Order_Lua, extract it.
 
-3. Open ankulua to check if daemon is properly installed - and you're done.
+3. Copy the whole extracted folder into your phone.
 
+4. On Android, enable developer options->usb debugging, connect your PC to android and execute run.bat inside Fate-Grand-Order_Lua
+\ama\_daemon folder **ON PC**. After daemon has been installed, you can disable usb debugging and unplug. DAEMON NEEDS TO BE REINSTALLED UPON PHONE REBOOT.
+
+5. If daemon installation was not successful / driver not properly installed, please install this: https://forum.xda-developers.com/showthread.php?t=2317790
+
+6. Open ankulua to check if daemon is properly installed - and load the script inside your phone - you're done.
+
+7. Remember to update Fate-Grand-Order_Lua, just download the latest version from here, replace the old version in you phone.
 
 
 ## Use:
