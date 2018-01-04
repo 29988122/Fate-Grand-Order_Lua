@@ -17,6 +17,7 @@ Card2AffinRegion = Region(840,650,200,200)
 Card3AffinRegion = Region(1340,650,200,200)
 Card4AffinRegion = Region(1850,650,200,200)
 Card5AffinRegion = Region(2370,650,200,200)
+
 CardAffinRegionArray = {Card1AffinRegion, Card2AffinRegion, Card3AffinRegion, Card4AffinRegion, Card5AffinRegion}
 
 Card1TypeRegion = Region(200,1060,200,200)
@@ -24,6 +25,7 @@ Card2TypeRegion = Region(730,1060,200,200)
 Card3TypeRegion = Region(1240,1060,200,200)
 Card4TypeRegion = Region(1750,1060,200,200)
 Card5TypeRegion = Region(2280,1060,200,200)
+
 CardTypeRegionArray = {Card1TypeRegion, Card2TypeRegion, Card3TypeRegion, Card4TypeRegion, Card5TypeRegion}
 
 WeakMulti = 2.0
@@ -35,6 +37,9 @@ ACard = 100
 QCard = 80
 
 ResistBuster =  BCard * ResistMulti
+ResistArt = ACard * ResistMulti
+ResistQuick = QCard * ResistMulti
+
 WeakBuster = BCard * WeakMulti
 WeakArt = ACard * WeakMulti
 WeakQuick = QCard * WeakMulti
@@ -44,6 +49,7 @@ Card2Click = (Location(750,1000))
 Card3Click = (Location(1300,1000))
 Card4Click = (Location(1800,1000))
 Card5Click = (Location(2350,1000))
+
 CardClickArray = {Card1Click, Card2Click, Card3Click, Card4Click, Card5Click}
 
 Ultcard1Click = (Location(1000,220))
@@ -61,6 +67,48 @@ Target3Choose = (Location(1050,80))
 --Ultcard1Region = Region(900,100,200,200)
 --Ultcard2Region = Region(1350,100,200,200)
 --Ultcard3Region = Region(1800,100,200,200)
+
+Skill1Click = (Location(140,1160))
+Skill2Click = (Location(340,1160))
+Skill3Click = (Location(540,1160))
+
+Skill4Click = (Location(770,1160))
+Skill5Click = (Location(970,1160))
+Skill6Click = (Location(1140,1160))
+
+Skill7Click = (Location(1400,1160))
+Skill8Click = (Location(1600,1160))
+Skill9Click = (Location(1800,1160))
+
+Master1Click = (Location(1820,620))
+Master2Click = (Location(2000,620))
+Master3Click = (Location(2160,620))
+
+Servant1Click = (Location(700,880))
+Servant2Click = (Location(1280,880))
+Servant3Click = (Location(1940,880))
+
+SkillClickArray = {Skill1Click, Skill2Click, Skill3Click, Skill4Click, Skill5Click, Skill6Click, Skill7Click, Skill8Click, Skill9Click, Master1Click, Master2Click, Master3Click}
+SkillClickArray[-47] = Servant1Click
+SkillClickArray[-46] = Servant2Click
+SkillClickArray[-45] = Servant3Click
+SkillClickArray[-44] = Ultcard1Click
+SkillClickArray[-43] = Ultcard2Click
+SkillClickArray[-42] = Ultcard3Click
+
+stageSkillArray = {}
+stageSkillArray[1] = {}
+stageSkillArray[2] = {}
+stageSkillArray[3] = {}
+stageSkillArray[4] = {}
+stageSkillArray[5] = {}
+
+npClicked = 0
+stageCount = 1
+stageCountRegion = Region(1706,26,34,48)
+stageTurnArray = {0, 0, 0, 0, 0}
+turnCounter = {0, 0, 0, 0, 0}
+
 setImmersiveMode(true)			   
 Settings:setCompareDimension(true,1280)
 Settings:setScriptDimension(true,2560)
@@ -68,6 +116,8 @@ Settings:setScriptDimension(true,2560)
 atkround = 1
 stoneused = 0
 refillshown = 0
+skillshown = 0
+skillflag = 0
 --[[
 recognize speed realated functions:
 1.setScanInterval(1)
@@ -79,6 +129,8 @@ recognize speed realated functions:
 
 function menu()
     atkround = 1
+    npClicked = 0
+    turnCounter = {0, 0, 0, 0, 0}
     click(Location(1900,400))
     wait(1.5)
     if Refill_or_Not == 1 and stoneused < How_Many then
@@ -101,20 +153,82 @@ function refillstamina()
             click(Location(1650,1120))
             stoneused = stoneused + 1
         end
+    wait(1.5)
+    menu()
     end
-    wait(2)
 end
 
+function checkStageCount(region)
+	local s = region:exists("stage1.png")
+	usePreviousSnap(true)
+	if s ~= nil then
+		return 1
+	end
+	
+	if  region:exists("stage2.png") ~= nil then
+		return 2
+	end
+	
+	if  region:exists("stage3.png") ~= nil then
+		return 3
+	end
+	
+	if  region:exists("stage4.png") ~= nil then
+		return 4
+	end
+	
+	if region:exists("stage5.png") ~= nil then
+		return 5
+	end		
+end
+
+function executeSkill()
+	npClicked = 0
+	local currentStage = 1
+	local currentTurn = atkround
+	if stageCount ~= 1 then
+    		currentStage = checkStageCount(stageCountRegion)
+    		turnCounter[currentStage] = turnCounter[currentStage] + 1
+    		currentTurn = turnCounter[currentStage]
+    end
+    	
+    if currentTurn	<= stageTurnArray[currentStage] then 		
+    	local currentSkill = stageSkillArray[currentStage][currentTurn]
+    	local firstSkill = 1
+    	if currentSkill ~= '0' and currentSkill ~= '#' then
+    		for command in string.gmatch(currentSkill, ".") do
+        		decodeSkill(command, firstSkill)
+        		firstSkill = 0	
+        	end
+    	end
+    	usePreviousSnap(false)
+    	if npClicked == 0 then
+    		wait(2)
+    	end	
+    end
+    usePreviousSnap(false)
+end
+   
+
 function battle()
+	local roundCounter = 0
+	
 	if targetchoosen ~= 1 then
 		targetchoose()
 	end
-
+	
     wait(0.5)
-    click(Location(2300,1200))
-    wait(1)
+    if Enable_Autoskill == 1 then
+    	executeSkill()
+    end
     
-    if targetchoosen == 1 then
+    wait(0.5)
+    if npClicked == 0 then
+    	click(Location(2300,1200))
+    	wait(1)
+    end
+    
+    if targetchoosen == 1 and npClicked == 0 then
         ultcard()
     end
 
@@ -127,6 +241,26 @@ function battle()
     wait(3)
 end
 
+function decodeSkill(str, isFirstSkill)
+	local index = string.byte(str) - 96
+	if isFirstSkill == 0 and npClicked == 0 and index >= -44 then
+		wait(2)
+	end
+	if index >= 10 then
+		 click(Location(2380, 640))
+		 wait(0.3)
+	end
+	if index >= -44 and index <= -42 and npClicked == 0 then
+		click(Location(2300,1200))
+		npClicked = 1
+		wait(1)
+	end
+	click(SkillClickArray[index])
+	if index > 0 then
+		click(Location(1680,850))
+	end
+end	
+
 function checkCardAffin(region)
 	weakAvail = region:exists("weak.png")
 	usePreviousSnap(true)
@@ -134,8 +268,7 @@ function checkCardAffin(region)
 		return WeakMulti
 	end
 	
-	resistAvail = region:exists("resist.png")
-	if  resistAvail ~= nil then
+	if region:exists("resist.png") ~= nil then
 		return ResistMulti
 	else
 		return NormalMulti
@@ -143,18 +276,15 @@ function checkCardAffin(region)
 end
 
 function checkCardType(region)
-	b = region:exists("buster.png")
-	if b ~= nil then
+	if region:exists("buster.png") ~= nil then
 		return BCard
 	end
 	
-	a = region:exists("art.png")
-	if  a ~= nil then
+	if region:exists("art.png") ~= nil then
 		return ACard
 	end
 	
-	q = region:exists("quick.png")
-	if q ~= nil then
+	if region:exists("quick.png") ~= nil then
 		return QCard
 	else
 		return BCard
@@ -175,35 +305,40 @@ function doBattleLogic()
 	WQLocation = {}
 	ALocation = {}
 	QLocation = {}
+	RALocation = {}
+	RQLocation = {}
 	
 	for cardSlot = 1, 5 do
 		affinArray = checkCardAffin(CardAffinRegionArray[cardSlot])
 		typeArray = checkCardType(CardTypeRegionArray[cardSlot])
 		cardScore = affinArray * typeArray
 		
-		if cardScore >= ResistBuster then
-			if cardScore == WeakBuster then
-				table.insert(WBLocation, cardSlot)
+		if cardScore == WeakBuster then
+			table.insert(WBLocation, cardSlot)
 			
-			elseif cardScore == BCard then
-				table.insert(BLocation, cardSlot)
+		elseif cardScore == BCard then
+			table.insert(BLocation, cardSlot)
 			
-			elseif cardScore == ResistBuster then
-				table.insert(RBLocation, cardSlot)
+		elseif cardScore == ResistBuster then
+			table.insert(RBLocation, cardSlot)
 				
-			elseif cardScore == WeakQuick then
-				table.insert(WQLocation, cardSlot)
+		elseif cardScore == WeakQuick then
+			table.insert(WQLocation, cardSlot)
 			
-			elseif cardScore == WeakArt then
-				table.insert(WALocation, cardSlot)
+		elseif cardScore == WeakArt then
+			table.insert(WALocation, cardSlot)
 			
-			elseif cardScore == QCard then
-				table.insert(QLocation, cardSlot)
+		elseif cardScore == QCard then
+			table.insert(QLocation, cardSlot)
 			
-			elseif cardScore == ACard then
-				table.insert(ALocation, cardSlot)
-			end		
+		elseif cardScore == ACard then
+			table.insert(ALocation, cardSlot)
+		elseif cardScore == ResistArt then
+			table.insert(RALocation, cardSlot)	
+		else
+			table.insert(RQLocation, cardSlot)		
 		end
+		
 	end
 	
 	storage[1] = WBLocation
@@ -213,9 +348,11 @@ function doBattleLogic()
 	storage[5] = RBLocation
 	storage[6] = ALocation
 	storage[7] = QLocation
+	storage[8] = RALocation
+	storage[9] = RQLocation
 	
 	
-	for i, storageNum in ipairs(storage) do
+	for i, storageNum in ipairs(storage) do	
 		for j, nCard in pairs(storageNum) do
 			click(CardClickArray[nCard])
 			cardCount = cardCount + 1
@@ -223,13 +360,16 @@ function doBattleLogic()
 				break
 			end
 		end
+		if cardCount == 3 then
+			break
+		end
 	end	
 end
 
 --[[function norcard()
     i = 0
     
-    w1 = Card1AffinRegion:exists("weak.png")
+    w1 = CardAffinRegionArray[1]:exists("weak.png")
 	usePreviousSnap(true)   
     if w1 ~= nil then
         click(Card1Click)
@@ -237,28 +377,28 @@ end
         i = i + 1
     end
 
-    w2 = Card2AffinRegion:exists("weak.png")
+    w2 = CardAffinRegionArray[2]:exists("weak.png")
     if w2 ~= nil then
         click(Card2Click)
         Card2Clicked = 1
         i = i + 1
     end
 
-    w3 = Card3AffinRegion:exists("weak.png")
+    w3 = CardAffinRegionArray[3]:exists("weak.png")
     if w3 ~= nil then
         click(Card3Click)
         Card3Clicked = 1
         i = i + 1
     end
 
-    w4 = Card4AffinRegion:exists("weak.png")
+    w4 = CardAffinRegionArray[4]:exists("weak.png")
     if w4 ~= nil then
         click(Card4Click)
         Card4Clicked = 1
         i = i + 1
     end
 
-    w5 = Card5AffinRegion:exists("weak.png")
+    w5 = CardAffinRegionArray[5]:exists("weak.png")
     if w5 ~= nil then
         click(Card5Click)
         Card5Clicked = 1
@@ -295,7 +435,7 @@ function targetchoose()
 	else
 		toast("No priority target selected")
     end
-	usePreviousSnap(false)
+    usePreviousSnap(false)
 end
 
 function result()
@@ -305,13 +445,15 @@ function result()
     click(Location(1000, 1000))
     wait(3.5)
     click(Location(2200, 1350))
+    if isEvent == 1 then
+    	wait(2)
+    	click(Location(2200, 1350))
+    end
     wait(15)
-	rw1 = QuestrewardRegion:exists("questreward.png")
-	if rw1 ~= nil then
+	if QuestrewardRegion:exists("questreward.png") ~= nil then
 		click(Location(100,100))
 	end
 end
-
 
 while(1) do
 	if Refill_or_Not == 1 and refillshown == 0 then
@@ -322,11 +464,48 @@ while(1) do
 		end
 		dialogInit()
 		addTextView("You are going to use "..How_Many.." "..temp..", remember to check those values everytime you execute the script!")
-		dialogShow("Auto Refilling Stamina")
+		if Enable_Autoskill == 0 then
+			dialogShow("Auto Refilling Stamina")
+		end
 		refillshown = 1
 	end
+	
+	if Enable_Autoskill == 1 and skillshown == 0 then
+		if Refill_or_Not == 0 then
+			dialogInit()
+		else
+			newRow()
+		end
+		addTextView("AutoSkill Enabled! Make sure that your Skill Command is correct before you execute the script!")
+		if Refill_or_Not == 0 then
+			dialogShow("AutoSkill")
+		else
+			dialogShow("Warning!")
+		end
+		for word in string.gmatch(Skill_Command, "[^,]+") do
+  			if string.match(word, "[^0]") ~= nil then
+    			if string.match(word, "^[1-3]") ~= nil then
+      				scriptExit("Error at '" ..word.. "': Skill Command cannot start with number 1, 2 and 3!")
+    			elseif string.match(word, "[^a-l^1-6^#]") ~= nil then
+        			scriptExit("Error at '" ..word.. "': Skill Command exceeded alphanumeric range! Expected range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
+        		end
+    		end
+  			if word == '#' then
+    			stageCount = stageCount + 1
+    			if stageCount > 5 then
+    		  		scriptExit("Error: Detected commands for more than 5 stages")
+    			end
+    		end
+    		if word ~= '#' then
+    			table.insert(stageSkillArray[stageCount], word)
+    			stageTurnArray[stageCount] = stageTurnArray[stageCount] + 1
+    		end
+  		end
+		skillshown = 1
+	end
+	
     if MenuRegion:exists("menu.png", 0) then
-		toast("Will only select servant/danger enemy as noble phantasm target, please check github for further detail")
+		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
         menu()
 		targetchoosen = 0
     end

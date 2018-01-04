@@ -1,7 +1,43 @@
 dir = scriptPath()
 setImagePath(dir .. "image_EN")
+
+--StaminaRefill
 Refill_or_Not = 0
 Use_Stone = 0
 How_Many = 0
+
+--[[
+AutoSkill:
+',' = Turn counter
+'#' = Battle counter
+'0' = Skip 1 turn
+
+Servant skill = a b c	d e f	g h i
+Master skill = j k l
+Target Servant = 1 2 3
+Activate Servant NP = 4 5 6
+
+Please insert your command in between the "".
+
+eg:
+Skill_Command = "bce,0,f3hi,#,j2d,#,4,a1g3"
+
+Battle 1:
+Turn 1 - Servant 1 skill b, c, Servant 2 skill e
+Turn 2 - No skill
+Turn 3 - Servant 2 skill f on servant 3, Servant 3 skill h, i
+
+Battle 2:
+Turn 1 - Master skill j on servant 2, Servant 2 skill d
+
+Battle 3:
+Turn 1 - Activate NP servant 1
+Turn 2 - Servant 1 skill a on self, Servant 3 skill g on self
+]]
+Enable_Autoskill = 0
+Skill_Command = ""
+
+--Additional event point reward
+isEvent = 1
 
 dofile(dir .. "regular.lua")
