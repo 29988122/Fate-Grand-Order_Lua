@@ -26,6 +26,8 @@ Therefore I proudly brought you this: FGO automation script.
 * [Extra scripts](#extra-scripts)
 * [Behavior details](#behavior-details)
   * [Auto refill](#auto-refill)
+  * [Autoskill](#autoskill)
+  * [Events](#events)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Feature requests, 說明, 要望](#feature-requests)
 
@@ -51,17 +53,18 @@ On Android, install the latest version of sikuli framework here.
 
 
 ## Use:
-Please choice the corresponding lua file in AnkuLua accroding to your:
+Please choice the corresponding lua file in AnkuLua according to your:
 - FGO server (supported Japan / Taiwan / USA currently).
 - Used in event or regular stages. 
-Because sometimes events have extra window options to click, hence different version of scripts.
+Because sometimes events have extra window options to click, hence different version of scripts is required.
 If there's no extra options for the current event during battle sequence, please use the regular one.
+Refer to [Events](#events) for more details.
 
 Then, put your game in either:
 - menu, put your desired quest as the 1st item on the screen(upper-right corner).
 - battle screen.
 
-and click the transprent arrow. You're good to go.
+and click the transparent arrow. You're good to go.
 
 I only update events in JP server, unless requested.
 
@@ -75,7 +78,7 @@ As title. It will keep gacha until your bag's full.
 Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 ## Behavior details:
-- It is custoimized for events that I'm playing, hence some minor adjustments will be done frequently. **Remember to update!**
+- It is customized for events that I'm playing, hence some minor adjustments will be done frequently. **Remember to update!**
 
 - Stamina does NOT automatically refilled, if you need to refill them automatically, please check [Auto refill](#auto-refill)
 
@@ -87,6 +90,7 @@ Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 - Choose your party member wisely. Because this script does not do B/A/Q or brave chains, you have to observe the behavior of the script, and arrange your party accordingly in order to gain max clear efficiency / prevent party wipe from highest level event stage. 
 
+- Customized skill command is supported, though the command execution is still highly depends on runtime conditions. Please check [Autoskill](#autoskill)
 
 ## Auto refill:
 If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
@@ -97,6 +101,41 @@ You should change Refill\_or\_Not to 1 to enable the auto refill feature, Use\_S
 
 For example, Refill\_or\_Not = 1 Use\_Stone = 1 How\_Many = 3 will enable the auto refill feature, use stone 3 times, and stop at the "not enough stamina" screen, without using 4th stone.
 
+## Autoskill:
+Autoskill allows you to execute customized skill command according to your team using a string. To enable, please modify the lua file you are executing(TW, EN or JP).
+
+Change Enable_Autoskill to 1 if you wish to enable it, 0 to disable. Skill_Command is the command string which follows the rules below:
+```
+',' = Turn counter
+'#' = Battle counter
+'0' = Skip 1 turn
+
+Servant skill = a b c	d e f	g h i
+Master skill = j k l
+Target Servant = 1 2 3
+Activate Servant NP = 4 5 6
+
+Please insert your command in between the "".
+
+eg:
+Skill_Command = "bce,0,f3hi,#,j2d,#,4,a1g3"
+
+Battle 1:
+Turn 1 - Servant 1 skill b, c, Servant 2 skill e
+Turn 2 - No skill
+Turn 3 - Servant 2 skill f on servant 3, Servant 3 skill h, i
+
+Battle 2:
+Turn 1 - Master skill j on servant 2, Servant 2 skill d
+
+Battle 3:
+Turn 1 - Activate NP servant 1
+Turn 2 - Servant 1 skill a on self, Servant 3 skill g on self
+```
+## Events:
+If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
+This will allow the use of this script for the particular events.
+If there are other additional windows, a custom script is required. 
 
 ## How to capture screen for recognition:
 You can manually replace target\_servant.png inside image folder to customize your priority target.
