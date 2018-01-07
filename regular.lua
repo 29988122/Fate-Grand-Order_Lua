@@ -485,7 +485,9 @@ while(1) do
 		for word in string.gmatch(Skill_Command, "[^,]+") do
   			if string.match(word, "[^0]") ~= nil then
     			if string.match(word, "^[1-3]") ~= nil then
-      				scriptExit("Error at '" ..word.. "': Skill Command cannot start with number 1, 2 and 3!")
+      				scriptExit("Error at '" ..word.. "': Skill Command cannot start with number '1', '2' and '3'!")
+      			elseif string.match(word, "[%w+][#]") ~= nil or string.match(word, "[#][%w+]") ~= nil then
+      				scriptExit("Error at '" ..word.. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
     			elseif string.match(word, "[^a-l^1-6^#]") ~= nil then
         			scriptExit("Error at '" ..word.. "': Skill Command exceeded alphanumeric range! Expected range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
         		end

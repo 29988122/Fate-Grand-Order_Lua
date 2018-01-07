@@ -9,7 +9,7 @@ How_Many = 0
 --[[
 AutoSkill:
 ',' = Turn counter
-'#' = Battle counter
+',#,' = Battle counter
 '0' = Skip 1 turn
 
 Servant skill = a b c	d e f	g h i

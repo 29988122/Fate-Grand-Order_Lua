@@ -3,14 +3,14 @@ setImagePath(dir .. "image_JP")
 
 --スタミナ回復
 Refill_or_Not = 0
-Use_Stone = 1
-How_Many = 10
+Use_Stone = 0
+How_Many = 0
 
 --[[
 オートスキル:
 
 ',' = ターン数
-'#' = BATTLE 数
+',#,' = BATTLE 数
 '0' = 1回ターンスキップする
 
 サーヴァントスキル = a b c	d e f	g h i
