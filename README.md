@@ -107,7 +107,7 @@ Autoskill allows you to execute customized skill command according to your team 
 Change Enable_Autoskill to 1 if you wish to enable it, 0 to disable. Skill_Command is the command string which follows the rules below:
 ```
 ',' = Turn counter
-'#' = Battle counter
+',#,' = Battle counter
 '0' = Skip 1 turn
 
 Servant skill = a b c	d e f	g h i
