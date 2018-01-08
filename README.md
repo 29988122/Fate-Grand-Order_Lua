@@ -104,7 +104,15 @@ For example, Refill\_or\_Not = 1 Use\_Stone = 1 How\_Many = 3 will enable the au
 ## Autoskill:
 Autoskill allows you to execute customized skill command according to your team using a string. To enable, please modify the lua file you are executing(TW, EN or JP).
 
-Change Enable_Autoskill to 1 if you wish to enable it, 0 to disable. Skill_Command is the command string which follows the rules below:
+Change Enable_Autoskill to 1 if you wish to enable it, 0 to disable. 
+
+Skill_Confirmation allows you to skip the Confirm Skill Use window. Modify it according to your Battle Menu setting: 
+```
+OFF = 0
+ON = 1
+```
+
+Skill_Command is the command string which follows the rules below:
 ```
 ',' = Turn counter
 ',#,' = Battle counter
@@ -134,6 +142,7 @@ Turn 2 - Servant 1 skill a on self, Servant 3 skill g on self
 ```
 ## Events:
 If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
+
 This will allow the use of this script for the particular events.
 If there are other additional windows, a custom script is required. 
 
