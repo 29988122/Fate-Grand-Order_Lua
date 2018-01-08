@@ -105,7 +105,6 @@ stageSkillArray[5] = {}
 
 npClicked = 0
 stageCount = 1
-stageCountRegion = Region(1706,26,34,48)
 stageTurnArray = {0, 0, 0, 0, 0}
 turnCounter = {0, 0, 0, 0, 0}
 
@@ -256,7 +255,7 @@ function decodeSkill(str, isFirstSkill)
 		wait(1)
 	end
 	click(SkillClickArray[index])
-	if index > 0 then
+	if index > 0 and Skill_Confirmation == 1 then
 		click(Location(1680,850))
 	end
 end	

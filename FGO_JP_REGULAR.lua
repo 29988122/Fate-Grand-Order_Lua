@@ -1,5 +1,7 @@
+--デフォルト
 dir = scriptPath()
 setImagePath(dir .. "image_JP")
+stageCountRegion = Region(1726,28,30,46)
 
 --スタミナ回復
 Refill_or_Not = 0
@@ -8,7 +10,6 @@ How_Many = 0
 
 --[[
 オートスキル:
-
 ',' = ターン数
 ',#,' = BATTLE 数
 '0' = 1回ターンスキップする
@@ -34,8 +35,12 @@ BATTLE 2:
 BATTLE 3:
 第1回 - サーヴァント 1 の宝具を使う
 第2回 - サーヴァント 1 自分にスキル a を使う, サーヴァント 3 自分にスキル g を使う
+
+Skill_Confirmation: OFF = 0
+(スキル使用確認)	ON = 1
 ]]
 Enable_Autoskill = 0
+Skill_Confirmation = 0
 Skill_Command = ""
 
 --イベントポイント報酬

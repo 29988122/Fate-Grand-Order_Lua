@@ -1,5 +1,7 @@
+--Default
 dir = scriptPath()
 setImagePath(dir .. "image_EN")
+stageCountRegion = Region(1706,26,34,48)
 
 --StaminaRefill
 Refill_or_Not = 0
@@ -33,8 +35,12 @@ Turn 1 - Master skill j on servant 2, Servant 2 skill d
 Battle 3:
 Turn 1 - Activate NP servant 1
 Turn 2 - Servant 1 skill a on self, Servant 3 skill g on self
+
+Skill_Confirmation: OFF = 0
+(Confirm Skill Use)	ON = 1
 ]]
 Enable_Autoskill = 0
+Skill_Confirmation = 0
 Skill_Command = ""
 
 --Additional event point reward

@@ -1,5 +1,7 @@
+--默認
 dir = scriptPath()
 setImagePath(dir .. "image_TW")
+stageCountRegion = Region(1710,30,34,44)
 
 --體力恢復
 Refill_or_Not = 0
@@ -33,8 +35,12 @@ BATTLE 2:
 BATTLE 3:
 第1回 - 從者 1 寶具發動
 第2回 - 從者 1 技能 a 對象自己, 從者 3 技能 g on 對象自己
+
+Skill_Confirmation: OFF = 0
+(技能使用確認)		ON = 1
 ]]
 Enable_Autoskill = 0
+Skill_Confirmation = 0
 Skill_Command = ""
 
 --額外活動點數獎勵
