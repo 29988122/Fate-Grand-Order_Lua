@@ -1,7 +1,7 @@
 --デフォルト
 dir = scriptPath()
 setImagePath(dir .. "image_JP")
-stageCountRegion = Region(1726,28,30,46)
+stageCountRegion = Region(1724,24,38,50)
 
 --スタミナ回復
 Refill_or_Not = 0

@@ -1,7 +1,7 @@
 --默認
 dir = scriptPath()
 setImagePath(dir .. "image_TW")
-stageCountRegion = Region(1710,30,34,44)
+stageCountRegion = Region(1708,28,36,46)
 
 --體力恢復
 Refill_or_Not = 0
