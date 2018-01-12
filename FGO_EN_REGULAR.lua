@@ -37,13 +37,13 @@ Turn 1 - Activate NP servant 1
 Turn 2 - Servant 1 skill a on self, Servant 3 skill g on self
 
 Skill_Confirmation: OFF = 0
-(Confirm Skill Use)	ON = 1
+(When you need to confirm skill use) ON = 1
 ]]
 Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = ""
 
---Additional event point reward
+--Whenever there's additional event point reward window to be clicked through, isEvent = 1. Please check the details on github.
 isEvent = 1
 
 dofile(dir .. "regular.lua")
