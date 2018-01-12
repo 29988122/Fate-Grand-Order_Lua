@@ -111,6 +111,8 @@ Skill_Confirmation allows you to skip the Confirm Skill Use window. Modify it ac
 OFF = 0
 ON = 1
 ```
+That is, if you need to click through confirmation window to use a skill, make this option Enable_Autoskill = 1. 
+Otherwise, leave it Enable_Autoskill = 0.
 
 Skill_Command is the command string which follows the rules below:
 ```
