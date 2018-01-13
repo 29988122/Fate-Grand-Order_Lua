@@ -116,7 +116,6 @@ atkround = 1
 stoneused = 0
 refillshown = 0
 skillshown = 0
-skillflag = 0
 --[[
 recognize speed realated functions:
 1.setScanInterval(1)
@@ -152,8 +151,11 @@ function refillstamina()
             click(Location(1650,1120))
             stoneused = stoneused + 1
         end
-    wait(1.5)
-    menu()
+		wait(1.5)
+		if NotJPserverForStaminaRefillExtraClick == nil then
+			--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
+			click(Location(1900,400))
+		end
     end
 end
 
@@ -201,8 +203,9 @@ function executeSkill()
         	end
     	end
     	usePreviousSnap(false)
-    	if npClicked == 0 then
-    		wait(2)
+		if npClicked == 0 then
+			--wait for last iterated skill animation
+    		wait(3)
     	end	
     end
     usePreviousSnap(false)
@@ -222,7 +225,8 @@ function battle()
     end
     
     wait(0.5)
-    if npClicked == 0 then
+	if npClicked == 0 then
+		--enter card selection screen
     	click(Location(2300,1200))
     	wait(1)
     end
@@ -241,19 +245,24 @@ function battle()
 end
 
 function decodeSkill(str, isFirstSkill)
+	--magic number - check ascii code, a == 97
 	local index = string.byte(str) - 96
 	if isFirstSkill == 0 and npClicked == 0 and index >= -44 then
-		wait(2)
+		--wait for skill animation
+		wait(3)
 	end
 	if index >= 10 then
+		--cast master skill
 		 click(Location(2380, 640))
 		 wait(0.3)
 	end
 	if index >= -44 and index <= -42 and npClicked == 0 then
+		---cast NP
 		click(Location(2300,1200))
 		npClicked = 1
 		wait(1)
 	end
+	--iterate, cast skills/NPs, also select target for it(if needed)
 	click(SkillClickArray[index])
 	if index > 0 and Skill_Confirmation == 1 then
 		click(Location(1680,850))
