@@ -1,7 +1,7 @@
 --預設
 dir = scriptPath()
 setImagePath(dir .. "image_CN")
-stageCountRegion = Region(1710,26,30,48)
+stageCountRegion = Region(1736,30,36,40)
 
 --自動補體
 Refill_or_Not = 0
@@ -40,7 +40,6 @@ Skill_Confirmation: OFF = 0
 (若您在遊戲內需要點選確認視窗才能使用技能) ON = 1
 ]]
 
---!!!自動技能目前無法使用!!! 原因:我還沒有對回合作截圖.
 Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = ""

@@ -5,9 +5,9 @@ stageCountRegion = Region(1724,24,38,50)
 NotJPserverForStaminaRefillExtraClick = 1
 
 --スタミナ自動補充
-Refill_or_Not = 1
+Refill_or_Not = 0
 Use_Stone = 0
-How_Many = 20
+How_Many = 0
 
 --[[
 オートスキル:
@@ -40,9 +40,9 @@ BATTLE 3:
 Skill_Confirmation: OFF = 0
 (ゲーム中はスキル使用確認ウィンドウがある場合) ON = 1
 ]]
-Enable_Autoskill = 1
+Enable_Autoskill = 0
 Skill_Confirmation = 0
-Skill_Command = "#,def5,#,abc"
+Skill_Command = ""
 
 --イベントステージ終了時にて別枠がある場合（もう一つのポイント報酬ウィンドウとか、詳細はウェブのreadmeで）
 isEvent = 0

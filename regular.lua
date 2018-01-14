@@ -20,11 +20,11 @@ Card5AffinRegion = Region(2370,650,200,200)
 
 CardAffinRegionArray = {Card1AffinRegion, Card2AffinRegion, Card3AffinRegion, Card4AffinRegion, Card5AffinRegion}
 
-Card1TypeRegion = Region(100,1000,300,260)
-Card2TypeRegion = Region(630,1000,300,260)
-Card3TypeRegion = Region(1140,1000,300,260)
-Card4TypeRegion = Region(1650,1000,300,260)
-Card5TypeRegion = Region(2180,1000,300,260)
+Card1TypeRegion = Region(200,1060,200,200)
+Card2TypeRegion = Region(730,1060,200,200)
+Card3TypeRegion = Region(1240,1060,200,200)
+Card4TypeRegion = Region(1750,1060,200,200)
+Card5TypeRegion = Region(2280,1060,200,200)
 
 CardTypeRegionArray = {Card1TypeRegion, Card2TypeRegion, Card3TypeRegion, Card4TypeRegion, Card5TypeRegion}
 
