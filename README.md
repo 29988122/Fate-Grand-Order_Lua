@@ -1,12 +1,12 @@
 # Fate-Grand-Order_Lua
 
-As of 2017.11.20, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
+As of 2018.01.14, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
 ```
 (Alghough I highly doubt it, 
 they really should not add extra detection method as it will only drag the game EVEN slower, 
 let alone this script runs at human speed.)
 ```
-This script supported TW, JP and USA server. KR and CN server support can be added if user - you - can help us! Check issue forum for further info.
+This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info.
 
 <p align="center">
   <a href="https://imgur.com/a/c6vKI">
@@ -54,7 +54,7 @@ On Android, install the latest version of sikuli framework here.
 
 ## Use:
 Please choice the corresponding lua file in AnkuLua according to your:
-- FGO server (supported Japan / Taiwan / USA currently).
+- FGO server (supported China / Japan / Taiwan / USA currently).
 - Used in event or regular stages. 
 Because sometimes events have extra window options to click, hence different version of scripts is required.
 If there's no extra options for the current event during battle sequence, please use the regular one.
@@ -102,7 +102,7 @@ You should change Refill\_or\_Not to 1 to enable the auto refill feature, Use\_S
 For example, Refill\_or\_Not = 1 Use\_Stone = 1 How\_Many = 3 will enable the auto refill feature, use stone 3 times, and stop at the "not enough stamina" screen, without using 4th stone.
 
 ## Autoskill:
-Autoskill allows you to execute customized skill command according to your team using a string. To enable, please modify the lua file you are executing(TW, EN or JP).
+Autoskill allows you to execute customized skill command according to your team using a string. To enable, please modify the lua file you are executing(CN, EN, JP or TW).
 
 Change Enable_Autoskill to 1 if you wish to enable it, 0 to disable. 
 
