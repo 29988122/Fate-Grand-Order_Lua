@@ -103,6 +103,23 @@ stageSkillArray[3] = {}
 stageSkillArray[4] = {}
 stageSkillArray[5] = {}
 
+startingMember1Click = (Location(280,700))
+startingMember2Click = (Location(680,700))
+startingMember3Click = (Location(1080,700))
+startingMemberClickArray = {}
+startingMemberClickArray[-47] = startingMember1Click
+startingMemberClickArray[-46] = startingMember2Click
+startingMemberClickArray[-45] = startingMember3Click
+
+subMember1Click = (Location(1480,700))
+subMember2Click = (Location(1880,700))
+subMember3Click = (Location(2280,700))
+subMemberClickArray = {}
+subMemberClickArray[-47] = subMember1Click
+subMemberClickArray[-46] = subMember2Click
+subMemberClickArray[-45] = subMember3Click
+
+exchangeMode = 0
 npClicked = 0
 stageCount = 1
 stageTurnArray = {0, 0, 0, 0, 0}
@@ -243,13 +260,17 @@ function battle()
     atkround = atkround + 1
     wait(3)
 end
-
+	
 function decodeSkill(str, isFirstSkill)
 	--magic number - check ascii code, a == 97
 	local index = string.byte(str) - 96
-	if isFirstSkill == 0 and npClicked == 0 and index >= -44 then
+	if isFirstSkill == 0 and npClicked == 0 and index >= -44 and exchangeMode == 0 then
 		--wait for skill animation
 		wait(3)
+	end
+	--enter Order Change Mode
+	if index == 24 then
+		exchangeMode = 1
 	end
 	if index >= 10 then
 		--cast master skill
@@ -263,7 +284,21 @@ function decodeSkill(str, isFirstSkill)
 		wait(1)
 	end
 	--iterate, cast skills/NPs, also select target for it(if needed)
-	click(SkillClickArray[index])
+	if exchangeMode == 1 then
+		click(SkillClickArray[12])
+		exchangeMode = 2
+	elseif exchangeMode == 2 then
+		click(startingMemberClickArray[index])
+		exchangeMode = 3
+	elseif exchangeMode == 3 then
+		click(subMemberClickArray[index])
+		wait(0.3)
+		click(Location(1280,1260))
+		exchangeMode = 0
+		wait(2.5)
+	else
+		click(SkillClickArray[index])
+	end
 	if index > 0 and Skill_Confirmation == 1 then
 		click(Location(1680,850))
 	end
@@ -496,8 +531,8 @@ while(1) do
       				scriptExit("Error at '" ..word.. "': Skill Command cannot start with number '1', '2' and '3'!")
       			elseif string.match(word, "[%w+][#]") ~= nil or string.match(word, "[#][%w+]") ~= nil then
       				scriptExit("Error at '" ..word.. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
-    			elseif string.match(word, "[^a-l^1-6^#]") ~= nil then
-        			scriptExit("Error at '" ..word.. "': Skill Command exceeded alphanumeric range! Expected range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
+    			elseif string.match(word, "[^a-l^1-6^#^x]") ~= nil then
+        			scriptExit("Error at '" ..word.. "': Skill Command exceeded alphanumeric range! Expected 'x' or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
         		end
     		end
   			if word == '#' then
