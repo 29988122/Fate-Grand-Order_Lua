@@ -27,6 +27,7 @@ Therefore I proudly brought you this: FGO automation script.
 * [Behavior details](#behavior-details)
   * [Auto refill](#auto-refill)
   * [Autoskill](#autoskill)
+    * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
   * [Events](#events)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Feature requests, 說明, 要望](#feature-requests)
@@ -142,6 +143,22 @@ Battle 3:
 Turn 1 - Activate NP servant 1
 Turn 2 - Servant 1 skill a on self, Servant 3 skill g on self
 ```
+### Chaldea Combat Uniform: Order Change
+To use the Master Skill Order Change for servant exchange, insert the following Skill_Command:
+```
+x - activates Order Change
+Starting Member Position - 1  2  3
+Sub-member position - 1  2  3
+
+eg:
+Skill_Command = "x13"
+Exchange starting member 1 with sub-memeber 3
+```
+You are able to mix the Order Change command with normal autoskill command:
+```
+Skill_Command = "bce,0,f3hi,#,j2d,#,4,x13a1g3"
+```
+
 ## Events:
 If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
 
