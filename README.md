@@ -152,7 +152,7 @@ Sub-member position - 1  2  3
 
 eg:
 Skill_Command = "x13"
-Exchange starting member 1 with sub-memeber 3
+Exchange starting member 1 with sub-member 3
 ```
 You are able to mix the Order Change command with normal autoskill command:
 ```
