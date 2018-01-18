@@ -295,7 +295,7 @@ function decodeSkill(str, isFirstSkill)
 		wait(0.3)
 		click(Location(1280,1260))
 		exchangeMode = 0
-		wait(2.5)
+		wait(4)
 	else
 		click(SkillClickArray[index])
 	end
