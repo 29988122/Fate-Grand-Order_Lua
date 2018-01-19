@@ -172,6 +172,7 @@ function refillstamina()
 		if NotJPserverForStaminaRefillExtraClick == nil then
 			--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
 			click(Location(1900,400))
+			wait(1.5)
 		end
     end
 end
