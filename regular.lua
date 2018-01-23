@@ -168,11 +168,11 @@ function refillstamina()
             click(Location(1650,1120))
             stoneused = stoneused + 1
         end
-		wait(1.5)
+		wait(3)
 		if NotJPserverForStaminaRefillExtraClick == nil then
 			--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
 			click(Location(1900,400))
-			wait(1.5)
+			wait(2)
 		end
     end
 end
