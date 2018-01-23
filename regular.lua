@@ -161,10 +161,12 @@ function refillstamina()
     if StaminaRegion:exists("stamina.png", 0) then
         if Use_Stone == 1 then
             click(StoneClick)
+	    wait(1.5)
             click(Location(1650,1120))
             stoneused = stoneused + 1
         else
             click(AppleClick)
+	    wait(1.5)
             click(Location(1650,1120))
             stoneused = stoneused + 1
         end
@@ -172,7 +174,7 @@ function refillstamina()
 		if NotJPserverForStaminaRefillExtraClick == nil then
 			--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
 			click(Location(1900,400))
-			wait(2)
+			wait(1.5)
 		end
     end
 end
