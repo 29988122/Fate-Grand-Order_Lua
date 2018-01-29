@@ -150,7 +150,7 @@ x - activates Order Change
 Starting Member Position - 1  2  3
 Sub-member position - 1  2  3
 
-eg:
+e.g. 
 Skill_Command = "x13"
 Exchange starting member 1 with sub-member 3
 ```
