@@ -1,6 +1,7 @@
 # Fate-Grand-Order_Lua
 
-As of 2018.01.14, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
+As of 2018.02.01, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
+For FGO JP server, remember to set isEvent = 1 to play Valentine's event!
 ```
 (Alghough I highly doubt it, 
 they really should not add extra detection method as it will only drag the game EVEN slower, 
