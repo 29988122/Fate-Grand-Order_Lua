@@ -159,6 +159,11 @@ You are able to mix the Order Change command with normal autoskill command:
 ```
 Skill_Command = "bce,0,f3hi,#,j2d,#,4,x13a1g3"
 ```
+We did not implement skill cooldown check yet. 
+
+However by planning ahead, wrote commands for many rounds(putting a lot of zeros), you can prevent the script accidently clicked the skills that were still on cooldown.
+
+Also, you can have a band-aid fix by casting skills only on the 1st servant(a1,d1,f1, etc). By doing so, the script will click cancel when the skill's on cooldown, preventing stuck.
 
 ## Events:
 If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
