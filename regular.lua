@@ -180,7 +180,7 @@ function refillstamina()
 end
 
 function checkStageCount(region)
-	similar(0.5)
+	region.similar(0.5)
 	--band-aid fix for different server
 	local s = region:exists("stage1.png")
 	usePreviousSnap(true)
@@ -203,7 +203,7 @@ function checkStageCount(region)
 	if region:exists("stage5.png") ~= nil then
 		return 5
 	end
-	similar(0.7)
+	region.similar(0.7)
 	--band-aid fix for different server	
 end
 
