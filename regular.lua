@@ -180,7 +180,11 @@ function refillstamina()
 end
 
 function checkStageCount(region)
+<<<<<<< HEAD
 	Settings:set("MinSimilarity", 0.5)
+=======
+	similar(0.5)
+>>>>>>> parent of 3945075... FGO_CN_FIX #2
 	--band-aid fix for different server
 	local s = region:exists("stage1.png")
 	usePreviousSnap(true)
@@ -203,7 +207,11 @@ function checkStageCount(region)
 	if region:exists("stage5.png") ~= nil then
 		return 5
 	end
+<<<<<<< HEAD
 	Settings:set("MinSimilarity", 0.7)
+=======
+	similar(0.7)
+>>>>>>> parent of 3945075... FGO_CN_FIX #2
 	--band-aid fix for different server	
 end
 
