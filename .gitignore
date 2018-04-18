@@ -13,3 +13,5 @@
 # Executables
 
 screenshot examples(offline backup)/
+ama_daemon/log
+ama_daemon/desktop.ini
