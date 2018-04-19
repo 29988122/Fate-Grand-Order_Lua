@@ -1,7 +1,6 @@
 --Default
 dir = scriptPath()
 setImagePath(dir .. "image_EN")
-stageCountRegion = Region(1706,26,34,48)
 
 --StaminaRefill
 Refill_or_Not = 0

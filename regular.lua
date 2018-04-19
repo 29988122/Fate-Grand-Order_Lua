@@ -8,6 +8,7 @@ BattleRegion = Region(2200,200,1000,600)
 ResultRegion = Region(100,300,700,200)
 QuestrewardRegion = Region(1630,140,370,250)
 StaminaRegion = Region(600,200,300,300)
+StageCountRegion = Region(1720,25,50,55)
 
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
@@ -124,6 +125,8 @@ npClicked = 0
 stageCount = 1
 stageTurnArray = {0, 0, 0, 0, 0}
 turnCounter = {0, 0, 0, 0, 0}
+GeneratedStagecountSnapshot = 0
+--Alternative fix for different font of stage count number among regions
 
 setImmersiveMode(true)			   
 Settings:setCompareDimension(true,1280)
@@ -180,31 +183,23 @@ function refillstamina()
 end
 
 function checkStageCount(region)
-	Settings:set("MinSimilarity", 0.5)
-	--band-aid fix for different server
-	local s = region:exists("stage1.png")
-	usePreviousSnap(true)
+	local s = region:exists("_GeneratedStagecountSnapshot.png")
+	--Alternative fix for different font of stage count number among regions
 	if s ~= nil then
+		toast("Battle 1/3")
 		return 1
 	end
 	
-	if  region:exists("stage2.png") ~= nil then
-		return 2
+	if s == nil then
+		if DifferenceFoundCounter == 0 then
+			DifferenceFoundCounter = 1
+			toast("Battle 2/3")
+			return 2
+		else
+			toast("Battle 3/3")
+			return 3
+		end
 	end
-	
-	if  region:exists("stage3.png") ~= nil then
-		return 3
-	end
-	
-	if  region:exists("stage4.png") ~= nil then
-		return 4
-	end
-	
-	if region:exists("stage5.png") ~= nil then
-		return 5
-	end
-	Settings:set("MinSimilarity", 0.7)
-	--band-aid fix for different server	
 end
 
 function executeSkill()
@@ -212,7 +207,7 @@ function executeSkill()
 	local currentStage = 1
 	local currentTurn = atkround
 	if stageCount ~= 1 then
-    		currentStage = checkStageCount(stageCountRegion)
+    		currentStage = checkStageCount(StageCountRegion)
     		turnCounter[currentStage] = turnCounter[currentStage] + 1
     		currentTurn = turnCounter[currentStage]
     end
@@ -237,6 +232,14 @@ end
    
 
 function battle()
+	--Alternative fix for different font of stage count number among regions
+	if GeneratedStagecountSnapshot ~= 1 then
+		wait(2)
+		StageCountRegion:save("_GeneratedStagecountSnapshot.png")		
+		GeneratedStagecountSnapshot = 1
+		DifferenceFoundCounter = 0
+	end
+
 	local roundCounter = 0
 	
 	if targetchoosen ~= 1 then
@@ -245,7 +248,7 @@ function battle()
 	
     wait(0.5)
     if Enable_Autoskill == 1 then
-    	executeSkill()
+		executeSkill()
     end
     
     wait(0.5)
@@ -526,7 +529,7 @@ while(1) do
 		else
 			newRow()
 		end
-		addTextView("AutoSkill Enabled! Make sure that your Skill Command is correct before you execute the script!")
+		addTextView("AutoSkill Enabled! Start the script from memu or Battle 1/3 to make it work properly. Make sure that your Skill Command is correct before you execute the script!")
 		if Refill_or_Not == 0 then
 			dialogShow("AutoSkill")
 		else
@@ -560,6 +563,8 @@ while(1) do
 		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
         menu()
 		targetchoosen = 0
+		GeneratedStagecountSnapshot = 0
+		--Alternative fix for different font of stage count number among regions
     end
     if BattleRegion:exists("battle.png", 0) then
         battle()
