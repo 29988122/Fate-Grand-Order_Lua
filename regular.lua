@@ -125,7 +125,9 @@ npClicked = 0
 stageCount = 1
 stageTurnArray = {0, 0, 0, 0, 0}
 turnCounter = {0, 0, 0, 0, 0}
+
 GeneratedStagecountSnapshot = 0
+checkStageCountStage = 1
 --Alternative fix for different font of stage count number among regions
 
 setImmersiveMode(true)			   
@@ -183,22 +185,19 @@ function refillstamina()
 end
 
 function checkStageCount(region)
-	local s = region:exists("_GeneratedStagecountSnapshot.png")
 	--Alternative fix for different font of stage count number among regions
+	local s = region:exists("_GeneratedStagecountSnapshot.png")
+
 	if s ~= nil then
-		toast("Battle 1/3")
-		return 1
+		toast("Battle "..checkStageCountStage.."/3")
+		return checkStageCountStage
 	end
 	
 	if s == nil then
-		if DifferenceFoundCounter == 0 then
-			DifferenceFoundCounter = 1
-			toast("Battle 2/3")
-			return 2
-		else
-			toast("Battle 3/3")
-			return 3
-		end
+		StageCountRegion:save("_GeneratedStagecountSnapshot.png")
+		checkStageCountStage = checkStageCountStage + 1
+		toast("Battle "..checkStageCountStage.."/3")
+		return checkStageCountStage
 	end
 end
 
@@ -232,12 +231,11 @@ end
    
 
 function battle()
-	--Alternative fix for different font of stage count number among regions
 	if GeneratedStagecountSnapshot ~= 1 then
 		wait(2)
 		StageCountRegion:save("_GeneratedStagecountSnapshot.png")		
 		GeneratedStagecountSnapshot = 1
-		DifferenceFoundCounter = 0
+		checkStageCountStage = 1
 	end
 
 	local roundCounter = 0
@@ -563,6 +561,7 @@ while(1) do
 		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
         menu()
 		targetchoosen = 0
+
 		GeneratedStagecountSnapshot = 0
 		--Alternative fix for different font of stage count number among regions
     end
