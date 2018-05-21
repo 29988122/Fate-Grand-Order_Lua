@@ -8,7 +8,6 @@ BattleRegion = Region(2200,200,1000,600)
 ResultRegion = Region(100,300,700,200)
 QuestrewardRegion = Region(1630,140,370,250)
 StaminaRegion = Region(600,200,300,300)
-StageCountRegion = Region(1722,25,46,53)
 
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
