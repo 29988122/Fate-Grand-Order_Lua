@@ -185,7 +185,8 @@ end
 
 function checkStageCount(region)
 	--Alternative fix for different font of stage count number among regions
-	local s = region:exists("_GeneratedStagecountSnapshot.png")
+	--local s = region:exists("_GeneratedStagecountSnapshot.png")
+	local s = region:exists(Pattern("_GeneratedStagecountSnapshot.png"):similar(0.9))
 
 	if s ~= nil then
 		toast("Battle "..checkStageCountStage.."/3")
