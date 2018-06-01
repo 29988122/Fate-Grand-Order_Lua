@@ -151,9 +151,15 @@ function menu()
     if Refill_or_Not == 1 and stoneused < How_Many then
         refillstamina()
     end
-    click(Location(1900,500))
-    wait(1.5)
-    click(Location(2400,1350))
+	
+	if Support_SelectFirstVisible == 1 then
+		click(Location(1900,500))
+		wait(1.5)
+		click(Location(2400,1350))
+	else
+		vibrate(3)
+	end
+    
 	wait(8)
 end
 

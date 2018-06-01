@@ -8,6 +8,9 @@ Refill_or_Not = 0
 Use_Stone = 0
 How_Many = 0
 
+--SupportSelection
+Support_SelectFirstVisible = 1
+
 --[[
 自動技能:
 ',' = 回合數
