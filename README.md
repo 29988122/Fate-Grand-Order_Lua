@@ -6,7 +6,9 @@ As of 2018.06.05, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT 
 they really should not add extra detection method as it will only drag the game EVEN slower, 
 let alone this script runs at human speed.)
 ```
-This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info. Please Star our repo to encourage us if this script is useful to you : )
+This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info. 
+
+Please consider Star our repo to encourage us if this script is useful to you : )
 
 <p align="center">
   <a href="https://imgur.com/a/c6vKI">
