@@ -16,8 +16,7 @@ Please consider Star our repo to encourage us if this script is useful to you : 
   </a>
 </p>
 
-[![Lua-5.1-Sikuli](https://img.shields.io/badge/Lua--Sikuli-5.1-blue.svg)](http://http://www.sikuli.org/)
-[![GitHub license](https://img.shields.io/github/license/29988122/Fate-Grand-Order_Lua.svg)](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/LICENSE)
+[![Lua-5.1-Sikuli](https://cdn.rawgit.com/29988122/Fate-Grand-Order_Lua/ffdafd04/docs/Lua--Sikuli-5.1-blue.svg)](http://http://www.sikuli.org/)[![GitHub license](https://cdn.rawgit.com/29988122/Fate-Grand-Order_Lua/ffdafd04/docs/Fate-Grand-Order_Lua.svg)](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/LICENSE)
 
 
 
