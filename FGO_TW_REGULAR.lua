@@ -1,7 +1,8 @@
 --預設
 dir = scriptPath()
 setImagePath(dir .. "image_TW")
-stageCountRegion = Region(1710,30,30,40)
+StageCountRegion = Region(1710,25,55,60)
+--issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
 
 --自動補體
 Refill_or_Not = 0

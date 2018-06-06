@@ -1,13 +1,13 @@
 --デフォルト
 dir = scriptPath()
 setImagePath(dir .. "image_JP")
-stageCountRegion = Region(1724,24,38,50)
 NotJPserverForStaminaRefillExtraClick = 1
+StageCountRegion = Region(1722,25,46,53)
 
 --スタミナ自動補充
 Refill_or_Not = 0
-Use_Stone = 0
-How_Many = 0
+Use_Stone = 1
+How_Many = 10
 
 --[[
 オートスキル:
@@ -40,9 +40,11 @@ BATTLE 3:
 Skill_Confirmation: OFF = 0
 (ゲーム中はスキル使用確認ウィンドウがある場合) ON = 1
 ]]
-Enable_Autoskill = 0
+Enable_Autoskill = 1
 Skill_Confirmation = 0
-Skill_Command = ""
+Skill_Command = "gd5,#,e5,#,abchj4"
+--Team1 "gd5,#,e5,#,abchj4"
+--Team9 高傷害周回 "def5,#,x21abcgi14,#,defhj5"
 
 --イベントステージ終了時にて別枠がある場合（もう一つのポイント報酬ウィンドウとか、詳細はウェブのreadmeで）
 isEvent = 0
