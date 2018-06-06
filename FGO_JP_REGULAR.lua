@@ -6,8 +6,8 @@ StageCountRegion = Region(1722,25,46,53)
 
 --スタミナ自動補充
 Refill_or_Not = 0
-Use_Stone = 0
-How_Many = 5
+Use_Stone = 1
+How_Many = 10
 
 --[[
 オートスキル:
@@ -47,6 +47,6 @@ Skill_Command = "gd5,#,e5,#,abchj4"
 --Team9 高傷害周回 "def5,#,x21abcgi14,#,defhj5"
 
 --イベントステージ終了時にて別枠がある場合（もう一つのポイント報酬ウィンドウとか、詳細はウェブのreadmeで）
-isEvent = 1
+isEvent = 0
 
 dofile(dir .. "regular.lua")
