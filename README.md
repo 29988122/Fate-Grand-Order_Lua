@@ -1,12 +1,14 @@
 # Fate-Grand-Order_Lua
 
-As of 2018.02.19, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
+As of 2018.06.05, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
 ```
 (Alghough I highly doubt it, 
 they really should not add extra detection method as it will only drag the game EVEN slower, 
 let alone this script runs at human speed.)
 ```
-This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info.
+This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info. 
+
+Please consider Star our repo to encourage us if this script is useful to you : )
 
 <p align="center">
   <a href="https://imgur.com/a/c6vKI">
@@ -14,7 +16,8 @@ This script supported CN, EN, JP and TW server. KR server support can be added i
   </a>
 </p>
 
-![Lua-Sikuli](https://img.shields.io/badge/Lua--Sikuli-5.1-blue.svg) [![GitHub license](https://img.shields.io/github/license/29988122/Fate-Grand-Order_Lua.svg)](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/LICENSE)
+[![Lua-5.1-Sikuli](https://cdn.rawgit.com/29988122/Fate-Grand-Order_Lua/ffdafd04/docs/Lua--Sikuli-5.1-blue.svg)](http://http://www.sikuli.org/)[![GitHub license](https://cdn.rawgit.com/29988122/Fate-Grand-Order_Lua/ffdafd04/docs/Fate-Grand-Order_Lua.svg)](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/LICENSE)
+
 
 
 Screw those farming events - I only wanna enjoy the (kinoko) story!

@@ -1,7 +1,7 @@
 --預設
 dir = scriptPath()
 setImagePath(dir .. "image_CN")
-stageCountRegion = Region(1736,30,36,40)
+StageCountRegion = Region(1722,25,46,53)
 
 --自動補體
 Refill_or_Not = 0
