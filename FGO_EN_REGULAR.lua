@@ -43,6 +43,8 @@ Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = ""
 
+Battle_CardPriority = "BAQ"
+
 --Whenever there's additional event point reward window to be clicked through, isEvent = 1. Please check the details on github.
 isEvent = 1
 

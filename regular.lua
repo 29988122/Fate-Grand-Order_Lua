@@ -51,6 +51,7 @@ Card4Click = (Location(1800,1000))
 Card5Click = (Location(2350,1000))
 
 CardClickArray = {Card1Click, Card2Click, Card3Click, Card4Click, Card5Click}
+CardPriorityArray = {}
 
 Ultcard1Click = (Location(1000,220))
 Ultcard2Click = (Location(1300,400))
@@ -129,9 +130,7 @@ GeneratedStagecountSnapshot = 0
 checkStageCountStage = 1
 --Alternative fix for different font of stage count number among regions
 
-setImmersiveMode(true)			   
-Settings:setCompareDimension(true,1280)
-Settings:setScriptDimension(true,2560)
+
 
 atkround = 1
 stoneused = 0
@@ -145,6 +144,35 @@ recognize speed realated functions:
 4.usePreviousSnap(true)
 5.resolution 1280
 6.exists(var ,0)]]
+
+function initCardPriorityArray()
+	--[[
+	considering:
+	Battle_CardPriority = "BAQ"
+	
+	then:
+	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}
+	--]]
+
+	local count = 0
+	for card in Battle_CardPriority:gmatch(".") do
+		table.insert(CardPriorityArray, "W" .. card)
+		table.insert(CardPriorityArray, card)
+		table.insert(CardPriorityArray, "R" .. card)
+		
+		count = count + 1
+	end
+end
+
+function init()
+	setImmersiveMode(true)			   
+	Settings:setCompareDimension(true,1280)
+	Settings:setScriptDimension(true,2560)
+	
+	initCardPriorityArray()
+end
+
+init()
 
 function menu()
     atkround = 1
@@ -342,76 +370,56 @@ function checkCardType(region)
 	end		
 end
 
-function doBattleLogic()
-	affinArray = 0
-	typeArray = 0
-	cardScore = 0
-	cardCount = 0
-	storage = {}
-	
-	WBLocation = {}
-	BLocation = {}
-	RBLocation = {}
-	WALocation = {}
-	WQLocation = {}
-	ALocation = {}
-	QLocation = {}
-	RALocation = {}
-	RQLocation = {}
+function doBattleLogic()	
+	local cardStorage =
+	{
+		WB = {}, B = {}, RB = {},
+		WA = {}, A = {}, RA = {},
+		WQ = {}, Q = {}, RQ = {}
+	}
 	
 	for cardSlot = 1, 5 do
-		affinArray = checkCardAffin(CardAffinRegionArray[cardSlot])
-		typeArray = checkCardType(CardTypeRegionArray[cardSlot])
-		cardScore = affinArray * typeArray
+		local cardAffinity = checkCardAffin(CardAffinRegionArray[cardSlot])
+		local cardType = checkCardType(CardTypeRegionArray[cardSlot])
+		local cardScore = cardAffinity * cardType
 		
 		if cardScore == WeakBuster then
-			table.insert(WBLocation, cardSlot)
-			
+			table.insert(cardStorage.WB, cardSlot)
 		elseif cardScore == BCard then
-			table.insert(BLocation, cardSlot)
-			
+			table.insert(cardStorage.B, cardSlot)
 		elseif cardScore == ResistBuster then
-			table.insert(RBLocation, cardSlot)
-				
-		elseif cardScore == WeakQuick then
-			table.insert(WQLocation, cardSlot)
+			table.insert(cardStorage.RB, cardSlot)
 			
 		elseif cardScore == WeakArt then
-			table.insert(WALocation, cardSlot)
-			
-		elseif cardScore == QCard then
-			table.insert(QLocation, cardSlot)
-			
+			table.insert(cardStorage.WA, cardSlot)
 		elseif cardScore == ACard then
-			table.insert(ALocation, cardSlot)
+			table.insert(cardStorage.A, cardSlot)
 		elseif cardScore == ResistArt then
-			table.insert(RALocation, cardSlot)	
+			table.insert(cardStorage.RA, cardSlot)	
+			
+		elseif cardScore == WeakQuick then
+			table.insert(cardStorage.WQ, cardSlot)
+		elseif cardScore == QCard then
+			table.insert(cardStorage.Q, cardSlot)
 		else
-			table.insert(RQLocation, cardSlot)		
+			table.insert(cardStorage.RQ, cardSlot)		
 		end
-		
 	end
 	
-	storage[1] = WBLocation
-	storage[2] = BLocation
-	storage[3] = WALocation
-	storage[4] = WQLocation
-	storage[5] = RBLocation
-	storage[6] = ALocation
-	storage[7] = QLocation
-	storage[8] = RALocation
-	storage[9] = RQLocation
+	local clickCount = 0
+	for p, cardPriority in ipairs(CardPriorityArray) do
+		local currentStorage = cardStorage[cardPriority]
 	
-	
-	for i, storageNum in ipairs(storage) do	
-		for j, nCard in pairs(storageNum) do
-			click(CardClickArray[nCard])
-			cardCount = cardCount + 1
-			if cardCount == 3 then
+		for s, cardSlot in pairs(currentStorage) do
+			click(CardClickArray[cardSlot])
+			clickCount = clickCount + 1
+			
+			if clickCount == 3 then
 				break
 			end
 		end
-		if cardCount == 3 then
+		
+		if clickCount == 3 then
 			break
 		end
 	end	

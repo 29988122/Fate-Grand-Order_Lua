@@ -46,6 +46,8 @@ Skill_Command = "gd5,#,e5,#,abchj4"
 --Team1 "gd5,#,e5,#,abchj4"
 --Team9 高傷害周回 "def5,#,x21abcgi14,#,defhj5"
 
+Battle_CardPriority = "BAQ"
+
 --イベントステージ終了時にて別枠がある場合（もう一つのポイント報酬ウィンドウとか、詳細はウェブのreadmeで）
 isEvent = 0
 

@@ -44,6 +44,8 @@ Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = ""
 
+Battle_CardPriority = "BAQ"
+
 --若活動有另外的獎勵視窗需點選，isEvent = 1。 詳細請見github上的readme。
 isEvent = 0
 
