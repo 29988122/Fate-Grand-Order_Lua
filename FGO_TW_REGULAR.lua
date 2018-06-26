@@ -44,6 +44,7 @@ Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = ""
 
+--可以用這個選項組藍卡隊了安安。這個選項會影響卡片選擇優先順位，例：BAQ代表weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
 Battle_CardPriority = "BAQ"
 
 --若活動有另外的獎勵視窗需點選，isEvent = 1。 詳細請見github上的readme。

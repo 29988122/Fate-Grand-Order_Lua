@@ -43,6 +43,7 @@ Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = ""
 
+--You can change card selection priority. For example, BAQ stands for: weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
 Battle_CardPriority = "BAQ"
 
 --Whenever there's additional event point reward window to be clicked through, isEvent = 1. Please check the details on github.
