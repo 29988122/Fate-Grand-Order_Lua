@@ -1,6 +1,6 @@
 # Fate-Grand-Order_Lua
 
-As of 2018.06.05, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
+As of 2018.06.27, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
 ```
 (Alghough I highly doubt it, 
 they really should not add extra detection method as it will only drag the game EVEN slower, 
