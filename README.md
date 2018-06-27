@@ -32,6 +32,7 @@ Therefore I proudly brought you this: FGO automation script.
   * [Autoskill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
   * [Events](#events)
+  * [Card Priority Customization](#card-priority-customization)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Feature requests, 說明, 要望](#feature-requests)
 
@@ -174,6 +175,19 @@ If there are events which includes point reward system gained through quests, pl
 
 This will allow the use of this script for the particular events.
 If there are other additional windows, a custom script is required. 
+
+## Card Priority Customization:
+By changing the Battle_CardPriority option in the lua file you are executing(CN, EN, JP or TW), you can have your card selection behavior change. For example:
+```
+Battle_CardPriority = "BAQ" 
+It will select Weak Buster->Buster->Resist Buster->Weak Arts->Arts->Resist Arts->Weak Quick->Quick->Resist Quick cards until all three cards included CPs are selected.
+
+Battle_CardPriority = "ABQ"
+It will select Weak Arts->Arts->Resist Arts->Weak Buster->Buster->Resist Buster->Weak Quick->Quick->Resist Quick cards until all three cards included CPs are selected. 
+
+Currently we don't support more detailed card selection parameters, sorry!
+However, you can join us, write your code, and make a Pull Request to help other FGO players around the world. Thank you.
+```
 
 ## How to capture screen for recognition:
 You can manually replace target\_servant.png inside image folder to customize your priority target.
