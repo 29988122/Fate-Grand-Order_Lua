@@ -519,34 +519,35 @@ function summermenu()
     npClicked = 0
     turnCounter = {0, 0, 0, 0, 0}
  	click(OuenCar)
-    wait (1.5)
+    wait(1.5)
     click(Location(1900,400))
-    wait (1.5)
+    wait(1.5)
     if Refill_or_Not == 1 and stoneused < How_Many then
         refillstamina()
-    end
+	end
+	wait(1.5)
     click(Location(1900,500))
-    wait (1.5)
+    wait(1.5)
     click(Location(2400,1350))
-	wait (1.5)
+	wait(1.5)
 	if OIL == 1 then
 		click(Location(1600,1300))
-		wait (1.5)
+		wait(1.5)
 		click(Location(1600,1100))
 	end
 	if OIL == 2 then
 		click(Location(1200,400))
-		wait (1.5)
+		wait(1.5)
 		click(Location(1600,1100))
 	end
 	if OIL == 3 then
 		click(Location(1200,700))
-		wait (1.5)
+		wait(1.5)
 		click(Location(1600,1100))
 	end
 	if OIL == 4 then
 		click(Location(1200,1000))
-		wait (1.5)
+		wait(1.5)
 		click(Location(1600,1100))
 	end
 	if OIL == nil then
