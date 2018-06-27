@@ -1,7 +1,7 @@
 --デフォルト
 dir = scriptPath()
 setImagePath(dir .. "image_JP")
-NotJPserverForStaminaRefillExtraClick = 1
+--NotJPserverForStaminaRefillExtraClick = 1
 StageCountRegion = Region(1722,25,46,53)
 
 --スタミナ自動補充
