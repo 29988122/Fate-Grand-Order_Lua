@@ -5,9 +5,9 @@ NotJPserverForStaminaRefillExtraClick = 1
 StageCountRegion = Region(1722,25,46,53)
 
 --スタミナ自動補充
-Refill_or_Not = 1
+Refill_or_Not = 0
 Use_Stone = 0
-How_Many = 10
+How_Many = 0
 
 --[[
 オートスキル:

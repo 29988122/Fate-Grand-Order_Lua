@@ -521,15 +521,19 @@ function summermenu()
  	click(OuenCar)
     wait(1.5)
     click(Location(1900,400))
-    wait(1.5)
+    wait(2.5)
     if Refill_or_Not == 1 and stoneused < How_Many then
-        refillstamina()
+		refillstamina()
+	end
+	--summer avoid misclick(script clicked oil but in fact accidently used stone to fill stamina)	
+	if Refill_or_Not == 0 and StaminaRegion:exists("stamina.png", 0) then
+		wait(99999999999)
 	end
 	wait(1.5)
     click(Location(1900,500))
     wait(1.5)
     click(Location(2400,1350))
-	wait(1.5)
+	wait(1.5)		
 	if OIL == 1 then
 		click(Location(1600,1300))
 		wait(1.5)
