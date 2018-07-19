@@ -1,6 +1,6 @@
 # Fate-Grand-Order_Lua
 
-As of 2018.06.27, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
+As of 2018.07.19, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
 ```
 (Alghough I highly doubt it, 
 they really should not add extra detection method as it will only drag the game EVEN slower, 
@@ -8,7 +8,10 @@ let alone this script runs at human speed.)
 ```
 This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info. 
 
+Any of the questions can be asked in the "Issues" section, you don't really have to find my mail address or DM me on reddit, I'm always here. Don't be shy xD
+
 Please consider Star our repo to encourage us if this script is useful to you : )
+
 
 <p align="center">
   <a href="https://imgur.com/a/c6vKI">
