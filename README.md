@@ -1,6 +1,7 @@
 # Fate-Grand-Order_Lua
 
 As of 2018.07.19, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
+
 Remember: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for the script.
 ```
 (Alghough I highly doubt it, this script runs at human speed, and we don't & won't do anything causing them - coder - trouble.)
