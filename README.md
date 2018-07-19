@@ -1,10 +1,9 @@
 # Fate-Grand-Order_Lua
 
-As of 2018.07.19, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
+As of 2018.07.19, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
+Remember: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for the script.
 ```
-(Alghough I highly doubt it, 
-they really should not add extra detection method as it will only drag the game EVEN slower, 
-let alone this script runs at human speed.)
+(Alghough I highly doubt it, this script runs at human speed, and we don't & won't do anything causing them - coder - trouble.)
 ```
 ```
 (I myself, of course, use the script on my main and only account daily, if this fact can make you feel better.
