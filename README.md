@@ -6,6 +6,13 @@ As of 2018.07.19, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT 
 they really should not add extra detection method as it will only drag the game EVEN slower, 
 let alone this script runs at human speed.)
 ```
+```
+(I myself, of course, use the script on my main and only account daily, if this fact can make you feel better.
+
+Nothing is 100% safe, even Blizzard, Valve and Riot Gaming sometimes banned the wrong accout - but I'd say it's like 90% safe. They have other higher priority things to do. Considered the fact that more and more Japanese mobile games started to support automation script *within* their game, and we do not break the competitive integrity and the profit of DelightWorks/TM's service / game. 
+
+I'd like to think about it this way - we're hardcore enough that we need to consume/play everything in this game, thus we're more likely to gacha more as a *whale* player. It's a win-win condition as long as this script do not jeopardize competitive integrity, which I don't think FGO will implement in the near future.)
+```
 This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info. 
 
 Any of the questions can be asked in the "Issues" section, you don't really have to find my mail address or DM me on reddit, I'm always here. Don't be shy xD
