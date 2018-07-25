@@ -12,11 +12,11 @@ StaminaRegion = Region(600,200,300,300)
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
 
-Card1AffinRegion = Region(330,650,200,200)
-Card2AffinRegion = Region(840,650,200,200)
-Card3AffinRegion = Region(1340,650,200,200)
-Card4AffinRegion = Region(1850,650,200,200)
-Card5AffinRegion = Region(2370,650,200,200)
+Card1AffinRegion = Region( 295,650,250,200)
+Card2AffinRegion = Region( 810,650,250,200)
+Card3AffinRegion = Region(1321,650,250,200)
+Card4AffinRegion = Region(1834,650,250,200)
+Card5AffinRegion = Region(2348,650,250,200)
 
 CardAffinRegionArray = {Card1AffinRegion, Card2AffinRegion, Card3AffinRegion, Card4AffinRegion, Card5AffinRegion}
 
