@@ -293,7 +293,15 @@ function battle()
     
     usePreviousSnap(false)
     
-    atkround = atkround + 1
+	atkround = atkround + 1
+
+	--https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 Experimental
+	if UnstableFastSkipDeadAnimation == 1 then
+		for i = 1, 6 do
+			click(Location(1500,500))
+			wait(2)
+		end
+	end
     wait(3)
 end
 	
