@@ -72,14 +72,14 @@ Ultcard3Click = (Location(1740,400))
 Target1Type = Region(0,0,485,220)
 Target2Type = Region(485,0,482,220)
 Target3Type = Region(967,0,476,220)
-Target1Choose = (Location(90,80))
-Target2Choose = (Location(570,80))
-Target3Choose = (Location(1050,80))
+Target1Click = (Location(90,80))
+Target2Click = (Location(570,80))
+Target3Click = (Location(1050,80))
 
---NpbarRegion = Region(280,1330,1620,50)
---Ultcard1Region = Region(900,100,200,200)
---Ultcard2Region = Region(1350,100,200,200)
---Ultcard3Region = Region(1800,100,200,200)
+--[[NpbarRegion = Region(280,1330,1620,50)
+Ultcard1Region = Region(900,100,200,200)
+Ultcard2Region = Region(1350,100,200,200)
+Ultcard3Region = Region(1800,100,200,200)]]--
 
 --Autoskill click regions.
 Skill1Click = (Location(140,1160))
@@ -111,31 +111,31 @@ SkillClickArray[-44] = Ultcard1Click
 SkillClickArray[-43] = Ultcard2Click
 SkillClickArray[-42] = Ultcard3Click
 
-stageSkillArray = {}
-stageSkillArray[1] = {}
-stageSkillArray[2] = {}
-stageSkillArray[3] = {}
-stageSkillArray[4] = {}
-stageSkillArray[5] = {}
+StageSkillArray = {}
+StageSkillArray[1] = {}
+StageSkillArray[2] = {}
+StageSkillArray[3] = {}
+StageSkillArray[4] = {}
+StageSkillArray[5] = {}
 
-startingMember1Click = (Location(280,700))
-startingMember2Click = (Location(680,700))
-startingMember3Click = (Location(1080,700))
-startingMemberClickArray = {}
-startingMemberClickArray[-47] = startingMember1Click
-startingMemberClickArray[-46] = startingMember2Click
-startingMemberClickArray[-45] = startingMember3Click
+StartingMember1Click = (Location(280,700))
+StartingMember2Click = (Location(680,700))
+StartingMember3Click = (Location(1080,700))
+StartingMemberClickArray = {}
+StartingMemberClickArray[-47] = StartingMember1Click
+StartingMemberClickArray[-46] = StartingMember2Click
+StartingMemberClickArray[-45] = StartingMember3Click
 
-subMember1Click = (Location(1480,700))
-subMember2Click = (Location(1880,700))
-subMember3Click = (Location(2280,700))
-subMemberClickArray = {}
-subMemberClickArray[-47] = subMember1Click
-subMemberClickArray[-46] = subMember2Click
-subMemberClickArray[-45] = subMember3Click
+SubMember1Click = (Location(1480,700))
+SubMember2Click = (Location(1880,700))
+SubMember3Click = (Location(2280,700))
+SubMemberClickArray = {}
+SubMemberClickArray[-47] = SubMember1Click
+SubMemberClickArray[-46] = SubMember2Click
+SubMemberClickArray[-45] = SubMember3Click
 
 --Wait for cleanup variables and its respective functions, from 1st version of my messed up code^TM.
-exchangeMode = 0
+MysticCode_OrderChange_ExchangeMode = 0
 npClicked = 0
 stageCount = 1
 stageTurnArray = {0, 0, 0, 0, 0}
@@ -290,15 +290,15 @@ function TargetChoose()
 	t2a = Target2Type:exists("target_danger.png")
 	t3a = Target3Type:exists("target_danger.png")
     if t1 ~= nil or t1a ~= nil then
-        click(Target1Choose)
+        click(Target1Click)
 		toast("Switched to priority target")
 		TargetChoosen = 1
 	elseif t2 ~= nil or t2a ~= nil then
-		click(Target2Choose)
+		click(Target2Click)
 		toast("Switched to priority target")
 		TargetChoosen = 1
 	elseif t3 ~= nil or t3a ~= nil then
-		click(Target3Choose)
+		click(Target3Click)
 		toast("Switched to priority target")
 		TargetChoosen = 1
 	else
@@ -318,7 +318,7 @@ function executeSkill()
     end
     	
     if currentTurn	<= stageTurnArray[currentStage] then 		
-    	local currentSkill = stageSkillArray[currentStage][currentTurn]
+    	local currentSkill = StageSkillArray[currentStage][currentTurn]
     	local firstSkill = 1
     	if currentSkill ~= '0' and currentSkill ~= '#' then
     		for command in string.gmatch(currentSkill, ".") do
@@ -358,13 +358,13 @@ end
 function decodeSkill(str, isFirstSkill)
 	--magic number - check ascii code, a == 97
 	local index = string.byte(str) - 96
-	if isFirstSkill == 0 and npClicked == 0 and index >= -44 and exchangeMode == 0 then
+	if isFirstSkill == 0 and npClicked == 0 and index >= -44 and MysticCode_OrderChange_ExchangeMode == 0 then
 		--wait for skill animation
 		wait(3)
 	end
 	--enter Order Change Mode
 	if index == 24 then
-		exchangeMode = 1
+		MysticCode_OrderChange_ExchangeMode = 1
 	end
 	if index >= 10 then
 		--cast master skill
@@ -378,17 +378,17 @@ function decodeSkill(str, isFirstSkill)
 		wait(1)
 	end
 	--iterate, cast skills/NPs, also select target for it(if needed)
-	if exchangeMode == 1 then
+	if MysticCode_OrderChange_ExchangeMode == 1 then
 		click(SkillClickArray[12])
-		exchangeMode = 2
-	elseif exchangeMode == 2 then
-		click(startingMemberClickArray[index])
-		exchangeMode = 3
-	elseif exchangeMode == 3 then
-		click(subMemberClickArray[index])
+		MysticCode_OrderChange_ExchangeMode = 2
+	elseif MysticCode_OrderChange_ExchangeMode == 2 then
+		click(StartingMemberClickArray[index])
+		MysticCode_OrderChange_ExchangeMode = 3
+	elseif MysticCode_OrderChange_ExchangeMode == 3 then
+		click(SubMemberClickArray[index])
 		wait(0.3)
 		click(Location(1280,1260))
-		exchangeMode = 0
+		MysticCode_OrderChange_ExchangeMode = 0
 		wait(4)
 	else
 		click(SkillClickArray[index])
@@ -596,7 +596,7 @@ function AutoSkillDialogue()
     			end
     		end
     		if word ~= '#' then
-    			table.insert(stageSkillArray[stageCount], word)
+    			table.insert(StageSkillArray[stageCount], word)
     			stageTurnArray[stageCount] = stageTurnArray[stageCount] + 1
     		end
   		end
