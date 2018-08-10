@@ -3,6 +3,9 @@
 私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
 お願いします。このプログラムを禁止しないでください。
 ]]
+
+--Main loop, pattern detection regions.
+--Click pos is hard-coded into code, unlikely to change in the future.
 MenuRegion = Region(2100,1200,1000,1000)
 BattleRegion = Region(2200,200,1000,600)
 ResultRegion = Region(100,300,700,200)
@@ -12,6 +15,7 @@ StaminaRegion = Region(600,200,300,300)
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
 
+--Weak, resist, etc. Compatiable for most server, but tricky, frequently fail.
 Card1AffinRegion = Region( 295,650,250,200)
 Card2AffinRegion = Region( 810,650,250,200)
 Card3AffinRegion = Region(1321,650,250,200)
@@ -20,6 +24,7 @@ Card5AffinRegion = Region(2348,650,250,200)
 
 CardAffinRegionArray = {Card1AffinRegion, Card2AffinRegion, Card3AffinRegion, Card4AffinRegion, Card5AffinRegion}
 
+--Buster, Art, Quick, etc.
 Card1TypeRegion = Region(200,1060,200,200)
 Card2TypeRegion = Region(730,1060,200,200)
 Card3TypeRegion = Region(1240,1060,200,200)
@@ -28,10 +33,12 @@ Card5TypeRegion = Region(2280,1060,200,200)
 
 CardTypeRegionArray = {Card1TypeRegion, Card2TypeRegion, Card3TypeRegion, Card4TypeRegion, Card5TypeRegion}
 
+--*Rough* damage calculation by formula, you may tinker these to change card selection priority.
 WeakMulti = 2.0
 NormalMulti = 1.0
 ResistMulti = 0.5
 
+--https://pbs.twimg.com/media/C2nSYxcUoAAy_F2.jpg
 BCard = 150
 ACard = 100
 QCard = 80
@@ -44,6 +51,7 @@ WeakBuster = BCard * WeakMulti
 WeakArt = ACard * WeakMulti
 WeakQuick = QCard * WeakMulti
 
+--Card selection variables.
 Card1Click = (Location(300,1000))
 Card2Click = (Location(750,1000))
 Card3Click = (Location(1300,1000))
@@ -53,10 +61,12 @@ Card5Click = (Location(2350,1000))
 CardClickArray = {Card1Click, Card2Click, Card3Click, Card4Click, Card5Click}
 CardPriorityArray = {}
 
+--*Primitive* ways to spam NPs after priority target appeared in battle. IT WILL override autoskill NP skill. Check function ultcard()
 Ultcard1Click = (Location(1000,220))
 Ultcard2Click = (Location(1300,400))
 Ultcard3Click = (Location(1740,400))
 
+--Priority target detection region and selection region.
 Target1Type = Region(0,0,485,220)
 Target2Type = Region(485,0,482,220)
 Target3Type = Region(967,0,476,220)
@@ -69,6 +79,7 @@ Target3Choose = (Location(1050,80))
 --Ultcard2Region = Region(1350,100,200,200)
 --Ultcard3Region = Region(1800,100,200,200)
 
+--Autoskill click regions.
 Skill1Click = (Location(140,1160))
 Skill2Click = (Location(340,1160))
 Skill3Click = (Location(540,1160))
@@ -89,6 +100,7 @@ Servant1Click = (Location(700,880))
 Servant2Click = (Location(1280,880))
 Servant3Click = (Location(1940,880))
 
+--Autoskill related variables, check function decodeSkill(str, isFirstSkill).
 SkillClickArray = {Skill1Click, Skill2Click, Skill3Click, Skill4Click, Skill5Click, Skill6Click, Skill7Click, Skill8Click, Skill9Click, Master1Click, Master2Click, Master3Click}
 SkillClickArray[-47] = Servant1Click
 SkillClickArray[-46] = Servant2Click
@@ -120,22 +132,23 @@ subMemberClickArray[-47] = subMember1Click
 subMemberClickArray[-46] = subMember2Click
 subMemberClickArray[-45] = subMember3Click
 
+--Wait for cleanup variables and its respective functions, from 1st version of my messed up code^TM.
 exchangeMode = 0
 npClicked = 0
 stageCount = 1
 stageTurnArray = {0, 0, 0, 0, 0}
 turnCounter = {0, 0, 0, 0, 0}
 
+--Alternative fix for different font of stage count number among region, worked pretty damn well tho.
 GeneratedStagecountSnapshot = 0
 checkStageCountStage = 1
---Alternative fix for different font of stage count number among regions
 
-
-
+--Wait for cleanup variables and its respective functions, my messed up code^TM.
 atkround = 1
 stoneused = 0
 refillshown = 0
 skillshown = 0
+
 --[[
 recognize speed realated functions:
 1.setScanInterval(1)
@@ -147,7 +160,7 @@ recognize speed realated functions:
 
 function initCardPriorityArray()
 	--[[
-	considering:
+	Considering:
 	Battle_CardPriority = "BAQ"
 	
 	then:

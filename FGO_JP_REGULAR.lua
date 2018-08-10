@@ -42,7 +42,7 @@ Skill_Confirmation: OFF = 0
 ]]
 Enable_Autoskill = 1
 Skill_Confirmation = 0
-Skill_Command = "gd5,#,e5,#,abchj4"
+Skill_Command = "gd5,#,e5,#,abchi1j4"
 --Team1 "gd5,#,e5,#,abchj4"
 --Team9 高傷害周回 "def5,#,x21abcgi14,#,defhj5"
 

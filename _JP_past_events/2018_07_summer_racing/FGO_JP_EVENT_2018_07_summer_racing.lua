@@ -56,4 +56,4 @@ isEvent = 0
 jp_event_2018_07_summer_racing = 1
 SummerRacingRegion = Region(0,0,2560,1440)
 
-dofile(dir .. "_TEMP_event.lua")
+dofile(dir .. "summer_racing.lua")
