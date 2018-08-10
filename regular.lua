@@ -1,8 +1,6 @@
---[[
-このスクリプトは人の動きを真似してるだけなので、サーバーには余計な負担を掛からないはず。
-私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
-お願いします。このプログラムを禁止しないでください。
-]]
+--[[このスクリプトは人の動きを真似してるだけなので、サーバーには余計な負担を掛からないはず。
+	私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
+	お願いします。このプログラムを禁止しないでください。]]
 
 --Main loop, pattern detection regions.
 --Click pos are hard-coded into code, unlikely to change in the future.
@@ -79,7 +77,7 @@ Target3Click = (Location(1050,80))
 --[[NpbarRegion = Region(280,1330,1620,50)
 Ultcard1Region = Region(900,100,200,200)
 Ultcard2Region = Region(1350,100,200,200)
-Ultcard3Region = Region(1800,100,200,200)]]--
+Ultcard3Region = Region(1800,100,200,200)]]
 
 --Autoskill click regions.
 Skill1Click = (Location(140,1160))
@@ -144,23 +142,20 @@ turnCounter = {0, 0, 0, 0, 0}
 --Wait for cleanup variables and its respective functions, my messed up code^TM.
 atkround = 1
 
---[[
-recognize speed realated functions:
-1.setScanInterval(1)
-2.Settings:set("MinSimilarity", 0.5)
-3.Settings:set("AutoWaitTimeout", 1)
-4.usePreviousSnap(true)
-5.resolution 1280
-6.exists(var ,0)]]
+--[[recognize speed realated functions:
+	1.setScanInterval(1)
+	2.Settings:set("MinSimilarity", 0.5)
+	3.Settings:set("AutoWaitTimeout", 1)
+	4.usePreviousSnap(true)
+	5.resolution 1280
+	6.exists(var ,0)]]
 
 function initCardPriorityArray()
-	--[[
-	Considering:
+	--[[Considering:
 	Battle_CardPriority = "BAQ"
-	
+
 	then:
-	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}
-	--]]
+	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}]]
 	local count = 0
 	for card in Battle_CardPriority:gmatch(".") do
 		table.insert(CardPriorityArray, "W" .. card)
@@ -242,27 +237,30 @@ function battle()
     if Enable_Autoskill == 1 then
 		executeSkill()
     end
-    
+	
+	--TargetChoose() and executeSKill().CheckCurrentStage() use the same snapshot.
+	usePreviousSnap(false)
+	
     wait(0.5)
 	if npClicked == 0 then
 		--enter card selection screen
     	click(Location(2300,1200))
     	wait(1)
-    end
+	end
     
     if TargetChoosen == 1 and npClicked == 0 then
         ultcard()
     end
 
     wait(0.5)
-    doBattleLogic()
-    
+	doBattleLogic()
+	--checkCardAffin(region) and checkCardType(region) use the same snapshot.
     usePreviousSnap(false)
     
 	atkround = atkround + 1
 
-	--https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 Experimental
 	if UnstableFastSkipDeadAnimation == 1 then
+		--https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 Experimental
 		for i = 1, 6 do
 			click(Location(1500,500))
 			wait(2)
@@ -304,7 +302,6 @@ function TargetChoose()
 	else
 		toast("No priority target selected")
     end
-    usePreviousSnap(false)
 end
 
 function executeSkill()
@@ -317,8 +314,13 @@ function executeSkill()
     		currentTurn = turnCounter[currentStage]
     end
     	
-    if currentTurn	<= stageTurnArray[currentStage] then 		
-    	local currentSkill = StageSkillArray[currentStage][currentTurn]
+	if currentTurn	<= stageTurnArray[currentStage] then
+		--currentSkill is a two-dimensional array with something like abc1jkl4.
+		local currentSkill = StageSkillArray[currentStage][currentTurn]
+		
+		--[[Prevent exessive delay between skill clickings. 
+			firstSkill = 1 means more delay, cause one has to wait for battle animation. 
+			firstSkill = 0 means less delay.]]
     	local firstSkill = 1
     	if currentSkill ~= '0' and currentSkill ~= '#' then
     		for command in string.gmatch(currentSkill, ".") do
@@ -326,13 +328,11 @@ function executeSkill()
         		firstSkill = 0	
         	end
     	end
-    	usePreviousSnap(false)
 		if npClicked == 0 then
-			--wait for last iterated skill animation
+			--Wait for regular servant skill animation executed last time. Then proceed to next turn.
     		wait(3)
     	end	
     end
-    usePreviousSnap(false)
 end
 
 function CheckCurrentStage(region)
@@ -356,29 +356,54 @@ function CheckCurrentStage(region)
 end
 	
 function decodeSkill(str, isFirstSkill)
-	--magic number - check ascii code, a == 97
+	--magic number - check ascii code, a == 97. http://www.asciitable.com/
 	local index = string.byte(str) - 96
+
+	--[[isFirstSkill == 0: Not yet proceeded to next turn.
+		npClicked == 0: Not currently casting NP(not in card selection screen).
+		index >= -44 and MysticCode_OrderChange_ExchangeMode == 0: Not currently doing Order Change.
+		
+		Therefore, script is casting regular servant skills.]]
 	if isFirstSkill == 0 and npClicked == 0 and index >= -44 and MysticCode_OrderChange_ExchangeMode == 0 then
-		--wait for skill animation
+		--Wait for regular servant skill animation executed last time.
 		wait(3)
 	end
-	--enter Order Change Mode
-	if index == 24 then
-		MysticCode_OrderChange_ExchangeMode = 1
-	end
-	if index >= 10 then
-		--cast master skill
-		 click(Location(2380, 640))
-		 wait(0.3)
-	end
+
+	--[[In ascii, char(4, 5, 6) command for servant NP456 = decimal(52, 53, 54) respectively.
+		Hence: 
+		52 - 96 = -44 
+		53 - 96 = -43 
+		54 - 96 = -42]]	
 	if index >= -44 and index <= -42 and npClicked == 0 then
-		---cast NP
+		---Enter card selection screen, ready to cast NP.
 		click(Location(2300,1200))
 		npClicked = 1
 		wait(1)
 	end
-	--iterate, cast skills/NPs, also select target for it(if needed)
+
+	--[[In ascii, char(j, k, l) and char(x) command for master skill = decimal(106, 107, 108) and decimal(120) respectively.
+		Hence:
+		106 - 96 = 10
+		107 - 96 = 11
+		108 - 96 = 12
+		120 - 96 = 24]]
+	if index >= 10 then
+		--Click master skill menu icon, ready to cast master skill.
+		click(Location(2380, 640))
+		wait(0.3)
+	end
+
+	--[[Enter Order Change Mode.
+		In ascii, char(x) = decimal(120)
+		120 - 96 = 24]]
+	if index == 24 then
+		MysticCode_OrderChange_ExchangeMode = 1
+	end
+
+	--MysticCode-OrderChange master skill implementation.
+	--Actual clicking is done by the default case here.
 	if MysticCode_OrderChange_ExchangeMode == 1 then
+		--Click Order Change icon.
 		click(SkillClickArray[12])
 		MysticCode_OrderChange_ExchangeMode = 2
 	elseif MysticCode_OrderChange_ExchangeMode == 2 then
@@ -391,6 +416,7 @@ function decodeSkill(str, isFirstSkill)
 		MysticCode_OrderChange_ExchangeMode = 0
 		wait(4)
 	else
+		--Cast skills, NPs, or select target.
 		click(SkillClickArray[index])
 	end
 	if index > 0 and Skill_Confirmation == 1 then
