@@ -227,65 +227,6 @@ function RefillStamina()
     end
 end
 
-function CheckCurrentStage(region)
-	--Alternative fix for different font of stagecount number among different regions, worked pretty damn well tho.
-	--This will compare last screenshot with current screen, effectively get to know if stage changed or not.
-	local s = region:exists(Pattern("_GeneratedStageCounterSnapshot.png"):similar(0.8))
-
-	--Pattern found, stage did not change.
-	if s ~= nil then
-		toast("Battle "..StageCounter.."/3")
-		return StageCounter
-	end
-	
-	--Pattern not found, which means that stage changed. Generate another snapshot te be used next time.
-	if s == nil then
-		StageCountRegion:save("_GeneratedStageCounterSnapshot.png")
-		StageCounter = StageCounter + 1
-		toast("Battle "..StageCounter.."/3")
-		return StageCounter
-	end
-end
-
-function executeSkill()
-	npClicked = 0
-	local currentStage = 1
-	local currentTurn = atkround
-	if stageCount ~= 1 then
-    		currentStage = CheckCurrentStage(StageCountRegion)
-    		turnCounter[currentStage] = turnCounter[currentStage] + 1
-    		currentTurn = turnCounter[currentStage]
-    end
-    	
-    if currentTurn	<= stageTurnArray[currentStage] then 		
-    	local currentSkill = stageSkillArray[currentStage][currentTurn]
-    	local firstSkill = 1
-    	if currentSkill ~= '0' and currentSkill ~= '#' then
-    		for command in string.gmatch(currentSkill, ".") do
-        		decodeSkill(command, firstSkill)
-        		firstSkill = 0	
-        	end
-    	end
-    	usePreviousSnap(false)
-		if npClicked == 0 then
-			--wait for last iterated skill animation
-    		wait(3)
-    	end	
-    end
-    usePreviousSnap(false)
-end
-   
-
-function InitForCheckCurrentStage()
-	--Generate a snapshot ONCE in the beginning of battle(). Will re-run itself after entered memu().
-	if SnapshotGeneratedForStagecounter ~= 1 then
-		wait(2)
-		StageCountRegion:save("_GeneratedStageCounterSnapshot.png")		
-		SnapshotGeneratedForStagecounter = 1
-		StageCounter = 1
-	end
-end
-
 function battle()
 	InitForCheckCurrentStage()
 
@@ -328,6 +269,90 @@ function battle()
 		end
 	end
     wait(3)
+end
+
+function InitForCheckCurrentStage()
+	--Generate a snapshot ONCE in the beginning of battle(). Will re-run itself after entered memu().
+	if SnapshotGeneratedForStagecounter ~= 1 then
+		wait(2)
+		StageCountRegion:save("_GeneratedStageCounterSnapshot.png")		
+		SnapshotGeneratedForStagecounter = 1
+		StageCounter = 1
+	end
+end
+
+function TargetChoose()
+    t1 = Target1Type:exists("target_servant.png")
+	usePreviousSnap(true)
+	t2 = Target2Type:exists("target_servant.png")
+	t3 = Target3Type:exists("target_servant.png")
+	t1a = Target1Type:exists("target_danger.png")
+	t2a = Target2Type:exists("target_danger.png")
+	t3a = Target3Type:exists("target_danger.png")
+    if t1 ~= nil or t1a ~= nil then
+        click(Target1Choose)
+		toast("Switched to priority target")
+		TargetChoosen = 1
+	elseif t2 ~= nil or t2a ~= nil then
+		click(Target2Choose)
+		toast("Switched to priority target")
+		TargetChoosen = 1
+	elseif t3 ~= nil or t3a ~= nil then
+		click(Target3Choose)
+		toast("Switched to priority target")
+		TargetChoosen = 1
+	else
+		toast("No priority target selected")
+    end
+    usePreviousSnap(false)
+end
+
+function executeSkill()
+	npClicked = 0
+	local currentStage = 1
+	local currentTurn = atkround
+	if stageCount ~= 1 then
+    		currentStage = CheckCurrentStage(StageCountRegion)
+    		turnCounter[currentStage] = turnCounter[currentStage] + 1
+    		currentTurn = turnCounter[currentStage]
+    end
+    	
+    if currentTurn	<= stageTurnArray[currentStage] then 		
+    	local currentSkill = stageSkillArray[currentStage][currentTurn]
+    	local firstSkill = 1
+    	if currentSkill ~= '0' and currentSkill ~= '#' then
+    		for command in string.gmatch(currentSkill, ".") do
+        		decodeSkill(command, firstSkill)
+        		firstSkill = 0	
+        	end
+    	end
+    	usePreviousSnap(false)
+		if npClicked == 0 then
+			--wait for last iterated skill animation
+    		wait(3)
+    	end	
+    end
+    usePreviousSnap(false)
+end
+
+function CheckCurrentStage(region)
+	--Alternative fix for different font of stagecount number among different regions, worked pretty damn well tho.
+	--This will compare last screenshot with current screen, effectively get to know if stage changed or not.
+	local s = region:exists(Pattern("_GeneratedStageCounterSnapshot.png"):similar(0.8))
+
+	--Pattern found, stage did not change.
+	if s ~= nil then
+		toast("Battle "..StageCounter.."/3")
+		return StageCounter
+	end
+	
+	--Pattern not found, which means that stage changed. Generate another snapshot te be used next time.
+	if s == nil then
+		StageCountRegion:save("_GeneratedStageCounterSnapshot.png")
+		StageCounter = StageCounter + 1
+		toast("Battle "..StageCounter.."/3")
+		return StageCounter
+	end
 end
 	
 function decodeSkill(str, isFirstSkill)
@@ -403,6 +428,12 @@ function checkCardType(region)
 	end		
 end
 
+function ultcard()
+	click(Ultcard1Click)
+	click(Ultcard2Click)
+	click(Ultcard3Click)
+end
+
 function doBattleLogic()	
 	local cardStorage =
 	{
@@ -458,7 +489,8 @@ function doBattleLogic()
 	end	
 end
 
---[[function norcard()
+--[[Deprecated
+function norcard()
     i = 0
     
     w1 = CardAffinRegionArray[1]:exists("weak.png")
@@ -497,38 +529,6 @@ end
         i = i + 1
     end
 end]]
-
-function ultcard()
-	click(Ultcard1Click)
-	click(Ultcard2Click)
-	click(Ultcard3Click)
-end
-
-function TargetChoose()
-    t1 = Target1Type:exists("target_servant.png")
-	usePreviousSnap(true)
-	t2 = Target2Type:exists("target_servant.png")
-	t3 = Target3Type:exists("target_servant.png")
-	t1a = Target1Type:exists("target_danger.png")
-	t2a = Target2Type:exists("target_danger.png")
-	t3a = Target3Type:exists("target_danger.png")
-    if t1 ~= nil or t1a ~= nil then
-        click(Target1Choose)
-		toast("Switched to priority target")
-		TargetChoosen = 1
-	elseif t2 ~= nil or t2a ~= nil then
-		click(Target2Choose)
-		toast("Switched to priority target")
-		TargetChoosen = 1
-	elseif t3 ~= nil or t3a ~= nil then
-		click(Target3Choose)
-		toast("Switched to priority target")
-		TargetChoosen = 1
-	else
-		toast("No priority target selected")
-    end
-    usePreviousSnap(false)
-end
 
 function result()
     wait(2.5)
