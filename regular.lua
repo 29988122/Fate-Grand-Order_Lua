@@ -230,7 +230,7 @@ end
 function CheckCurrentStage(region)
 	--Alternative fix for different font of stagecount number among different regions, worked pretty damn well tho.
 	--This will compare last screenshot with current screen, effectively get to know if stage changed or not.
-	local s = region:exists(Pattern("_GeneratedStageCounterSnapshot.png"):similar(0.9))
+	local s = region:exists(Pattern("_GeneratedStageCounterSnapshot.png"):similar(0.8))
 
 	--Pattern found, stage did not change.
 	if s ~= nil then
