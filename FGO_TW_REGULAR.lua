@@ -2,7 +2,7 @@
 dir = scriptPath()
 setImagePath(dir .. "image_TW")
 StageCountRegion = Region(1710,25,55,60)
---issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
+--StageCountRegion issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
 
 --自動補體
 Refill_or_Not = 0
@@ -51,3 +51,6 @@ Battle_CardPriority = "BAQ"
 isEvent = 0
 
 dofile(dir .. "regular.lua")
+
+--Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
+--UnstableFastSkipDeadAnimation = 1

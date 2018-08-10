@@ -51,3 +51,6 @@ Battle_CardPriority = "BAQ"
 isEvent = 0
 
 dofile(dir .. "regular.lua")
+
+--Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
+--UnstableFastSkipDeadAnimation = 1

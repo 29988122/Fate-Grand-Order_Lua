@@ -3,6 +3,7 @@ dir = scriptPath()
 setImagePath(dir .. "image_EN")
 StageCountRegion = Region(1722,25,46,53)
 NotJPserverForStaminaRefillExtraClick = 1
+--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
 
 --StaminaRefill
 Refill_or_Not = 0
@@ -51,3 +52,6 @@ Battle_CardPriority = "BAQ"
 isEvent = 1
 
 dofile(dir .. "regular.lua")
+
+--Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
+--UnstableFastSkipDeadAnimation = 1
