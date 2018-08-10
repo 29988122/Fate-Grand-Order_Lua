@@ -550,9 +550,9 @@ end
 function RefillDialogue()
 	if Refill_or_Not == 1 and RefillDialogueShown == 0 then
 		if Use_Stone == 1 then
-			local temp = "stones"
+			temp = "stones"
 		else
-			local temp = "apples"
+			temp = "apples"
 		end
 		dialogInit()
 		addTextView("You are going to use "..How_Many.." "..temp..", remember to check those values everytime you execute the script!")
