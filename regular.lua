@@ -5,7 +5,7 @@
 ]]
 
 --Main loop, pattern detection regions.
---Click pos is hard-coded into code, unlikely to change in the future.
+--Click pos are hard-coded into code, unlikely to change in the future.
 MenuRegion = Region(2100,1200,1000,1000)
 BattleRegion = Region(2200,200,1000,600)
 ResultRegion = Region(100,300,700,200)
@@ -34,11 +34,11 @@ Card5TypeRegion = Region(2280,1060,200,200)
 CardTypeRegionArray = {Card1TypeRegion, Card2TypeRegion, Card3TypeRegion, Card4TypeRegion, Card5TypeRegion}
 
 --*Rough* damage calculation by formula, you may tinker these to change card selection priority.
+--https://pbs.twimg.com/media/C2nSYxcUoAAy_F2.jpg
 WeakMulti = 2.0
 NormalMulti = 1.0
 ResistMulti = 0.5
 
---https://pbs.twimg.com/media/C2nSYxcUoAAy_F2.jpg
 BCard = 150
 ACard = 100
 QCard = 80
@@ -51,7 +51,10 @@ WeakBuster = BCard * WeakMulti
 WeakArt = ACard * WeakMulti
 WeakQuick = QCard * WeakMulti
 
---Card selection variables.
+--User customizable BAQ selection priority.
+CardPriorityArray = {}
+
+--Card selection pos for click, and array for AutoSkill.
 Card1Click = (Location(300,1000))
 Card2Click = (Location(750,1000))
 Card3Click = (Location(1300,1000))
@@ -59,7 +62,6 @@ Card4Click = (Location(1800,1000))
 Card5Click = (Location(2350,1000))
 
 CardClickArray = {Card1Click, Card2Click, Card3Click, Card4Click, Card5Click}
-CardPriorityArray = {}
 
 --*Primitive* ways to spam NPs after priority target appeared in battle. IT WILL override autoskill NP skill. Check function ultcard()
 Ultcard1Click = (Location(1000,220))
@@ -139,15 +141,8 @@ stageCount = 1
 stageTurnArray = {0, 0, 0, 0, 0}
 turnCounter = {0, 0, 0, 0, 0}
 
---Alternative fix for different font of stage count number among region, worked pretty damn well tho.
-GeneratedStagecountSnapshot = 0
-checkStageCountStage = 1
-
 --Wait for cleanup variables and its respective functions, my messed up code^TM.
 atkround = 1
-stoneused = 0
-refillshown = 0
-skillshown = 0
 
 --[[
 recognize speed realated functions:
@@ -166,7 +161,6 @@ function initCardPriorityArray()
 	then:
 	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}
 	--]]
-
 	local count = 0
 	for card in Battle_CardPriority:gmatch(".") do
 		table.insert(CardPriorityArray, "W" .. card)
@@ -182,7 +176,14 @@ function init()
 	Settings:setCompareDimension(true,1280)
 	Settings:setScriptDimension(true,2560)
 	
+	--Set only ONCE for every separated script run.
 	initCardPriorityArray()
+	StoneUsed = 0
+	RefillDialogueShown = 0
+	AutoSkillParsedAndDialogueShown = 0
+	
+	--Check function CheckCurrentStage(region)
+	StageCounter = 1
 end
 
 init()
@@ -193,8 +194,8 @@ function menu()
     turnCounter = {0, 0, 0, 0, 0}
     click(Location(1900,400))
     wait(1.5)
-    if Refill_or_Not == 1 and stoneused < How_Many then
-        refillstamina()
+    if Refill_or_Not == 1 and StoneUsed < How_Many then
+        RefillStamina()
     end
     click(Location(1900,500))
     wait(1.5)
@@ -202,18 +203,20 @@ function menu()
 	wait(8)
 end
 
-function refillstamina()
+function RefillStamina()
     if StaminaRegion:exists("stamina.png", 0) then
         if Use_Stone == 1 then
-            click(StoneClick)
+			click(StoneClick)
+			toast("Auto Refilling Stamina")
 	    wait(1.5)
             click(Location(1650,1120))
-            stoneused = stoneused + 1
+            StoneUsed = StoneUsed + 1
         else
-            click(AppleClick)
+			click(AppleClick)
+			toast("Auto Refilling Stamina")
 	    wait(1.5)
             click(Location(1650,1120))
-            stoneused = stoneused + 1
+            StoneUsed = StoneUsed + 1
         end
 		wait(3)
 		if NotJPserverForStaminaRefillExtraClick == nil then
@@ -224,21 +227,23 @@ function refillstamina()
     end
 end
 
-function checkStageCount(region)
-	--Alternative fix for different font of stage count number among regions
-	--local s = region:exists("_GeneratedStagecountSnapshot.png")
-	local s = region:exists(Pattern("_GeneratedStagecountSnapshot.png"):similar(0.9))
+function CheckCurrentStage(region)
+	--Alternative fix for different font of stagecount number among different regions, worked pretty damn well tho.
+	--This will compare last screenshot with current screen, effectively get to know if stage changed or not.
+	local s = region:exists(Pattern("_GeneratedStageCounterSnapshot.png"):similar(0.9))
 
+	--Pattern found, stage did not change.
 	if s ~= nil then
-		toast("Battle "..checkStageCountStage.."/3")
-		return checkStageCountStage
+		toast("Battle "..StageCounter.."/3")
+		return StageCounter
 	end
 	
+	--Pattern not found, which means that stage changed. Generate another snapshot te be used next time.
 	if s == nil then
-		StageCountRegion:save("_GeneratedStagecountSnapshot.png")
-		checkStageCountStage = checkStageCountStage + 1
-		toast("Battle "..checkStageCountStage.."/3")
-		return checkStageCountStage
+		StageCountRegion:save("_GeneratedStageCounterSnapshot.png")
+		StageCounter = StageCounter + 1
+		toast("Battle "..StageCounter.."/3")
+		return StageCounter
 	end
 end
 
@@ -247,7 +252,7 @@ function executeSkill()
 	local currentStage = 1
 	local currentTurn = atkround
 	if stageCount ~= 1 then
-    		currentStage = checkStageCount(StageCountRegion)
+    		currentStage = CheckCurrentStage(StageCountRegion)
     		turnCounter[currentStage] = turnCounter[currentStage] + 1
     		currentTurn = turnCounter[currentStage]
     end
@@ -271,18 +276,25 @@ function executeSkill()
 end
    
 
-function battle()
-	if GeneratedStagecountSnapshot ~= 1 then
+function InitForCheckCurrentStage()
+	--Generate a snapshot ONCE in the beginning of battle(). Will re-run itself after entered memu().
+	if SnapshotGeneratedForStagecounter ~= 1 then
 		wait(2)
-		StageCountRegion:save("_GeneratedStagecountSnapshot.png")		
-		GeneratedStagecountSnapshot = 1
-		checkStageCountStage = 1
+		StageCountRegion:save("_GeneratedStageCounterSnapshot.png")		
+		SnapshotGeneratedForStagecounter = 1
+		StageCounter = 1
 	end
+end
 
-	local roundCounter = 0
+function battle()
+	InitForCheckCurrentStage()
+
+	--TBD: counter not used
+	local RoundCounter = 1
 	
-	if targetchoosen ~= 1 then
-		targetchoose()
+	if TargetChoosen ~= 1 then
+		--Choose priority target for NP spam and focuse fire.
+		TargetChoose()
 	end
 	
     wait(0.5)
@@ -297,7 +309,7 @@ function battle()
     	wait(1)
     end
     
-    if targetchoosen == 1 and npClicked == 0 then
+    if TargetChoosen == 1 and npClicked == 0 then
         ultcard()
     end
 
@@ -492,7 +504,7 @@ function ultcard()
 	click(Ultcard3Click)
 end
 
-function targetchoose()
+function TargetChoose()
     t1 = Target1Type:exists("target_servant.png")
 	usePreviousSnap(true)
 	t2 = Target2Type:exists("target_servant.png")
@@ -503,15 +515,15 @@ function targetchoose()
     if t1 ~= nil or t1a ~= nil then
         click(Target1Choose)
 		toast("Switched to priority target")
-		targetchoosen = 1
+		TargetChoosen = 1
 	elseif t2 ~= nil or t2a ~= nil then
 		click(Target2Choose)
 		toast("Switched to priority target")
-		targetchoosen = 1
+		TargetChoosen = 1
 	elseif t3 ~= nil or t3a ~= nil then
 		click(Target3Choose)
 		toast("Switched to priority target")
-		targetchoosen = 1
+		TargetChoosen = 1
 	else
 		toast("No priority target selected")
     end
@@ -535,22 +547,25 @@ function result()
 	end
 end
 
-while(1) do
-	if Refill_or_Not == 1 and refillshown == 0 then
+function RefillDialogue()
+	if Refill_or_Not == 1 and RefillDialogueShown == 0 then
 		if Use_Stone == 1 then
-			temp = "stones"
+			local temp = "stones"
 		else
-			temp = "apples"
+			local temp = "apples"
 		end
 		dialogInit()
 		addTextView("You are going to use "..How_Many.." "..temp..", remember to check those values everytime you execute the script!")
 		if Enable_Autoskill == 0 then
-			dialogShow("Auto Refilling Stamina")
+			--Finsishd dialogue construction, show it on screen. dialogShow("%title of box%")
+			dialogShow("Auto Refill Enabled")
 		end
-		refillshown = 1
+		RefillDialogueShown = 1
 	end
-	
-	if Enable_Autoskill == 1 and skillshown == 0 then
+end
+
+function AutoSkillDialogue()
+	if Enable_Autoskill == 1 and AutoSkillParsedAndDialogueShown == 0 then
 		if Refill_or_Not == 0 then
 			dialogInit()
 		else
@@ -558,9 +573,11 @@ while(1) do
 		end
 		addTextView("AutoSkill Enabled! Start the script from memu or Battle 1/3 to make it work properly. Make sure that your Skill Command is correct before you execute the script!")
 		if Refill_or_Not == 0 then
-			dialogShow("AutoSkill")
+			--Finsishd dialogue construction, show it on screen. dialogShow("%title of box%")
+			dialogShow("AutoSkill Enabled")
 		else
-			dialogShow("Warning!")
+			--Finsishd dialogue construction, show it on screen. dialogShow("%title of box%")
+			dialogShow("AutoSkill and Auto Refill Enabled")
 		end
 		for word in string.gmatch(Skill_Command, "[^,]+") do
   			if string.match(word, "[^0]") ~= nil then
@@ -583,16 +600,21 @@ while(1) do
     			stageTurnArray[stageCount] = stageTurnArray[stageCount] + 1
     		end
   		end
-		skillshown = 1
+		AutoSkillParsedAndDialogueShown = 1
 	end
+end
+
+while(1) do
+	--Execute only once
+	RefillDialogue()
+	AutoSkillDialogue()
 	
     if MenuRegion:exists("menu.png", 0) then
 		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
         menu()
-		targetchoosen = 0
+		TargetChoosen = 0
 
-		GeneratedStagecountSnapshot = 0
-		--Alternative fix for different font of stage count number among regions
+		SnapshotGeneratedForStagecounter = 0
     end
     if BattleRegion:exists("battle.png", 0) then
         battle()
