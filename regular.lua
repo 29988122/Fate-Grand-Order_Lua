@@ -133,7 +133,6 @@ SubMemberClickArray[-46] = SubMember2Click
 SubMemberClickArray[-45] = SubMember3Click
 
 --Wait for cleanup variables and its respective functions, from 1st version of my messed up code^TM.
-MysticCode_OrderChange_ExchangeMode = 0
 npClicked = 0
 stageCount = 1
 stageTurnArray = {0, 0, 0, 0, 0}
@@ -176,6 +175,7 @@ function init()
 	StoneUsed = 0
 	RefillDialogueShown = 0
 	AutoSkillParsedAndDialogueShown = 0
+	MysticCode_OrderChange_ExchangeMode = 0
 	
 	--Check function CheckCurrentStage(region)
 	StageCounter = 1
@@ -223,6 +223,7 @@ function RefillStamina()
 end
 
 function battle()
+	wait(2.5)
 	InitForCheckCurrentStage()
 
 	--TBD: counter not used
@@ -272,7 +273,7 @@ end
 function InitForCheckCurrentStage()
 	--Generate a snapshot ONCE in the beginning of battle(). Will re-run itself after entered memu().
 	if SnapshotGeneratedForStagecounter ~= 1 then
-		wait(2)
+		toast("Taking snapshot for stage recognition")
 		StageCountRegion:save("_GeneratedStageCounterSnapshot.png")		
 		SnapshotGeneratedForStagecounter = 1
 		StageCounter = 1
@@ -280,6 +281,7 @@ function InitForCheckCurrentStage()
 end
 
 function TargetChoose()
+	Settings:set('AutoWaitTimeout', 0)
     t1 = Target1Type:exists("target_servant.png")
 	usePreviousSnap(true)
 	t2 = Target2Type:exists("target_servant.png")
@@ -301,7 +303,8 @@ function TargetChoose()
 		TargetChoosen = 1
 	else
 		toast("No priority target selected")
-    end
+	end
+	Settings:set('AutoWaitTimeout', 3)
 end
 
 function executeSkill()
@@ -330,7 +333,7 @@ function executeSkill()
     	end
 		if npClicked == 0 then
 			--Wait for regular servant skill animation executed last time. Then proceed to next turn.
-    		wait(3)
+    		wait(2.7)
     	end	
     end
 end
@@ -348,6 +351,7 @@ function CheckCurrentStage(region)
 	
 	--Pattern not found, which means that stage changed. Generate another snapshot te be used next time.
 	if s == nil then
+		toast("Taking snapshot for stage recognition")
 		StageCountRegion:save("_GeneratedStageCounterSnapshot.png")
 		StageCounter = StageCounter + 1
 		toast("Battle "..StageCounter.."/3")
@@ -366,7 +370,7 @@ function decodeSkill(str, isFirstSkill)
 		Therefore, script is casting regular servant skills.]]
 	if isFirstSkill == 0 and npClicked == 0 and index >= -44 and MysticCode_OrderChange_ExchangeMode == 0 then
 		--Wait for regular servant skill animation executed last time.
-		wait(3)
+		wait(2.7)
 	end
 
 	--[[In ascii, char(4, 5, 6) command for servant NP456 = decimal(52, 53, 54) respectively.
@@ -460,7 +464,8 @@ function ultcard()
 	click(Ultcard3Click)
 end
 
-function doBattleLogic()	
+function doBattleLogic()
+	Settings:set('AutoWaitTimeout', 0)	
 	local cardStorage =
 	{
 		WB = {}, B = {}, RB = {},
@@ -512,7 +517,8 @@ function doBattleLogic()
 		if clickCount == 3 then
 			break
 		end
-	end	
+	end
+	Settings:set('AutoWaitTimeout', 3)
 end
 
 --[[Deprecated
@@ -557,14 +563,14 @@ function norcard()
 end]]
 
 function result()
-    wait(2.5)
+    wait(2)
     click(Location(1000, 1000))
-    wait(3.5)
+    wait(2)
     click(Location(1000, 1000))
-    wait(3.5)
+    wait(1.5)
     click(Location(2200, 1350))
     if isEvent == 1 then
-    	wait(2)
+    	wait(1.5)
     	click(Location(2200, 1350))
     end
     wait(15)
