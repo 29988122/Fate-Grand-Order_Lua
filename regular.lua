@@ -175,7 +175,7 @@ function init()
 	StoneUsed = 0
 	RefillDialogueShown = 0
 	AutoSkillParsedAndDialogueShown = 0
-	MysticCode_OrderChange_ExchangeMode = 0
+	MysticCode_OrderChange = 0
 	
 	--Check function CheckCurrentStage(region)
 	StageCounter = 1
@@ -365,10 +365,10 @@ function decodeSkill(str, isFirstSkill)
 
 	--[[isFirstSkill == 0: Not yet proceeded to next turn.
 		npClicked == 0: Not currently casting NP(not in card selection screen).
-		index >= -44 and MysticCode_OrderChange_ExchangeMode == 0: Not currently doing Order Change.
+		index >= -44 and MysticCode_OrderChange == 0: Not currently doing Order Change.
 		
 		Therefore, script is casting regular servant skills.]]
-	if isFirstSkill == 0 and npClicked == 0 and index >= -44 and MysticCode_OrderChange_ExchangeMode == 0 then
+	if isFirstSkill == 0 and npClicked == 0 and index >= -44 and MysticCode_OrderChange == 0 then
 		--Wait for regular servant skill animation executed last time.
 		wait(2.7)
 	end
@@ -401,23 +401,23 @@ function decodeSkill(str, isFirstSkill)
 		In ascii, char(x) = decimal(120)
 		120 - 96 = 24]]
 	if index == 24 then
-		MysticCode_OrderChange_ExchangeMode = 1
+		MysticCode_OrderChange = 1
 	end
 
 	--MysticCode-OrderChange master skill implementation.
 	--Actual clicking is done by the default case here.
-	if MysticCode_OrderChange_ExchangeMode == 1 then
+	if MysticCode_OrderChange == 1 then
 		--Click Order Change icon.
 		click(SkillClickArray[12])
-		MysticCode_OrderChange_ExchangeMode = 2
-	elseif MysticCode_OrderChange_ExchangeMode == 2 then
+		MysticCode_OrderChange = 2
+	elseif MysticCode_OrderChange == 2 then
 		click(StartingMemberClickArray[index])
-		MysticCode_OrderChange_ExchangeMode = 3
-	elseif MysticCode_OrderChange_ExchangeMode == 3 then
+		MysticCode_OrderChange = 3
+	elseif MysticCode_OrderChange == 3 then
 		click(SubMemberClickArray[index])
 		wait(0.3)
 		click(Location(1280,1260))
-		MysticCode_OrderChange_ExchangeMode = 0
+		MysticCode_OrderChange = 0
 		wait(5)
 	else
 		--Cast skills, NPs, or select target.
