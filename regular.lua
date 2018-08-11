@@ -418,7 +418,7 @@ function decodeSkill(str, isFirstSkill)
 		wait(0.3)
 		click(Location(1280,1260))
 		MysticCode_OrderChange_ExchangeMode = 0
-		wait(4)
+		wait(5)
 	else
 		--Cast skills, NPs, or select target.
 		click(SkillClickArray[index])
