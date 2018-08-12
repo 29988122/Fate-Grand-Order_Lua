@@ -597,7 +597,7 @@ function RefillDialogue()
 end
 
 function AutoSkillDialogue()
-	if Enable_Autoskill_List == 1 then
+	if Enable_Autoskill_List == 1 and AutoSkillParsedAndDialogueShown == 0 then
 		dialogInit()
 		addTextView("Please select your predefined Autoskill setting:")
 		newRow()
