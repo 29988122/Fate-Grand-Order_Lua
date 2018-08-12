@@ -1,5 +1,7 @@
 # Fate-Grand-Order_Lua
-This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info. 
+This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! 
+
+Check issue forum for further info. 
 
 Any of the questions can be asked in the "Issues" section, you don't really have to find my mail address or DM me on reddit, I'm always here. Don't be shy xD
 
