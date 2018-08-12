@@ -31,7 +31,7 @@ PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for 
   * [Auto refill](#auto-refill)
   * [Autoskill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
-    * [Autoskill List](#Autoskill List)
+    * [Autoskill List](#autoskill-list)
   * [Events](#events)
   * [Card Priority Customization](#card-priority-customization)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
