@@ -5,7 +5,6 @@ Any of the questions can be asked in the "Issues" section, you don't really have
 
 Please consider Star our repo to encourage us if this script is useful to you : )
 
-
 <p align="center">
   <a href="https://imgur.com/a/c6vKI">
     <img alt="Chaldea" src="https://camo.githubusercontent.com/19a9a5e1023613c01ba79aa1d03cae17d201f610/68747470733a2f2f7669676e65747465312e77696b69612e6e6f636f6f6b69652e6e65742f666174656772616e646f726465722f696d616765732f322f32642f4368616c6465615f53656375726974795f4f7267616e697a6174696f6e5f4c6f676f2e706e672f7265766973696f6e2f6c61746573742f7363616c652d746f2d77696474682d646f776e2f323030303f63623d3230313631313139303833333437" width="400"/>
@@ -15,7 +14,9 @@ Please consider Star our repo to encourage us if this script is useful to you : 
 [![Lua-5.1-Sikuli](https://cdn.rawgit.com/29988122/Fate-Grand-Order_Lua/ffdafd04/docs/Lua--Sikuli-5.1-blue.svg)](http://http://www.sikuli.org/)[![GitHub license](https://cdn.rawgit.com/29988122/Fate-Grand-Order_Lua/ffdafd04/docs/Fate-Grand-Order_Lua.svg)](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/LICENSE)
 
 Screw those farming events - I only wanna enjoy the (kinoko) story!
-Therefore I proudly brought you this: FGO automation script.
+Therefore I proudly brought you this: 
+
+FGO automation script.
 
 As of 2018.08.12, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
 Remember: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for the script.
