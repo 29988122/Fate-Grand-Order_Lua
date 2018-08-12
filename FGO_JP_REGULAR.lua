@@ -12,7 +12,7 @@ NotJPserverForStaminaRefillExtraClick = 1
 --スタミナ自動補充
 Refill_or_Not = 0
 Use_Stone = 0
-How_Many = 5
+How_Many = 0
 
 --[[
 オートスキル:
@@ -47,16 +47,13 @@ Skill_Confirmation: OFF = 0
 ]]
 Enable_Autoskill = 0
 Skill_Confirmation = 0
-Skill_Command = ""
---"gd5,#,e5,#,abchi1j4"
---Team1 "gd5,#,e5,#,abchj4"
---Team9 高傷害周回 "def5,#,x21abcgi14,#,defhj5"
+Skill_Command = "abc,#,def,#,ghi"
 
 --Enable_Autoskill_List = 1の場合は、スクリプトが起動する際、複数のオートスキル設定から一つを選択することができます
 Enable_Autoskill_List = 0
 Autoskill_List = {}
 --以下はユーザーが予め設定したオートスキルリストです
-Autoskill_List[1] = "gac4,#,def5,#,x11abchi1j4"
+Autoskill_List[1] = "abc,#,def,#,ghi"
 Autoskill_List[2] = ""
 Autoskill_List[3] = ""
 Autoskill_List[4] = ""
