@@ -1,9 +1,13 @@
---Default
+--Default, I suggest you not to modify them
 dir = scriptPath()
 setImagePath(dir .. "image_EN")
 StageCountRegion = Region(1722,25,46,53)
-NotJPserverForStaminaRefillExtraClick = 1
+
 --Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
+NotJPserverForStaminaRefillExtraClick = 1
+
+--[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
+    UnstableFastSkipDeadAnimation = 1]]
 
 --StaminaRefill
 Refill_or_Not = 0
@@ -45,6 +49,21 @@ Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = ""
 
+--When Enable_Autoskill_List = 1, the script starts with a dialogue for you to choose Autoskill setting from one of the predefined list
+Enable_Autoskill_List = 0
+Autoskill_List = {}
+--The folllowing are predefined settings by user
+Autoskill_List[1] = "gac4,#,def5,#,x11abchi1j4"
+Autoskill_List[2] = ""
+Autoskill_List[3] = ""
+Autoskill_List[4] = ""
+Autoskill_List[5] = ""
+Autoskill_List[6] = ""
+Autoskill_List[7] = ""
+Autoskill_List[8] = ""
+Autoskill_List[9] = ""
+Autoskill_List[10] = ""
+
 --You can change card selection priority. For example, BAQ stands for: weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
 Battle_CardPriority = "BAQ"
 
@@ -52,6 +71,3 @@ Battle_CardPriority = "BAQ"
 isEvent = 1
 
 dofile(dir .. "regular.lua")
-
---Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
---UnstableFastSkipDeadAnimation = 1

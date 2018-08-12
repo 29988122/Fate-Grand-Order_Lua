@@ -597,6 +597,24 @@ function RefillDialogue()
 end
 
 function AutoSkillDialogue()
+	if Enable_Autoskill_List == 1 then
+		dialogInit()
+		addTextView("Please select your predefined Autoskill setting:")
+		newRow()
+		addRadioGroup("AutoskillListIndex", 1)
+		addRadioButton("Setting 01 " .. Autoskill_List[1], 1)
+		addRadioButton("Setting 02 " .. Autoskill_List[2], 2)
+		addRadioButton("Setting 03 " .. Autoskill_List[3], 3)
+		addRadioButton("Setting 04 " .. Autoskill_List[4], 4)
+		addRadioButton("Setting 05 " .. Autoskill_List[5], 5)
+		addRadioButton("Setting 06 " .. Autoskill_List[6], 6)
+		addRadioButton("Setting 07 " .. Autoskill_List[7], 7)
+		addRadioButton("Setting 08 " .. Autoskill_List[8], 8)
+		addRadioButton("Setting 09 " .. Autoskill_List[9], 9)
+		addRadioButton("Setting 10 " .. Autoskill_List[10], 10)
+		dialogShow("Autoskill List Enabled")
+		Skill_Command = Autoskill_List[AutoskillListIndex]
+	end
 	if Enable_Autoskill == 1 and AutoSkillParsedAndDialogueShown == 0 then
 		if Refill_or_Not == 0 then
 			dialogInit()

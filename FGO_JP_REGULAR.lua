@@ -1,9 +1,13 @@
---デフォルト
+--デフォルト、触らない方がいい設定です
 dir = scriptPath()
 setImagePath(dir .. "image_JP")
 StageCountRegion = Region(1722,25,46,53)
-NotJPserverForStaminaRefillExtraClick = 1
+
 --Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
+NotJPserverForStaminaRefillExtraClick = 1
+
+--[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
+    UnstableFastSkipDeadAnimation = 1]]
 
 --スタミナ自動補充
 Refill_or_Not = 0
@@ -41,11 +45,27 @@ BATTLE 3:
 Skill_Confirmation: OFF = 0
 (ゲーム中はスキル使用確認ウィンドウがある場合) ON = 1
 ]]
-Enable_Autoskill = 1
+Enable_Autoskill = 0
 Skill_Confirmation = 0
-Skill_Command = "gd5,#,e5,#,abchi1j4"
+Skill_Command = ""
+--"gd5,#,e5,#,abchi1j4"
 --Team1 "gd5,#,e5,#,abchj4"
 --Team9 高傷害周回 "def5,#,x21abcgi14,#,defhj5"
+
+--Enable_Autoskill_List = 1の場合は、スクリプトが起動する際、複数のオートスキル設定から一つを選択することができます
+Enable_Autoskill_List = 0
+Autoskill_List = {}
+--以下はユーザーが予め設定したオートスキルリストです
+Autoskill_List[1] = "gac4,#,def5,#,x11abchi1j4"
+Autoskill_List[2] = ""
+Autoskill_List[3] = ""
+Autoskill_List[4] = ""
+Autoskill_List[5] = ""
+Autoskill_List[6] = ""
+Autoskill_List[7] = ""
+Autoskill_List[8] = ""
+Autoskill_List[9] = ""
+Autoskill_List[10] = ""
 
 --カード選択の優先順位。BAQの場合はweak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
 Battle_CardPriority = "BAQ"
@@ -54,6 +74,3 @@ Battle_CardPriority = "BAQ"
 isEvent = 0
 
 dofile(dir .. "regular.lua")
-
---Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
---UnstableFastSkipDeadAnimation = 1
