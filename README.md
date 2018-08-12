@@ -25,12 +25,13 @@ PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for 
 
 # Table of Contents:
 * [Install](#install)
-* [Use](#use)
+* [Usage](#usage)
 * [Extra scripts](#extra-scripts)
 * [Behavior details](#behavior-details)
   * [Auto refill](#auto-refill)
   * [Autoskill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
+    * [Autoskill List](#Autoskill List)
   * [Events](#events)
   * [Card Priority Customization](#card-priority-customization)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
@@ -57,7 +58,7 @@ On Android, install the latest version of sikuli framework here.
 7. Remember to update Fate-Grand-Order_Lua, just download the latest version from here, replace the old version in you phone.
 
 
-## Use:
+## Usage:
 Please choice the corresponding lua file in AnkuLua according to your:
 - FGO server (supported China / Japan / Taiwan / USA currently).
 - Used in event or regular stages. 
@@ -169,6 +170,10 @@ You are able to mix the Order Change command with normal autoskill command:
 Skill_Command = "bce,0,f3hi,#,j2d,#,4,x13a1g3"
 ```
 
+### AutoSkill List
+You can set Enable_Autoskill_List = 1 to enable this feature.
+You can setup a predefined autoskill list from 1~10, and the script let you choose whenever it ran.
+This especially helps if you need to farm few different stages during event.
 
 ## Events:
 If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
