@@ -173,8 +173,7 @@ function init()
 	--Set only ONCE for every separated script run.
 	initCardPriorityArray()
 	StoneUsed = 0
-	RefillDialogueShown = 0
-	AutoSkillParsedAndDialogueShown = 0
+	PSADialogueShown = 0
 	MysticCode_OrderChange = 0
 	
 	--Check function CheckCurrentStage(region)
@@ -239,7 +238,7 @@ function battle()
 		executeSkill()
     end
 	
-	--TargetChoose() and executeSKill().CheckCurrentStage() use the same snapshot.
+	--From TargetChoose() to executeSKill().CheckCurrentStage(), the same snapshot is used.
 	usePreviousSnap(false)
 	
     wait(0.5)
@@ -255,7 +254,7 @@ function battle()
 
     wait(0.5)
 	doBattleLogic()
-	--checkCardAffin(region) and checkCardType(region) use the same snapshot.
+	--From checkCardAffin(region) to checkCardType(region), the same snapshot is used.
     usePreviousSnap(false)
     
 	atkround = atkround + 1
@@ -281,7 +280,6 @@ function InitForCheckCurrentStage()
 end
 
 function TargetChoose()
-	Settings:set('AutoWaitTimeout', 0)
     t1 = Target1Type:exists("target_servant.png")
 	usePreviousSnap(true)
 	t2 = Target2Type:exists("target_servant.png")
@@ -304,7 +302,6 @@ function TargetChoose()
 	else
 		toast("No priority target selected")
 	end
-	Settings:set('AutoWaitTimeout', 3)
 end
 
 function executeSkill()
@@ -370,7 +367,8 @@ function decodeSkill(str, isFirstSkill)
 		Therefore, script is casting regular servant skills.]]
 	if isFirstSkill == 0 and npClicked == 0 and index >= -44 and MysticCode_OrderChange == 0 then
 		--Wait for regular servant skill animation executed last time.
-		wait(2.7)
+		--Do not make it shorter, at least 2.9s. Napoleon's skill animation is ridiculously long.
+		wait(3)
 	end
 
 	--[[In ascii, char(4, 5, 6) command for servant NP456 = decimal(52, 53, 54) respectively.
@@ -464,8 +462,7 @@ function ultcard()
 	click(Ultcard3Click)
 end
 
-function doBattleLogic()
-	Settings:set('AutoWaitTimeout', 0)	
+function doBattleLogic()	
 	local cardStorage =
 	{
 		WB = {}, B = {}, RB = {},
@@ -518,7 +515,6 @@ function doBattleLogic()
 			break
 		end
 	end
-	Settings:set('AutoWaitTimeout', 3)
 end
 
 --[[Deprecated
@@ -579,26 +575,39 @@ function result()
 	end
 end
 
-function RefillDialogue()
-	if Refill_or_Not == 1 and RefillDialogueShown == 0 then
-		if Use_Stone == 1 then
-			temp = "stones"
-		else
-			temp = "apples"
-		end
-		dialogInit()
-		addTextView("You are going to use "..How_Many.." "..temp..", remember to check those values everytime you execute the script!")
-		if Enable_Autoskill == 0 then
-			--Finsishd dialogue construction, show it on screen. dialogShow("%title of box%")
-			dialogShow("Auto Refill Enabled")
-		end
-		RefillDialogueShown = 1
+--Nested if...Will modify it when I know more.
+function PSADialogue()
+	if PSADialogueShown ~= 0 then
+		return
 	end
-end
+	dialogInit()
+	--Auto Refill dialogue content generation.
+	if Refill_or_Not == 1 then
+		if Use_Stone == 1 then
+			RefillType = "stones"
+		else
+			RefillType = "apples"
+		end
+		addTextView("Auto Refill Enabled:")
+		newRow()
+		addTextView("You are going to use")
+		newRow()
+		addTextView(How_Many .. " " .. RefillType .. ", ")
+		newRow()
+		addTextView("remember to check those values everytime you execute the script!")
+		addSeparator()
+	end
 
-function AutoSkillDialogue()
-	if Enable_Autoskill_List == 1 and AutoSkillParsedAndDialogueShown == 0 then
-		dialogInit()
+	--Autoskill dialogue content generation.
+	if Enable_Autoskill == 1 then
+		addTextView("AutoSkill Enabled:")
+		newRow()
+		addTextView("Start the script from memu or Battle 1/3 to make it work properly.")
+		addSeparator()
+	end
+
+	--Autoskill list dialogue content generation.
+	if Enable_Autoskill_List == 1 then
 		addTextView("Please select your predefined Autoskill setting:")
 		newRow()
 		addRadioGroup("AutoskillListIndex", 1)
@@ -612,53 +621,47 @@ function AutoSkillDialogue()
 		addRadioButton("Setting 08 " .. Autoskill_List[8], 8)
 		addRadioButton("Setting 09 " .. Autoskill_List[9], 9)
 		addRadioButton("Setting 10 " .. Autoskill_List[10], 10)
-		dialogShow("Autoskill List Enabled")
+	end
+
+	--Show the generated dialogue.
+	dialogShow("CAUTION")
+	PSADialogueShown = 1
+
+	--Put user selection into list for later exception handling.
+	if Enable_Autoskill_List == 1 then
 		Skill_Command = Autoskill_List[AutoskillListIndex]
 	end
-	if Enable_Autoskill == 1 and AutoSkillParsedAndDialogueShown == 0 then
-		if Refill_or_Not == 0 then
-			dialogInit()
-		else
-			newRow()
-		end
-		addTextView("AutoSkill Enabled! Start the script from memu or Battle 1/3 to make it work properly. Make sure that your Skill Command is correct before you execute the script!")
-		if Refill_or_Not == 0 then
-			--Finsishd dialogue construction, show it on screen. dialogShow("%title of box%")
-			dialogShow("AutoSkill Enabled")
-		else
-			--Finsishd dialogue construction, show it on screen. dialogShow("%title of box%")
-			dialogShow("AutoSkill and Auto Refill Enabled")
-		end
+
+	--Autoskill exception handling.
+	if Enable_Autoskill == 1 then
 		for word in string.gmatch(Skill_Command, "[^,]+") do
-  			if string.match(word, "[^0]") ~= nil then
-    			if string.match(word, "^[1-3]") ~= nil then
-      				scriptExit("Error at '" ..word.. "': Skill Command cannot start with number '1', '2' and '3'!")
-      			elseif string.match(word, "[%w+][#]") ~= nil or string.match(word, "[#][%w+]") ~= nil then
-      				scriptExit("Error at '" ..word.. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
-    			elseif string.match(word, "[^a-l^1-6^#^x]") ~= nil then
-        			scriptExit("Error at '" ..word.. "': Skill Command exceeded alphanumeric range! Expected 'x' or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
-        		end
-    		end
-  			if word == '#' then
-    			stageCount = stageCount + 1
-    			if stageCount > 5 then
-    		  		scriptExit("Error: Detected commands for more than 5 stages")
-    			end
-    		end
-    		if word ~= '#' then
-    			table.insert(StageSkillArray[stageCount], word)
-    			stageTurnArray[stageCount] = stageTurnArray[stageCount] + 1
-    		end
-  		end
-		AutoSkillParsedAndDialogueShown = 1
+			if string.match(word, "[^0]") ~= nil then
+				if string.match(word, "^[1-3]") ~= nil then
+					scriptExit("Error at '" ..word.. "': Skill Command cannot start with number '1', '2' and '3'!")
+				elseif string.match(word, "[%w+][#]") ~= nil or string.match(word, "[#][%w+]") ~= nil then
+					scriptExit("Error at '" ..word.. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
+			  	elseif string.match(word, "[^a-l^1-6^#^x]") ~= nil then
+					scriptExit("Error at '" ..word.. "': Skill Command exceeded alphanumeric range! Expected 'x' or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
+			  	end
+		  	end
+			if word == '#' then
+				stageCount = stageCount + 1
+				if stageCount > 5 then
+					scriptExit("Error: Detected commands for more than 5 stages")
+			  	end
+		  	end
+		  	if word ~= '#' then
+				table.insert(StageSkillArray[stageCount], word)
+			  	stageTurnArray[stageCount] = stageTurnArray[stageCount] + 1
+		  	end
+		end
 	end
 end
 
 while(1) do
 	--Execute only once
-	RefillDialogue()
-	AutoSkillDialogue()
-	
+	PSADialogue()
+
     if MenuRegion:exists("menu.png", 0) then
 		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
         menu()
