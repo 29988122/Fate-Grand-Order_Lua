@@ -7,6 +7,7 @@
 MenuRegion = Region(2100,1200,1000,1000)
 BattleRegion = Region(2200,200,1000,600)
 ResultRegion = Region(100,300,700,200)
+BondRegion = Region(2000,820,120,120)
 QuestrewardRegion = Region(1630,140,370,250)
 StaminaRegion = Region(600,200,300,300)
 
@@ -74,10 +75,11 @@ Target1Click = (Location(90,80))
 Target2Click = (Location(570,80))
 Target3Click = (Location(1050,80))
 
---[[NpbarRegion = Region(280,1330,1620,50)
-Ultcard1Region = Region(900,100,200,200)
-Ultcard2Region = Region(1350,100,200,200)
-Ultcard3Region = Region(1800,100,200,200)]]
+--[[For future use:
+	NpbarRegion = Region(280,1330,1620,50)
+	Ultcard1Region = Region(900,100,200,200)
+	Ultcard2Region = Region(1350,100,200,200)
+	Ultcard3Region = Region(1800,100,200,200)]]
 
 --Autoskill click regions.
 Skill1Click = (Location(140,1160))
@@ -132,11 +134,12 @@ SubMemberClickArray[-47] = SubMember1Click
 SubMemberClickArray[-46] = SubMember2Click
 SubMemberClickArray[-45] = SubMember3Click
 
---Wait for cleanup variables and its respective functions, from 1st version of my messed up code^TM.
-npClicked = 0
+--Autoskill and Autoskill exception handling related, waiting for cleanup.
+decodeSkill_NPCasting = 0
 stageCount = 1
 stageTurnArray = {0, 0, 0, 0, 0}
 turnCounter = {0, 0, 0, 0, 0}
+MysticCode_OrderChange = 0
 
 --Wait for cleanup variables and its respective functions, my messed up code^TM.
 atkround = 1
@@ -152,7 +155,6 @@ atkround = 1
 function initCardPriorityArray()
 	--[[Considering:
 	Battle_CardPriority = "BAQ"
-
 	then:
 	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}]]
 	local count = 0
@@ -174,7 +176,6 @@ function init()
 	initCardPriorityArray()
 	StoneUsed = 0
 	PSADialogueShown = 0
-	MysticCode_OrderChange = 0
 	
 	--Check function CheckCurrentStage(region)
 	StageCounter = 1
@@ -184,15 +185,23 @@ init()
 
 function menu()
     atkround = 1
-    npClicked = 0
-    turnCounter = {0, 0, 0, 0, 0}
+    decodeSkill_NPCasting = 0
+	turnCounter = {0, 0, 0, 0, 0}
+	
+	--Click uppermost quest.
     click(Location(1900,400))
-    wait(1.5)
+	wait(1.5)
+	
+	--Auto refill.
     if Refill_or_Not == 1 and StoneUsed < How_Many then
         RefillStamina()
-    end
+	end
+	
+	--Friend selection. Customization TBD.
     click(Location(1900,500))
-    wait(1.5)
+	wait(1.5)
+	
+	--Click quest start.
     click(Location(2400,1350))
 	wait(8)
 end
@@ -202,13 +211,13 @@ function RefillStamina()
         if Use_Stone == 1 then
 			click(StoneClick)
 			toast("Auto Refilling Stamina")
-	    wait(1.5)
+	    	wait(1.5)
             click(Location(1650,1120))
             StoneUsed = StoneUsed + 1
         else
 			click(AppleClick)
 			toast("Auto Refilling Stamina")
-	    wait(1.5)
+	    	wait(1.5)
             click(Location(1650,1120))
             StoneUsed = StoneUsed + 1
         end
@@ -225,7 +234,7 @@ function battle()
 	wait(2.5)
 	InitForCheckCurrentStage()
 
-	--TBD: counter not used
+	--TBD: counter not used, will replace atkround.
 	local RoundCounter = 1
 	
 	if TargetChoosen ~= 1 then
@@ -242,14 +251,14 @@ function battle()
 	usePreviousSnap(false)
 	
     wait(0.5)
-	if npClicked == 0 then
+	if decodeSkill_NPCasting == 0 then
 		--enter card selection screen
     	click(Location(2300,1200))
     	wait(1)
 	end
     
-    if TargetChoosen == 1 and npClicked == 0 then
-        ultcard()
+    if TargetChoosen == 1 and decodeSkill_NPCasting == 0 then
+        --ultcard()
     end
 
     wait(0.5)
@@ -305,7 +314,7 @@ function TargetChoose()
 end
 
 function executeSkill()
-	npClicked = 0
+	decodeSkill_NPCasting = 0
 	local currentStage = 1
 	local currentTurn = atkround
 	if stageCount ~= 1 then
@@ -328,7 +337,7 @@ function executeSkill()
         		firstSkill = 0	
         	end
     	end
-		if npClicked == 0 then
+		if decodeSkill_NPCasting == 0 then
 			--Wait for regular servant skill animation executed last time. Then proceed to next turn.
     		wait(2.7)
     	end	
@@ -361,14 +370,14 @@ function decodeSkill(str, isFirstSkill)
 	local index = string.byte(str) - 96
 
 	--[[isFirstSkill == 0: Not yet proceeded to next turn.
-		npClicked == 0: Not currently casting NP(not in card selection screen).
+		decodeSkill_NPCasting == 0: Not currently casting NP(not in card selection screen).
 		index >= -44 and MysticCode_OrderChange == 0: Not currently doing Order Change.
 		
 		Therefore, script is casting regular servant skills.]]
-	if isFirstSkill == 0 and npClicked == 0 and index >= -44 and MysticCode_OrderChange == 0 then
+	if isFirstSkill == 0 and decodeSkill_NPCasting == 0 and index >= -44 and MysticCode_OrderChange == 0 then
 		--Wait for regular servant skill animation executed last time.
 		--Do not make it shorter, at least 2.9s. Napoleon's skill animation is ridiculously long.
-		wait(3)
+		wait(3.1)
 	end
 
 	--[[In ascii, char(4, 5, 6) command for servant NP456 = decimal(52, 53, 54) respectively.
@@ -376,11 +385,11 @@ function decodeSkill(str, isFirstSkill)
 		52 - 96 = -44 
 		53 - 96 = -43 
 		54 - 96 = -42]]	
-	if index >= -44 and index <= -42 and npClicked == 0 then
+	if index >= -44 and index <= -42 and decodeSkill_NPCasting == 0 then
 		---Enter card selection screen, ready to cast NP.
 		click(Location(2300,1200))
-		npClicked = 1
-		wait(1)
+		decodeSkill_NPCasting = 1
+		wait(0.8)
 	end
 
 	--[[In ascii, char(j, k, l) and char(x) command for master skill = decimal(106, 107, 108) and decimal(120) respectively.
@@ -559,17 +568,32 @@ function norcard()
 end]]
 
 function result()
+	--Bond exp screen.
     wait(2)
-    click(Location(1000, 1000))
+	click(Location(1000, 1000))
+	
+	--Bond level up screen.
+	if BondRegion:exists("bond.png") then
+		wait(1)
+		click(Location(1000, 1000))
+	end
+
+	--Master exp screen.
     wait(2)
-    click(Location(1000, 1000))
+	click(Location(1000, 1000))
+	
+	--Obtained item screen.
     wait(1.5)
-    click(Location(2200, 1350))
+	click(Location(2200, 1350))
+	
+	--Extra event item screen.
     if isEvent == 1 then
     	wait(1.5)
     	click(Location(2200, 1350))
     end
-    wait(15)
+	wait(15)
+	
+	--1st time quest reward screen.
 	if QuestrewardRegion:exists("questreward.png") ~= nil then
 		click(Location(100,100))
 	end
