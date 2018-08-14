@@ -144,6 +144,8 @@ MysticCode_OrderChange = 0
 --Wait for cleanup variables and its respective functions, my messed up code^TM.
 atkround = 1
 
+--TBD:Autoskill execution optimization, switch target during Autoskill, Do not let Targetchoose().ultcard() interfere with Autoskill. 
+
 --[[recognize speed realated functions:
 	1.setScanInterval(1)
 	2.Settings:set("MinSimilarity", 0.5)
