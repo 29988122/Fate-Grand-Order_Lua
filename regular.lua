@@ -144,7 +144,7 @@ MysticCode_OrderChange = 0
 --Wait for cleanup variables and its respective functions, my messed up code^TM.
 atkround = 1
 
---TBD:Autoskill execution optimization, switch target during Autoskill, Do not let Targetchoose().ultcard() interfere with Autoskill. 
+--TBD:Autoskill execution optimization, switch target during Autoskill, Do not let Targetchoose().ultcard() interfere with Autoskill, battle()execution order cleanup. 
 
 --[[recognize speed realated functions:
 	1.setScanInterval(1)
@@ -601,7 +601,7 @@ function result()
 	end
 end
 
---Nested if...Will modify it when I know more.
+--User option PSA dialogue. Also choosble list of perdefined skill.
 function PSADialogue()
 	if PSADialogueShown ~= 0 then
 		return
