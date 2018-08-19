@@ -1,8 +1,13 @@
---デフォルト
+--デフォルト、触らない方がいい設定です
 dir = scriptPath()
 setImagePath(dir .. "image_JP")
-stageCountRegion = Region(1724,24,38,50)
+StageCountRegion = Region(1722,25,46,53)
+
+--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
 NotJPserverForStaminaRefillExtraClick = 1
+
+--[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
+    UnstableFastSkipDeadAnimation = 1]]
 
 --スタミナ自動補充
 Refill_or_Not = 0
@@ -45,7 +50,25 @@ Skill_Confirmation: OFF = 0
 ]]
 Enable_Autoskill = 0
 Skill_Confirmation = 0
-Skill_Command = ""
+Skill_Command = "abc,#,def,#,ghi"
+
+--Enable_Autoskill_List = 1の場合は、スクリプトが起動する際、複数のオートスキル設定から一つを選択することができます
+Enable_Autoskill_List = 0
+Autoskill_List = {}
+--以下はユーザーが予め設定したオートスキルリストです
+Autoskill_List[1] = "abc,#,def,#,ghi"
+Autoskill_List[2] = ""
+Autoskill_List[3] = ""
+Autoskill_List[4] = ""
+Autoskill_List[5] = ""
+Autoskill_List[6] = ""
+Autoskill_List[7] = ""
+Autoskill_List[8] = ""
+Autoskill_List[9] = ""
+Autoskill_List[10] = ""
+
+--カード選択の優先順位。BAQの場合はweak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
+Battle_CardPriority = "BAQ"
 
 --イベントステージ終了時にて別枠がある場合（もう一つのポイント報酬ウィンドウとか、詳細はウェブのreadmeで）
 isEvent = 0

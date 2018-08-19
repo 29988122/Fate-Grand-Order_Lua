@@ -1,7 +1,10 @@
---預設
+--預設，建議不要動
 dir = scriptPath()
 setImagePath(dir .. "image_CN")
-stageCountRegion = Region(1736,30,36,40)
+StageCountRegion = Region(1722,25,46,53)
+
+--[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
+    UnstableFastSkipDeadAnimation = 1]]
 
 --自動補體
 Refill_or_Not = 0
@@ -42,12 +45,32 @@ BATTLE 3:
 Skill_Confirmation: OFF = 0
 (若您在遊戲內需要點選確認視窗才能使用技能) ON = 1
 ]]
-
 Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = ""
+
+--Enable_Autoskill_List = 1的話、腳本啟動時會讓你從以下十組自動技能設定中選擇一組來使用
+Enable_Autoskill_List = 0
+Autoskill_List = {}
+--以下是使用者預先定義好的自動技能設定清單
+Autoskill_List[1] = "gac4,#,def5,#,x11abchi1j4"
+Autoskill_List[2] = ""
+Autoskill_List[3] = ""
+Autoskill_List[4] = ""
+Autoskill_List[5] = ""
+Autoskill_List[6] = ""
+Autoskill_List[7] = ""
+Autoskill_List[8] = ""
+Autoskill_List[9] = ""
+Autoskill_List[10] = ""
+
+--可以用這個選項組藍卡隊了安安。這個選項會影響卡片選擇優先順位，例：BAQ代表weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
+Battle_CardPriority = "BAQ"
 
 --若活動有另外的獎勵視窗需點選，isEvent = 1。 詳細請見github上的readme。
 isEvent = 0
 
 dofile(dir .. "regular.lua")
+
+--Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
+--UnstableFastSkipDeadAnimation = 1

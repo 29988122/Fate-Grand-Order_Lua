@@ -1,12 +1,9 @@
 # Fate-Grand-Order_Lua
+This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info. 
 
-As of 2018.02.19, this script is working WITHOUT ROOT / BEING BLOCKED, I DO NOT take responsibility for your banned account! 
-```
-(Alghough I highly doubt it, 
-they really should not add extra detection method as it will only drag the game EVEN slower, 
-let alone this script runs at human speed.)
-```
-This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info.
+Any of the questions can be asked in the "Issues" section, you don't really have to find my mail address or DM me on reddit, I'm always here. Don't be shy xD
+
+Please consider Star our repo to encourage us if this script is useful to you : )
 
 <p align="center">
   <a href="https://imgur.com/a/c6vKI">
@@ -14,21 +11,29 @@ This script supported CN, EN, JP and TW server. KR server support can be added i
   </a>
 </p>
 
-![Lua-Sikuli](https://img.shields.io/badge/Lua--Sikuli-5.1-blue.svg) [![GitHub license](https://img.shields.io/github/license/29988122/Fate-Grand-Order_Lua.svg)](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/LICENSE)
-
+[![Lua-5.1-Sikuli](https://cdn.rawgit.com/29988122/Fate-Grand-Order_Lua/ffdafd04/docs/Lua--Sikuli-5.1-blue.svg)](http://http://www.sikuli.org/)[![GitHub license](https://cdn.rawgit.com/29988122/Fate-Grand-Order_Lua/ffdafd04/docs/Fate-Grand-Order_Lua.svg)](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/LICENSE)
 
 Screw those farming events - I only wanna enjoy the (kinoko) story!
+
 Therefore I proudly brought you this: FGO automation script.
+
+As of 2018.08.12, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
+
+PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for the script.
+
+[Disclaimer and concern about your account](ACCOUNT%20SAFETY.md)
 
 # Table of Contents:
 * [Install](#install)
-* [Use](#use)
+* [Usage](#usage)
 * [Extra scripts](#extra-scripts)
 * [Behavior details](#behavior-details)
   * [Auto refill](#auto-refill)
   * [Autoskill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
+    * [Autoskill List](#autoskill-list)
   * [Events](#events)
+  * [Card Priority Customization](#card-priority-customization)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Feature requests, 說明, 要望](#feature-requests)
 
@@ -53,7 +58,7 @@ On Android, install the latest version of sikuli framework here.
 7. Remember to update Fate-Grand-Order_Lua, just download the latest version from here, replace the old version in you phone.
 
 
-## Use:
+## Usage:
 Please choice the corresponding lua file in AnkuLua according to your:
 - FGO server (supported China / Japan / Taiwan / USA currently).
 - Used in event or regular stages. 
@@ -165,12 +170,29 @@ You are able to mix the Order Change command with normal autoskill command:
 Skill_Command = "bce,0,f3hi,#,j2d,#,4,x13a1g3"
 ```
 
+### AutoSkill List
+You can set Enable_Autoskill_List = 1 to enable this feature.
+You can setup a predefined autoskill list from 1~10, and the script let you choose whenever it ran.
+This especially helps if you need to farm few different stages during event.
 
 ## Events:
 If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
 
 This will allow the use of this script for the particular events.
 If there are other additional windows, a custom script is required. 
+
+## Card Priority Customization:
+By changing the Battle_CardPriority option in the lua file you are executing(CN, EN, JP or TW), you can have your card selection behavior change. For example:
+```
+Battle_CardPriority = "BAQ" 
+It will select Weak Buster->Buster->Resist Buster->Weak Arts->Arts->Resist Arts->Weak Quick->Quick->Resist Quick cards until all three cards included CPs are selected.
+
+Battle_CardPriority = "ABQ"
+It will select Weak Arts->Arts->Resist Arts->Weak Buster->Buster->Resist Buster->Weak Quick->Quick->Resist Quick cards until all three cards included CPs are selected. 
+
+Currently we don't support more detailed card selection parameters, sorry!
+However, you can join us, write your code, and make a Pull Request to help other FGO players around the world. Thank you.
+```
 
 ## How to capture screen for recognition:
 You can manually replace target\_servant.png inside image folder to customize your priority target.
