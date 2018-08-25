@@ -1,6 +1,8 @@
 --預設，建議不要動
 dir = scriptPath()
-setImagePath(dir .. "image_CN")
+setImagePath(dir)
+
+GameRegion = "CN"
 StageCountRegion = Region(1722,25,46,53)
 
 --[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 

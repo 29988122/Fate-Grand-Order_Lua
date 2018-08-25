@@ -1,6 +1,8 @@
 --デフォルト、触らない方がいい設定です
 dir = scriptPath()
-setImagePath(dir .. "image_JP")
+setImagePath(dir)
+
+GameRegion = "JP"
 StageCountRegion = Region(1722,25,46,53)
 
 --Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
