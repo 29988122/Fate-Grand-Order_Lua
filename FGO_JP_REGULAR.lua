@@ -14,8 +14,12 @@ Refill_or_Not = 0
 Use_Stone = 0
 How_Many = 0
 
---SupportSelection
-Support_SelectFirstVisible = 1
+--Support selection possible options: "first"; "preferred"; "manual"
+Support_SelectionMode = "first"
+Support_PreferredImage = "waver4.png"
+Support_SwapsPerRefresh = 10
+Support_MaxRefreshes = 3
+Support_FallbackTo = "manual"
 
 --[[
 オートスキル:

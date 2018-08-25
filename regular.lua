@@ -11,6 +11,12 @@ BondRegion = Region(2000,820,120,120)
 QuestrewardRegion = Region(1630,140,370,250)
 StaminaRegion = Region(600,200,300,300)
 
+SupportScreenRegion = Region(0,0,110,332)
+SupportListRegion = Region(0,334,2443,1107)
+SupportListTopClick = Location(2480,360)
+SupportUpdateClick = Location(1670, 250)
+SupportUpdateYesClick = Location(1660, 1110)
+
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
 
@@ -199,13 +205,12 @@ function menu()
         RefillStamina()
 	end
 	
-	--Friend selection. Customization TBD.
-    click(Location(1900,500))
-	wait(1.5)
-	
-	--Click quest start.
-    click(Location(2400,1350))
-	wait(8)
+	--Friend selection.
+	local hasSelectedSupport = selectSupport(Support_SelectionMode)
+	if hasSelectedSupport then
+		wait(1.5)
+		startQuest()
+	end
 end
 
 function RefillStamina()
@@ -230,6 +235,61 @@ function RefillStamina()
 			wait(1.5)
 		end
     end
+end
+
+function selectSupport(selectionMode)
+	if SupportScreenRegion:exists("support_screen.png") then
+		if selectionMode == "first" then
+			return selectFirstSupport()
+		elseif selectionMode == "preferred" then
+			return selectPreferredSupport()
+		elseif selectionMode == "manual" then
+			scriptExit("Support selection mode set to \"manual\".")
+		else
+			scriptExit("Invalid support selection mode: \"" + selectionMode + "\".")
+		end
+	end
+
+	return false
+end
+
+function selectFirstSupport()
+	click(Location(1900,500))
+	return true
+end
+
+function selectPreferredSupport()
+	local numberOfSwipes = 0
+	local numberOfUpdates = 0
+	
+	while (true)
+	do
+		local supports = regionFindAllNoFindException(SupportListRegion, Support_PreferredImage)
+		for i, support in ipairs(supports) do
+			click(support)
+			return true -- found
+		end
+
+		if numberOfSwipes < Support_SwapsPerRefresh then
+			swipe(Location(1200, 1150), Location(1200, 800))			
+			numberOfSwipes = numberOfSwipes + 1
+		elseif numberOfUpdates < Support_MaxRefreshes then		
+			click(SupportUpdateClick)
+			wait(1)
+			click(SupportUpdateYesClick)
+			wait(3)
+
+			numberOfUpdates = numberOfUpdates + 1
+			numberOfSwipes = 0
+		else -- not found :(
+			click(SupportListTopClick)
+			return selectSupport(Support_FallbackTo)
+		end
+	end
+end
+
+function startQuest()
+	click(Location(2400,1350))
 end
 
 function battle()
@@ -260,7 +320,7 @@ function battle()
 	end
     
     if TargetChoosen == 1 and decodeSkill_NPCasting == 0 then
-        --ultcard()
+        ultcard()
     end
 
     wait(0.5)
