@@ -324,7 +324,7 @@ function battle()
 	end
     
     if TargetChoosen == 1 and decodeSkill_NPCasting == 0 then
-        ultcard()
+        --ultcard()
     end
 
     wait(0.5)
