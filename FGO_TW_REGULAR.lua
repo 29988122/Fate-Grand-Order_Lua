@@ -1,7 +1,8 @@
 --預設，建議不要動
 dir = scriptPath()
-setImagePath(dir .. "image_TW")
+setImagePath(dir)
 
+GameRegion = "TW"
 --StageCountRegion issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
 StageCountRegion = Region(1710,25,55,60)
 
@@ -12,6 +13,13 @@ StageCountRegion = Region(1710,25,55,60)
 Refill_or_Not = 0
 Use_Stone = 0
 How_Many = 0
+
+--Support selection possible options: "first"; "preferred"; "manual"
+Support_SelectionMode = "first"
+Support_PreferredImage = "waver4.png"
+Support_SwapsPerRefresh = 10
+Support_MaxRefreshes = 3
+Support_FallbackTo = "manual"
 
 --[[
 自動技能:

@@ -1,6 +1,8 @@
 --デフォルト、触らない方がいい設定です
 dir = scriptPath()
-setImagePath(dir .. "image_JP")
+setImagePath(dir)
+
+GameRegion = "JP"
 StageCountRegion = Region(1722,25,46,53)
 
 --Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
@@ -13,6 +15,13 @@ NotJPserverForStaminaRefillExtraClick = 1
 Refill_or_Not = 0
 Use_Stone = 0
 How_Many = 0
+
+--Support selection possible options: "first"; "preferred"; "manual"
+Support_SelectionMode = "first"
+Support_PreferredImage = "waver4.png"
+Support_SwapsPerRefresh = 10
+Support_MaxRefreshes = 3
+Support_FallbackTo = "manual"
 
 --[[
 オートスキル:

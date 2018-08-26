@@ -11,6 +11,12 @@ BondRegion = Region(2000,820,120,120)
 QuestrewardRegion = Region(1630,140,370,250)
 StaminaRegion = Region(600,200,300,300)
 
+SupportScreenRegion = Region(0,0,110,332)
+SupportListRegion = Region(0,334,2443,1107)
+SupportListTopClick = Location(2480,360)
+SupportUpdateClick = Location(1670, 250)
+SupportUpdateYesClick = Location(1660, 1110)
+
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
 
@@ -134,6 +140,10 @@ SubMemberClickArray[-47] = SubMember1Click
 SubMemberClickArray[-46] = SubMember2Click
 SubMemberClickArray[-45] = SubMember3Click
 
+--File paths
+GeneralImagePath = "image_" .. GameRegion .. "/"
+SupportImagePath = "image_SUPPORT" .. "/"
+
 --Autoskill and Autoskill exception handling related, waiting for cleanup.
 decodeSkill_NPCasting = 0
 stageCount = 1
@@ -199,17 +209,16 @@ function menu()
         RefillStamina()
 	end
 	
-	--Friend selection. Customization TBD.
-    click(Location(1900,500))
-	wait(1.5)
-	
-	--Click quest start.
-    click(Location(2400,1350))
-	wait(8)
+	--Friend selection.
+	local hasSelectedSupport = selectSupport(Support_SelectionMode)
+	if hasSelectedSupport then
+		wait(1.5)
+		startQuest()
+	end
 end
 
 function RefillStamina()
-    if StaminaRegion:exists("stamina.png", 0) then
+    if StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) then
         if Use_Stone == 1 then
 			click(StoneClick)
 			toast("Auto Refilling Stamina")
@@ -230,6 +239,61 @@ function RefillStamina()
 			wait(1.5)
 		end
     end
+end
+
+function selectSupport(selectionMode)
+	if SupportScreenRegion:exists(GeneralImagePath .. "support_screen.png") then
+		if selectionMode == "first" then
+			return selectFirstSupport()
+		elseif selectionMode == "preferred" then
+			return selectPreferredSupport()
+		elseif selectionMode == "manual" then
+			scriptExit("Support selection mode set to \"manual\".")
+		else
+			scriptExit("Invalid support selection mode: \"" + selectionMode + "\".")
+		end
+	end
+
+	return false
+end
+
+function selectFirstSupport()
+	click(Location(1900,500))
+	return true
+end
+
+function selectPreferredSupport()
+	local numberOfSwipes = 0
+	local numberOfUpdates = 0
+	
+	while (true)
+	do
+		local supports = regionFindAllNoFindException(SupportListRegion, SupportImagePath .. Support_PreferredImage)
+		for i, support in ipairs(supports) do
+			click(support)
+			return true -- found
+		end
+
+		if numberOfSwipes < Support_SwapsPerRefresh then
+			swipe(Location(1200, 1150), Location(1200, 800))			
+			numberOfSwipes = numberOfSwipes + 1
+		elseif numberOfUpdates < Support_MaxRefreshes then		
+			click(SupportUpdateClick)
+			wait(1)
+			click(SupportUpdateYesClick)
+			wait(3)
+
+			numberOfUpdates = numberOfUpdates + 1
+			numberOfSwipes = 0
+		else -- not found :(
+			click(SupportListTopClick)
+			return selectSupport(Support_FallbackTo)
+		end
+	end
+end
+
+function startQuest()
+	click(Location(2400,1350))
 end
 
 function battle()
@@ -284,20 +348,20 @@ function InitForCheckCurrentStage()
 	--Generate a snapshot ONCE in the beginning of battle(). Will re-run itself after entered memu().
 	if SnapshotGeneratedForStagecounter ~= 1 then
 		toast("Taking snapshot for stage recognition")
-		StageCountRegion:save("_GeneratedStageCounterSnapshot.png")		
+		StageCountRegion:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")		
 		SnapshotGeneratedForStagecounter = 1
 		StageCounter = 1
 	end
 end
 
 function TargetChoose()
-    t1 = Target1Type:exists("target_servant.png")
+    t1 = Target1Type:exists(GeneralImagePath .. "target_servant.png")
 	usePreviousSnap(true)
-	t2 = Target2Type:exists("target_servant.png")
-	t3 = Target3Type:exists("target_servant.png")
-	t1a = Target1Type:exists("target_danger.png")
-	t2a = Target2Type:exists("target_danger.png")
-	t3a = Target3Type:exists("target_danger.png")
+	t2 = Target2Type:exists(GeneralImagePath .. "target_servant.png")
+	t3 = Target3Type:exists(GeneralImagePath .. "target_servant.png")
+	t1a = Target1Type:exists(GeneralImagePath .. "target_danger.png")
+	t2a = Target2Type:exists(GeneralImagePath .. "target_danger.png")
+	t3a = Target3Type:exists(GeneralImagePath .. "target_danger.png")
     if t1 ~= nil or t1a ~= nil then
         click(Target1Click)
 		toast("Switched to priority target")
@@ -349,7 +413,7 @@ end
 function CheckCurrentStage(region)
 	--Alternative fix for different font of stagecount number among different regions, worked pretty damn well tho.
 	--This will compare last screenshot with current screen, effectively get to know if stage changed or not.
-	local s = region:exists(Pattern("_GeneratedStageCounterSnapshot.png"):similar(0.8))
+	local s = region:exists(Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png"):similar(0.8))
 
 	--Pattern found, stage did not change.
 	if s ~= nil then
@@ -360,7 +424,7 @@ function CheckCurrentStage(region)
 	--Pattern not found, which means that stage changed. Generate another snapshot te be used next time.
 	if s == nil then
 		toast("Taking snapshot for stage recognition")
-		StageCountRegion:save("_GeneratedStageCounterSnapshot.png")
+		StageCountRegion:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
 		StageCounter = StageCounter + 1
 		toast("Battle "..StageCounter.."/3")
 		return StageCounter
@@ -438,13 +502,13 @@ function decodeSkill(str, isFirstSkill)
 end	
 
 function checkCardAffin(region)
-	weakAvail = region:exists("weak.png")
+	weakAvail = region:exists(GeneralImagePath .. "weak.png")
 	usePreviousSnap(true)
 	if weakAvail ~= nil then
 		return WeakMulti
 	end
 	
-	if region:exists("resist.png") ~= nil then
+	if region:exists(GeneralImagePath .. "resist.png") ~= nil then
 		return ResistMulti
 	else
 		return NormalMulti
@@ -452,15 +516,15 @@ function checkCardAffin(region)
 end
 
 function checkCardType(region)
-	if region:exists("buster.png") ~= nil then
+	if region:exists(GeneralImagePath .. "buster.png") ~= nil then
 		return BCard
 	end
 	
-	if region:exists("art.png") ~= nil then
+	if region:exists(GeneralImagePath .. "art.png") ~= nil then
 		return ACard
 	end
 	
-	if region:exists("quick.png") ~= nil then
+	if region:exists(GeneralImagePath .. "quick.png") ~= nil then
 		return QCard
 	else
 		return BCard
@@ -575,7 +639,7 @@ function result()
 	click(Location(1000, 1000))
 	
 	--Bond level up screen.
-	if BondRegion:exists("bond.png") then
+	if BondRegion:exists(GeneralImagePath .. "bond.png") then
 		wait(1)
 		click(Location(1000, 1000))
 	end
@@ -596,7 +660,7 @@ function result()
 	wait(15)
 	
 	--1st time quest reward screen.
-	if QuestrewardRegion:exists("questreward.png") ~= nil then
+	if QuestrewardRegion:exists(GeneralImagePath .. "questreward.png") ~= nil then
 		click(Location(100,100))
 	end
 end
@@ -688,17 +752,17 @@ while(1) do
 	--Execute only once
 	PSADialogue()
 
-    if MenuRegion:exists("menu.png", 0) then
+    if MenuRegion:exists(GeneralImagePath .. "menu.png", 0) then
 		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
         menu()
 		TargetChoosen = 0
 
 		SnapshotGeneratedForStagecounter = 0
     end
-    if BattleRegion:exists("battle.png", 0) then
+    if BattleRegion:exists(GeneralImagePath .. "battle.png", 0) then
         battle()
     end
-    if ResultRegion:exists("result.png", 0) then
+    if ResultRegion:exists(GeneralImagePath .. "result.png", 0) then
         result()
     end
 end
