@@ -28,11 +28,11 @@ PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for 
 * [Usage](#usage)
 * [Extra scripts](#extra-scripts)
 * [Behavior details](#behavior-details)
-  * [Auto refill](#auto-refill)
-  * [Autoskill](#autoskill)
+  * [AutoRefill](#autorefill)
+  * [AutoSkill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
-    * [Autoskill List](#autoskill-list)
-  * [User-defined support selection](#user-defined-support-selection)
+    * [AutoSkill List](#autoskill-list)
+  * [AutoSupportSelection](#autosupportselection)
   * [Events](#events)
   * [Card Priority Customization](#card-priority-customization)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
@@ -60,12 +60,10 @@ On Android, install the latest version of sikuli framework here.
 
 
 ## Usage:
-Please choice the corresponding lua file in AnkuLua according to your:
+Please choose the corresponding lua file in AnkuLua according to your:
 - FGO server (supported China / Japan / Taiwan / USA currently).
-- Used in event or regular stages. 
-Because sometimes events have extra window options to click, hence different version of scripts is required.
-If there's no extra options for the current event during battle sequence, please use the regular one.
-Refer to [Events](#events) for more details.
+Modify the lua file, change settings and add functions such as AutoSkill or AutoRefill to suit your needs.
+(Sometimes, events have extra window options to click. Refer to [Events](#events) for more details.)
 
 Then, put your game in either:
 - menu, put your desired quest as the 1st item on the screen(upper-right corner).
@@ -83,9 +81,9 @@ As title. It will keep gacha until your bag's full.
 Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 ## Behavior details:
-- It is customized for events in JP server, hence some minor adjustments will be done frequently. **Remember to update!**
+- Major and minor adjustments will be done frequently as FGO updates. **Remember to update!**
 
-- Stamina does NOT automatically refilled, if you need to refill them automatically, please check [Auto refill](#auto-refill)
+- Stamina does NOT automatically refilled, if you need to refill them automatically, please check [AutoRefill](#autorefill)
 
 - Script sometimes stucked at certain screen - that's because FGO and delightworks SUCKED. If loading took too long, script will think it already finished loading and click when game's in fact not ready. Restart the script manually should suffice, or adjust all the wait() function in the .lua yourself. 3-5 seconds more would be enough. 
 
@@ -95,11 +93,11 @@ Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 - Choose your party member wisely. Because this script does not do B/A/Q or brave chains, you have to observe the behavior of the script, and arrange your party accordingly in order to gain max clear efficiency / prevent party wipe from highest level event stage. 
 
-- Customized skill command is supported, though the command execution is still highly depends on runtime conditions. Please check [Autoskill](#autoskill).
+- Customized skill command is supported, though the command execution is still highly depends on runtime conditions. Please check [AutoSkill](#autoskill).
 
-- User-defined support selection is supported, though it could be slow at times, please consider your farming efficiency. Please check [User-defined support selection](#user-defined-support-selection).
+- User-defined support selection is supported, though it could be slow at times, please consider your farming efficiency. Please check [AutoSupportSelection](#autosupportselection).
 
-## Auto refill:
+## AutoRefill:
 If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
 
 There are 3 variables - Refill\_or\_Not = 0, Use\_Stone = 0, How\_Many = 0. 
@@ -108,8 +106,8 @@ You should change Refill\_or\_Not to 1 to enable the auto refill feature, Use\_S
 
 For example, Refill\_or\_Not = 1 Use\_Stone = 1 How\_Many = 3 will enable the auto refill feature, use stone 3 times, and stop at the "not enough stamina" screen, without using 4th stone.
 
-## Autoskill:
-Autoskill allows you to execute customized skill command according to your team using a string. To enable, please modify the lua file you are executing(CN, EN, JP or TW).
+## AutoSkill:
+AutoSkill allows you to execute customized skill command according to your team using a string. To enable, please modify the lua file you are executing(CN, EN, JP or TW).
 
 Change Enable_Autoskill to 1 if you wish to enable it, 0 to disable. 
 
@@ -176,8 +174,10 @@ You can set Enable_Autoskill_List = 1 to enable this feature.
 You can setup a predefined autoskill list from 1~10, and the script let you choose whenever it ran.
 This especially helps if you need to farm few different stages during event.
 
-## User-defined support selection
-
+### AutoSupportSelection
+Check here for some info. 
+https://github.com/29988122/Fate-Grand-Order_Lua/pull/42#issuecomment-415980728
+TBD behavior detail.
 
 ## Events:
 If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
