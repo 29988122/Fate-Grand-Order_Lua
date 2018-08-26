@@ -32,6 +32,7 @@ PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for 
   * [Autoskill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
     * [Autoskill List](#autoskill-list)
+  * [User-defined support selection](#user-defined-support-selection)
   * [Events](#events)
   * [Card Priority Customization](#card-priority-customization)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
@@ -72,8 +73,6 @@ Then, put your game in either:
 
 and click the transparent arrow. You're good to go.
 
-I only update events in JP server, unless requested.
-
 ## Extra scripts:
 * \_auto\_friendgacha.lua
 
@@ -84,7 +83,7 @@ As title. It will keep gacha until your bag's full.
 Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 ## Behavior details:
-- It is customized for events that I'm playing, hence some minor adjustments will be done frequently. **Remember to update!**
+- It is customized for events in JP server, hence some minor adjustments will be done frequently. **Remember to update!**
 
 - Stamina does NOT automatically refilled, if you need to refill them automatically, please check [Auto refill](#auto-refill)
 
@@ -96,7 +95,9 @@ Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 - Choose your party member wisely. Because this script does not do B/A/Q or brave chains, you have to observe the behavior of the script, and arrange your party accordingly in order to gain max clear efficiency / prevent party wipe from highest level event stage. 
 
-- Customized skill command is supported, though the command execution is still highly depends on runtime conditions. Please check [Autoskill](#autoskill)
+- Customized skill command is supported, though the command execution is still highly depends on runtime conditions. Please check [Autoskill](#autoskill).
+
+- User-defined support selection is supported, though it could be slow at times, please consider your farming efficiency. Please check [User-defined support selection](#user-defined-support-selection).
 
 ## Auto refill:
 If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
@@ -174,6 +175,9 @@ Skill_Command = "bce,0,f3hi,#,j2d,#,4,x13a1g3"
 You can set Enable_Autoskill_List = 1 to enable this feature.
 You can setup a predefined autoskill list from 1~10, and the script let you choose whenever it ran.
 This especially helps if you need to farm few different stages during event.
+
+## User-defined support selection
+
 
 ## Events:
 If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
