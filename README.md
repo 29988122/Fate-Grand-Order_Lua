@@ -187,17 +187,23 @@ Your screenshot can be anything as long as it is inside the area outlined in red
 
 It can thus be specifally crafted to fit your needs - servant, CE(礼装). For example:
 **CE only:**
+
 ![angelica](https://user-images.githubusercontent.com/4316326/44620074-f4ad6380-a864-11e8-9d6a-4c3f8021e4be.png)
+
 ![miyu](https://user-images.githubusercontent.com/4316326/44620075-f4ad6380-a864-11e8-8494-e5107eb731ab.png)
+
 ![tanaka](https://user-images.githubusercontent.com/4316326/44620076-f4ad6380-a864-11e8-8425-8742151f7889.png)
 
 **Servant only:**
+
 ![waver4](https://user-images.githubusercontent.com/4316326/44620077-f4ad6380-a864-11e8-94b9-c575264ef11c.png)
 
 **Servant + CE:**
+
 ![waver_ce](https://user-images.githubusercontent.com/4316326/44620130-a77dc180-a865-11e8-9306-dcf9ef10e01f.png)
 
 **Servant + CE + NP level:**
+
 ![waver_ce_np](https://user-images.githubusercontent.com/4316326/44620131-a8165800-a865-11e8-864c-d96d0f254833.png)
 
 Check here for some info. 
