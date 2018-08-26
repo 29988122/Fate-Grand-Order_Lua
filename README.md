@@ -185,7 +185,10 @@ The default settings ```first``` will select the first visible servant on the se
 Your screenshot can be anything as long as it is inside the area outlined in red:
 ![screenshot_20180819-122510](https://user-images.githubusercontent.com/4316326/44620053-92546300-a864-11e8-91a7-4d39efcdcb2c.png)
 
-It can thus be specifally crafted to fit your needs - servant, CE(礼装). For example:
+It can thus be specifally crafted to fit your needs - servant, CE(礼装). 
+
+For example,
+
 **CE only:**
 
 ![angelica](https://user-images.githubusercontent.com/4316326/44620074-f4ad6380-a864-11e8-9d6a-4c3f8021e4be.png)
