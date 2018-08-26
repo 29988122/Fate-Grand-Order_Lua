@@ -153,6 +153,8 @@ However by planning ahead, wrote commands for many rounds(putting a lot of zeros
 
 Also, you can have a band-aid fix by casting skills only on the 1st servant(a1,d1,f1, etc). By doing so, the script will click cancel when the skill's on cooldown, preventing stuck.
 
+Thanks @ryuga93 for implementing this function!
+
 ### Chaldea Combat Uniform: Order Change
 To use the Master Skill Order Change for servant exchange, insert the following Skill_Command:
 ```
@@ -209,9 +211,28 @@ For example,
 
 ![waver_ce_np](https://user-images.githubusercontent.com/4316326/44620131-a8165800-a865-11e8-864c-d96d0f254833.png)
 
-Check here for some info. 
+---
+
+If the servant/CE is not found in the support list, the script will click refresh as many times as defined in ```Support_MaxRefreshes```.
+
+If this limit is reached, the script will use the ```Support_FallbackTo``` option to decide what do next. The options are the same as in ```Support_SelectionMode```. So, for instance, if the script is setup like this:
+
+```
+Support_SelectionMode = "preferred"
+Support_PreferredImage = "waver4.png"
+Support_MaxRefreshes = 3
+Support_FallbackTo = "first"
+```
+
+.... it will try to find Waver in your support list. If it is not found in 3 refreshes maximum, the script will scroll back to top and pick the first visible servant.
+
+The last option, ```Support_SwapsPerRefresh``` controls the number of swipes/servants before refreshing the screen.
+If you have like 6 friend support servants, make it 6.
+
+Check here for further info: 
 https://github.com/29988122/Fate-Grand-Order_Lua/pull/42#issuecomment-415980728
-TBD behavior detail.
+
+Thanks @potchy for implementing this function!
 
 ## Events:
 If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
