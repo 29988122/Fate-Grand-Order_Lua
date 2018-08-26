@@ -13,7 +13,9 @@ Refill_or_Not = 0
 Use_Stone = 0
 How_Many = 0
 
---Support selection possible options: "first"; "preferred"; "manual"
+--自動選擇好友從者
+--請到此觀看詳細說明 https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#autosupportselection
+Support selection possible options: "first"; "preferred"; "manual"
 Support_SelectionMode = "first"
 Support_PreferredImage = "waver4.png"
 Support_SwapsPerRefresh = 10

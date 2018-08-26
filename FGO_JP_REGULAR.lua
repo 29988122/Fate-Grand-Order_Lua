@@ -16,7 +16,8 @@ Refill_or_Not = 0
 Use_Stone = 0
 How_Many = 0
 
---Support selection possible options: "first"; "preferred"; "manual"
+--サポートサーヴァント自動選択
+--説明書に参照してください https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#autosupportselection
 Support_SelectionMode = "first"
 Support_PreferredImage = "waver4.png"
 Support_SwapsPerRefresh = 10
