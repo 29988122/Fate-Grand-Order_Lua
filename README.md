@@ -17,7 +17,7 @@ Screw those farming events - I only wanna enjoy the (kinoko) story!
 
 Therefore I proudly brought you this: FGO automation script.
 
-As of 2018.08.12, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
+As of 2018.08.26, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
 
 PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for the script.
 
@@ -175,6 +175,31 @@ You can setup a predefined autoskill list from 1~10, and the script let you choo
 This especially helps if you need to farm few different stages during event.
 
 ### AutoSupportSelection
+```Support_SelectionMode``` has 3 options: first, preferred, and manual.
+The default settings ```first``` will select the first visible servant on the selection screen. Fastest one.
+
+```manual``` is used when you can monitor your script running - you need to select the support servant yourself, and the script will continue running after selection.
+
+```preferred``` is our desired option here. By putting screenshots of your pre-defined servant friend into image_SUPPORT folder, that servant can be choosed automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put it in ```Support_PreferredImage``` such as ```Support_PreferredImage = "waver4.png"```.
+
+Your screenshot can be anything as long as it is inside the area outlined in red:
+![screenshot_20180819-122510](https://user-images.githubusercontent.com/4316326/44620053-92546300-a864-11e8-91a7-4d39efcdcb2c.png)
+
+It can thus be specifally crafted to fit your needs - servant, CE(礼装). For example:
+**CE only:**
+![angelica](https://user-images.githubusercontent.com/4316326/44620074-f4ad6380-a864-11e8-9d6a-4c3f8021e4be.png)
+![miyu](https://user-images.githubusercontent.com/4316326/44620075-f4ad6380-a864-11e8-8494-e5107eb731ab.png)
+![tanaka](https://user-images.githubusercontent.com/4316326/44620076-f4ad6380-a864-11e8-8425-8742151f7889.png)
+
+**Servant only:**
+![waver4](https://user-images.githubusercontent.com/4316326/44620077-f4ad6380-a864-11e8-94b9-c575264ef11c.png)
+
+**Servant + CE:**
+![waver_ce](https://user-images.githubusercontent.com/4316326/44620130-a77dc180-a865-11e8-9306-dcf9ef10e01f.png)
+
+**Servant + CE + NP level:**
+![waver_ce_np](https://user-images.githubusercontent.com/4316326/44620131-a8165800-a865-11e8-864c-d96d0f254833.png)
+
 Check here for some info. 
 https://github.com/29988122/Fate-Grand-Order_Lua/pull/42#issuecomment-415980728
 TBD behavior detail.
