@@ -455,7 +455,7 @@ function decodeSkill(str, isFirstSkill)
 		---Enter card selection screen, ready to cast NP.
 		click(Location(2300,1200))
 		decodeSkill_NPCasting = 1
-		wait(0.8)
+		wait(1)
 	end
 
 	--[[In ascii, char(j, k, l) and char(x) command for master skill = decimal(106, 107, 108) and decimal(120) respectively.
