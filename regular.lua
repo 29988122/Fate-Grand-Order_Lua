@@ -456,6 +456,7 @@ function decodeSkill(str, isFirstSkill)
 		click(Location(2300,1200))
 		decodeSkill_NPCasting = 1
 		wait(1)
+		--Although it seems slow, make it no shorter than 1 sec to protect user with less processing power devices.
 	end
 
 	--[[In ascii, char(j, k, l) and char(x) command for master skill = decimal(106, 107, 108) and decimal(120) respectively.
