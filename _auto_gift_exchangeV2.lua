@@ -5,8 +5,6 @@ setImagePath(dir .. "image_EN")
 
 finishedLotteryBoxRegion = Region(540, 840, 120, 220)
 
---finishedLotteryBoxRegion:highlight(20)
-
 while(1) do
     if finishedLotteryBoxRegion:exists("lottery.png", 0) then
 		click(Location(2200, 500))
