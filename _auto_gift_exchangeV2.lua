@@ -1,6 +1,8 @@
 Settings:setCompareDimension(true,1280)
 Settings:setScriptDimension(true,2560)
 dir = scriptPath()
+
+--You can change this to either "image_EN" or "image_JP" for Japan and US server to support auto gift exchange AND auto reset.
 setImagePath(dir .. "image_EN")
 
 finishedLotteryBoxRegion = Region(540, 840, 120, 220)
