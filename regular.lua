@@ -17,6 +17,7 @@ SupportListRegion = Region(0,334,2443,1107)
 SupportListTopClick = Location(2480,360)
 SupportUpdateClick = Location(1670, 250)
 SupportUpdateYesClick = Location(1660, 1110)
+SupportServantRegion = Region(85, 350, 350, 950)
 
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
@@ -248,6 +249,8 @@ function selectSupport(selectionMode)
 			return selectFirstSupport()
 		elseif selectionMode == "preferred" then
 			return selectPreferredSupport()
+		elseif selectionMode == "preferred-modular" then
+			return selectPreferredSupportModular()
 		elseif selectionMode == "manual" then
 			scriptExit("Support selection mode set to \"manual\".")
 		else
@@ -289,6 +292,78 @@ function selectPreferredSupport()
 		else -- not found :(
 			click(SupportListTopClick)
 			return selectSupport(Support_FallbackTo)
+		end
+	end
+end
+
+function selectPreferredSupportModular()
+	local numberOfSwipes = 0
+	local numberOfUpdates = 0
+	
+	while (true)
+	do
+		if SupportImageServantArray[1] == "Any" then
+			for _, ce in ipairs(SupportImageCEArray) do
+				local ceMatch = regionFindAllNoFindException(SupportServantRegion, SupportImagePath ..  ce)
+					for _, matchingCE in ipairs(ceMatch) do
+						if RequireLimitBrokenCE == true then
+							local limitBreakCheck = regionFindAllNoFindException(matchingCE, SupportImagePath .. "limitBroken.png")
+							if limitBreakCheck[1] ~= nil then
+								click(matchingCE)
+								return true
+							end
+						else
+							click(matchingCE)
+							return true
+						end	
+					end
+			end
+		else		
+			for _, servant in ipairs(SupportImageServantArray) do
+				local servantMatch = regionFindAllNoFindException(SupportServantRegion, SupportImagePath .. servant)
+				for i, portrait in ipairs(servantMatch) do
+					if SupportImageCEArray[1] == "Any" then
+						click(portrait)
+						return true
+					else			
+						ceRegion = Region(portrait:getX(), portrait:getY() + portrait:getH(), 315, 90)						
+						for _, ce in ipairs(SupportImageCEArray) do
+							local ceMatch = regionFindAllNoFindException(ceRegion, SupportImagePath .. ce)
+							if ceMatch[1] ~= nil then
+								if RequireLimitBrokenCE == true then
+									local limitBreakCheck = regionFindAllNoFindException(ceMatch[1], SupportImagePath .. "limitBroken.png")
+									if limitBreakCheck[1] ~= nil then
+										click(limitBreakCheck[1])
+										return true
+									end
+								else
+									click(ceMatch[1])
+									return true
+								end
+							end
+							
+						end
+					end
+				end
+			end
+		end
+
+		if numberOfSwipes < Support_SwapsPerRefresh then
+			swipe(Location(1200, 1150), Location(1200, 800))			
+			numberOfSwipes = numberOfSwipes + 1
+			wait(0.3)
+		elseif numberOfUpdates < Support_MaxRefreshes then		
+			click(SupportUpdateClick)
+			wait(1)
+			click(SupportUpdateYesClick)
+			wait(3)
+
+			numberOfUpdates = numberOfUpdates + 1
+			numberOfSwipes = 0
+		else -- not found :(
+			click(SupportListTopClick)
+--			return selectSupport(Support_FallbackTo)
+			return "Failed to Find"
 		end
 	end
 end
