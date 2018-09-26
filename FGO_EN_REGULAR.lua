@@ -16,13 +16,19 @@ Refill_or_Not = 0
 Use_Stone = 0
 How_Many = 0
 
---Support selection possible options: "first"; "preferred"; "manual"
+--Support selection possible options: "first"; "preferred"; "preferred-modular"; "manual"
 --Please check the details here https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#autosupportselection
 Support_SelectionMode = "first"
-Support_PreferredImage = "waver4.png"
 Support_SwapsPerRefresh = 10
 Support_MaxRefreshes = 3
 Support_FallbackTo = "manual"
+--settings for "preferred"
+Support_PreferredImage = "waver4.png"
+--settings for "preferred-modular"
+SupportImageServantArray = {"waver1.png", "waver2.png", "waver3.png"} --Any number of images separated by commas, if set to "Any" will pick any servant
+SupportImageCEArray = {"Any"} --Any number of images separated by commas, if set to "Any" will pick any craft essence
+RequireLimitBrokenCE = false --If set to true will only pick as support if the craft essence is Limit Broken
+
 
 --[[
 AutoSkill:
