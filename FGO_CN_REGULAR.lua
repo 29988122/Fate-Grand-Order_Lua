@@ -5,6 +5,9 @@ setImagePath(dir)
 GameRegion = "CN"
 StageCountRegion = Region(1722,25,46,53)
 
+--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
+NotJPserverForStaminaRefillExtraClick = 1
+
 --[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
     UnstableFastSkipDeadAnimation = 1]]
 
