@@ -9,6 +9,7 @@ BattleRegion = Region(2200,200,1000,600)
 ResultRegion = Region(100,300,700,200)
 BondRegion = Region(2000,820,120,120)
 QuestrewardRegion = Region(1630,140,370,250)
+FriendrequestRegion = Region(660, 120, 140, 160)
 StaminaRegion = Region(600,200,300,300)
 
 SupportScreenRegion = Region(0,0,110,332)
@@ -443,7 +444,7 @@ function decodeSkill(str, isFirstSkill)
 	if isFirstSkill == 0 and decodeSkill_NPCasting == 0 and index >= -44 and MysticCode_OrderChange == 0 then
 		--Wait for regular servant skill animation executed last time.
 		--Do not make it shorter, at least 2.9s. Napoleon's skill animation is ridiculously long.
-		wait(3.1)
+		wait(3.3)
 	end
 
 	--[[In ascii, char(4, 5, 6) command for servant NP456 = decimal(52, 53, 54) respectively.
@@ -657,13 +658,22 @@ function result()
     if isEvent == 1 then
     	wait(1.5)
     	click(Location(2200, 1350))
-    end
+	end
+
+	--Friend request screen. Non-friend support was selected this battle.  Ofc it's defaulted not sending request.
+	wait(1.5)
+	if FriendrequestRegion:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
+		click(Location(600,1200))
+	end
+
 	wait(15)
 	
 	--1st time quest reward screen.
 	if QuestrewardRegion:exists(GeneralImagePath .. "questreward.png") ~= nil then
 		click(Location(100,100))
 	end
+
+
 end
 
 --User option PSA dialogue. Also choosble list of perdefined skill.
