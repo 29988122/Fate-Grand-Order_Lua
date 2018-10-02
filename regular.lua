@@ -1,3 +1,6 @@
+package.path = package.path .. ";" .. dir .. 'modules/?.lua'
+local support = require "support"
+
 --[[このスクリプトは人の動きを真似してるだけなので、サーバーには余計な負担を掛からないはず。
 	私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
 	お願いします。このプログラムを禁止しないでください。]]
@@ -10,13 +13,6 @@ ResultRegion = Region(100,300,700,200)
 BondRegion = Region(2000,820,120,120)
 QuestrewardRegion = Region(1630,140,370,250)
 StaminaRegion = Region(600,200,300,300)
-
-SupportScreenRegion = Region(0,0,110,332)
-SupportListRegion = Region(0,334,2443,1107)
-SupportListTopClick = Location(2480,360)
-SupportUpdateClick = Location(1670, 250)
-SupportUpdateYesClick = Location(1660, 1110)
-SupportServantRegion = Region(85, 350, 350, 950)
 
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
@@ -143,7 +139,6 @@ SubMemberClickArray[-45] = SubMember3Click
 
 --File paths
 GeneralImagePath = "image_" .. GameRegion .. "/"
-SupportImagePath = "image_SUPPORT" .. "/"
 
 --Autoskill and Autoskill exception handling related, waiting for cleanup.
 decodeSkill_NPCasting = 0
@@ -170,31 +165,13 @@ function initCardPriorityArray()
 	Battle_CardPriority = "BAQ"
 	then:
 	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}]]
-	local count = 0
+	
 	for card in Battle_CardPriority:gmatch(".") do
 		table.insert(CardPriorityArray, "W" .. card)
 		table.insert(CardPriorityArray, card)
 		table.insert(CardPriorityArray, "R" .. card)
-		
-		count = count + 1
 	end
 end
-
-function init()
-	setImmersiveMode(true)			   
-	Settings:setCompareDimension(true,1280)
-	Settings:setScriptDimension(true,2560)
-	
-	--Set only ONCE for every separated script run.
-	initCardPriorityArray()
-	StoneUsed = 0
-	PSADialogueShown = 0
-	
-	--Check function CheckCurrentStage(region)
-	StageCounter = 1
-end
-
-init()
 
 function menu()
     atkround = 1
@@ -211,7 +188,7 @@ function menu()
 	end
 	
 	--Friend selection.
-	local hasSelectedSupport = selectSupport(Support_SelectionMode)
+	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport then
 		wait(1.5)
 		startQuest()
@@ -240,131 +217,6 @@ function RefillStamina()
 			wait(1.5)
 		end
     end
-end
-
-function selectSupport(selectionMode)
-	if SupportScreenRegion:exists(GeneralImagePath .. "support_screen.png") then
-		if selectionMode == "first" then
-			return selectFirstSupport()
-		elseif selectionMode == "preferred" then
-			return selectPreferredSupport()
-		elseif selectionMode == "preferred-modular" then
-			return selectPreferredSupportModular()
-		elseif selectionMode == "manual" then
-			scriptExit("Support selection mode set to \"manual\".")
-		else
-			scriptExit("Invalid support selection mode: \"" + selectionMode + "\".")
-		end
-	end
-
-	return false
-end
-
-function selectFirstSupport()
-	click(Location(1900,500))
-	return true
-end
-
-function selectPreferredSupport()
-	local numberOfSwipes = 0
-	local numberOfUpdates = 0
-	
-	while (true)
-	do
-		local supports = regionFindAllNoFindException(SupportListRegion, SupportImagePath .. Support_PreferredImage)
-		for i, support in ipairs(supports) do
-			click(support)
-			return true -- found
-		end
-
-		if numberOfSwipes < Support_SwapsPerRefresh then
-			swipe(Location(1200, 1150), Location(1200, 800))			
-			numberOfSwipes = numberOfSwipes + 1
-		elseif numberOfUpdates < Support_MaxRefreshes then		
-			click(SupportUpdateClick)
-			wait(1)
-			click(SupportUpdateYesClick)
-			wait(3)
-
-			numberOfUpdates = numberOfUpdates + 1
-			numberOfSwipes = 0
-		else -- not found :(
-			click(SupportListTopClick)
-			return selectSupport(Support_FallbackTo)
-		end
-	end
-end
-
-function selectPreferredSupportModular()
-	local numberOfSwipes = 0
-	local numberOfUpdates = 0
-	
-	while (true)
-	do
-		if SupportImageServantArray[1] == "Any" then
-			for _, ce in ipairs(SupportImageCEArray) do
-				local ceMatch = regionFindAllNoFindException(SupportServantRegion, SupportImagePath ..  ce)
-					for _, matchingCE in ipairs(ceMatch) do
-						if RequireLimitBrokenCE == true then
-							local limitBreakCheck = regionFindAllNoFindException(matchingCE, SupportImagePath .. "limitBroken.png")
-							if limitBreakCheck[1] ~= nil then
-								click(matchingCE)
-								return true
-							end
-						else
-							click(matchingCE)
-							return true
-						end	
-					end
-			end
-		else		
-			for _, servant in ipairs(SupportImageServantArray) do
-				local servantMatch = regionFindAllNoFindException(SupportServantRegion, SupportImagePath .. servant)
-				for i, portrait in ipairs(servantMatch) do
-					if SupportImageCEArray[1] == "Any" then
-						click(portrait)
-						return true
-					else			
-						ceRegion = Region(portrait:getX(), portrait:getY() + portrait:getH(), 315, 90)						
-						for _, ce in ipairs(SupportImageCEArray) do
-							local ceMatch = regionFindAllNoFindException(ceRegion, SupportImagePath .. ce)
-							if ceMatch[1] ~= nil then
-								if RequireLimitBrokenCE == true then
-									local limitBreakCheck = regionFindAllNoFindException(ceMatch[1], SupportImagePath .. "limitBroken.png")
-									if limitBreakCheck[1] ~= nil then
-										click(limitBreakCheck[1])
-										return true
-									end
-								else
-									click(ceMatch[1])
-									return true
-								end
-							end
-							
-						end
-					end
-				end
-			end
-		end
-
-		if numberOfSwipes < Support_SwapsPerRefresh then
-			swipe(Location(1200, 1150), Location(1200, 800))			
-			numberOfSwipes = numberOfSwipes + 1
-			wait(0.3)
-		elseif numberOfUpdates < Support_MaxRefreshes then		
-			click(SupportUpdateClick)
-			wait(1)
-			click(SupportUpdateYesClick)
-			wait(3)
-
-			numberOfUpdates = numberOfUpdates + 1
-			numberOfSwipes = 0
-		else -- not found :(
-			click(SupportListTopClick)
---			return selectSupport(Support_FallbackTo)
-			return "Failed to Find"
-		end
-	end
 end
 
 function startQuest()
@@ -824,6 +676,22 @@ function PSADialogue()
 	end
 end
 
+function init()
+	setImmersiveMode(true)			   
+	Settings:setCompareDimension(true,1280)
+	Settings:setScriptDimension(true,2560)
+	
+	--Set only ONCE for every separated script run.
+	support.init()
+	initCardPriorityArray()
+	StoneUsed = 0
+	PSADialogueShown = 0
+	
+	--Check function CheckCurrentStage(region)
+	StageCounter = 1
+end
+
+init()
 while(1) do
 	--Execute only once
 	PSADialogue()
