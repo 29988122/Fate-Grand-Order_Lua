@@ -4,7 +4,7 @@ local stringUtils = require "string-utils"
 -- consts
 local SupportImagePath = "image_SUPPORT" .. "/"
 local ScreenRegion = Region(0,0,110,332)
-local ListRegion = Region(85,350,350,1107)
+local ListRegion = Region(85,350,350,1087) -- see diagrams/support_list_region.png
 local ListTopClick = Location(2480,360)
 local UpdateClick = Location(1670, 250)
 local UpdateYesClick = Location(1660, 1110)
