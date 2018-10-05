@@ -155,7 +155,6 @@ searchMethod = {
 		
 			-- these calculations need to be done, otherwise we might select a CE from the wrong servant
 			local maxDistanceFromServantPortraitToCraftEssence = 300
-			local craftEssenceHeight = 90
 			
 			local x = ListRegion:getX()
 			local y = servant:getY()
