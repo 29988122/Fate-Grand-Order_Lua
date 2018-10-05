@@ -209,7 +209,7 @@ end
 
 scrollList = function()
 	local startLocation = Location(146, 1190)
-	local endLocation = Location(146, 385)
+	local endLocation = Location(146, 390)
 
 	local touchActions = {
 		{ action = "touchDown", target = startLocation },
