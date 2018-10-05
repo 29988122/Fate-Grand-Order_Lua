@@ -8,6 +8,7 @@ local ListRegion = Region(85,350,350,1087) -- see diagrams/support_list_region.p
 local ListTopClick = Location(2480,360)
 local UpdateClick = Location(1670, 250)
 local UpdateYesClick = Location(1660, 1110)
+local CraftEssenceHeight = 90
 local LimitBrokenCharacter = "*"
 
 -- state vars
@@ -159,7 +160,7 @@ searchMethod = {
 			local x = ListRegion:getX()
 			local y = servant:getY()
 			local width = ListRegion:getW()
-			local height = maxDistanceFromServantPortraitToCraftEssence + craftEssenceHeight
+			local height = maxDistanceFromServantPortraitToCraftEssence + CraftEssenceHeight
 			local region = Region(x, y, width, height)
 			
 			local craftEssence = findCraftEssence(region)
@@ -199,7 +200,7 @@ findCraftEssence = function(searchRegion)
 end
 
 isLimitBroken = function(craftEssence)
-	local limitBreakRegion = Region(376, craftEssence:getY(), 16, craftEssence:getH())
+	local limitBreakRegion = Region(376, craftEssence:getY(), 16, CraftEssenceHeight)
 	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.8)
 	
 	return limitBreakRegion:exists(limitBreakPattern)
