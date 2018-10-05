@@ -1,5 +1,6 @@
 -- modules
 local stringUtils = require "string-utils"
+local ankuluaUtils = require "ankulua-utils"
 
 -- consts
 local SupportImagePath = "image_SUPPORT" .. "/"
@@ -93,7 +94,7 @@ selectPreferred = function(searchMethod)
 	
 	while (true)
 	do
-		local support = searchMethod()
+		local support = ankuluaUtils.useSameSnapIn(searchMethod)
 		if support ~= nil then
 			click(support)
 			return true
