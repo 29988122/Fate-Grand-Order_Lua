@@ -5,7 +5,7 @@ local ankuluaUtils = require "ankulua-utils"
 -- consts
 local SupportImagePath = "image_SUPPORT" .. "/"
 local ScreenRegion = Region(0,0,110,332)
-local ListRegion = Region(85,350,350,1087) -- see docs/support_list_region.png
+local ListRegion = Region(70,332,378,842) -- see diagrams/support_list_region.png
 local ListTopClick = Location(2480,360)
 local UpdateClick = Location(1670, 250)
 local UpdateYesClick = Location(1660, 1110)
@@ -27,6 +27,7 @@ local searchMethod
 local findServants
 local findCraftEssence
 local isLimitBroken
+local scrollList
 
 init = function()
 	local function split(str)
@@ -101,7 +102,7 @@ selectPreferred = function(searchMethod)
 		end
 
 		if numberOfSwipes < Support_SwapsPerRefresh then
-			swipe(Location(1200, 1150), Location(1200, 800))			
+			scrollList()
 			numberOfSwipes = numberOfSwipes + 1
 			wait(0.3)
 		elseif numberOfUpdates < Support_MaxRefreshes then		
@@ -204,6 +205,22 @@ isLimitBroken = function(craftEssence)
 	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.8)
 	
 	return limitBreakRegion:exists(limitBreakPattern)
+end
+
+scrollList = function()
+	local startLocation = Location(146, 1190)
+	local endLocation = Location(146, 385)
+
+	local touchActions = {
+		{ action = "touchDown", target = startLocation },
+		{ action = "touchMove", target =   endLocation },
+		{ action =      "wait", target =           0.4 },
+		{ action =   "touchUp", target =   endLocation }
+	}
+	
+	-- I want the movement to be as accurate as possible
+	setManualTouchParameter(1, 1)
+	manualTouch(touchActions)
 end
 
 -- "public" interface
