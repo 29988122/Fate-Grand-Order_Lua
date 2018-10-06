@@ -182,34 +182,10 @@ The default settings ```first``` will select the first visible servant on the se
 
 ```manual``` is used when you can monitor your script running - you need to select the support servant yourself, and the script will continue running after selection.
 
-```preferred``` is our desired option here. By putting screenshots of your pre-defined servant friend into image_SUPPORT folder, that servant can be choosed automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put it in ```Support_PreferredImage``` such as ```Support_PreferredImage = "waver4.png"```.
+```preferred``` is our desired option here. By putting screenshots of your pre-defined servant friend into image_SUPPORT folder, that servant can be choosed automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put it in ```Support_PreferredServants```, if it is a Servant, or in ```Support_PreferredCEs``` it is a Craft Essence.
 
 Your screenshot can be anything as long as it is inside the area outlined in red:
-![screenshot_20180819-122510](https://user-images.githubusercontent.com/4316326/44620053-92546300-a864-11e8-91a7-4d39efcdcb2c.png)
-
-It can thus be specifally crafted to fit your needs - servant, CE(礼装). 
-
-For example,
-
-**CE only:**
-
-![angelica](https://user-images.githubusercontent.com/4316326/44620074-f4ad6380-a864-11e8-9d6a-4c3f8021e4be.png)
-
-![miyu](https://user-images.githubusercontent.com/4316326/44620075-f4ad6380-a864-11e8-8494-e5107eb731ab.png)
-
-![tanaka](https://user-images.githubusercontent.com/4316326/44620076-f4ad6380-a864-11e8-8425-8742151f7889.png)
-
-**Servant only:**
-
-![waver4](https://user-images.githubusercontent.com/4316326/44620077-f4ad6380-a864-11e8-94b9-c575264ef11c.png)
-
-**Servant + CE:**
-
-![waver_ce](https://user-images.githubusercontent.com/4316326/44620130-a77dc180-a865-11e8-9306-dcf9ef10e01f.png)
-
-**Servant + CE + NP level:**
-
-![waver_ce_np](https://user-images.githubusercontent.com/4316326/44620131-a8165800-a865-11e8-864c-d96d0f254833.png)
+![screenshot_20180920-223126 1](https://user-images.githubusercontent.com/4316326/46427814-ba16d080-c718-11e8-893c-51c26ec02c22.png)
 
 ---
 
@@ -219,12 +195,17 @@ If this limit is reached, the script will use the ```Support_FallbackTo``` optio
 
 ```
 Support_SelectionMode = "preferred"
-Support_PreferredImage = "waver4.png"
+Support_PreferredServants = "waver4.png"
+Support_PreferredCEs = "*maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB
 Support_MaxRefreshes = 3
 Support_FallbackTo = "first"
 ```
 
-.... it will try to find Waver in your support list. If it is not found in 3 refreshes maximum, the script will scroll back to top and pick the first visible servant.
+| waver4.png | maid_in_halloween.png |
+| :---:      | :---:                 |
+| ![waver4.png](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/image_SUPPORT/waver4.png?raw=true)  | ![maid_in_halloween.png](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/image_SUPPORT/maid_in_halloween.png?raw=true)  |
+
+.... it will try to find Waver + a MLB Maid in Halloween CE in your support list. If it is not found in 3 refreshes maximum, the script will scroll back to top and pick the first visible servant.
 
 The last option, ```Support_SwapsPerRefresh``` controls the number of swipes/servants before refreshing the screen.
 If you have like 6 friend support servants, make it 6.
