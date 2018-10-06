@@ -182,7 +182,7 @@ The default settings ```first``` will select the first visible servant on the se
 
 ```manual``` is used when you can monitor your script running - you need to select the support servant yourself, and the script will continue running after selection.
 
-```preferred``` is our desired option here. By putting screenshots of your pre-defined servant friend into image_SUPPORT folder, that servant can be choosed automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put it in ```Support_PreferredServants```, if it is a Servant, or in ```Support_PreferredCEs``` it is a Craft Essence.
+```preferred``` is our desired option here. By putting screenshots of your pre-defined servant friend into image_SUPPORT folder, that servant can be choosed automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put it in ```Support_PreferredServants``` or in ```Support_PreferredCEs```, accordingly.
 
 Your screenshot can be anything as long as it is inside the area outlined in red:
 ![screenshot_20180920-223126 1](https://user-images.githubusercontent.com/4316326/46427814-ba16d080-c718-11e8-893c-51c26ec02c22.png)
