@@ -83,7 +83,7 @@ Options:
 • danger: will cast NPs only when there are DANGER or SERVANT enemies on screen
 • spam: will cast NPs as soon as they are available
 --]]
-Battle_NoblePhantasm = "danger" 
+Battle_NoblePhantasm = "disabled" 
 
 --若活動有另外的獎勵視窗需點選，isEvent = 1。 詳細請見github上的readme
 isEvent = 0

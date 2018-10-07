@@ -85,7 +85,7 @@ Options:
 • danger: will cast NPs only when there are DANGER or SERVANT enemies on screen
 • spam: will cast NPs as soon as they are available
 --]]
-Battle_NoblePhantasm = "danger" 
+Battle_NoblePhantasm = "disabled" 
 
 --Whenever there's additional event point reward window to be clicked through, isEvent = 1. Please check the details on github.
 isEvent = 1
