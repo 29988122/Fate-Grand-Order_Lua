@@ -79,6 +79,14 @@ Autoskill_List[10] = ""
 --You can change card selection priority. For example, BAQ stands for: weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
 Battle_CardPriority = "BAQ"
 
+--[[
+Options:
+• disabled: will never cast NPs automatically, except for Autoskill commands
+• danger: will cast NPs only when there are DANGER or SERVANT enemies on screen
+• spam: will cast NPs as soon as they are available
+--]]
+Battle_NoblePhantasm = "danger" 
+
 --Whenever there's additional event point reward window to be clicked through, isEvent = 1. Please check the details on github.
 isEvent = 1
 

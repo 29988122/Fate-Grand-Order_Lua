@@ -79,6 +79,14 @@ Autoskill_List[10] = ""
 --可以用這個選項組藍卡隊了安安。這個選項會影響卡片選擇優先順位，例：BAQ代表weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
 Battle_CardPriority = "BAQ"
 
+--[[
+Options:
+• disabled: will never cast NPs automatically, except for Autoskill commands
+• danger: will cast NPs only when there are DANGER or SERVANT enemies on screen
+• spam: will cast NPs as soon as they are available
+--]]
+Battle_NoblePhantasm = "danger" 
+
 --若活動有另外的獎勵視窗需點選，isEvent = 1。 詳細請見github上的readme。
 isEvent = 0
 
