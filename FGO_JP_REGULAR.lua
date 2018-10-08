@@ -79,6 +79,14 @@ Autoskill_List[10] = ""
 --カード選択の優先順位。BAQの場合はweak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
 Battle_CardPriority = "BAQ"
 
+--[[
+Options:
+• disabled: will never cast NPs automatically, except for Autoskill commands
+• danger: will cast NPs only when there are DANGER or SERVANT enemies on screen
+• spam: will cast NPs as soon as they are available
+--]]
+Battle_NoblePhantasm = "disabled" 
+
 --イベントステージ終了時にて別枠がある場合（もう一つのポイント報酬ウィンドウとか、詳細はウェブのreadmeで）
 isEvent = 0
 

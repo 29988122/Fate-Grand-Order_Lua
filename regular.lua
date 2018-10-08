@@ -251,8 +251,8 @@ function battle()
     	wait(1)
 	end
     
-    if TargetChoosen == 1 and decodeSkill_NPCasting == 0 then
-        --ultcard()
+    if Battle_NoblePhantasm == "spam" or (Battle_NoblePhantasm == "danger" and TargetChoosen == 1) then
+        ultcard()
     end
 
     wait(0.5)
