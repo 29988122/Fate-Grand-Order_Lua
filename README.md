@@ -35,6 +35,7 @@ PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for 
   * [AutoSupportSelection](#autosupportselection)
   * [Events](#events)
   * [Card Priority Customization](#card-priority-customization)
+  * [Noble Phantasm Behavior](#noble-phantasm-behavior)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Feature requests, 說明, 要望](#feature-requests)
 
