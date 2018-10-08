@@ -182,7 +182,7 @@ The default settings ```first``` will select the first visible servant on the se
 
 ```manual``` is used when you can monitor your script running - you need to select the support servant yourself, and the script will continue running after selection.
 
-```preferred``` is our desired option here. By putting screenshots of your pre-defined servant friend into image_SUPPORT folder, that servant can be choosed automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put it in ```Support_PreferredServants``` or in ```Support_PreferredCEs```, accordingly.
+```preferred``` is our desired option here. By putting screenshots of your pre-defined servant friend into image_SUPPORT folder, that servant can be choosed automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put the filename(s) in the options ```Support_PreferredServants``` or ```Support_PreferredCEs```, accordingly.
 
 Your screenshot can be anything as long as it is inside the area outlined in red:
 ![screenshot_20180920-223126 1](https://user-images.githubusercontent.com/4316326/46427814-ba16d080-c718-11e8-893c-51c26ec02c22.png)
@@ -196,7 +196,7 @@ If this limit is reached, the script will use the ```Support_FallbackTo``` optio
 ```
 Support_SelectionMode = "preferred"
 Support_PreferredServants = "waver4.png"
-Support_PreferredCEs = "*maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB
+Support_PreferredCEs = "*maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB(Max Level Break, hence the star sign.)
 Support_MaxRefreshes = 3
 Support_FallbackTo = "first"
 ```
