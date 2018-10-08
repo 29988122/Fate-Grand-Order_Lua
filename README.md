@@ -89,7 +89,8 @@ Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 - Script automatically chooses weak cards, until "boss" fight.
 
-- It will switch target to any "servant" or "danger" enemy, cast Noble Phantasm immediately and after until battle ended.
+- It will switch target to any "servant" or "danger" enemy ONCE, cast Noble Phantasm immediately and after until battle ended.
+The behavior can be changed by ```Battle_NoblePhantasm```, please check [Noble Phantasm Behavior](#noble-phantasm-behavior) for further detail.
 
 - Choose your party member wisely. Because this script does not do B/A/Q or brave chains, you have to observe the behavior of the script, and arrange your party accordingly in order to gain max clear efficiency / prevent party wipe from highest level event stage. 
 
@@ -233,6 +234,8 @@ It will select Weak Arts->Arts->Resist Arts->Weak Buster->Buster->Resist Buster-
 Currently we don't support more detailed card selection parameters, sorry!
 However, you can join us, write your code, and make a Pull Request to help other FGO players around the world. Thank you.
 ```
+## Noble Phantasm Behavior:
+Working in progress.
 
 ## How to capture screen for recognition:
 You can manually replace target\_servant.png inside image folder to customize your priority target.
