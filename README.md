@@ -35,6 +35,7 @@ PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for 
   * [AutoSupportSelection](#autosupportselection)
   * [Events](#events)
   * [Card Priority Customization](#card-priority-customization)
+  * [Noble Phantasm Behavior](#noble-phantasm-behavior)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Feature requests, 說明, 要望](#feature-requests)
 
@@ -89,7 +90,8 @@ Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 - Script automatically chooses weak cards, until "boss" fight.
 
-- It will switch target to any "servant" or "danger" enemy, cast Noble Phantasm immediately and after until battle ended.
+- It will switch target to any "servant" or "danger" enemy ONCE, cast Noble Phantasm immediately and after until battle ended.
+The behavior can be changed by ```Battle_NoblePhantasm```, please check [Noble Phantasm Behavior](#noble-phantasm-behavior) for further detail.
 
 - Choose your party member wisely. Because this script does not do B/A/Q or brave chains, you have to observe the behavior of the script, and arrange your party accordingly in order to gain max clear efficiency / prevent party wipe from highest level event stage. 
 
@@ -182,7 +184,7 @@ The default settings ```first``` will select the first visible servant on the se
 
 ```manual``` is used when you can monitor your script running - you need to select the support servant yourself, and the script will continue running after selection.
 
-```preferred``` is our desired option here. By putting screenshots of your pre-defined servant friend into image_SUPPORT folder, that servant can be choosed automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put it in ```Support_PreferredServants``` or in ```Support_PreferredCEs```, accordingly.
+```preferred``` is our desired option here. By putting screenshots of your pre-defined servant friend into image_SUPPORT folder, that servant can be choosed automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put the filename(s) in the options ```Support_PreferredServants``` or ```Support_PreferredCEs```, accordingly.
 
 Your screenshot can be anything as long as it is inside the area outlined in red:
 ![screenshot_20180920-223126 1](https://user-images.githubusercontent.com/4316326/46427814-ba16d080-c718-11e8-893c-51c26ec02c22.png)
@@ -196,7 +198,7 @@ If this limit is reached, the script will use the ```Support_FallbackTo``` optio
 ```
 Support_SelectionMode = "preferred"
 Support_PreferredServants = "waver4.png"
-Support_PreferredCEs = "*maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB
+Support_PreferredCEs = "*maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB(Max Level Break, hence the star sign.)
 Support_MaxRefreshes = 3
 Support_FallbackTo = "first"
 ```
@@ -233,6 +235,8 @@ It will select Weak Arts->Arts->Resist Arts->Weak Buster->Buster->Resist Buster-
 Currently we don't support more detailed card selection parameters, sorry!
 However, you can join us, write your code, and make a Pull Request to help other FGO players around the world. Thank you.
 ```
+## Noble Phantasm Behavior:
+Working in progress.
 
 ## How to capture screen for recognition:
 You can manually replace target\_servant.png inside image folder to customize your priority target.
