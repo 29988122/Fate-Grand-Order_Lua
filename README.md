@@ -265,7 +265,14 @@ Currently we don't support more detailed card selection parameters, sorry!
 However, you can join us, write your code, and make a Pull Request to help other FGO players around the world. Thank you.
 ```
 ## Noble Phantasm Behavior:
-Working in progress.
+• disabled: Will never cast NPs automatically. If you have Autoskill enabled, please use this option.
+
+• danger: Will cast NPs only when there are DANGER or SERVANT enemies on the screen. This option will probably mess up your Autoskill orders.
+
+• spam: Will cast NPs as soon as they are available.
+
+Currently, ```danger``` option will only start working, spamming NPs after you've finished all your pre-defined Autoskill commands.
+Still in alpha state. If your Autoskill order got messed up, please use ```disabled``` option instead.
 
 ## How to capture screen for recognition:
 You can manually replace target\_servant.png inside image folder to customize your priority target.
