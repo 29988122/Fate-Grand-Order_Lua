@@ -9,7 +9,17 @@ StageCountRegion = Region(1722,25,46,53)
 NotJPserverForStaminaRefillExtraClick = 1
 
 --[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
-    UnstableFastSkipDeadAnimation = 1]]
+    UnstableFastSkipDeadAnimation = 1
+--]]
+
+--Initalize for user input listnames
+Autoskill_List = {}
+for i = 1, 10 do
+    Autoskill_List[i] = {}
+    for j = 1, 2 do
+        Autoskill_List[i][j] = 0
+    end
+end
 
 --スタミナ自動補充
 Refill_or_Not = 0
@@ -22,9 +32,8 @@ Support_SelectionMode = "first"
 Support_SwapsPerRefresh = 10
 Support_MaxRefreshes = 3
 Support_FallbackTo = "manual"
-Support_PreferredServants = "waver1.png, waver2.png, waver4.png" --Any number of images separated by commas, if set to "Any" will pick any servant
-Support_PreferredCEs = "*chaldea_lunchtime.png" --Any number of images separated by commas, if set to "Any" will pick any craft essence
-
+Support_PreferredServants = "waver1.png, waver2.png, waver4.png" --サーヴァント選択のお気に入り順番リスト。"Any"ってのはもし他のサーヴァントが見つからなかったら、どのサーヴァントを選択してもいいって意味です。(Fallback)
+Support_PreferredCEs = "*chaldea_lunchtime.png" --礼装選択のお気に入り順番リスト。"Any"ってのはもし他の礼装が見つからなかったら、どの礼装を選択してもいいって意味です。(Fallback)
 
 --[[
 オートスキル:
@@ -56,34 +65,52 @@ BATTLE 3:
 
 Skill_Confirmation: OFF = 0
 (ゲーム中はスキル使用確認ウィンドウがある場合) ON = 1
-]]
+--]]
 Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = "abc,#,def,#,ghi"
 
 --Enable_Autoskill_List = 1の場合は、スクリプトが起動する際、複数のオートスキル設定から一つを選択することができます
 Enable_Autoskill_List = 0
-Autoskill_List = {}
 --以下はユーザーが予め設定したオートスキルリストです
-Autoskill_List[1] = "abc,#,def,#,ghi"
-Autoskill_List[2] = ""
-Autoskill_List[3] = ""
-Autoskill_List[4] = ""
-Autoskill_List[5] = ""
-Autoskill_List[6] = ""
-Autoskill_List[7] = ""
-Autoskill_List[8] = ""
-Autoskill_List[9] = ""
-Autoskill_List[10] = ""
+Autoskill_List[1][1] = "Settings No.1"
+Autoskill_List[1][2] = "abc,#,def,#,ghi"
+
+Autoskill_List[2][1] = "Settings No.2"
+Autoskill_List[2][2] = ""
+
+Autoskill_List[3][1] = "Settings No.3"
+Autoskill_List[3][2] = ""
+
+Autoskill_List[4][1] = "Settings No.4"
+Autoskill_List[4][2] = ""
+
+Autoskill_List[5][1] = "Settings No.5"
+Autoskill_List[5][2] = ""
+
+Autoskill_List[6][1] = "Settings No.6"
+Autoskill_List[6][2] = ""
+
+Autoskill_List[7][1] = "Settings No.7"
+Autoskill_List[7][2] = ""
+
+Autoskill_List[8][1] = "Settings No.8"
+Autoskill_List[8][2] = ""
+
+Autoskill_List[9][1] = "Settings No.9"
+Autoskill_List[9][2] = ""
+
+Autoskill_List[10][1] = "Settings No.10"
+Autoskill_List[10][2] = ""
 
 --カード選択の優先順位。BAQの場合はweak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
 Battle_CardPriority = "BAQ"
 
 --[[
-Options:
-• disabled: will never cast NPs automatically, except for Autoskill commands
-• danger: will cast NPs only when there are DANGER or SERVANT enemies on screen
-• spam: will cast NPs as soon as they are available
+宝具の使用パターン：
+• disabled: 宝具は使わない。Autoskill設定したらこのオプションを使いましょう。
+• danger: DANGERとSERVANT敵が現したら自動的に毎回使います。Autoskillの順番が乱れる可能性があります。
+• spam: 宝具が溜まったら直ちに使います。
 --]]
 Battle_NoblePhantasm = "disabled" 
 

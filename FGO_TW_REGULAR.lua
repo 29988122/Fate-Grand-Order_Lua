@@ -6,8 +6,21 @@ GameRegion = "TW"
 --StageCountRegion issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
 StageCountRegion = Region(1710,25,55,60)
 
+--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
+--NotJPserverForStaminaRefillExtraClick = 0
+
 --[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
-    UnstableFastSkipDeadAnimation = 1]]
+    UnstableFastSkipDeadAnimation = 1
+--]]
+
+--Initalize for user input listnames
+Autoskill_List = {}
+for i = 1, 10 do
+    Autoskill_List[i] = {}
+    for j = 1, 2 do
+        Autoskill_List[i][j] = 0
+    end
+end
 
 --自動補體
 Refill_or_Not = 0
@@ -22,7 +35,6 @@ Support_MaxRefreshes = 3
 Support_FallbackTo = "manual"
 Support_PreferredServants = "waver1.png, waver2.png, waver4.png" --Any number of images separated by commas, if set to "Any" will pick any servant
 Support_PreferredCEs = "*chaldea_lunchtime.png" --Any number of images separated by commas, if set to "Any" will pick any craft essence
-
 
 --[[
 自動技能:
@@ -54,34 +66,52 @@ BATTLE 3:
 
 Skill_Confirmation: OFF = 0
 (若您在遊戲內需要點選確認視窗才能使用技能) ON = 1
-]]
+--]]
 Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = ""
 
 --Enable_Autoskill_List = 1的話、腳本啟動時會讓你從以下十組自動技能設定中選擇一組來使用
 Enable_Autoskill_List = 0
-Autoskill_List = {}
 --以下是使用者預先定義好的自動技能設定清單
-Autoskill_List[1] = "gac4,#,def5,#,x11abchi1j4"
-Autoskill_List[2] = ""
-Autoskill_List[3] = ""
-Autoskill_List[4] = ""
-Autoskill_List[5] = ""
-Autoskill_List[6] = ""
-Autoskill_List[7] = ""
-Autoskill_List[8] = ""
-Autoskill_List[9] = ""
-Autoskill_List[10] = ""
+Autoskill_List[1][1] = "Settings No.1"
+Autoskill_List[1][2] = "abc,#,def,#,ghi"
+
+Autoskill_List[2][1] = "Settings No.2"
+Autoskill_List[2][2] = ""
+
+Autoskill_List[3][1] = "Settings No.3"
+Autoskill_List[3][2] = ""
+
+Autoskill_List[4][1] = "Settings No.4"
+Autoskill_List[4][2] = ""
+
+Autoskill_List[5][1] = "Settings No.5"
+Autoskill_List[5][2] = ""
+
+Autoskill_List[6][1] = "Settings No.6"
+Autoskill_List[6][2] = ""
+
+Autoskill_List[7][1] = "Settings No.7"
+Autoskill_List[7][2] = ""
+
+Autoskill_List[8][1] = "Settings No.8"
+Autoskill_List[8][2] = ""
+
+Autoskill_List[9][1] = "Settings No.9"
+Autoskill_List[9][2] = ""
+
+Autoskill_List[10][1] = "Settings No.10"
+Autoskill_List[10][2] = ""
 
 --可以用這個選項組藍卡隊了安安。這個選項會影響卡片選擇優先順位，例：BAQ代表weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
 Battle_CardPriority = "BAQ"
 
 --[[
-Options:
-• disabled: will never cast NPs automatically, except for Autoskill commands
-• danger: will cast NPs only when there are DANGER or SERVANT enemies on screen
-• spam: will cast NPs as soon as they are available
+寶具行為：
+• disabled: 不會自己放寶具。如果你有用Autoskill，請選這個選項。
+• danger: 有DANGER或SERVANT敵人出現的時候會自動放寶具。如果你有用Autoskill，這選項會讓你的Autoskill順序亂掉，建議不要用。
+• spam: 有寶具當回合就會放掉。
 --]]
 Battle_NoblePhantasm = "disabled" 
 

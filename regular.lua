@@ -3,7 +3,8 @@ local support = require "support"
 
 --[[このスクリプトは人の動きを真似してるだけなので、サーバーには余計な負担を掛からないはず。
 	私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
-	お願いします。このプログラムを禁止しないでください。]]
+	お願いします。このプログラムを禁止しないでください。
+--]]
 
 --Main loop, pattern detection regions.
 --Click pos are hard-coded into code, unlikely to change in the future.
@@ -83,7 +84,8 @@ Target3Click = (Location(1050,80))
 	NpbarRegion = Region(280,1330,1620,50)
 	Ultcard1Region = Region(900,100,200,200)
 	Ultcard2Region = Region(1350,100,200,200)
-	Ultcard3Region = Region(1800,100,200,200)]]
+	Ultcard3Region = Region(1800,100,200,200)
+--]]
 
 --Autoskill click regions.
 Skill1Click = (Location(140,1160))
@@ -159,13 +161,15 @@ atkround = 1
 	3.Settings:set("AutoWaitTimeout", 1)
 	4.usePreviousSnap(true)
 	5.resolution 1280
-	6.exists(var ,0)]]
+	6.exists(var ,0)
+--]]
 
 function initCardPriorityArray()
 	--[[Considering:
 	Battle_CardPriority = "BAQ"
 	then:
-	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}]]
+	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}
+	--]]
 	
 	for card in Battle_CardPriority:gmatch(".") do
 		table.insert(CardPriorityArray, "W" .. card)
@@ -323,7 +327,8 @@ function executeSkill()
 		
 		--[[Prevent exessive delay between skill clickings. 
 			firstSkill = 1 means more delay, cause one has to wait for battle animation. 
-			firstSkill = 0 means less delay.]]
+			firstSkill = 0 means less delay.
+		--]]
     	local firstSkill = 1
     	if currentSkill ~= '0' and currentSkill ~= '#' then
     		for command in string.gmatch(currentSkill, ".") do
@@ -367,7 +372,8 @@ function decodeSkill(str, isFirstSkill)
 		decodeSkill_NPCasting == 0: Not currently casting NP(not in card selection screen).
 		index >= -44 and MysticCode_OrderChange == 0: Not currently doing Order Change.
 		
-		Therefore, script is casting regular servant skills.]]
+		Therefore, script is casting regular servant skills.
+	--]]
 	if isFirstSkill == 0 and decodeSkill_NPCasting == 0 and index >= -44 and MysticCode_OrderChange == 0 then
 		--Wait for regular servant skill animation executed last time.
 		--Do not make it shorter, at least 2.9s. Napoleon's skill animation is ridiculously long.
@@ -378,7 +384,8 @@ function decodeSkill(str, isFirstSkill)
 		Hence: 
 		52 - 96 = -44 
 		53 - 96 = -43 
-		54 - 96 = -42]]	
+		54 - 96 = -42
+	--]]	
 	if index >= -44 and index <= -42 and decodeSkill_NPCasting == 0 then
 		---Enter card selection screen, ready to cast NP.
 		click(Location(2300,1200))
@@ -392,7 +399,8 @@ function decodeSkill(str, isFirstSkill)
 		106 - 96 = 10
 		107 - 96 = 11
 		108 - 96 = 12
-		120 - 96 = 24]]
+		120 - 96 = 24
+	--]]
 	if index >= 10 then
 		--Click master skill menu icon, ready to cast master skill.
 		click(Location(2380, 640))
@@ -401,7 +409,8 @@ function decodeSkill(str, isFirstSkill)
 
 	--[[Enter Order Change Mode.
 		In ascii, char(x) = decimal(120)
-		120 - 96 = 24]]
+		120 - 96 = 24
+	--]]
 	if index == 24 then
 		MysticCode_OrderChange = 1
 	end
@@ -560,7 +569,8 @@ function norcard()
         Card5Clicked = 1
         i = i + 1
     end
-end]]
+end
+--]]
 
 function result()
 	--Bond exp screen.
@@ -639,16 +649,16 @@ function PSADialogue()
 		addTextView("Please select your predefined Autoskill setting:")
 		newRow()
 		addRadioGroup("AutoskillListIndex", 1)
-		addRadioButton("Setting 01 " .. Autoskill_List[1], 1)
-		addRadioButton("Setting 02 " .. Autoskill_List[2], 2)
-		addRadioButton("Setting 03 " .. Autoskill_List[3], 3)
-		addRadioButton("Setting 04 " .. Autoskill_List[4], 4)
-		addRadioButton("Setting 05 " .. Autoskill_List[5], 5)
-		addRadioButton("Setting 06 " .. Autoskill_List[6], 6)
-		addRadioButton("Setting 07 " .. Autoskill_List[7], 7)
-		addRadioButton("Setting 08 " .. Autoskill_List[8], 8)
-		addRadioButton("Setting 09 " .. Autoskill_List[9], 9)
-		addRadioButton("Setting 10 " .. Autoskill_List[10], 10)
+		addRadioButton(Autoskill_List[1][1] .. ": " .. Autoskill_List[1][2], 1)
+		addRadioButton(Autoskill_List[2][1] .. ": " .. Autoskill_List[2][2], 2)
+		addRadioButton(Autoskill_List[3][1] .. ": " .. Autoskill_List[3][2], 3)
+		addRadioButton(Autoskill_List[4][1] .. ": " .. Autoskill_List[4][2], 4)
+		addRadioButton(Autoskill_List[5][1] .. ": " .. Autoskill_List[5][2], 5)
+		addRadioButton(Autoskill_List[6][1] .. ": " .. Autoskill_List[6][2], 6)
+		addRadioButton(Autoskill_List[7][1] .. ": " .. Autoskill_List[7][2], 7)
+		addRadioButton(Autoskill_List[8][1] .. ": " .. Autoskill_List[8][2], 8)
+		addRadioButton(Autoskill_List[9][1] .. ": " .. Autoskill_List[9][2], 9)
+		addRadioButton(Autoskill_List[10][1] .. ": " .. Autoskill_List[10][2], 10)
 	end
 
 	--Show the generated dialogue.
@@ -657,7 +667,7 @@ function PSADialogue()
 
 	--Put user selection into list for later exception handling.
 	if Enable_Autoskill_List == 1 then
-		Skill_Command = Autoskill_List[AutoskillListIndex]
+		Skill_Command = Autoskill_List[AutoskillListIndex][2]
 	end
 
 	--Autoskill exception handling.

@@ -9,7 +9,17 @@ StageCountRegion = Region(1722,25,46,53)
 NotJPserverForStaminaRefillExtraClick = 1
 
 --[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
-    UnstableFastSkipDeadAnimation = 1]]
+    UnstableFastSkipDeadAnimation = 1
+--]]
+
+--Initalize for user input listnames
+Autoskill_List = {}
+for i = 1, 10 do
+    Autoskill_List[i] = {}
+    for j = 1, 2 do
+        Autoskill_List[i][j] = 0
+    end
+end
 
 --StaminaRefill
 Refill_or_Not = 0
@@ -24,7 +34,6 @@ Support_MaxRefreshes = 3
 Support_FallbackTo = "manual"
 Support_PreferredServants = "waver1.png, waver2.png, waver4.png" --Any number of images separated by commas, if set to "Any" will pick any servant
 Support_PreferredCEs = "*chaldea_lunchtime.png" --Any number of images separated by commas, if set to "Any" will pick any craft essence
-
 
 --[[
 AutoSkill:
@@ -56,38 +65,56 @@ Turn 2 - Servant 1 skill a on self, Servant 3 skill g on self
 
 Skill_Confirmation: OFF = 0
 (When you need to confirm skill use) ON = 1
-]]
+--]]
 Enable_Autoskill = 0
 Skill_Confirmation = 0
-Skill_Command = ""
+Skill_Command = "abc,#,def,#,ghi"
 
 --When Enable_Autoskill_List = 1, the script starts with a dialogue for you to choose Autoskill setting from one of the predefined list
 Enable_Autoskill_List = 0
-Autoskill_List = {}
 --The folllowing are predefined settings by user
-Autoskill_List[1] = "gac4,#,def5,#,x11abchi1j4"
-Autoskill_List[2] = ""
-Autoskill_List[3] = ""
-Autoskill_List[4] = ""
-Autoskill_List[5] = ""
-Autoskill_List[6] = ""
-Autoskill_List[7] = ""
-Autoskill_List[8] = ""
-Autoskill_List[9] = ""
-Autoskill_List[10] = ""
+Autoskill_List[1][1] = "Settings No.1"
+Autoskill_List[1][2] = "abc,#,def,#,ghi"
+
+Autoskill_List[2][1] = "Settings No.2"
+Autoskill_List[2][2] = ""
+
+Autoskill_List[3][1] = "Settings No.3"
+Autoskill_List[3][2] = ""
+
+Autoskill_List[4][1] = "Settings No.4"
+Autoskill_List[4][2] = ""
+
+Autoskill_List[5][1] = "Settings No.5"
+Autoskill_List[5][2] = ""
+
+Autoskill_List[6][1] = "Settings No.6"
+Autoskill_List[6][2] = ""
+
+Autoskill_List[7][1] = "Settings No.7"
+Autoskill_List[7][2] = ""
+
+Autoskill_List[8][1] = "Settings No.8"
+Autoskill_List[8][2] = ""
+
+Autoskill_List[9][1] = "Settings No.9"
+Autoskill_List[9][2] = ""
+
+Autoskill_List[10][1] = "Settings No.10"
+Autoskill_List[10][2] = ""
 
 --You can change card selection priority. For example, BAQ stands for: weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
 Battle_CardPriority = "BAQ"
 
 --[[
-Options:
-• disabled: will never cast NPs automatically, except for Autoskill commands
-• danger: will cast NPs only when there are DANGER or SERVANT enemies on screen
-• spam: will cast NPs as soon as they are available
+Noble Phantasm Behavior:
+• disabled: Will never cast NPs automatically. If you have Autoskill enabled, please use this option.
+• danger: Will cast NPs only when there are DANGER or SERVANT enemies on the screen. This option will probably mess up your Autoskill orders.
+• spam: Will cast NPs as soon as they are available.
 --]]
 Battle_NoblePhantasm = "disabled" 
 
 --Whenever there's additional event point reward window to be clicked through, isEvent = 1. Please check the details on github.
-isEvent = 1
+isEvent = 0
 
 dofile(dir .. "regular.lua")
