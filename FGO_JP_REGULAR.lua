@@ -32,8 +32,8 @@ Support_SelectionMode = "first"
 Support_SwapsPerRefresh = 10
 Support_MaxRefreshes = 3
 Support_FallbackTo = "manual"
-Support_PreferredServants = "waver1.png, waver2.png, waver4.png" --サーヴァント選択のお気に入り順番リスト。"Any"ってのはもし他のサーヴァントが見つからなかったら、どのサーヴァントを選択してもいいって意味です。(Fallback)
-Support_PreferredCEs = "*chaldea_lunchtime.png" --礼装選択のお気に入り順番リスト。"Any"ってのはもし他の礼装が見つからなかったら、どの礼装を選択してもいいって意味です。(Fallback)
+Support_PreferredServants = "waver1.png, waver2.png, waver4.png"
+Support_PreferredCEs = "*chaldea_lunchtime.png"
 
 --[[
 オートスキル:

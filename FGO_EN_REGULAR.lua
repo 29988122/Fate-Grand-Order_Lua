@@ -32,8 +32,8 @@ Support_SelectionMode = "first"
 Support_SwapsPerRefresh = 10
 Support_MaxRefreshes = 3
 Support_FallbackTo = "manual"
-Support_PreferredServants = "waver1.png, waver2.png, waver4.png" --Any number of images separated by commas, if set to "Any" will pick any servant
-Support_PreferredCEs = "*chaldea_lunchtime.png" --Any number of images separated by commas, if set to "Any" will pick any craft essence
+Support_PreferredServants = "waver1.png, waver2.png, waver4.png"
+Support_PreferredCEs = "*chaldea_lunchtime.png"
 
 --[[
 AutoSkill:
