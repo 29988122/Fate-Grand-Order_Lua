@@ -17,7 +17,7 @@ Screw those farming events - I only wanna enjoy the (kinoko) story!
 
 Therefore I proudly brought you this: FGO automation script.
 
-As of 2018.08.26, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
+As of 2018.10.10, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
 
 PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for the script.
 
@@ -77,18 +77,16 @@ and click the transparent arrow. You're good to go.
 
 As title. It will keep gacha until your bag's full.
 
-* \_auto\_gift\_exchange
+* \_auto\_gift\_exchangeV2.lua
 
 Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 ## Behavior details:
 - Major and minor adjustments will be done frequently as FGO updates. **Remember to update!**
 
-- Stamina does NOT automatically refilled, if you need to refill them automatically, please check [AutoRefill](#autorefill)
+- Stamina does NOT automatically refilled, if you need to refill them automatically, please check [AutoRefill](#autorefill).
 
-- Script sometimes stucked at certain screen - that's because FGO and delightworks SUCKED. If loading took too long, script will think it already finished loading and click when game's in fact not ready. Restart the script manually should suffice, or adjust all the wait() function in the .lua yourself. 3-5 seconds more would be enough. 
-
-- Script automatically chooses weak cards, until "boss" fight.
+- Script automatically chooses weak cards, until "boss" fight. The priority of BAQ cards can be changed, please check [Card Priority Customization](#card-priority-customization).
 
 - It will switch target to any "servant" or "danger" enemy ONCE, cast Noble Phantasm immediately and after until battle ended.
 The behavior can be changed by ```Battle_NoblePhantasm```, please check [Noble Phantasm Behavior](#noble-phantasm-behavior) for further detail.
@@ -97,7 +95,7 @@ The behavior can be changed by ```Battle_NoblePhantasm```, please check [Noble P
 
 - Customized skill command is supported, though the command execution is still highly depends on runtime conditions. Please check [AutoSkill](#autoskill).
 
-- User-defined support selection is supported, though it could be slow at times, please consider your farming efficiency. Please check [AutoSupportSelection](#autosupportselection).
+- User-defined support selection is supported, though it could be slow at times, please take your farming efficiency into consideration. Check [AutoSupportSelection](#autosupportselection).
 
 ## AutoRefill:
 If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
