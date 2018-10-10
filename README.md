@@ -17,7 +17,7 @@ Screw those farming events - I only wanna enjoy the (kinoko) story!
 
 Therefore I proudly brought you this: FGO automation script.
 
-As of 2018.08.26, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
+As of 2018.10.10, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
 
 PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for the script.
 
@@ -77,18 +77,16 @@ and click the transparent arrow. You're good to go.
 
 As title. It will keep gacha until your bag's full.
 
-* \_auto\_gift\_exchange
+* \_auto\_gift\_exchangeV2.lua
 
 Use for Nero matsuri or Christmas events. Their UI really sucked.
 
 ## Behavior details:
 - Major and minor adjustments will be done frequently as FGO updates. **Remember to update!**
 
-- Stamina does NOT automatically refilled, if you need to refill them automatically, please check [AutoRefill](#autorefill)
+- Stamina does NOT automatically refilled, if you need to refill them automatically, please check [AutoRefill](#autorefill).
 
-- Script sometimes stucked at certain screen - that's because FGO and delightworks SUCKED. If loading took too long, script will think it already finished loading and click when game's in fact not ready. Restart the script manually should suffice, or adjust all the wait() function in the .lua yourself. 3-5 seconds more would be enough. 
-
-- Script automatically chooses weak cards, until "boss" fight.
+- Script automatically chooses weak cards, until "boss" fight. The priority of BAQ cards can be changed, please check [Card Priority Customization](#card-priority-customization).
 
 - It will switch target to any "servant" or "danger" enemy ONCE, cast Noble Phantasm immediately and after until battle ended.
 The behavior can be changed by ```Battle_NoblePhantasm```, please check [Noble Phantasm Behavior](#noble-phantasm-behavior) for further detail.
@@ -97,7 +95,7 @@ The behavior can be changed by ```Battle_NoblePhantasm```, please check [Noble P
 
 - Customized skill command is supported, though the command execution is still highly depends on runtime conditions. Please check [AutoSkill](#autoskill).
 
-- User-defined support selection is supported, though it could be slow at times, please consider your farming efficiency. Please check [AutoSupportSelection](#autosupportselection).
+- User-defined support selection is supported, though it could be slow at times, please take your farming efficiency into consideration. Check [AutoSupportSelection](#autosupportselection).
 
 ## AutoRefill:
 If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
@@ -184,7 +182,41 @@ The default settings ```first``` will select the first visible servant on the se
 
 ```manual``` is used when you can monitor your script running - you need to select the support servant yourself, and the script will continue running after selection.
 
-```preferred``` is our desired option here. By putting screenshots of your pre-defined servant friend into image_SUPPORT folder, that servant can be choosed automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put the filename(s) in the options ```Support_PreferredServants``` or ```Support_PreferredCEs```, accordingly.
+```preferred``` is our desired option here. By putting screenshots of your pre-defined servant or CE into image_SUPPORT folder, that servant or CE can then be chosen automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put the filename(s) in the options ```Support_PreferredServants``` or ```Support_PreferredCEs```, accordingly.
+
+This selection function will try every combination that you put in the above settings.
+
+Consider the following example:
+```
+Support_PreferredServants = "Any"
+Support_PreferredServants = ""
+(Putting "any" or leave it blank means that you don't care which servant it is.)
+
+Support_PreferredCEs = "lunchtime.png, maid_in_halloween.png"
+```
+Then the script will search for:
+
+• Any servant with CE Chaldea Lunchtime
+
+• Any servant with CE Maid in Halloween
+
+And select it **immediately** once the script found it. The script searches from the top to the bottom of the friend list. The reverse of the above example also stands true, i.e., waver.png with "Any" CE.
+
+Consider another example:
+```
+Support_PreferredServants = "waver.png, tamamo.png"
+Support_PreferredCEs = "lunchtime.png, maid_in_halloween.png"
+```
+And the script will search for:
+• Waver + Lunchtime
+
+• Waver + Maid in Halloween
+
+• Tamamo + Lunchtime
+
+• Tamamo + Maid in Halloween
+
+And select it **immediately** once the script found it.
 
 Your screenshot can be anything as long as it is inside the area outlined in red:
 ![screenshot_20180920-223126 1](https://user-images.githubusercontent.com/4316326/46427814-ba16d080-c718-11e8-893c-51c26ec02c22.png)
@@ -211,9 +243,6 @@ Support_FallbackTo = "first"
 
 The last option, ```Support_SwapsPerRefresh``` controls the number of swipes/servants before refreshing the screen.
 If you have like 6 friend support servants, make it 6.
-
-Check here for further info: 
-https://github.com/29988122/Fate-Grand-Order_Lua/pull/42#issuecomment-415980728
 
 Thanks @potchy for implementing this function!
 
