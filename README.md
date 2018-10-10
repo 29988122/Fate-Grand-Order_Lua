@@ -197,6 +197,7 @@ Support_PreferredCEs = "lunchtime.png, maid_in_halloween.png"
 Then the script will search for:
 
 • Any servant with CE Chaldea Lunchtime
+
 • Any servant with CE Maid in Halloween
 
 And select it **immediately** once the script found it, ordered from top to the bottom of the friend list. The reverse also stands true, i.e., waver.png with "Any" CE.
