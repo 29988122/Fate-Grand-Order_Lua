@@ -111,6 +111,7 @@ Battle_CardPriority = "BAQ"
 • disabled: 宝具は使わない。Autoskill設定したらこのオプションを使いましょう。
 • danger: DANGERとSERVANT敵が現したら自動的に毎回使います。Autoskillの順番が乱れる可能性があります。
 • spam: 宝具が溜まったら直ちに使います。
+Check https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#noble-phantasm-behavior for further detail.
 --]]
 Battle_NoblePhantasm = "disabled" 
 

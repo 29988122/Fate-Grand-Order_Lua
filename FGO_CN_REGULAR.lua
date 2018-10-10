@@ -108,9 +108,10 @@ Battle_CardPriority = "BAQ"
 
 --[[
 寶具行為：
-• disabled: 不會自己放寶具。如果你有用Autoskill，請選這個選項。
-• danger: 有DANGER或SERVANT敵人出現的時候會自動放寶具。如果你有用Autoskill，這選項會讓你的Autoskill順序亂掉，建議不要用。
+• disabled: 不會自己放寶具。如果你有用Autoskill，請選這個選項比較不會出問題。
+• danger: 有DANGER或SERVANT敵人出現的時候每回合會自動放寶具。如果你有用Autoskill，這選項有機會讓你的Autoskill順序亂掉。
 • spam: 有寶具當回合就會放掉。
+Check https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#noble-phantasm-behavior for further detail.
 --]]
 Battle_NoblePhantasm = "disabled"
 

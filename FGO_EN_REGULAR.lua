@@ -111,6 +111,7 @@ Noble Phantasm Behavior:
 • disabled: Will never cast NPs automatically. If you have Autoskill enabled, please use this option.
 • danger: Will cast NPs only when there are DANGER or SERVANT enemies on the screen. This option will probably mess up your Autoskill orders.
 • spam: Will cast NPs as soon as they are available.
+Check https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#noble-phantasm-behavior for further detail.
 --]]
 Battle_NoblePhantasm = "disabled" 
 

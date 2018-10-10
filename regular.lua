@@ -1,3 +1,4 @@
+--Other import such as ankulua-utils or string-utils are defined in support.lua.
 package.path = package.path .. ";" .. dir .. 'modules/?.lua'
 local support = require "support"
 
@@ -145,16 +146,18 @@ GeneralImagePath = "image_" .. GameRegion .. "/"
 
 --Autoskill and Autoskill exception handling related, waiting for cleanup.
 decodeSkill_NPCasting = 0
-stageCount = 1
+AutoskillPopupStageCounter = 1
 stageTurnArray = {0, 0, 0, 0, 0}
 turnCounter = {0, 0, 0, 0, 0}
 MysticCode_OrderChange = 0
 
 --Wait for cleanup variables and its respective functions, my messed up code^TM.
 atkround = 1
+CleartoSpamNP = 0
 
 --TBD:Autoskill execution optimization, switch target during Autoskill, Do not let Targetchoose().ultcard() interfere with Autoskill, battle()execution order cleanup. 
-
+--TBD:Screenshot function refactoring: https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-428015815
+	
 --[[recognize speed realated functions:
 	1.setScanInterval(1)
 	2.Settings:set("MinSimilarity", 0.5)
@@ -236,12 +239,12 @@ function battle()
 	local RoundCounter = 1
 	
 	if TargetChoosen ~= 1 then
-		--Choose priority target for NP spam and focuse fire.
+		--Choose priority target for NP spam and focus fire.
 		TargetChoose()
 	end
 	
     wait(0.5)
-    if Enable_Autoskill == 1 then
+	if Enable_Autoskill == 1 then
 		executeSkill()
     end
 	
@@ -254,8 +257,10 @@ function battle()
     	click(Location(2300,1200))
     	wait(1)
 	end
-    
-    if Battle_NoblePhantasm == "spam" or (Battle_NoblePhantasm == "danger" and TargetChoosen == 1) then
+	
+	--幹有夠醜受不了了，等以後有機會refactoring再來處理，疊床架屋真是夠了 = =
+	--danger模式下也能夠不要跟Autoskill衝突的temporary solution
+    if Battle_NoblePhantasm == "spam" or (Battle_NoblePhantasm == "danger" and TargetChoosen == 1 and Enable_Autoskill == 0) or (Enable_Autoskill == 1 and CleartoSpamNP == 1 and Battle_NoblePhantasm == "danger" and TargetChoosen == 1) then
         ultcard()
     end
 
@@ -315,7 +320,9 @@ function executeSkill()
 	decodeSkill_NPCasting = 0
 	local currentStage = 1
 	local currentTurn = atkround
-	if stageCount ~= 1 then
+
+	--Will ALWAYS enter this clause. Check for current stage.
+	if AutoskillPopupStageCounter ~= 1 then
     		currentStage = CheckCurrentStage(StageCountRegion)
     		turnCounter[currentStage] = turnCounter[currentStage] + 1
     		currentTurn = turnCounter[currentStage]
@@ -339,8 +346,13 @@ function executeSkill()
 		if decodeSkill_NPCasting == 0 then
 			--Wait for regular servant skill animation executed last time. Then proceed to next turn.
     		wait(2.7)
-    	end	
-    end
+		end	
+	end
+
+	--NP spam AFTER all of the autoskill commands finished.
+	if currentStage >= AutoskillPopupStageCounter and StageSkillArray[AutoskillPopupStageCounter][currentTurn] == nil then
+		CleartoSpamNP = 1
+	end
 end
 
 function CheckCurrentStage(region)
@@ -678,19 +690,20 @@ function PSADialogue()
 					scriptExit("Error at '" ..word.. "': Skill Command cannot start with number '1', '2' and '3'!")
 				elseif string.match(word, "[%w+][#]") ~= nil or string.match(word, "[#][%w+]") ~= nil then
 					scriptExit("Error at '" ..word.. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
-			  	elseif string.match(word, "[^a-l^1-6^#^x]") ~= nil then
+				elseif string.match(word, "[^a-l^1-6^#^x]") ~= nil then		
 					scriptExit("Error at '" ..word.. "': Skill Command exceeded alphanumeric range! Expected 'x' or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
-			  	end
-		  	end
+				end
+			end
 			if word == '#' then
-				stageCount = stageCount + 1
-				if stageCount > 5 then
+				AutoskillPopupStageCounter = AutoskillPopupStageCounter + 1
+				if AutoskillPopupStageCounter > 5 then
 					scriptExit("Error: Detected commands for more than 5 stages")
 			  	end
-		  	end
+			end
+			--Autoskill table popup.
 		  	if word ~= '#' then
-				table.insert(StageSkillArray[stageCount], word)
-			  	stageTurnArray[stageCount] = stageTurnArray[stageCount] + 1
+				table.insert(StageSkillArray[AutoskillPopupStageCounter], word)
+			  	stageTurnArray[AutoskillPopupStageCounter] = stageTurnArray[AutoskillPopupStageCounter] + 1
 		  	end
 		end
 	end
