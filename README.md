@@ -186,7 +186,7 @@ The default settings ```first``` will select the first visible servant on the se
 
 This selection function will try every combination that you put in the above settings.
 
-Consider the following examples:
+Consider the following example:
 ```
 Support_PreferredServants = "Any"
 Support_PreferredServants = ""
@@ -200,12 +200,24 @@ Then the script will search for:
 
 • Any servant with CE Maid in Halloween
 
-And select it **immediately** once the script found it, ordered from top to the bottom of the friend list. The reverse also stands true, i.e., waver.png with "Any" CE.
+And select it **immediately** once the script found it. The script searches from the top to the bottom of the friend list. The reverse of the above example also stands true, i.e., waver.png with "Any" CE.
 
+Consider another example:
 ```
 Support_PreferredServants = "waver.png, tamamo.png"
 Support_PreferredCEs = "lunchtime.png, maid_in_halloween.png"
 ```
+And the script will search for:
+• Waver + Lunchtime
+
+• Waver + Maid in Halloween
+
+• Tamamo + Lunchtime
+
+• Tamamo + Maid in Halloween
+
+And select it **immediately** once the script found it.
+
 Your screenshot can be anything as long as it is inside the area outlined in red:
 ![screenshot_20180920-223126 1](https://user-images.githubusercontent.com/4316326/46427814-ba16d080-c718-11e8-893c-51c26ec02c22.png)
 
@@ -231,9 +243,6 @@ Support_FallbackTo = "first"
 
 The last option, ```Support_SwapsPerRefresh``` controls the number of swipes/servants before refreshing the screen.
 If you have like 6 friend support servants, make it 6.
-
-Check here for further info: 
-https://github.com/29988122/Fate-Grand-Order_Lua/pull/42#issuecomment-415980728
 
 Thanks @potchy for implementing this function!
 
