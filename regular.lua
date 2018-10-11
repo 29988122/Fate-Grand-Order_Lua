@@ -153,7 +153,6 @@ MysticCode_OrderChange = 0
 
 --Wait for cleanup variables and its respective functions, my messed up code^TM.
 atkround = 1
-CleartoSpamNP = 0
 
 --TBD:Autoskill execution optimization, switch target during Autoskill, Do not let Targetchoose().ultcard() interfere with Autoskill, battle()execution order cleanup. 
 --TBD:Screenshot function refactoring: https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-428015815
@@ -182,6 +181,7 @@ function initCardPriorityArray()
 end
 
 function menu()
+	CleartoSpamNP = 0
     atkround = 1
     decodeSkill_NPCasting = 0
 	turnCounter = {0, 0, 0, 0, 0}
