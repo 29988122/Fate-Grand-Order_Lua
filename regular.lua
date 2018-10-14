@@ -258,11 +258,7 @@ function battle()
     	wait(1)
 	end
 	
-	--幹有夠醜受不了了，等以後有機會refactoring再來處理，疊床架屋真是夠了 = =
-	--danger模式下也能夠不要跟Autoskill衝突的temporary solution
-    if Battle_NoblePhantasm == "spam" or (Battle_NoblePhantasm == "danger" and TargetChoosen == 1 and Enable_Autoskill == 0) or (Enable_Autoskill == 1 and CleartoSpamNP == 1 and Battle_NoblePhantasm == "danger" and TargetChoosen == 1) then
-        ultcard()
-    end
+    ultcard()
 
     wait(0.5)
 	doBattleLogic()
@@ -482,9 +478,15 @@ function checkCardType(region)
 end
 
 function ultcard()
-	click(Ultcard1Click)
-	click(Ultcard2Click)
-	click(Ultcard3Click)
+	local weCanSpam = Battle_NoblePhantasm == "spam"
+	local weAreInDanger = Battle_NoblePhantasm == "danger" and TargetChoosen == 1
+	local isAutoskillFinished = Enable_Autoskill == 0 or CleartoSpamNP == 1
+
+	if (weCanSpam or weAreInDanger) and isAutoskillFinished then
+		click(Ultcard1Click)
+		click(Ultcard2Click)
+		click(Ultcard3Click)
+	end
 end
 
 function doBattleLogic()	
