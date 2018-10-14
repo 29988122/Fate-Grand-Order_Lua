@@ -233,11 +233,13 @@ end
 
 function battle()
 	wait(2.5)
-	InitForCheckCurrentStage()
+	InitForUpdateStageCounter()
 
 	--TBD: counter not used, will replace atkround.
 	local RoundCounter = 1
-	
+    
+	UpdateStageCounter(StageCountRegion)
+    
 	if TargetChoosen ~= 1 then
 		--Choose priority target for NP spam and focus fire.
 		TargetChoose()
@@ -281,7 +283,7 @@ function battle()
     wait(3)
 end
 
-function InitForCheckCurrentStage()
+function InitForUpdateStageCounter()
 	--Generate a snapshot ONCE in the beginning of battle(). Will re-run itself after entered memu().
 	if SnapshotGeneratedForStagecounter ~= 1 then
 		toast("Taking snapshot for stage recognition")
@@ -323,7 +325,7 @@ function executeSkill()
 
 	--Will ALWAYS enter this clause. Check for current stage.
 	if AutoskillPopupStageCounter ~= 1 then
-    		currentStage = CheckCurrentStage(StageCountRegion)
+    		currentStage = StageCounter
     		turnCounter[currentStage] = turnCounter[currentStage] + 1
     		currentTurn = turnCounter[currentStage]
     end
@@ -355,7 +357,7 @@ function executeSkill()
 	end
 end
 
-function CheckCurrentStage(region)
+function UpdateStageCounter(region)
 	--Alternative fix for different font of stagecount number among different regions, worked pretty damn well tho.
 	--This will compare last screenshot with current screen, effectively get to know if stage changed or not.
 	local s = region:exists(Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png"):similar(0.8))
@@ -363,7 +365,7 @@ function CheckCurrentStage(region)
 	--Pattern found, stage did not change.
 	if s ~= nil then
 		toast("Battle "..StageCounter.."/3")
-		return StageCounter
+		return
 	end
 	
 	--Pattern not found, which means that stage changed. Generate another snapshot te be used next time.
@@ -371,8 +373,9 @@ function CheckCurrentStage(region)
 		toast("Taking snapshot for stage recognition")
 		StageCountRegion:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
 		StageCounter = StageCounter + 1
+        TargetChoosen = 0
 		toast("Battle "..StageCounter.."/3")
-		return StageCounter
+		return
 	end
 end
 	
