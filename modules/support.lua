@@ -156,12 +156,13 @@ searchVisible = function(searchMethod)
 			return {"no-friends-at-all"} -- no friends on screen, so there's no point in even searching for a Servant/Craft Essence
 		end
 	
-		local support = searchMethod()
+		local support, bounds = searchMethod()
 		if support == nil then
 			return {"not-found"} -- nope, not found this time
 		end
 	
-		local bounds = findSupportBounds(support)  
+		-- bounds are already returned by searchMethod.byServantAndCraftEssence, but not by the other methods
+		bounds = bounds or findSupportBounds(support)  
 		if not isFriend(bounds) then
 			return {"not-a-friend", support} -- found something, but it is not a friend
 		end
@@ -203,19 +204,11 @@ searchMethod = {
 	byServantAndCraftEssence = function()
 		local servants = findServants()
 		for _, servant in ipairs(servants) do
-		
-			-- these calculations need to be done, otherwise we might select a CE from the wrong servant
-			local maxDistanceFromServantPortraitToCraftEssence = 300
-			
-			local x = ListRegion:getX()
-			local y = servant:getY()
-			local width = ListRegion:getW()
-			local height = maxDistanceFromServantPortraitToCraftEssence + CraftEssenceHeight
-			local region = Region(x, y, width, height)
-			
-			local craftEssence = findCraftEssence(region)
+			local supportBounds = findSupportBounds(servant)
+			local craftEssence = findCraftEssence(supportBounds)
+
 			if craftEssence ~= nil then
-				return craftEssence -- only return if found. if not, try the other servants before scrolling
+				return craftEssence, supportBounds -- only return if found. if not, try the other servants before scrolling
 			end
 		end
 		
