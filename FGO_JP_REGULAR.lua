@@ -29,8 +29,8 @@ How_Many = 0
 --サポートサーヴァント自動選択
 --説明書に参照してください https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#autosupportselection
 Support_SelectionMode = "first"
-Support_SwapsPerRefresh = 10
-Support_MaxRefreshes = 3
+Support_SwipesPerUpdate = 10
+Support_MaxUpdates = 3
 Support_FallbackTo = "manual"
 Support_FriendsOnly = 0
 Support_PreferredServants = "waver1.png, waver2.png, waver4.png"

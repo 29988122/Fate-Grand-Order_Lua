@@ -110,12 +110,12 @@ selectPreferred = function(searchMethod)
 			click(support)
 			return true
 
-		elseif result == "not-found" and numberOfSwipes < Support_SwapsPerRefresh then
+		elseif result == "not-found" and numberOfSwipes < Support_SwipesPerUpdate then
 			scrollList()
 			numberOfSwipes = numberOfSwipes + 1
 			wait(0.3)
 
-		elseif numberOfUpdates < Support_MaxRefreshes then
+		elseif numberOfUpdates < Support_MaxUpdates then
 			toast("Support list will be updated in 3 seconds.")
 			wait(3)
 

@@ -29,8 +29,8 @@ How_Many = 0
 --自動選擇好友從者
 --請到此觀看詳細說明 https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#autosupportselection
 Support_SelectionMode = "first"
-Support_SwapsPerRefresh = 10
-Support_MaxRefreshes = 3
+Support_SwipesPerUpdate = 10
+Support_MaxUpdates = 3
 Support_FallbackTo = "manual"
 Support_FriendsOnly = 0
 Support_PreferredServants = "waver1.png, waver2.png, waver4.png"
