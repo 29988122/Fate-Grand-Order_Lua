@@ -5,7 +5,7 @@ local ankuluaUtils = require "ankulua-utils"
 -- consts
 local SupportImagePath = "image_SUPPORT" .. "/"
 local ScreenRegion = Region(0,0,110,332)
-local ListRegion = Region(70,332,378,842) -- see diagrams/support_list_region.png
+local ListRegion = Region(70,332,378,842) -- see docs/support_list_region.png
 local ListItemRegionArray = { Region(76,338,2356,428), Region(76,778,2356,390) } -- see docs/support_list_item_regions.png
 local FriendRegion = Region(2234, ListRegion:getY(), 120, ListRegion:getH()) -- see docs/friend_region.png
 local ListTopClick = Location(2480,360)
