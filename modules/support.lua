@@ -6,9 +6,11 @@ local ankuluaUtils = require "ankulua-utils"
 local SupportImagePath = "image_SUPPORT" .. "/"
 local ScreenRegion = Region(0,0,110,332)
 local ListRegion = Region(70,332,378,842) -- see diagrams/support_list_region.png
+local ListItemRegionArray = { Region(76,338,2356,428), Region(76,778,2356,390) } -- see docs/support_list_item_regions.png
+local FriendRegion = Region(2234, ListRegion:getY(), 120, ListRegion:getH()) -- see docs/friend_region.png
 local ListTopClick = Location(2480,360)
-local UpdateClick = Location(1670, 250)
-local UpdateYesClick = Location(1660, 1110)
+local UpdateClick = Location(1670,250)
+local UpdateYesClick = Location(1660,1110)
 local CraftEssenceHeight = 90
 local LimitBrokenCharacter = "*"
 
@@ -22,10 +24,13 @@ local selectSupport
 local selectFirst
 local selectPreferred
 local selectManual
+local searchVisible
 local decideSearchMethod
 local searchMethod
 local findServants
 local findCraftEssence
+local findSupportBounds
+local isFriend
 local isLimitBroken
 local scrollList
 
@@ -95,17 +100,21 @@ selectPreferred = function(searchMethod)
 	
 	while (true)
 	do
-		local support = ankuluaUtils.useSameSnapIn(searchMethod)
-		if support ~= nil then
+		local result, support = searchVisible(searchMethod)
+
+		if result == "ok" then
 			click(support)
 			return true
-		end
 
-		if numberOfSwipes < Support_SwapsPerRefresh then
+		elseif result == "not-found" and numberOfSwipes < Support_SwapsPerRefresh then
 			scrollList()
 			numberOfSwipes = numberOfSwipes + 1
 			wait(0.3)
-		elseif numberOfUpdates < Support_MaxRefreshes then		
+
+		elseif numberOfUpdates < Support_MaxRefreshes then
+			toast("Support list will be updated in 3 seconds.")
+			wait(3)
+
 			click(UpdateClick)
 			wait(1)
 			click(UpdateYesClick)
@@ -113,7 +122,8 @@ selectPreferred = function(searchMethod)
 
 			numberOfUpdates = numberOfUpdates + 1
 			numberOfSwipes = 0
-		else -- not found :(
+
+		else -- okay, we have run out of options, let's give up
 			click(ListTopClick)
 			return selectSupport(Support_FallbackTo)
 		end
@@ -122,6 +132,29 @@ end
 
 selectManual = function()
 	scriptExit("Support selection mode set to \"manual\".")
+end
+
+searchVisible = function(searchMethod)
+	local function performSearch()
+		if not isFriend(FriendRegion) then
+			return {"no-friends-at-all"} -- no friends on screen, so there's no point in even searching for a Servant/Craft Essence
+		end
+	
+		local support = searchMethod()
+		if support == nil then
+			return {"not-found"} -- nope, not found this time
+		end
+	
+		local bounds = findSupportBounds(support)  
+		if not isFriend(bounds) then
+			return {"not-a-friend", support} -- found something, but it is not a friend
+		end
+	
+		return {"ok", support}
+	end
+
+	-- see https://www.lua.org/pil/5.1.html for details on "unpack"
+	return unpack(ankuluaUtils.useSameSnapIn(performSearch))
 end
 
 decideSearchMethod = function()
@@ -197,7 +230,24 @@ findCraftEssence = function(searchRegion)
 		end
 	end
 	
-	return nil -- not found, continue scrolling
+	return nil
+end
+
+findSupportBounds = function(support)
+	for _, supportBounds in ipairs(ListItemRegionArray) do
+		if ankuluaUtils.doesRegionContain(supportBounds, support) then
+			return supportBounds
+		end
+	end
+
+	-- we're not supposed to end down here, but if we do, there's probably something wrong with ListItemRegionArray or ListRegion
+	local message = "The Servant or Craft Essence (X: %i, Y: %i, Width: %i, Height: %i) is not contained in ListItemRegionArray."
+	error(message:format(support:getX(), support:getY(), support:getW(), support:getH()))
+end
+
+isFriend = function(region)
+	local friendPattern = Pattern(GeneralImagePath .. "friend.png")
+	return Support_FriendsOnly == 0 or region:exists(friendPattern)
 end
 
 isLimitBroken = function(craftEssence)

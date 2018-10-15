@@ -32,6 +32,7 @@ Support_SelectionMode = "first"
 Support_SwapsPerRefresh = 10
 Support_MaxRefreshes = 3
 Support_FallbackTo = "manual"
+Support_FriendsOnly = 0
 Support_PreferredServants = "waver1.png, waver2.png, waver4.png"
 Support_PreferredCEs = "*chaldea_lunchtime.png"
 
