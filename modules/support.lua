@@ -22,8 +22,9 @@ local PreferredCraftEssenceTable = {}
 local init
 local selectSupport
 local selectFirst
-local selectPreferred
 local selectManual
+local selectPreferred
+local scrollList
 local searchVisible
 local decideSearchMethod
 local searchMethod
@@ -32,7 +33,6 @@ local findCraftEssence
 local findSupportBounds
 local isFriend
 local isLimitBroken
-local scrollList
 
 init = function()
 	local function split(str)
@@ -73,13 +73,13 @@ selectSupport = function(selectionMode)
 	if ScreenRegion:exists(GeneralImagePath .. "support_screen.png") then
 		if selectionMode == "first" then
 			return selectFirst()
+
+		elseif selectionMode == "manual" then
+			selectManual()
 			
 		elseif selectionMode == "preferred" then
 			local searchMethod = decideSearchMethod()
 			return selectPreferred(searchMethod)
-			
-		elseif selectionMode == "manual" then
-			selectManual()
 			
 		else
 			scriptExit("Invalid support selection mode: \"" + selectionMode + "\".")
@@ -92,6 +92,10 @@ end
 selectFirst = function()
 	click(Location(1900,500))
 	return true
+end
+
+selectManual = function()
+	scriptExit("Support selection mode set to \"manual\".")
 end
 
 selectPreferred = function(searchMethod)
@@ -130,8 +134,20 @@ selectPreferred = function(searchMethod)
 	end
 end
 
-selectManual = function()
-	scriptExit("Support selection mode set to \"manual\".")
+scrollList = function()
+	local startLocation = Location(146, 1190)
+	local endLocation = Location(146, 390)
+
+	local touchActions = {
+		{ action = "touchDown", target = startLocation },
+		{ action = "touchMove", target =   endLocation },
+		{ action =      "wait", target =           0.4 },
+		{ action =   "touchUp", target =   endLocation }
+	}
+	
+	-- I want the movement to be as accurate as possible
+	setManualTouchParameter(1, 1)
+	manualTouch(touchActions)
 end
 
 searchVisible = function(searchMethod)
@@ -255,22 +271,6 @@ isLimitBroken = function(craftEssence)
 	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.8)
 	
 	return limitBreakRegion:exists(limitBreakPattern)
-end
-
-scrollList = function()
-	local startLocation = Location(146, 1190)
-	local endLocation = Location(146, 390)
-
-	local touchActions = {
-		{ action = "touchDown", target = startLocation },
-		{ action = "touchMove", target =   endLocation },
-		{ action =      "wait", target =           0.4 },
-		{ action =   "touchUp", target =   endLocation }
-	}
-	
-	-- I want the movement to be as accurate as possible
-	setManualTouchParameter(1, 1)
-	manualTouch(touchActions)
 end
 
 -- "public" interface
