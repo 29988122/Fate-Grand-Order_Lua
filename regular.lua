@@ -191,9 +191,9 @@ function menu()
 	wait(1.5)
 	
 	--Auto refill.
-    if Refill_or_Not == 1 and StoneUsed < How_Many then
+    if StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) then
         RefillStamina()
-	end
+    end
 	
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
@@ -204,26 +204,28 @@ function menu()
 end
 
 function RefillStamina()
-    if StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) then
+    if Refill_or_Not == 1 and StoneUsed < How_Many then
         if Use_Stone == 1 then
-			click(StoneClick)
-			toast("Auto Refilling Stamina")
-	    	wait(1.5)
+            click(StoneClick)
+            toast("Auto Refilling Stamina")
+            wait(1.5)
             click(Location(1650,1120))
             StoneUsed = StoneUsed + 1
         else
-			click(AppleClick)
-			toast("Auto Refilling Stamina")
-	    	wait(1.5)
+            click(AppleClick)
+            toast("Auto Refilling Stamina")
+            wait(1.5)
             click(Location(1650,1120))
             StoneUsed = StoneUsed + 1
         end
-		wait(3)
-		if NotJPserverForStaminaRefillExtraClick == nil then
-			--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
-			click(Location(1900,400))
-			wait(1.5)
-		end
+        wait(3)
+        if NotJPserverForStaminaRefillExtraClick == nil then
+            --Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
+            click(Location(1900,400))
+            wait(1.5)
+        end
+    else
+        scriptExit("AP ran out!")
     end
 end
 
