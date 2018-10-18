@@ -225,7 +225,7 @@ function RefillStamina()
             wait(1.5)
         end
     else
-        scriptExit("AP ran out, exit!")
+        scriptExit("AP ran out!")
     end
 end
 
