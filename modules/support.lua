@@ -10,7 +10,7 @@ local ListItemRegionArray = { Region(76,338,2356,428), Region(76,778,2356,390) }
 local FriendRegion = Region(2234, ListRegion:getY(), 120, ListRegion:getH()) -- see docs/friend_region.png
 local ListTopClick = Location(2480,360)
 local UpdateClick = Location(1670,250)
-local UpdateYesClick = Location(1660,1110)
+local UpdateYesClick = Location(1480,1110)
 local CraftEssenceHeight = 90
 local LimitBrokenCharacter = "*"
 
