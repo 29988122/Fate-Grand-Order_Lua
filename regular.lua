@@ -20,6 +20,9 @@ StaminaRegion = Region(600,200,300,300)
 StoneClick = (Location(1270,340))
 AppleClick = (Location(1270,640))
 
+StartQuestClick = Location(2400,1350)
+StartQuestWithoutItemClick = Location(1652,1304) -- see docs/start_quest_without_item_click.png
+
 --Weak, resist, etc. Compatiable for most server, but tricky, frequently fail.
 Card1AffinRegion = Region( 295,650,250,200)
 Card2AffinRegion = Region( 810,650,250,200)
@@ -230,7 +233,12 @@ function RefillStamina()
 end
 
 function startQuest()
-	click(Location(2400,1350))
+	click(StartQuestClick)
+
+	if isEvent == 1 then
+		wait(2)
+		click(StartQuestWithoutItemClick)
+	end
 end
 
 function battle()
