@@ -5,10 +5,12 @@ local ankuluaUtils = require "ankulua-utils"
 -- consts
 local SupportImagePath = "image_SUPPORT" .. "/"
 local ScreenRegion = Region(0,0,110,332)
-local ListRegion = Region(85,350,350,1087) -- see docs/support_list_region.png
+local ListRegion = Region(70,332,378,842) -- see docs/support_list_region.png
+local ListItemRegionArray = { Region(76,338,2356,428), Region(76,778,2356,390) } -- see docs/support_list_item_regions.png
+local FriendRegion = Region(2234, ListRegion:getY(), 120, ListRegion:getH()) -- see docs/friend_region.png
 local ListTopClick = Location(2480,360)
-local UpdateClick = Location(1670, 250)
-local UpdateYesClick = Location(1660, 1110)
+local UpdateClick = Location(1670,250)
+local UpdateYesClick = Location(1480,1110)
 local CraftEssenceHeight = 90
 local LimitBrokenCharacter = "*"
 
@@ -20,12 +22,16 @@ local PreferredCraftEssenceTable = {}
 local init
 local selectSupport
 local selectFirst
-local selectPreferred
 local selectManual
+local selectPreferred
+local scrollList
+local searchVisible
 local decideSearchMethod
 local searchMethod
 local findServants
 local findCraftEssence
+local findSupportBounds
+local isFriend
 local isLimitBroken
 
 init = function()
@@ -67,13 +73,13 @@ selectSupport = function(selectionMode)
 	if ScreenRegion:exists(GeneralImagePath .. "support_screen.png") then
 		if selectionMode == "first" then
 			return selectFirst()
+
+		elseif selectionMode == "manual" then
+			selectManual()
 			
 		elseif selectionMode == "preferred" then
 			local searchMethod = decideSearchMethod()
 			return selectPreferred(searchMethod)
-			
-		elseif selectionMode == "manual" then
-			selectManual()
 			
 		else
 			scriptExit("Invalid support selection mode: \"" + selectionMode + "\".")
@@ -88,23 +94,31 @@ selectFirst = function()
 	return true
 end
 
+selectManual = function()
+	scriptExit("Support selection mode set to \"manual\".")
+end
+
 selectPreferred = function(searchMethod)
 	local numberOfSwipes = 0
 	local numberOfUpdates = 0
 	
 	while (true)
 	do
-		local support = ankuluaUtils.useSameSnapIn(searchMethod)
-		if support ~= nil then
+		local result, support = searchVisible(searchMethod)
+
+		if result == "ok" then
 			click(support)
 			return true
-		end
 
-		if numberOfSwipes < Support_SwapsPerRefresh then
-			swipe(Location(1200, 1150), Location(1200, 800))			
+		elseif result == "not-found" and numberOfSwipes < Support_SwipesPerUpdate then
+			scrollList()
 			numberOfSwipes = numberOfSwipes + 1
 			wait(0.3)
-		elseif numberOfUpdates < Support_MaxRefreshes then		
+
+		elseif numberOfUpdates < Support_MaxUpdates then
+			toast("Support list will be updated in 3 seconds.")
+			wait(3)
+
 			click(UpdateClick)
 			wait(1)
 			click(UpdateYesClick)
@@ -112,15 +126,52 @@ selectPreferred = function(searchMethod)
 
 			numberOfUpdates = numberOfUpdates + 1
 			numberOfSwipes = 0
-		else -- not found :(
+
+		else -- okay, we have run out of options, let's give up
 			click(ListTopClick)
 			return selectSupport(Support_FallbackTo)
 		end
 	end
 end
 
-selectManual = function()
-	scriptExit("Support selection mode set to \"manual\".")
+scrollList = function()
+	local startLocation = Location(146, 1190)
+	local endLocation = Location(146, 390)
+
+	local touchActions = {
+		{ action = "touchDown", target = startLocation },
+		{ action = "touchMove", target =   endLocation },
+		{ action =      "wait", target =           0.4 },
+		{ action =   "touchUp", target =   endLocation }
+	}
+	
+	-- I want the movement to be as accurate as possible
+	setManualTouchParameter(1, 1)
+	manualTouch(touchActions)
+end
+
+searchVisible = function(searchMethod)
+	local function performSearch()
+		if not isFriend(FriendRegion) then
+			return {"no-friends-at-all"} -- no friends on screen, so there's no point in even searching for a Servant/Craft Essence
+		end
+	
+		local support, bounds = searchMethod()
+		if support == nil then
+			return {"not-found"} -- nope, not found this time
+		end
+	
+		-- bounds are already returned by searchMethod.byServantAndCraftEssence, but not by the other methods
+		bounds = bounds or findSupportBounds(support)  
+		if not isFriend(bounds) then
+			return {"not-a-friend", support} -- found something, but it is not a friend
+		end
+	
+		return {"ok", support}
+	end
+
+	-- see https://www.lua.org/pil/5.1.html for details on "unpack"
+	return unpack(ankuluaUtils.useSameSnapIn(performSearch))
 end
 
 decideSearchMethod = function()
@@ -153,19 +204,11 @@ searchMethod = {
 	byServantAndCraftEssence = function()
 		local servants = findServants()
 		for _, servant in ipairs(servants) do
-		
-			-- these calculations need to be done, otherwise we might select a CE from the wrong servant
-			local maxDistanceFromServantPortraitToCraftEssence = 300
-			
-			local x = ListRegion:getX()
-			local y = servant:getY()
-			local width = ListRegion:getW()
-			local height = maxDistanceFromServantPortraitToCraftEssence + CraftEssenceHeight
-			local region = Region(x, y, width, height)
-			
-			local craftEssence = findCraftEssence(region)
+			local supportBounds = findSupportBounds(servant)
+			local craftEssence = findCraftEssence(supportBounds)
+
 			if craftEssence ~= nil then
-				return craftEssence -- only return if found. if not, try the other servants before scrolling
+				return craftEssence, supportBounds -- only return if found. if not, try the other servants before scrolling
 			end
 		end
 		
@@ -196,7 +239,24 @@ findCraftEssence = function(searchRegion)
 		end
 	end
 	
-	return nil -- not found, continue scrolling
+	return nil
+end
+
+findSupportBounds = function(support)
+	for _, supportBounds in ipairs(ListItemRegionArray) do
+		if ankuluaUtils.doesRegionContain(supportBounds, support) then
+			return supportBounds
+		end
+	end
+
+	-- we're not supposed to end down here, but if we do, there's probably something wrong with ListItemRegionArray or ListRegion
+	local message = "The Servant or Craft Essence (X: %i, Y: %i, Width: %i, Height: %i) is not contained in ListItemRegionArray."
+	error(message:format(support:getX(), support:getY(), support:getW(), support:getH()))
+end
+
+isFriend = function(region)
+	local friendPattern = Pattern(GeneralImagePath .. "friend.png")
+	return Support_FriendsOnly == 0 or region:exists(friendPattern)
 end
 
 isLimitBroken = function(craftEssence)
