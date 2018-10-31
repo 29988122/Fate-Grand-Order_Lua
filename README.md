@@ -219,11 +219,11 @@ And the script will search for:
 And select it **immediately** once the script found it.
 
 Your screenshot can be anything as long as it is inside the area outlined in red:
-![screenshot_20180920-223126 1](https://user-images.githubusercontent.com/4316326/46427814-ba16d080-c718-11e8-893c-51c26ec02c22.png)
+![support_list_region](https://raw.githubusercontent.com/29988122/Fate-Grand-Order_Lua/master/docs/support_list_region.png)
 
 ---
 
-If the servant/CE is not found in the support list, the script will click refresh as many times as defined in ```Support_MaxRefreshes```.
+If the servant/CE is not found in the support list, the script will click refresh as many times as defined in ```Support_MaxUpdates```.
 
 If this limit is reached, the script will use the ```Support_FallbackTo``` option to decide what do next. The options are the same as in ```Support_SelectionMode```. So, for instance, if the script is setup like this:
 
@@ -231,7 +231,7 @@ If this limit is reached, the script will use the ```Support_FallbackTo``` optio
 Support_SelectionMode = "preferred"
 Support_PreferredServants = "waver4.png"
 Support_PreferredCEs = "*maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB(Max Level Break, hence the star sign.)
-Support_MaxRefreshes = 3
+Support_MaxUpdates = 3
 Support_FallbackTo = "first"
 ```
 
@@ -241,7 +241,7 @@ Support_FallbackTo = "first"
 
 .... it will try to find Waver + a MLB Maid in Halloween CE in your support list. If it is not found in 3 refreshes maximum, the script will scroll back to top and pick the first visible servant.
 
-The last option, ```Support_SwapsPerRefresh``` controls the number of swipes/servants before refreshing the screen.
+The last option, ```Support_SwipesPerUpdate``` controls the number of swipes/servants before refreshing the screen.
 If you have like 6 friend support servants, make it 6.
 
 Thanks @potchy for implementing this function!
