@@ -242,7 +242,7 @@ function startQuest()
 end
 
 function battle()
-	wait(2.5)
+	wait(1.5)
 	InitForUpdateStageCounter()
 
 	--TBD: counter not used, will replace atkround.
@@ -281,12 +281,12 @@ function battle()
 
 	if UnstableFastSkipDeadAnimation == 1 then
 		--https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 Experimental
-		for i = 1, 6 do
-			click(Location(1500,500))
-			wait(2)
+		for i = 1, 5 do
+			click(Location(1700,100))
+			wait(1)
 		end
 	end
-    wait(3)
+    wait(2)
 end
 
 function InitForUpdateStageCounter()
@@ -602,17 +602,17 @@ end
 function result()
 	--Bond exp screen.
     wait(2)
-	click(Location(1000, 1000))
+	click(Location(2200, 1350))
 	
 	--Bond level up screen.
 	if BondRegion:exists(GeneralImagePath .. "bond.png") then
 		wait(1)
-		click(Location(1000, 1000))
+		click(Location(2200, 1350))
 	end
 
 	--Master exp screen.
     wait(2)
-	click(Location(1000, 1000))
+	click(Location(2200, 1350))
 	
 	--Obtained item screen.
     wait(1.5)
