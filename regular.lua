@@ -281,7 +281,7 @@ function battle()
 
 	if UnstableFastSkipDeadAnimation == 1 then
 		--https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 Experimental
-		for i = 1, 5 do
+		for i = 1, 3 do
 			click(Location(1700,100))
 			wait(1)
 		end
