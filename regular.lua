@@ -51,7 +51,7 @@ BCard = 150
 ACard = 100
 QCard = 80
 
-ResistBuster =  BCard * ResistMulti
+ResistBuster = BCard * ResistMulti
 ResistArt = ACard * ResistMulti
 ResistQuick = QCard * ResistMulti
 
@@ -157,9 +157,9 @@ MysticCode_OrderChange = 0
 --Wait for cleanup variables and its respective functions, my messed up code^TM.
 atkround = 1
 
---TBD:Autoskill execution optimization, switch target during Autoskill, Do not let Targetchoose().ultcard() interfere with Autoskill, battle()execution order cleanup. 
+--TBD:Autoskill execution optimization, switch target during Autoskill, Do not let Targetchoose().ultcard() interfere with Autoskill, battle()execution order cleanup.
 --TBD:Screenshot function refactoring: https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-428015815
-	
+
 --[[recognize speed realated functions:
 	1.setScanInterval(1)
 	2.Settings:set("MinSimilarity", 0.5)
@@ -175,7 +175,7 @@ function initCardPriorityArray()
 	then:
 	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}
 	--]]
-	
+
 	for card in Battle_CardPriority:gmatch(".") do
 		table.insert(CardPriorityArray, "W" .. card)
 		table.insert(CardPriorityArray, card)
@@ -185,19 +185,19 @@ end
 
 function menu()
 	CleartoSpamNP = 0
-    atkround = 1
-    decodeSkill_NPCasting = 0
+	atkround = 1
+	decodeSkill_NPCasting = 0
 	turnCounter = {0, 0, 0, 0, 0}
-	
+
 	--Click uppermost quest.
-    click(Location(1900,400))
+	click(Location(1900,400))
 	wait(1.5)
-	
+
 	--Auto refill.
-    if StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) then
-        RefillStamina()
-    end
-	
+	if StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) then
+		RefillStamina()
+	end
+
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport then
@@ -207,29 +207,29 @@ function menu()
 end
 
 function RefillStamina()
-    if Refill_or_Not == 1 and StoneUsed < How_Many then
-        if Use_Stone == 1 then
-            click(StoneClick)
-            toast("Auto Refilling Stamina")
-            wait(1.5)
-            click(Location(1650,1120))
-            StoneUsed = StoneUsed + 1
-        else
-            click(AppleClick)
-            toast("Auto Refilling Stamina")
-            wait(1.5)
-            click(Location(1650,1120))
-            StoneUsed = StoneUsed + 1
-        end
-        wait(3)
-        if NotJPserverForStaminaRefillExtraClick == nil then
-            --Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
-            click(Location(1900,400))
-            wait(1.5)
-        end
-    else
-        scriptExit("AP ran out!")
-    end
+	if Refill_or_Not == 1 and StoneUsed < How_Many then
+		if Use_Stone == 1 then
+			click(StoneClick)
+			toast("Auto Refilling Stamina")
+			wait(1.5)
+			click(Location(1650,1120))
+			StoneUsed = StoneUsed + 1
+		else
+			click(AppleClick)
+			toast("Auto Refilling Stamina")
+			wait(1.5)
+			click(Location(1650,1120))
+			StoneUsed = StoneUsed + 1
+		end
+		wait(3)
+		if NotJPserverForStaminaRefillExtraClick == nil then
+			--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089
+			click(Location(1900,400))
+			wait(1.5)
+		end
+	else
+		scriptExit("AP ran out!")
+	end
 end
 
 function startQuest()
@@ -247,36 +247,36 @@ function battle()
 
 	--TBD: counter not used, will replace atkround.
 	local RoundCounter = 1
-    
+
 	UpdateStageCounter(StageCountRegion)
-    
+
 	if TargetChoosen ~= 1 then
 		--Choose priority target for NP spam and focus fire.
 		TargetChoose()
 	end
-	
-    wait(0.5)
+
+	wait(0.5)
 	if Enable_Autoskill == 1 then
 		executeSkill()
-    end
-	
+	end
+
 	--From TargetChoose() to executeSKill().CheckCurrentStage(), the same snapshot is used.
 	usePreviousSnap(false)
-	
-    wait(0.5)
+
+	wait(0.5)
 	if decodeSkill_NPCasting == 0 then
 		--enter card selection screen
-    	click(Location(2300,1200))
-    	wait(1)
+		click(Location(2300,1200))
+		wait(1)
 	end
-	
-    ultcard()
 
-    wait(0.5)
+	ultcard()
+
+	wait(0.5)
 	doBattleLogic()
 	--From checkCardAffin(region) to checkCardType(region), the same snapshot is used.
-    usePreviousSnap(false)
-    
+	usePreviousSnap(false)
+
 	atkround = atkround + 1
 
 	if UnstableFastSkipDeadAnimation == 1 then
@@ -286,29 +286,29 @@ function battle()
 			wait(1)
 		end
 	end
-    wait(2)
+	wait(2)
 end
 
 function InitForUpdateStageCounter()
 	--Generate a snapshot ONCE in the beginning of battle(). Will re-run itself after entered memu().
 	if SnapshotGeneratedForStagecounter ~= 1 then
 		toast("Taking snapshot for stage recognition")
-		StageCountRegion:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")		
+		StageCountRegion:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
 		SnapshotGeneratedForStagecounter = 1
 		StageCounter = 1
 	end
 end
 
 function TargetChoose()
-    t1 = Target1Type:exists(GeneralImagePath .. "target_servant.png")
+	t1 = Target1Type:exists(GeneralImagePath .. "target_servant.png")
 	usePreviousSnap(true)
 	t2 = Target2Type:exists(GeneralImagePath .. "target_servant.png")
 	t3 = Target3Type:exists(GeneralImagePath .. "target_servant.png")
 	t1a = Target1Type:exists(GeneralImagePath .. "target_danger.png")
 	t2a = Target2Type:exists(GeneralImagePath .. "target_danger.png")
 	t3a = Target3Type:exists(GeneralImagePath .. "target_danger.png")
-    if t1 ~= nil or t1a ~= nil then
-        click(Target1Click)
+	if t1 ~= nil or t1a ~= nil then
+		click(Target1Click)
 		toast("Switched to priority target")
 		TargetChoosen = 1
 	elseif t2 ~= nil or t2a ~= nil then
@@ -331,30 +331,30 @@ function executeSkill()
 
 	--Will ALWAYS enter this clause. Check for current stage.
 	if AutoskillPopupStageCounter ~= 1 then
-    		currentStage = StageCounter
-    		turnCounter[currentStage] = turnCounter[currentStage] + 1
-    		currentTurn = turnCounter[currentStage]
-    end
-    	
+			currentStage = StageCounter
+			turnCounter[currentStage] = turnCounter[currentStage] + 1
+			currentTurn = turnCounter[currentStage]
+	end
+
 	if currentTurn	<= stageTurnArray[currentStage] then
 		--currentSkill is a two-dimensional array with something like abc1jkl4.
 		local currentSkill = StageSkillArray[currentStage][currentTurn]
-		
-		--[[Prevent exessive delay between skill clickings. 
-			firstSkill = 1 means more delay, cause one has to wait for battle animation. 
+
+		--[[Prevent exessive delay between skill clickings.
+			firstSkill = 1 means more delay, cause one has to wait for battle animation.
 			firstSkill = 0 means less delay.
 		--]]
-    	local firstSkill = 1
-    	if currentSkill ~= '0' and currentSkill ~= '#' then
-    		for command in string.gmatch(currentSkill, ".") do
-        		decodeSkill(command, firstSkill)
-        		firstSkill = 0	
-        	end
-    	end
+		local firstSkill = 1
+		if currentSkill ~= '0' and currentSkill ~= '#' then
+			for command in string.gmatch(currentSkill, ".") do
+				decodeSkill(command, firstSkill)
+				firstSkill = 0
+			end
+		end
 		if decodeSkill_NPCasting == 0 then
 			--Wait for regular servant skill animation executed last time. Then proceed to next turn.
-    		wait(2.7)
-		end	
+			wait(2.7)
+		end
 	end
 
 	--NP spam AFTER all of the autoskill commands finished.
@@ -373,18 +373,18 @@ function UpdateStageCounter(region)
 		toast("Battle "..StageCounter.."/3")
 		return
 	end
-	
+
 	--Pattern not found, which means that stage changed. Generate another snapshot te be used next time.
 	if s == nil then
 		toast("Taking snapshot for stage recognition")
 		StageCountRegion:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
 		StageCounter = StageCounter + 1
-        TargetChoosen = 0
+		TargetChoosen = 0
 		toast("Battle "..StageCounter.."/3")
 		return
 	end
 end
-	
+
 function decodeSkill(str, isFirstSkill)
 	--magic number - check ascii code, a == 97. http://www.asciitable.com/
 	local index = string.byte(str) - 96
@@ -392,7 +392,7 @@ function decodeSkill(str, isFirstSkill)
 	--[[isFirstSkill == 0: Not yet proceeded to next turn.
 		decodeSkill_NPCasting == 0: Not currently casting NP(not in card selection screen).
 		index >= -44 and MysticCode_OrderChange == 0: Not currently doing Order Change.
-		
+
 		Therefore, script is casting regular servant skills.
 	--]]
 	if isFirstSkill == 0 and decodeSkill_NPCasting == 0 and index >= -44 and MysticCode_OrderChange == 0 then
@@ -402,11 +402,11 @@ function decodeSkill(str, isFirstSkill)
 	end
 
 	--[[In ascii, char(4, 5, 6) command for servant NP456 = decimal(52, 53, 54) respectively.
-		Hence: 
-		52 - 96 = -44 
-		53 - 96 = -43 
+		Hence:
+		52 - 96 = -44
+		53 - 96 = -43
 		54 - 96 = -42
-	--]]	
+	--]]
 	if index >= -44 and index <= -42 and decodeSkill_NPCasting == 0 then
 		---Enter card selection screen, ready to cast NP.
 		click(Location(2300,1200))
@@ -458,7 +458,7 @@ function decodeSkill(str, isFirstSkill)
 	if index > 0 and Skill_Confirmation == 1 then
 		click(Location(1680,850))
 	end
-end	
+end
 
 function checkCardAffin(region)
 	weakAvail = region:exists(GeneralImagePath .. "weak.png")
@@ -466,28 +466,28 @@ function checkCardAffin(region)
 	if weakAvail ~= nil then
 		return WeakMulti
 	end
-	
+
 	if region:exists(GeneralImagePath .. "resist.png") ~= nil then
 		return ResistMulti
 	else
 		return NormalMulti
-	end	
+	end
 end
 
 function checkCardType(region)
 	if region:exists(GeneralImagePath .. "buster.png") ~= nil then
 		return BCard
 	end
-	
+
 	if region:exists(GeneralImagePath .. "art.png") ~= nil then
 		return ACard
 	end
-	
+
 	if region:exists(GeneralImagePath .. "quick.png") ~= nil then
 		return QCard
 	else
 		return BCard
-	end		
+	end
 end
 
 function ultcard()
@@ -502,55 +502,55 @@ function ultcard()
 	end
 end
 
-function doBattleLogic()	
+function doBattleLogic()
 	local cardStorage =
 	{
 		WB = {}, B = {}, RB = {},
 		WA = {}, A = {}, RA = {},
 		WQ = {}, Q = {}, RQ = {}
 	}
-	
+
 	for cardSlot = 1, 5 do
 		local cardAffinity = checkCardAffin(CardAffinRegionArray[cardSlot])
 		local cardType = checkCardType(CardTypeRegionArray[cardSlot])
 		local cardScore = cardAffinity * cardType
-		
+
 		if cardScore == WeakBuster then
 			table.insert(cardStorage.WB, cardSlot)
 		elseif cardScore == BCard then
 			table.insert(cardStorage.B, cardSlot)
 		elseif cardScore == ResistBuster then
 			table.insert(cardStorage.RB, cardSlot)
-			
+
 		elseif cardScore == WeakArt then
 			table.insert(cardStorage.WA, cardSlot)
 		elseif cardScore == ACard then
 			table.insert(cardStorage.A, cardSlot)
 		elseif cardScore == ResistArt then
-			table.insert(cardStorage.RA, cardSlot)	
-			
+			table.insert(cardStorage.RA, cardSlot)
+
 		elseif cardScore == WeakQuick then
 			table.insert(cardStorage.WQ, cardSlot)
 		elseif cardScore == QCard then
 			table.insert(cardStorage.Q, cardSlot)
 		else
-			table.insert(cardStorage.RQ, cardSlot)		
+			table.insert(cardStorage.RQ, cardSlot)
 		end
 	end
-	
+
 	local clickCount = 0
 	for p, cardPriority in ipairs(CardPriorityArray) do
 		local currentStorage = cardStorage[cardPriority]
-	
+
 		for s, cardSlot in pairs(currentStorage) do
 			click(CardClickArray[cardSlot])
 			clickCount = clickCount + 1
-			
+
 			if clickCount == 3 then
 				break
 			end
 		end
-		
+
 		if clickCount == 3 then
 			break
 		end
@@ -559,51 +559,51 @@ end
 
 --[[Deprecated
 function norcard()
-    i = 0
-    
-    w1 = CardAffinRegionArray[1]:exists("weak.png")
-	usePreviousSnap(true)   
-    if w1 ~= nil then
-        click(Card1Click)
-        Card1Clicked = 1
-        i = i + 1
-    end
+	i = 0
 
-    w2 = CardAffinRegionArray[2]:exists("weak.png")
-    if w2 ~= nil then
-        click(Card2Click)
-        Card2Clicked = 1
-        i = i + 1
-    end
+	w1 = CardAffinRegionArray[1]:exists("weak.png")
+	usePreviousSnap(true)
+	if w1 ~= nil then
+		click(Card1Click)
+		Card1Clicked = 1
+		i = i + 1
+	end
 
-    w3 = CardAffinRegionArray[3]:exists("weak.png")
-    if w3 ~= nil then
-        click(Card3Click)
-        Card3Clicked = 1
-        i = i + 1
-    end
+	w2 = CardAffinRegionArray[2]:exists("weak.png")
+	if w2 ~= nil then
+		click(Card2Click)
+		Card2Clicked = 1
+		i = i + 1
+	end
 
-    w4 = CardAffinRegionArray[4]:exists("weak.png")
-    if w4 ~= nil then
-        click(Card4Click)
-        Card4Clicked = 1
-        i = i + 1
-    end
+	w3 = CardAffinRegionArray[3]:exists("weak.png")
+	if w3 ~= nil then
+		click(Card3Click)
+		Card3Clicked = 1
+		i = i + 1
+	end
 
-    w5 = CardAffinRegionArray[5]:exists("weak.png")
-    if w5 ~= nil then
-        click(Card5Click)
-        Card5Clicked = 1
-        i = i + 1
-    end
+	w4 = CardAffinRegionArray[4]:exists("weak.png")
+	if w4 ~= nil then
+		click(Card4Click)
+		Card4Clicked = 1
+		i = i + 1
+	end
+
+	w5 = CardAffinRegionArray[5]:exists("weak.png")
+	if w5 ~= nil then
+		click(Card5Click)
+		Card5Clicked = 1
+		i = i + 1
+	end
 end
 --]]
 
 function result()
 	--Bond exp screen.
-    wait(2)
+	wait(2)
 	click(Location(2200, 1350))
-	
+
 	--Bond level up screen.
 	if BondRegion:exists(GeneralImagePath .. "bond.png") then
 		wait(1)
@@ -611,17 +611,17 @@ function result()
 	end
 
 	--Master exp screen.
-    wait(2)
+	wait(2)
 	click(Location(2200, 1350))
-	
+
 	--Obtained item screen.
-    wait(1.5)
+	wait(1.5)
 	click(Location(2200, 1350))
-	
+
 	--Extra event item screen.
-    if isEvent == 1 then
-    	wait(1.5)
-    	click(Location(2200, 1350))
+	if isEvent == 1 then
+		wait(1.5)
+		click(Location(2200, 1350))
 	end
 
 	--Friend request screen. Non-friend support was selected this battle.  Ofc it's defaulted not sending request.
@@ -631,7 +631,7 @@ function result()
 	end
 
 	wait(15)
-	
+
 	--1st time quest reward screen.
 	if QuestrewardRegion:exists(GeneralImagePath .. "questreward.png") ~= nil then
 		click(Location(100,100))
@@ -705,7 +705,7 @@ function PSADialogue()
 					scriptExit("Error at '" ..word.. "': Skill Command cannot start with number '1', '2' and '3'!")
 				elseif string.match(word, "[%w+][#]") ~= nil or string.match(word, "[#][%w+]") ~= nil then
 					scriptExit("Error at '" ..word.. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
-				elseif string.match(word, "[^a-l^1-6^#^x]") ~= nil then		
+				elseif string.match(word, "[^a-l^1-6^#^x]") ~= nil then
 					scriptExit("Error at '" ..word.. "': Skill Command exceeded alphanumeric range! Expected 'x' or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
 				end
 			end
@@ -713,28 +713,28 @@ function PSADialogue()
 				AutoskillPopupStageCounter = AutoskillPopupStageCounter + 1
 				if AutoskillPopupStageCounter > 5 then
 					scriptExit("Error: Detected commands for more than 5 stages")
-			  	end
+				end
 			end
 			--Autoskill table popup.
-		  	if word ~= '#' then
+			if word ~= '#' then
 				table.insert(StageSkillArray[AutoskillPopupStageCounter], word)
-			  	stageTurnArray[AutoskillPopupStageCounter] = stageTurnArray[AutoskillPopupStageCounter] + 1
-		  	end
+				stageTurnArray[AutoskillPopupStageCounter] = stageTurnArray[AutoskillPopupStageCounter] + 1
+			end
 		end
 	end
 end
 
 function init()
-	setImmersiveMode(true)			   
+	setImmersiveMode(true)
 	Settings:setCompareDimension(true,1280)
 	Settings:setScriptDimension(true,2560)
-	
+
 	--Set only ONCE for every separated script run.
 	support.init()
 	initCardPriorityArray()
 	StoneUsed = 0
 	PSADialogueShown = 0
-	
+
 	--Check function CheckCurrentStage(region)
 	StageCounter = 1
 end
@@ -744,17 +744,17 @@ while(1) do
 	--Execute only once
 	PSADialogue()
 
-    if MenuRegion:exists(GeneralImagePath .. "menu.png", 0) then
+	if MenuRegion:exists(GeneralImagePath .. "menu.png", 0) then
 		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
-        menu()
+		menu()
 		TargetChoosen = 0
 
 		SnapshotGeneratedForStagecounter = 0
-    end
-    if BattleRegion:exists(GeneralImagePath .. "battle.png", 0) then
-        battle()
-    end
-    if ResultRegion:exists(GeneralImagePath .. "result.png", 0) then
-        result()
-    end
+	end
+	if BattleRegion:exists(GeneralImagePath .. "battle.png", 0) then
+		battle()
+	end
+	if ResultRegion:exists(GeneralImagePath .. "result.png", 0) then
+		result()
+	end
 end

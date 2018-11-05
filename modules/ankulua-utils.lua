@@ -3,7 +3,7 @@
 local function doesRegionContain(region, match)
 	return region:getX() <= match:getX()
 		and match:getX() + match:getW() <= region:getX() + region:getW()
-		
+
 		and region:getY() <= match:getY()
 		and match:getY() + match:getH() <= region:getY() + region:getH()
 end
@@ -13,7 +13,7 @@ local function useSameSnapIn(func)
 	snapshot()
 	local value = func()
 	usePreviousSnap(false)
-	
+
 	return value
 end
 

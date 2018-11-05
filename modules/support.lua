@@ -37,15 +37,15 @@ local isLimitBroken
 init = function()
 	local function split(str)
 		local values = {}
-	
+
 		for value in str:gmatch("[^,]+") do
 			value = stringUtils.trim(value)
-			
+
 			if value:lower() ~= "any" then
 				table.insert(values, value)
 			end
 		end
-		
+
 		return values
 	end
 
@@ -54,17 +54,17 @@ init = function()
 		servant = stringUtils.trim(servant)
 		table.insert(PreferredServantArray, servant)
 	end
-	
+
 	-- craft essences
 	for _, craftEssence in ipairs(split(Support_PreferredCEs)) do
 		craftEssence = stringUtils.trim(craftEssence)
-		
+
 		local craftEssenceEntry =
 		{
 			Name = craftEssence:gsub("%" .. LimitBrokenCharacter, ""),
 			PreferLimitBroken = stringUtils.starts_with(craftEssence, LimitBrokenCharacter)
 		}
-		
+
 		table.insert(PreferredCraftEssenceTable, craftEssenceEntry)
 	end
 end
@@ -76,11 +76,11 @@ selectSupport = function(selectionMode)
 
 		elseif selectionMode == "manual" then
 			selectManual()
-			
+
 		elseif selectionMode == "preferred" then
 			local searchMethod = decideSearchMethod()
 			return selectPreferred(searchMethod)
-			
+
 		else
 			scriptExit("Invalid support selection mode: \"" + selectionMode + "\".")
 		end
@@ -101,7 +101,7 @@ end
 selectPreferred = function(searchMethod)
 	local numberOfSwipes = 0
 	local numberOfUpdates = 0
-	
+
 	while (true)
 	do
 		local result, support = searchVisible(searchMethod)
@@ -144,7 +144,7 @@ scrollList = function()
 		{ action =      "wait", target =           0.4 },
 		{ action =   "touchUp", target =   endLocation }
 	}
-	
+
 	-- I want the movement to be as accurate as possible
 	setManualTouchParameter(1, 1)
 	manualTouch(touchActions)
@@ -155,18 +155,18 @@ searchVisible = function(searchMethod)
 		if not isFriend(FriendRegion) then
 			return {"no-friends-at-all"} -- no friends on screen, so there's no point in even searching for a Servant/Craft Essence
 		end
-	
+
 		local support, bounds = searchMethod()
 		if support == nil then
 			return {"not-found"} -- nope, not found this time
 		end
-	
+
 		-- bounds are already returned by searchMethod.byServantAndCraftEssence, but not by the other methods
-		bounds = bounds or findSupportBounds(support)  
+		bounds = bounds or findSupportBounds(support)
 		if not isFriend(bounds) then
 			return {"not-a-friend", support} -- found something, but it is not a friend
 		end
-	
+
 		return {"ok", support}
 	end
 
@@ -180,27 +180,27 @@ decideSearchMethod = function()
 
 	if hasServants and hasCraftEssences then
 		return searchMethod.byServantAndCraftEssence
-		
+
 	elseif hasServants then
 		return searchMethod.byServant
-		
+
 	elseif hasCraftEssences then
 		return searchMethod.byCraftEssence
-		
+
 	else
 		scriptExit("When using \"preferred\" support selection mode, specify at least one Servant or Craft Essence.")
 	end
 end
 
-searchMethod = {	
+searchMethod = {
 	byServant = function()
 		return findServants()[1]
 	end,
-	
+
 	byCraftEssence = function()
 		return findCraftEssence(ListRegion)
 	end,
-	
+
 	byServantAndCraftEssence = function()
 		local servants = findServants()
 		for _, servant in ipairs(servants) do
@@ -211,7 +211,7 @@ searchMethod = {
 				return craftEssence, supportBounds -- only return if found. if not, try the other servants before scrolling
 			end
 		end
-		
+
 		return nil -- not found, continue scrolling
 	end
 }
@@ -224,21 +224,21 @@ findServants = function()
 			table.insert(servants, servant)
 		end
 	end
-	
+
 	return servants
 end
 
 findCraftEssence = function(searchRegion)
 	for _, preferredCraftEssence in ipairs(PreferredCraftEssenceTable) do
 		local craftEssences = regionFindAllNoFindException(searchRegion, Pattern(SupportImagePath .. preferredCraftEssence.Name))
-	
-		for _, craftEssence in ipairs(craftEssences) do					
+
+		for _, craftEssence in ipairs(craftEssences) do
 			if not preferredCraftEssence.PreferLimitBroken or isLimitBroken(craftEssence) then
 				return craftEssence
 			end
 		end
 	end
-	
+
 	return nil
 end
 
@@ -262,12 +262,12 @@ end
 isLimitBroken = function(craftEssence)
 	local limitBreakRegion = Region(376, craftEssence:getY(), 16, CraftEssenceHeight)
 	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.8)
-	
+
 	return limitBreakRegion:exists(limitBreakPattern)
 end
 
 -- "public" interface
 return {
 	init = init,
-	selectSupport = selectSupport	
+	selectSupport = selectSupport
 }
