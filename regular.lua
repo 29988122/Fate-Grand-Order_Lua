@@ -557,48 +557,6 @@ function doBattleLogic()
 	end
 end
 
---[[Deprecated
-function norcard()
-	i = 0
-
-	w1 = CardAffinRegionArray[1]:exists("weak.png")
-	usePreviousSnap(true)
-	if w1 ~= nil then
-		click(Card1Click)
-		Card1Clicked = 1
-		i = i + 1
-	end
-
-	w2 = CardAffinRegionArray[2]:exists("weak.png")
-	if w2 ~= nil then
-		click(Card2Click)
-		Card2Clicked = 1
-		i = i + 1
-	end
-
-	w3 = CardAffinRegionArray[3]:exists("weak.png")
-	if w3 ~= nil then
-		click(Card3Click)
-		Card3Clicked = 1
-		i = i + 1
-	end
-
-	w4 = CardAffinRegionArray[4]:exists("weak.png")
-	if w4 ~= nil then
-		click(Card4Click)
-		Card4Clicked = 1
-		i = i + 1
-	end
-
-	w5 = CardAffinRegionArray[5]:exists("weak.png")
-	if w5 ~= nil then
-		click(Card5Click)
-		Card5Clicked = 1
-		i = i + 1
-	end
-end
---]]
-
 function result()
 	--Bond exp screen.
 	wait(2)
