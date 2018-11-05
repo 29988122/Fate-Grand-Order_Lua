@@ -22,6 +22,8 @@ AppleClick = (Location(1270,640))
 
 StartQuestClick = Location(2400,1350)
 StartQuestWithoutItemClick = Location(1652,1304) -- see docs/start_quest_without_item_click.png
+QuestResultNextClick = Location(2200, 1350) -- see docs/quest_result_next_click.png
+DeathAnimationSkipClick = Location(1700, 100) -- see docs/death_animation_skip_click.png
 
 --Weak, resist, etc. Compatiable for most server, but tricky, frequently fail.
 Card1AffinRegion = Region( 295,650,250,200)
@@ -282,7 +284,7 @@ function battle()
 	if UnstableFastSkipDeadAnimation == 1 then
 		--https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 Experimental
 		for i = 1, 3 do
-			click(Location(1700,100))
+			click(DeathAnimationSkipClick)
 			wait(1)
 		end
 	end
@@ -560,26 +562,26 @@ end
 function result()
 	--Bond exp screen.
 	wait(2)
-	click(Location(2200, 1350))
+	click(QuestResultNextClick)
 
 	--Bond level up screen.
 	if BondRegion:exists(GeneralImagePath .. "bond.png") then
 		wait(1)
-		click(Location(2200, 1350))
+		click(QuestResultNextClick)
 	end
 
 	--Master exp screen.
 	wait(2)
-	click(Location(2200, 1350))
+	click(QuestResultNextClick)
 
 	--Obtained item screen.
 	wait(1.5)
-	click(Location(2200, 1350))
+	click(QuestResultNextClick)
 
 	--Extra event item screen.
 	if isEvent == 1 then
 		wait(1.5)
-		click(Location(2200, 1350))
+		click(QuestResultNextClick)
 	end
 
 	--Friend request screen. Non-friend support was selected this battle.  Ofc it's defaulted not sending request.
