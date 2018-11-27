@@ -203,7 +203,7 @@ function menu()
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport then
-		wait(1.5)
+		wait(2.5)
 		startQuest()
 	end
 end
