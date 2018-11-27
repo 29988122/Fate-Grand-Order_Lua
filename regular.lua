@@ -275,7 +275,7 @@ function battle()
 	ultcard()
 
 	wait(0.5)
-	doBattleLogic()
+	clickCommandCards()
 	--From checkCardAffin(region) to checkCardType(region), the same snapshot is used.
 	usePreviousSnap(false)
 
@@ -504,7 +504,7 @@ function ultcard()
 	end
 end
 
-function doBattleLogic()
+function clickCommandCards()
 	local cardStorage =
 	{
 		WB = {}, B = {}, RB = {},
@@ -541,20 +541,16 @@ function doBattleLogic()
 	end
 
 	local clickCount = 0
-	for p, cardPriority in ipairs(CardPriorityArray) do
+	for _, cardPriority in pairs(CardPriorityArray) do
 		local currentStorage = cardStorage[cardPriority]
 
-		for s, cardSlot in pairs(currentStorage) do
+		for _, cardSlot in pairs(currentStorage) do
 			click(CardClickArray[cardSlot])
 			clickCount = clickCount + 1
 
 			if clickCount == 3 then
-				break
+				return
 			end
-		end
-
-		if clickCount == 3 then
-			break
 		end
 	end
 end
