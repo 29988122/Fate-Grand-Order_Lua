@@ -1,6 +1,7 @@
 --Other import such as ankulua-utils or string-utils are defined in support.lua.
 package.path = package.path .. ";" .. dir .. 'modules/?.lua'
 local support = require "support"
+local battleLogic = require "battleLogic"
 
 --[[このスクリプトは人の動きを真似してるだけなので、サーバーには余計な負担を掛からないはず。
 	私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
@@ -24,59 +25,6 @@ StartQuestClick = Location(2400,1350)
 StartQuestWithoutItemClick = Location(1652,1304) -- see docs/start_quest_without_item_click.png
 QuestResultNextClick = Location(2200, 1350) -- see docs/quest_result_next_click.png
 DeathAnimationSkipClick = Location(1700, 100) -- see docs/death_animation_skip_click.png
-
---Weak, resist, etc. Compatiable for most server, but tricky, frequently fail.
-Card1AffinRegion = Region( 295,650,250,200)
-Card2AffinRegion = Region( 810,650,250,200)
-Card3AffinRegion = Region(1321,650,250,200)
-Card4AffinRegion = Region(1834,650,250,200)
-Card5AffinRegion = Region(2348,650,250,200)
-
-CardAffinRegionArray = {Card1AffinRegion, Card2AffinRegion, Card3AffinRegion, Card4AffinRegion, Card5AffinRegion}
-
---Buster, Art, Quick, etc.
-Card1TypeRegion = Region(200,1060,200,200)
-Card2TypeRegion = Region(730,1060,200,200)
-Card3TypeRegion = Region(1240,1060,200,200)
-Card4TypeRegion = Region(1750,1060,200,200)
-Card5TypeRegion = Region(2280,1060,200,200)
-
-CardTypeRegionArray = {Card1TypeRegion, Card2TypeRegion, Card3TypeRegion, Card4TypeRegion, Card5TypeRegion}
-
---*Rough* damage calculation by formula, you may tinker these to change card selection priority.
---https://pbs.twimg.com/media/C2nSYxcUoAAy_F2.jpg
-WeakMulti = 2.0
-NormalMulti = 1.0
-ResistMulti = 0.5
-
-BCard = 150
-ACard = 100
-QCard = 80
-
-ResistBuster = BCard * ResistMulti
-ResistArt = ACard * ResistMulti
-ResistQuick = QCard * ResistMulti
-
-WeakBuster = BCard * WeakMulti
-WeakArt = ACard * WeakMulti
-WeakQuick = QCard * WeakMulti
-
---User customizable BAQ selection priority.
-CardPriorityArray = {}
-
---Card selection pos for click, and array for AutoSkill.
-Card1Click = (Location(300,1000))
-Card2Click = (Location(750,1000))
-Card3Click = (Location(1300,1000))
-Card4Click = (Location(1800,1000))
-Card5Click = (Location(2350,1000))
-
-CardClickArray = {Card1Click, Card2Click, Card3Click, Card4Click, Card5Click}
-
---*Primitive* ways to spam NPs after priority target appeared in battle. IT WILL override autoskill NP skill. Check function ultcard()
-Ultcard1Click = (Location(1000,220))
-Ultcard2Click = (Location(1300,400))
-Ultcard3Click = (Location(1740,400))
 
 --Priority target detection region and selection region.
 Target1Type = Region(0,0,485,220)
@@ -171,20 +119,6 @@ atkround = 1
 	6.exists(var ,0)
 --]]
 
-function initCardPriorityArray()
-	--[[Considering:
-	Battle_CardPriority = "BAQ"
-	then:
-	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}
-	--]]
-
-	for card in Battle_CardPriority:gmatch(".") do
-		table.insert(CardPriorityArray, "W" .. card)
-		table.insert(CardPriorityArray, card)
-		table.insert(CardPriorityArray, "R" .. card)
-	end
-end
-
 function menu()
 	CleartoSpamNP = 0
 	atkround = 1
@@ -272,12 +206,7 @@ function battle()
 		wait(1)
 	end
 
-	ultcard()
-
-	wait(0.5)
-	clickCommandCards()
-	--From checkCardAffin(region) to checkCardType(region), the same snapshot is used.
-	usePreviousSnap(false)
+	battleLogic.clickCommandCards()
 
 	atkround = atkround + 1
 
@@ -462,99 +391,6 @@ function decodeSkill(str, isFirstSkill)
 	end
 end
 
-function checkCardAffin(region)
-	weakAvail = region:exists(GeneralImagePath .. "weak.png")
-	usePreviousSnap(true)
-	if weakAvail ~= nil then
-		return WeakMulti
-	end
-
-	if region:exists(GeneralImagePath .. "resist.png") ~= nil then
-		return ResistMulti
-	else
-		return NormalMulti
-	end
-end
-
-function checkCardType(region)
-	if region:exists(GeneralImagePath .. "buster.png") ~= nil then
-		return BCard
-	end
-
-	if region:exists(GeneralImagePath .. "art.png") ~= nil then
-		return ACard
-	end
-
-	if region:exists(GeneralImagePath .. "quick.png") ~= nil then
-		return QCard
-	else
-		return BCard
-	end
-end
-
-function ultcard()
-	local weCanSpam = Battle_NoblePhantasm == "spam"
-	local weAreInDanger = Battle_NoblePhantasm == "danger" and TargetChoosen == 1
-	local isAutoskillFinished = Enable_Autoskill == 0 or CleartoSpamNP == 1
-
-	if (weCanSpam or weAreInDanger) and isAutoskillFinished then
-		click(Ultcard1Click)
-		click(Ultcard2Click)
-		click(Ultcard3Click)
-	end
-end
-
-function clickCommandCards()
-	local cardStorage =
-	{
-		WB = {}, B = {}, RB = {},
-		WA = {}, A = {}, RA = {},
-		WQ = {}, Q = {}, RQ = {}
-	}
-
-	for cardSlot = 1, 5 do
-		local cardAffinity = checkCardAffin(CardAffinRegionArray[cardSlot])
-		local cardType = checkCardType(CardTypeRegionArray[cardSlot])
-		local cardScore = cardAffinity * cardType
-
-		if cardScore == WeakBuster then
-			table.insert(cardStorage.WB, cardSlot)
-		elseif cardScore == BCard then
-			table.insert(cardStorage.B, cardSlot)
-		elseif cardScore == ResistBuster then
-			table.insert(cardStorage.RB, cardSlot)
-
-		elseif cardScore == WeakArt then
-			table.insert(cardStorage.WA, cardSlot)
-		elseif cardScore == ACard then
-			table.insert(cardStorage.A, cardSlot)
-		elseif cardScore == ResistArt then
-			table.insert(cardStorage.RA, cardSlot)
-
-		elseif cardScore == WeakQuick then
-			table.insert(cardStorage.WQ, cardSlot)
-		elseif cardScore == QCard then
-			table.insert(cardStorage.Q, cardSlot)
-		else
-			table.insert(cardStorage.RQ, cardSlot)
-		end
-	end
-
-	local clickCount = 0
-	for _, cardPriority in pairs(CardPriorityArray) do
-		local currentStorage = cardStorage[cardPriority]
-
-		for _, cardSlot in pairs(currentStorage) do
-			click(CardClickArray[cardSlot])
-			clickCount = clickCount + 1
-
-			if clickCount == 3 then
-				return
-			end
-		end
-	end
-end
-
 function result()
 	--Bond exp screen.
 	wait(2)
@@ -592,8 +428,6 @@ function result()
 	if QuestrewardRegion:exists(GeneralImagePath .. "questreward.png") ~= nil then
 		click(Location(100,100))
 	end
-
-
 end
 
 --User option PSA dialogue. Also choosble list of perdefined skill.
@@ -687,7 +521,7 @@ function init()
 
 	--Set only ONCE for every separated script run.
 	support.init()
-	initCardPriorityArray()
+	battleLogic.init()
 	StoneUsed = 0
 	PSADialogueShown = 0
 
