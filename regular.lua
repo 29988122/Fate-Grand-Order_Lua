@@ -62,6 +62,11 @@ Servant1Click = (Location(700,880))
 Servant2Click = (Location(1280,880))
 Servant3Click = (Location(1940,880))
 
+-- TODO: move to battleLogic.lua
+Ultcard1Click = (Location(1000,220))
+Ultcard2Click = (Location(1300,400))
+Ultcard3Click = (Location(1740,400))
+
 --Autoskill related variables, check function decodeSkill(str, isFirstSkill).
 SkillClickArray = {Skill1Click, Skill2Click, Skill3Click, Skill4Click, Skill5Click, Skill6Click, Skill7Click, Skill8Click, Skill9Click, Master1Click, Master2Click, Master3Click}
 SkillClickArray[-47] = Servant1Click

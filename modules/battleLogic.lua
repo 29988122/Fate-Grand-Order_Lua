@@ -54,11 +54,6 @@ local Card5Click = (Location(2350,1000))
 
 local CardClickArray = {Card1Click, Card2Click, Card3Click, Card4Click, Card5Click}
 
---*Primitive* ways to spam NPs after priority target appeared in battle. IT WILL override autoskill NP skill. Check function ultcard()
-local Ultcard1Click = (Location(1000,220))
-local Ultcard2Click = (Location(1300,400))
-local Ultcard3Click = (Location(1740,400))
-
 --functions
 local init
 local checkCardAffin
