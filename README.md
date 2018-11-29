@@ -266,6 +266,7 @@ Detailed Mode:
 Append W to BAQ to turn them into weak cards, append R to BAQ to turn them into resist cards.
 You can create any priority order that will result in the most output you prefer.
 Note that you must make sure that there are 9 distinct cards in your input.
+
 Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
 It will select weak arts->weak buster->weak buster->arts->buster->quick->resist arts->resist buster->resist quick until all three cards included CPs are selected. 
 ```
