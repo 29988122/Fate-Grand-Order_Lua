@@ -54,15 +54,22 @@ local Card5Click = (Location(2350,1000))
 
 local CardClickArray = {Card1Click, Card2Click, Card3Click, Card4Click, Card5Click}
 
+--*Primitive* ways to spam NPs after priority target appeared in battle. IT WILL override autoskill NP skill. Check function ultcard()
+local Ultcard1Click = (Location(1000,220))
+local Ultcard2Click = (Location(1300,400))
+local Ultcard3Click = (Location(1740,400))
+local UltcardArray = {Ultcard1Click, Ultcard2Click, Ultcard3Click}
+
 --functions
 local init
+local getUltcard
 local checkCardAffin
 local checkCardType
 local ultcard
 local calculateCardScore
 local clickCommandCards
 
-function init()
+init = function()
 	--[[Considering:
 	Battle_CardPriority = "BAQ"
 	then:
@@ -75,6 +82,10 @@ function init()
 		table.insert(CardPriorityArray, "R" .. card)
 	end
 end
+
+getUltcard = function(servantIndex)
+	return UltcardArray[servantIndex]
+end	
 
 checkCardAffin = function(region)
 	if region:exists(GeneralImagePath .. "weak.png") then
@@ -183,5 +194,6 @@ end
 
 return {
 	init = init,
+	getUltcard = getUltcard,
 	clickCommandCards = clickCommandCards,
 }
