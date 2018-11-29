@@ -253,16 +253,21 @@ This will allow the use of this script for the particular events.
 If there are other additional windows, a custom script is required. 
 
 ## Card Priority Customization:
-By changing the Battle_CardPriority option in the lua file you are executing(CN, EN, JP or TW), you can have your card selection behavior change. For example:
+By changing the Battle_CardPriority option in the lua file you are executing(CN, EN, JP or TW), you can have your card selection behavior change. There are two modes available, simple and detailed mode. For example:
 ```
+Simple Mode:
 Battle_CardPriority = "BAQ" 
 It will select Weak Buster->Buster->Resist Buster->Weak Arts->Arts->Resist Arts->Weak Quick->Quick->Resist Quick cards until all three cards included CPs are selected.
 
 Battle_CardPriority = "ABQ"
 It will select Weak Arts->Arts->Resist Arts->Weak Buster->Buster->Resist Buster->Weak Quick->Quick->Resist Quick cards until all three cards included CPs are selected. 
 
-Currently we don't support more detailed card selection parameters, sorry!
-However, you can join us, write your code, and make a Pull Request to help other FGO players around the world. Thank you.
+Detailed Mode:
+Append W to BAQ to turn them into weak cards, append R to BAQ to turn them into resist cards.
+You can create any priority order that will result in the most output you prefer.
+Note that you must make sure that there are 9 distinct cards in your input.
+Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
+It will select weak arts->weak buster->weak buster->arts->buster->quick->resist arts->resist buster->resist quick until all three cards included CPs are selected. 
 ```
 ## Noble Phantasm Behavior:
 • disabled: Will never cast NPs automatically. If you have Autoskill enabled, please use this option.
