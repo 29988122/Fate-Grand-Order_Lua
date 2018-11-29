@@ -104,7 +104,19 @@ Autoskill_List[9][2] = ""
 Autoskill_List[10][1] = "Settings No.10"
 Autoskill_List[10][2] = ""
 
---カード選択の優先順位。BAQの場合はweak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
+--[[
+カード選択の優先順位。
+モードは二つがあります。
+簡単モード:
+例: "BAQ"の場合はweak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
+Battle_CardPriority = "BAQ"
+
+詳細モード:
+例:"WA, WB, WQ, A, B, Q, RA, RQ, RB"の場合はweak arts->weak buster->weak buster->arts->buster->quick->resist arts->resist buster->resist quick
+Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
+
+（詳細はこちらを） https://github.com/29988122/Fate-Grand-Order_Lua#card-priority-customization
+--]]
 Battle_CardPriority = "BAQ"
 
 --[[

@@ -104,7 +104,19 @@ Autoskill_List[9][2] = ""
 Autoskill_List[10][1] = "Settings No.10"
 Autoskill_List[10][2] = ""
 
---You can change card selection priority. For example, BAQ stands for: weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
+--[[
+You can change card selection priority. 
+Two modes are available.
+Simple Mode:
+For example, "BAQ" stands for weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
+Battle_CardPriority = "BAQ"
+
+Detailed Mode:
+For example, "WA, WB, WQ, A, B, Q, RA, RQ, RB" stands for weak arts->weak buster->weak buster->arts->buster->quick->resist arts->resist buster->resist quick
+Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
+
+Refer https://github.com/29988122/Fate-Grand-Order_Lua#card-priority-customization for details.
+--]]
 Battle_CardPriority = "BAQ"
 
 --[[

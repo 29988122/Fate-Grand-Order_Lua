@@ -4,6 +4,7 @@
 --]]
 
 local ankuluaUtils = require "ankulua-utils"
+local stringUtils = require "string-utils"
 
 --Constants
 --Weak, resist, etc. Compatiable for most server, but tricky, frequently fail.
@@ -75,12 +76,45 @@ init = function()
 	then:
 	CardPriorityArray = {"WB", "B", "RB", "WA", "A", "RA", "WQ", "Q", "RQ"}
 	--]]
+	local errorString = "Battle_CardPriority Error at '"
+	
+	if Battle_CardPriority:len() == 3 then
+		for card in Battle_CardPriority:gmatch(".") do
+			if card:match("[^B^A^Q]") then
+				scriptExit(errorString ..card.. "': Only 'B', 'A' and 'Q' are allowed in simple mode.")
+			end
+			table.insert(CardPriorityArray, "W" .. card)
+			table.insert(CardPriorityArray, card)
+			table.insert(CardPriorityArray, "R" .. card)
+		end
+	else
+		local cardCounter = 0
+			
+		for card in Battle_CardPriority:gmatch("[^,]+") do
+			card = stringUtils.trim(card)
+			
+			if card:len() == 1 then
+    			if card:match("[^B^A^Q]") then
+	    			scriptExit(errorString ..card.. "': Only 'B', 'A' and 'Q' are valid single character inputs.")
+    			end
 
-	for card in Battle_CardPriority:gmatch(".") do
-		table.insert(CardPriorityArray, "W" .. card)
-		table.insert(CardPriorityArray, card)
-		table.insert(CardPriorityArray, "R" .. card)
-	end
+  			elseif card:len() == 2 then
+	  			if card:match("^[^W^R][^B^A^Q]-") or card:match("^[WR][^B^A^Q]")then
+      				scriptExit(errorString ..card.. "': Only 'WB', 'RB', 'WA', 'RA', 'WQ', and 'RQ are valid double characters inputs.")
+    			end
+
+			elseif card:len() == 0 or card:len() > 2 then
+				scriptExit(errorString ..card.. "': Invalid input.")
+			end			
+			table.insert(CardPriorityArray, card)
+			
+			cardCounter = cardCounter +1
+		end
+		
+		if cardCounter ~= 9 then
+			scriptExit(errorString ..Battle_CardPriority.. "': Extected 9 card priorities. Your input is either lacking or exceeding the available number.")
+		end
+	end	
 end
 
 getUltcard = function(servantIndex)

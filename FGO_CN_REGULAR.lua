@@ -104,7 +104,19 @@ Autoskill_List[9][2] = ""
 Autoskill_List[10][1] = "Settings No.10"
 Autoskill_List[10][2] = ""
 
---可以用這個選項組藍卡隊了安安。這個選項會影響卡片選擇優先順位，例：BAQ代表weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
+--[[
+可以用這個選項組藍卡隊了安安。這個選項會影響卡片選擇優先順位。 
+可選擇兩種模式。
+簡單模式:
+例： "BAQ"代表weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
+Battle_CardPriority = "BAQ"
+
+詳細模式:
+例： "WA, WB, WQ, A, B, Q, RA, RQ, RB"代表weak arts->weak buster->weak buster->arts->buster->quick->resist arts->resist buster->resist quick
+Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
+
+請到此觀看詳細說明 https://github.com/29988122/Fate-Grand-Order_Lua#card-priority-customization
+--]]
 Battle_CardPriority = "BAQ"
 
 --[[
@@ -112,7 +124,7 @@ Battle_CardPriority = "BAQ"
 • disabled: 不會自己放寶具。如果你有用Autoskill，請選這個選項比較不會出問題。
 • danger: 有DANGER或SERVANT敵人出現的時候每回合會自動放寶具。如果你有用Autoskill，這選項有機會讓你的Autoskill順序亂掉。
 • spam: 有寶具當回合就會放掉。
-Check https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#noble-phantasm-behavior for further detail.
+請到此觀看詳細說明 https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#noble-phantasm-behavior 
 --]]
 Battle_NoblePhantasm = "disabled"
 
