@@ -520,7 +520,6 @@ function init()
 	Settings:setScriptDimension(true,2560)
 
 	--Set only ONCE for every separated script run.
-	support.init()
 	battleLogic.init()
 	StoneUsed = 0
 	PSADialogueShown = 0

@@ -5,8 +5,16 @@ local ankuluaUtils = require "ankulua-utils"
 -- consts
 local SupportImagePath = "image_SUPPORT" .. "/"
 local ScreenRegion = Region(0,0,110,332)
-local ListRegion = Region(70,332,378,842) -- see docs/support_list_region.png
-local ListItemRegionArray = { Region(76,338,2356,428), Region(76,778,2356,390) } -- see docs/support_list_item_regions.png
+local ListRegion = Region(70,332,378,1091) -- see docs/support_list_region.png
+local ListItemRegionArray = {
+	-- see docs/support_list_item_regions_top.png
+	Region(76,338,2356,428),
+	Region(76,778,2356,390),
+
+	-- see docs/support_list_item_regions_bottom.png
+	Region(76,558,2356,390),
+	Region(76,991,2356,428),
+} 
 local FriendRegion = Region(2234, ListRegion:getY(), 120, ListRegion:getH()) -- see docs/friend_region.png
 local ListTopClick = Location(2480,360)
 local UpdateClick = Location(1670,250)
@@ -142,7 +150,8 @@ scrollList = function()
 		{ action = "touchDown", target = startLocation },
 		{ action = "touchMove", target =   endLocation },
 		{ action =      "wait", target =           0.4 },
-		{ action =   "touchUp", target =   endLocation }
+		{ action =   "touchUp", target =   endLocation },
+		{ action =      "wait", target =           0.5 } -- leaving some room for animations to finish
 	}
 
 	-- I want the movement to be as accurate as possible
@@ -153,18 +162,18 @@ end
 searchVisible = function(searchMethod)
 	local function performSearch()
 		if not isFriend(FriendRegion) then
-			return {"no-friends-at-all"} -- no friends on screen, so there's no point in even searching for a Servant/Craft Essence
+			return {"no-friends-at-all"} -- no friends on screen, so there's no point in scrolling anymore
 		end
 
 		local support, bounds = searchMethod()
 		if support == nil then
-			return {"not-found"} -- nope, not found this time
+			return {"not-found"} -- nope, not found this time. keep scrolling
 		end
 
 		-- bounds are already returned by searchMethod.byServantAndCraftEssence, but not by the other methods
 		bounds = bounds or findSupportBounds(support)
 		if not isFriend(bounds) then
-			return {"not-a-friend", support} -- found something, but it is not a friend
+			return {"not-found"} -- found something, but it doesn't belong to a friend. keep scrolling
 		end
 
 		return {"ok", support}
@@ -267,7 +276,7 @@ isLimitBroken = function(craftEssence)
 end
 
 -- "public" interface
+init()
 return {
-	init = init,
 	selectSupport = selectSupport
 }
