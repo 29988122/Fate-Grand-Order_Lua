@@ -7,6 +7,14 @@ local ankuluaUtils = require "ankulua-utils"
 local stringUtils = require "string-utils"
 
 --Constants
+--Priority target detection region and selection region.
+Target1Type = Region(0,0,485,220)
+Target2Type = Region(485,0,482,220)
+Target3Type = Region(967,0,476,220)
+Target1Click = (Location(90,80))
+Target2Click = (Location(570,80))
+Target3Click = (Location(1050,80))
+
 --Weak, resist, etc. Compatiable for most server, but tricky, frequently fail.
 local Card1AffinRegion = Region( 295,650,250,200)
 local Card2AffinRegion = Region( 810,650,250,200)
@@ -61,9 +69,16 @@ local Ultcard2Click = (Location(1300,400))
 local Ultcard3Click = (Location(1740,400))
 local UltcardArray = {Ultcard1Click, Ultcard2Click, Ultcard3Click}
 
+local CleartoSpamNP = 0;
+local TargetChoosen = 0;
+
 --functions
 local init
 local getUltcard
+local setCleartoSpamNP
+local ResetCleartoSpamNP
+local ResetTargetChoosen
+local ChooseTarget
 local checkCardAffin
 local checkCardType
 local ultcard
@@ -119,7 +134,47 @@ end
 
 getUltcard = function(servantIndex)
 	return UltcardArray[servantIndex]
-end	
+end
+
+setCleartoSpamNP = function()
+	CleartoSpamNP = 1
+end
+
+ResetCleartoSpamNP = function()
+	CleartoSpamNP = 0
+end
+
+ResetTargetChoosen = function()
+	TargetChoosen = 0
+end
+
+ChooseTarget = function()
+	if TargetChoosen ~= 1 then
+		t1 = Target1Type:exists(GeneralImagePath .. "target_servant.png")
+		usePreviousSnap(true)
+		t2 = Target2Type:exists(GeneralImagePath .. "target_servant.png")
+		t3 = Target3Type:exists(GeneralImagePath .. "target_servant.png")
+		t1a = Target1Type:exists(GeneralImagePath .. "target_danger.png")
+		t2a = Target2Type:exists(GeneralImagePath .. "target_danger.png")
+		t3a = Target3Type:exists(GeneralImagePath .. "target_danger.png")
+		usePreviousSnap(false)
+		if t1 ~= nil or t1a ~= nil then
+			click(Target1Click)
+			toast("Switched to priority target")
+			TargetChoosen = 1
+		elseif t2 ~= nil or t2a ~= nil then
+			click(Target2Click)
+			toast("Switched to priority target")
+			TargetChoosen = 1
+		elseif t3 ~= nil or t3a ~= nil then
+			click(Target3Click)
+			toast("Switched to priority target")
+			TargetChoosen = 1
+		else
+			toast("No priority target selected")
+		end
+	end
+end
 
 checkCardAffin = function(region)
 	if region:exists(GeneralImagePath .. "weak.png") then
@@ -230,4 +285,8 @@ return {
 	init = init,
 	getUltcard = getUltcard,
 	clickCommandCards = clickCommandCards,
+	setCleartoSpamNP = setCleartoSpamNP,
+	ChooseTarget = ChooseTarget,
+	ResetCleartoSpamNP = ResetCleartoSpamNP,
+	ResetTargetChoosen = ResetTargetChoosen
 }
