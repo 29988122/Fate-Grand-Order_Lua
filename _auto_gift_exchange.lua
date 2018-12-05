@@ -6,7 +6,7 @@ local dir = scriptPath()
 setImagePath(dir .. "image_EN")
 
 -- consts
-local SpinClick = Location(417, 476)
+local SpinClick = Location(417, 430)
 local FinishedLotteryBoxRegion = Region(177, 411, 258, 151)
 local ResetClick = Location(1100, 240)
 local ResetConfirmationClick = Location(837, 561)
@@ -31,7 +31,7 @@ local function reset()
 end
 
 while(true) do
-	if FinishedLotteryBoxRegion:exists("lottery.png", 0) then
+	if FinishedLotteryBoxRegion:exists("lottery.png") then
 		reset()
 	else
 		spin()
