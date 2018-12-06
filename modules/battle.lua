@@ -8,15 +8,14 @@ local BATTLE_REGION = Region(2200,200,1000,600)
 local ATTACK_CLICK = Location(2300,1200)
 local SKIP_DEATH_ANIMATION_CLICK = Location(1700, 100) -- see docs/skip_death_animation_click.png
 
+-- see docs/target_regions.png
 local TARGET_REGION_ARRAY = {
-	-- TODO: see docs/target_regions.png
 	Region(  0,0,485,220),
 	Region(485,0,482,220),
 	Region(967,0,476,220)
 }
 
 local TARGET_CLICK_ARRAY = {
-	-- TODO: see docs/target_clicks.png
 	Location(  90,80),
 	Location( 570,80),
 	Location(1050,80)
