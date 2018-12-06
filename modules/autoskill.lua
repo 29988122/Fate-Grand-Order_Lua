@@ -1,207 +1,182 @@
 -- modules
-local module_battleLogic = require "battleLogic"
+local _battle
+local _card
 
---Autoskill click regions.
-local _SKILL_1_CLICK = (Location(140,1160))
-local _SKILL_2_CLICK = (Location(340,1160))
-local _SKILL_3_CLICK = (Location(540,1160))
+-- consts
+local SKILL_OK_CLICK = Location(1680,850)
+local MASTER_SKILL_OPEN_CLICK = Location(2380,640)
+local ORDER_CHANGE_OK_CLICK = Location(1280,1260)
 
-local _SKILL_4_CLICK = (Location(770,1160))
-local _SKILL_5_CLICK = (Location(970,1160))
-local _SKILL_6_CLICK = (Location(1140,1160))
+local SKILL_1_CLICK = Location( 140,1160)
+local SKILL_2_CLICK = Location( 340,1160)
+local SKILL_3_CLICK = Location( 540,1160)
+local SKILL_4_CLICK = Location( 770,1160)
+local SKILL_5_CLICK = Location( 970,1160)
+local SKILL_6_CLICK = Location(1140,1160)
+local SKILL_7_CLICK = Location(1400,1160)
+local SKILL_8_CLICK = Location(1600,1160)
+local SKILL_9_CLICK = Location(1800,1160)
 
-local _SKILL_7_CLICK = (Location(1400,1160))
-local _SKILL_8_CLICK = (Location(1600,1160))
-local _SKILL_9_CLICK = (Location(1800,1160))
+local MASTER_SKILL_1_CLICK = Location(1820,620)
+local MASTER_SKILL_2_CLICK = Location(2000,620)
+local MASTER_SKILL_3_CLICK = Location(2160,620)
 
-local _MASTER_SKILL_1_CLICK = (Location(1820,620))
-local _MASTER_SKILL_2_CLICK = (Location(2000,620))
-local _MASTER_SKILL_3_CLICK = (Location(2160,620))
+local SERVANT_1_CLICK = Location(700,880)
+local SERVANT_2_CLICK = Location(1280,880)
+local SERVANT_3_CLICK = Location(1940,880)
 
-local _SERVANT_1_CLICK = (Location(700,880))
-local _SERVANT_2_CLICK = (Location(1280,880))
-local _SERVANT_3_CLICK = (Location(1940,880))
+local SKILL_CLICK_ARRAY = {
+	[  1] = SKILL_1_CLICK,
+	[  2] = SKILL_2_CLICK,
+	[  3] = SKILL_3_CLICK,
+	[  4] = SKILL_4_CLICK,
+	[  5] = SKILL_5_CLICK,
+	[  6] = SKILL_6_CLICK,
+	[  7] = SKILL_7_CLICK,
+	[  8] = SKILL_8_CLICK,
+	[  9] = SKILL_9_CLICK,
+	[ 10] = MASTER_SKILL_1_CLICK,
+	[ 11] = MASTER_SKILL_2_CLICK,
+	[ 12] = MASTER_SKILL_3_CLICK,
+	[-47] = SERVANT_1_CLICK,
+	[-46] = SERVANT_2_CLICK,
+	[-45] = SERVANT_3_CLICK
+}
 
---Autoskill related variables, check function DecodeSkill(str, isFirstSkill).
-local _SKILL_CLICK_ARRAY = {_SKILL_1_CLICK, _SKILL_2_CLICK, _SKILL_3_CLICK, _SKILL_4_CLICK, _SKILL_5_CLICK, _SKILL_6_CLICK, _SKILL_7_CLICK, _SKILL_8_CLICK, _SKILL_9_CLICK, _MASTER_SKILL_1_CLICK, _MASTER_SKILL_2_CLICK, _MASTER_SKILL_3_CLICK}
---Servant and NP card selection
-_SKILL_CLICK_ARRAY[-47] = _SERVANT_1_CLICK
-_SKILL_CLICK_ARRAY[-46] = _SERVANT_2_CLICK
-_SKILL_CLICK_ARRAY[-45] = _SERVANT_3_CLICK
-_SKILL_CLICK_ARRAY[-44] = module_battleLogic.getUltcard(1)
-_SKILL_CLICK_ARRAY[-43] = module_battleLogic.getUltcard(2)
-_SKILL_CLICK_ARRAY[-42] = module_battleLogic.getUltcard(3)
+-- Order Change (front)
+local STARTING_MEMBER_1_CLICK = Location( 280,700)
+local STARTING_MEMBER_2_CLICK = Location( 680,700)
+local STARTING_MEMBER_3_CLICK = Location(1080,700)
+local STARTING_MEMBER_CLICK_ARRAY = {
+	[-47] = STARTING_MEMBER_1_CLICK,
+	[-46] = STARTING_MEMBER_2_CLICK,
+	[-45] = STARTING_MEMBER_3_CLICK
+}
 
---Skill array holding skills for every stage
-local _STAGE_SKILL_ARRAY = {}
-_STAGE_SKILL_ARRAY[1] = {}
-_STAGE_SKILL_ARRAY[2] = {}
-_STAGE_SKILL_ARRAY[3] = {}
-_STAGE_SKILL_ARRAY[4] = {}
-_STAGE_SKILL_ARRAY[5] = {}
+-- Order Change (back)
+local SUB_MEMBER_1_CLICK = Location(1480,700)
+local SUB_MEMBER_2_CLICK = Location(1880,700)
+local SUB_MEMBER_3_CLICK = Location(2280,700)
+local SUB_MEMBER_CLICK_ARRAY = {
+	[-47] = SUB_MEMBER_1_CLICK,
+	[-46] = SUB_MEMBER_2_CLICK,
+	[-45] = SUB_MEMBER_3_CLICK
+}
 
---Order Change main servant locations
-local _STARTING_MEMBER_1_CLICK = (Location(280,700))
-local _STARTING_MEMBER_2_CLICK = (Location(680,700))
-local _STARTING_MEMBER_3_CLICK = (Location(1080,700))
-local _STARTING_MEMBER_CLICK_ARRAY = {}
-_STARTING_MEMBER_CLICK_ARRAY[-47] = _STARTING_MEMBER_1_CLICK
-_STARTING_MEMBER_CLICK_ARRAY[-46] = _STARTING_MEMBER_2_CLICK
-_STARTING_MEMBER_CLICK_ARRAY[-45] = _STARTING_MEMBER_3_CLICK
-
---Order Change sub servant locations
-local _SUB_MEMBER_1_CLICK = (Location(1480,700))
-local _SUB_MEMBER_2_CLICK = (Location(1880,700))
-local _SUB_MEMBER_3_CLICK = (Location(2280,700))
-local _SUB_MEMBER_CLICK_ARRAY = {}
-_SUB_MEMBER_CLICK_ARRAY[-47] = _SUB_MEMBER_1_CLICK
-_SUB_MEMBER_CLICK_ARRAY[-46] = _SUB_MEMBER_2_CLICK
-_SUB_MEMBER_CLICK_ARRAY[-45] = _SUB_MEMBER_3_CLICK
-
---Autoskill and Autoskill exception handling related, waiting for cleanup.
-local _isCastingNpFromAutoskill = 0
+--  state vars
+local _hasFinishedCastingNp
+local _isOrderChanging = 0
 local _stageCountByUserInput = 1
+local _commandsForEachStageArray = {{}, {}, {}, {}, {}}
 local _totalNeededTurnArray = {0, 0, 0, 0, 0}
-local _turnCounterForEveryStageArray = {0, 0, 0, 0, 0}
-local _mysticCodeOrderChangeStatus = 0
-local _snapshotGeneratedForStageCounter = 0
-local _stageCounter = 1
+local _turnCounterForEachStageArray
 
 -- functions
-local Init
-local ResetForNextQuest
-local GetIsNPCasting
-local GenerateStageCounterSnapshot
-local InitForUpdateStageCounter
-local UpdateStageCounter
-local ExecuteSkill
-local DecodeSkill
+local init
+local initDependencies
+local initCommands
+local resetState
+local executeSkill
+local decodeSkill
+local hasFinishedCastingNp
 
-Init = function()
---Autoskill exception handling.
+init = function(battle, card)
+	initDependencies(battle, card)
+
 	if Enable_Autoskill == 1 then
-		for temp_char in string.gmatch(Skill_Command, "[^,]+") do
-			if string.match(temp_char, "[^0]") ~= nil then
-				if string.match(temp_char, "^[1-3]") ~= nil then
-					scriptExit("Error at '" ..temp_char.. "': Skill Command cannot start with number '1', '2' and '3'!")
-				elseif string.match(temp_char, "[%w+][#]") ~= nil or string.match(temp_char, "[#][%w+]") ~= nil then
-					scriptExit("Error at '" ..temp_char.. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
-				elseif string.match(temp_char, "[^a-l^1-6^#^x]") ~= nil then
-					scriptExit("Error at '" ..temp_char.. "': Skill Command exceeded alphanumeric range! Expected 'x' or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
-				end
+		initCommands()
+	end
+
+	resetState()
+end
+
+initDependencies = function(battle, card) 
+	_battle = battle
+	_card = card
+
+	SKILL_CLICK_ARRAY[-44] = _card.getNpCardLocation(1)
+	SKILL_CLICK_ARRAY[-43] = _card.getNpCardLocation(2)
+	SKILL_CLICK_ARRAY[-42] = _card.getNpCardLocation(3)
+end
+
+initCommands = function()
+	for char in string.gmatch(Skill_Command, "[^,]+") do
+		if string.match(char, "[^0]") ~= nil then
+			if string.match(char, "^[1-3]") ~= nil then
+				scriptExit("Error at '" .. char .. "': Skill Command cannot start with number '1', '2' and '3'!")
+			elseif string.match(char, "[%w+][#]") ~= nil or string.match(char, "[#][%w+]") ~= nil then
+				scriptExit("Error at '" .. char .. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
+			elseif string.match(char, "[^a-l^1-6^#^x]") ~= nil then
+				scriptExit("Error at '" .. char .. "': Skill Command exceeded alphanumeric range! Expected 'x' or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
 			end
-			if temp_char == '#' then
-				_stageCountByUserInput = _stageCountByUserInput + 1
-				if _stageCountByUserInput > 5 then
-					scriptExit("Error: Detected commands for more than 5 stages")
-				end
+		end
+
+		if char == '#' then
+			_stageCountByUserInput = _stageCountByUserInput + 1
+
+			if _stageCountByUserInput > 5 then
+				scriptExit("Error: Detected commands for more than 5 stages")
 			end
-			--Autoskill table popup.
-			if temp_char ~= '#' then
-				table.insert(_STAGE_SKILL_ARRAY[_stageCountByUserInput], temp_char)
-				_totalNeededTurnArray[_stageCountByUserInput] = _totalNeededTurnArray[_stageCountByUserInput] + 1
-			end
+		end
+
+		-- Autoskill table popup.
+		if char ~= '#' then
+			table.insert(_commandsForEachStageArray[_stageCountByUserInput], char)
+			_totalNeededTurnArray[_stageCountByUserInput] = _totalNeededTurnArray[_stageCountByUserInput] + 1
 		end
 	end
 end
 
-ResetForNextQuest = function()
-	module_battleLogic.ResetCleartoSpamNP()
-	module_battleLogic.ResetTargetChoosen()
-	_isCastingNpFromAutoskill = 0
-	_turnCounterForEveryStageArray = {0, 0, 0, 0, 0}
-	_snapshotGeneratedForStageCounter = 0
+resetState = function()
+	_hasFinishedCastingNp = Enable_Autoskill == 0
+	_turnCounterForEachStageArray = {0, 0, 0, 0, 0}
 end
 
-GetIsNPCasting = function()
-	return _isCastingNpFromAutoskill
-end
+executeSkill = function ()
+	local currentStage = _battle.getCurrentStage()
+	_turnCounterForEachStageArray[currentStage] = _turnCounterForEachStageArray[currentStage] + 1
+	local currentTurn = _turnCounterForEachStageArray[currentStage]
 
-GenerateStageCounterSnapshot = function()
-	toast("Taking snapshot for stage recognition")
-	StageCountRegion:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
-end
-
-InitForUpdateStageCounter = function()
-	--Generate a snapshot ONCE in the beginning of battle(). Will re-run itself after entered memu().
-	if _snapshotGeneratedForStageCounter ~= 1 then
-		GenerateStageCounterSnapshot()
-		_snapshotGeneratedForStageCounter = 1
-		_stageCounter = 1
-	end
-end
-
-UpdateStageCounter = function(temp_region)
-	--Alternative fix for different font of stagecount number among different regions, worked pretty damn well tho.
-	--This will compare last screenshot with current screen, effectively get to know if stage changed or not.
-	InitForUpdateStageCounter()
-	
-	local temp_stageCounterSnapshot = temp_region:exists(Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png"):similar(0.8))
-
-	--Pattern found, stage did not change.
-	if temp_stageCounterSnapshot ~= nil then
-		toast("Battle ".._stageCounter.."/3")
-		return
-	end
-
-	--Pattern not found, which means that stage changed. Generate another snapshot te be used next time.
-	if temp_stageCounterSnapshot == nil then
-		GenerateStageCounterSnapshot()
-		_stageCounter = _stageCounter + 1
-		module_battleLogic.ResetCleartoSpamNP()
-		module_battleLogic.ResetTargetChoosen()
-		toast("Battle ".._stageCounter.."/3")
-		return
-	end
-end
-
-ExecuteSkill = function ()
-	_isCastingNpFromAutoskill = 0
-	
-	local temp_currentStage = _stageCounter
-	_turnCounterForEveryStageArray[temp_currentStage] = _turnCounterForEveryStageArray[temp_currentStage] + 1
-	local temp_currentTurn = _turnCounterForEveryStageArray[temp_currentStage]
-
-	if temp_currentTurn	<= _totalNeededTurnArray[temp_currentStage] then
-		--_STAGE_SKILL_ARRAY is a two-dimensional array with something like abc1jkl4.
-		local temp_currentSkill = _STAGE_SKILL_ARRAY[temp_currentStage][temp_currentTurn]
+	if currentTurn	<= _totalNeededTurnArray[currentStage] then
+		-- _commandsForEachStageArray is a two-dimensional array with something like abc1jkl4.
+		local currentSkill = _commandsForEachStageArray[currentStage][currentTurn]
 
 		--[[Prevent exessive delay between skill clickings.
-			temp_isFirstSkill = 1 means more delay, cause one has to wait for battle animation.
-			temp_isFirstSkill = 0 means less delay.
+			isFirstSkill = 1 means more delay, cause one has to wait for battle animation.
+			isFirstSkill = 0 means less delay.
 		--]]
-		local temp_isFirstSkill = 1
-		if temp_currentSkill ~= '0' and temp_currentSkill ~= '#' then
-			for temp_command in string.gmatch(temp_currentSkill, ".") do
-				DecodeSkill(temp_command, temp_isFirstSkill)
-				temp_isFirstSkill = 0
+		local isFirstSkill = 1
+		if currentSkill ~= '0' and currentSkill ~= '#' then
+			for command in string.gmatch(currentSkill, ".") do
+				decodeSkill(command, isFirstSkill)
+				isFirstSkill = 0
 			end
 		end
-		if _isCastingNpFromAutoskill == 0 then
-			--Wait for regular servant skill animation executed last time. Then proceed to next turn.
+		
+		if not _battle.hasClickedAttack() then
+			-- Wait for regular servant skill animation executed last time. Then proceed to next turn.
 			wait(2.7)
 		end
 	end
 
-	--NP spam AFTER all of the autoskill commands finished.
-	if temp_currentStage >= _stageCountByUserInput and _STAGE_SKILL_ARRAY[_stageCounter][temp_currentTurn] == nil then
-		module_battleLogic.setCleartoSpamNP()
+	-- this will allow NP spam AFTER all of the autoskill commands finish
+	if currentStage >= _stageCountByUserInput and _commandsForEachStageArray[currentStage][currentTurn] == nil then
+		_hasFinishedCastingNp = true
 	end
 end
 
-DecodeSkill = function(temp_str, temp_isFirstSkill)
-	--magic number - check ascii code, a == 97. http://www.asciitable.com/
-	local temp_index = string.byte(temp_str) - 96
+decodeSkill = function(str, isFirstSkill)
+	-- magic number - check ascii code, a == 97. http://www.asciitable.com/
+	local index = string.byte(str) - 96
 
-	--[[temp_isFirstSkill == 0: Not yet proceeded to next turn.
-		_isCastingNpFromAutoskill == 0: Not currently casting NP(not in card selection screen).
-		temp_index >= -44 and _mysticCodeOrderChangeStatus == 0: Not currently doing Order Change.
+	--[[isFirstSkill == 0: Not yet proceeded to next turn.
+		index >= -44 and _isOrderChanging == 0: Not currently doing Order Change.
 
 		Therefore, script is casting regular servant skills.
 	--]]
-	if temp_isFirstSkill == 0 and _isCastingNpFromAutoskill == 0 and temp_index >= -44 and _mysticCodeOrderChangeStatus == 0 then
-		--Wait for regular servant skill animation executed last time.
-		--Do not make it shorter, at least 2.9s. Napoleon's skill animation is ridiculously long.
+	if isFirstSkill == 0 and not _battle.hasClickedAttack() and index >= -44 and _isOrderChanging == 0 then
+		-- Wait for regular servant skill animation executed last time.
+		-- Do not make it shorter, at least 2.9s. Napoleon's skill animation is ridiculously long.
 		wait(3.3)
 	end
 
@@ -211,12 +186,8 @@ DecodeSkill = function(temp_str, temp_isFirstSkill)
 		53 - 96 = -43
 		54 - 96 = -42
 	--]]
-	if temp_index >= -44 and temp_index <= -42 and _isCastingNpFromAutoskill == 0 then
-		---Enter card selection screen, ready to cast NP.
-		click(Location(2300,1200))
-		_isCastingNpFromAutoskill = 1
-		wait(1)
-		--Although it seems slow, make it no shorter than 1 sec to protect user with less processing power devices.
+	if index >= -44 and index <= -42 and not _battle.hasClickedAttack() then
+		_battle.clickAttack()
 	end
 
 	--[[In ascii, char(j, k, l) and char(x) command for master skill = decimal(106, 107, 108) and decimal(120) respectively.
@@ -226,9 +197,9 @@ DecodeSkill = function(temp_str, temp_isFirstSkill)
 		108 - 96 = 12
 		120 - 96 = 24
 	--]]
-	if temp_index >= 10 then
-		--Click master skill menu icon, ready to cast master skill.
-		click(Location(2380, 640))
+	if index >= 10 then
+		-- Click master skill menu icon, ready to cast master skill.
+		click(MASTER_SKILL_OPEN_CLICK)
 		wait(0.3)
 	end
 
@@ -236,38 +207,43 @@ DecodeSkill = function(temp_str, temp_isFirstSkill)
 		In ascii, char(x) = decimal(120)
 		120 - 96 = 24
 	--]]
-	if temp_index == 24 then
-		_mysticCodeOrderChangeStatus = 1
+	if index == 24 then
+		_isOrderChanging = 1
 	end
 
-	--MysticCode-OrderChange master skill implementation.
-	--Actual clicking is done by the default case here.
-	if _mysticCodeOrderChangeStatus == 1 then
-		--Click Order Change icon.
-		click(_SKILL_CLICK_ARRAY[12])
-		_mysticCodeOrderChangeStatus = 2
-	elseif _mysticCodeOrderChangeStatus == 2 then
-		click(_STARTING_MEMBER_CLICK_ARRAY[temp_index])
-		_mysticCodeOrderChangeStatus = 3
-	elseif _mysticCodeOrderChangeStatus == 3 then
-		click(_SUB_MEMBER_CLICK_ARRAY[temp_index])
+	-- MysticCode-OrderChange master skill implementation.
+	-- Actual clicking is done by the default case here.
+	if _isOrderChanging == 1 then
+		-- click Order Change icon.
+		click(SKILL_CLICK_ARRAY[12])
+		_isOrderChanging = 2
+	elseif _isOrderChanging == 2 then
+		click(STARTING_MEMBER_CLICK_ARRAY[index])
+		_isOrderChanging = 3
+	elseif _isOrderChanging == 3 then
+		click(SUB_MEMBER_CLICK_ARRAY[index])
 		wait(0.3)
-		click(Location(1280,1260))
-		_mysticCodeOrderChangeStatus = 0
+		click(ORDER_CHANGE_OK_CLICK)
+		_isOrderChanging = 0
 		wait(5)
 	else
-		--Cast skills, NPs, or select target.
-		click(_SKILL_CLICK_ARRAY[temp_index])
+		-- cast skills, NPs, or select target.
+		click(SKILL_CLICK_ARRAY[index])
 	end
-	if temp_index > 0 and Skill_Confirmation == 1 then
-		click(Location(1680,850))
+
+	if index > 0 and Skill_Confirmation == 1 then
+		click(SKILL_OK_CLICK)
 	end
 end
 
+local hasFinishedCastingNp = function()
+	return _hasFinishedCastingNp
+end
+
+-- "public" interface
 return {
-	Init = Init,
-	ResetForNextQuest = ResetForNextQuest,
-	GetIsNPCasting = GetIsNPCasting,
-	ExecuteSkill= ExecuteSkill,
-	UpdateStageCounter = UpdateStageCounter
+	init = init,
+	resetState = resetState,
+	executeSkill = executeSkill,
+	hasFinishedCastingNp = hasFinishedCastingNp
 }
