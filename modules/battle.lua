@@ -133,8 +133,6 @@ checkCurrentStage = function()
 		takeStageSnapshot()
 		onStageChanged()
 	end
-
-	toast("Battle " .. _currentStage .. "/3")
 end
 
 didStageChange = function()
@@ -146,9 +144,7 @@ didStageChange = function()
 end
 
 takeStageSnapshot = function()
-	toast("Taking snapshot for stage recognition")
 	StageCountRegion:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
-
 	onStageSnapshotTaken()
 end
 
@@ -164,14 +160,10 @@ end
 autoChooseTarget = function()
 	for i, target in ipairs(TARGET_REGION_ARRAY) do
 		if isPriorityTarget(target) then
-			chooseTarget(i)
-			toast("Switched to priority target")
-			
+			chooseTarget(i)			
 			return
 		end
 	end
-
-	toast("No priority target selected")
 end
 
 isPriorityTarget = function(target)
