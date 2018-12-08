@@ -1,8 +1,9 @@
 --Other import such as ankulua-utils or string-utils are defined in support.lua.
 package.path = package.path .. ";" .. dir .. 'modules/?.lua'
-local support = require "support"
-local battleLogic = require "battleLogic"
-local module_autoskill = require "autoskill"
+local support = require("support")
+local card = require("card")
+local battle = require("battle")
+local autoskill = require("autoskill")
 
 --[[このスクリプトは人の動きを真似してるだけなので、サーバーには余計な負担を掛からないはず。
 	私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
@@ -12,7 +13,6 @@ local module_autoskill = require "autoskill"
 --Main loop, pattern detection regions.
 --Click pos are hard-coded into code, unlikely to change in the future.
 MenuRegion = Region(2100,1200,1000,1000)
-BattleRegion = Region(2200,200,1000,600)
 ResultRegion = Region(100,300,700,200)
 BondRegion = Region(2000,820,120,120)
 QuestrewardRegion = Region(1630,140,370,250)
@@ -25,7 +25,6 @@ AppleClick = (Location(1270,640))
 StartQuestClick = Location(2400,1350)
 StartQuestWithoutItemClick = Location(1652,1304) -- see docs/start_quest_without_item_click.png
 QuestResultNextClick = Location(2200, 1350) -- see docs/quest_result_next_click.png
-DeathAnimationSkipClick = Location(1700, 100) -- see docs/death_animation_skip_click.png
 
 --[[For future use:
 	NpbarRegion = Region(280,1330,1620,50)
@@ -50,7 +49,8 @@ GeneralImagePath = "image_" .. GameRegion .. "/"
 --]]
 
 function menu()
-	module_autoskill.ResetForNextQuest()
+	battle.resetState()
+	turnCounter = {0, 0, 0, 0, 0}
 
 	--Click uppermost quest.
 	click(Location(1900,400))
@@ -102,43 +102,6 @@ function startQuest()
 		wait(2)
 		click(StartQuestWithoutItemClick)
 	end
-end
-
-function battle()
-	wait(1.5)
-
-	--TBD: counter not used, will replace atkround.
-	local RoundCounter = 1
-	
-	if Enable_Autoskill == 1 then
-		module_autoskill.UpdateStageCounter(StageCountRegion)
-	end
-	
-	--Choose priority target for NP spam and focus fire.
-	battleLogic.ChooseTarget()
-
-	wait(0.5)
-	if Enable_Autoskill == 1 then
-		module_autoskill.ExecuteSkill()
-	end
-
-	wait(0.5)
-	if module_autoskill.GetIsNPCasting() == 0 then
-		--enter card selection screen
-		click(Location(2300,1200))
-		wait(1)
-	end
-
-	battleLogic.clickCommandCards()
-
-	if UnstableFastSkipDeadAnimation == 1 then
-		--https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 Experimental
-		for i = 1, 3 do
-			click(DeathAnimationSkipClick)
-			wait(1)
-		end
-	end
-	wait(2)
 end
 
 function result()
@@ -239,18 +202,18 @@ function PSADialogue()
 end
 
 function init()
+	--Set only ONCE for every separated script run.
+	autoskill.init(battle, card)
+	battle.init(autoskill, card)
+	card.init(autoskill, battle)
+	
 	setImmersiveMode(true)
 	Settings:setCompareDimension(true,1280)
 	Settings:setScriptDimension(true,2560)
 
-	--Set only ONCE for every separated script run.
-	battleLogic.init()
 	StoneUsed = 0
 	PSADialogueShown = 0
 	PSADialogue()
-	module_autoskill.Init()
-	--Check function CheckCurrentStage(region)
-	--StageCounter = 1
 end
 
 init()
@@ -259,8 +222,8 @@ while(1) do
 		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
 		menu()
 	end
-	if BattleRegion:exists(GeneralImagePath .. "battle.png", 0) then
-		battle()
+	if battle.isIdle() then
+		battle.performBattle()
 	end
 	if ResultRegion:exists(GeneralImagePath .. "result.png", 0) then
 		result()
