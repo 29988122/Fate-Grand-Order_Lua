@@ -203,6 +203,9 @@ end
 
 function init()
 	--Set only ONCE for every separated script run.
+	PSADialogueShown = 0
+	PSADialogue()
+
 	autoskill.init(battle, card)
 	battle.init(autoskill, card)
 	card.init(autoskill, battle)
@@ -212,8 +215,6 @@ function init()
 	Settings:setScriptDimension(true,2560)
 
 	StoneUsed = 0
-	PSADialogueShown = 0
-	PSADialogue()
 end
 
 init()
