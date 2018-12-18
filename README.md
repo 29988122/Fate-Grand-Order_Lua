@@ -37,10 +37,9 @@ PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for 
   * [Card Priority Customization](#card-priority-customization)
   * [Noble Phantasm Behavior](#noble-phantasm-behavior)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
+* [Troubleshooting](#troubleshooting)
+  * [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
 * [Feature requests, 說明, 要望](#feature-requests)
-
-
-
 
 ## Install:
 1. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
@@ -287,6 +286,17 @@ You can manually replace target\_servant.png inside image folder to customize yo
 3. resize it to 1280 WIDTH (1920\*1080->1280\*720, 2560\*1440->1280\*720, etc.)
 4. crop the desired pattern(ex: danger, servant, or particular enemy name) for the script to recognize.
 5. replace target.png and test.
+
+## Troubleshooting
+Known issues are listed here.
+
+## Syntax error: unexpected symbol near '燎:
+This error shows up when you save FGO_XX_REGULAR.lua using UTF-8-BOM encoding.
+
+Download [Notepad++](https://notepad-plus-plus.org/) or a similar editor and save it using UTF-8 encoding instead.
+
+![notepad-utf8](https://user-images.githubusercontent.com/4316326/48924293-944ab400-ee9d-11e8-869e-37a0a3456ff9.png)
+
 
 ## Feature requests:
 Any feature request or bugreport are welcomed. Please create a new issue and I'll do my best!
