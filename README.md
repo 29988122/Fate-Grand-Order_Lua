@@ -38,11 +38,8 @@ PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for 
   * [Noble Phantasm Behavior](#noble-phantasm-behavior)
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Troubleshooting](#troubleshooting)
-  * [Syntax error: unexpected symbol near '燎](#unexpected-symbol)
+  * [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
 * [Feature requests, 說明, 要望](#feature-requests)
-
-
-
 
 ## Install:
 1. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
