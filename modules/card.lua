@@ -198,8 +198,9 @@ clickCommandCards = function()
 		for _, cardSlot in pairs(currentCardTypeStorage) do
 			click(COMMAND_CARD_CLICK_ARRAY[cardSlot])
 			clickCount = clickCount + 1
-	
-			if clickCount == 3 then
+			
+			-- Increased clickCount requirement from 3 to 5 to prevent fastclick from missing a click
+			if clickCount == 5 then
 				return
 			end
 		end
