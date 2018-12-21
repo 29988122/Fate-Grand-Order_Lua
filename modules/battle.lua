@@ -4,7 +4,7 @@ local _autoskill
 local _card
 
 -- consts
-local BATTLE_REGION = Region(2200,200,1000,600)
+local BATTLE_REGION = Region(2105,1259,336,116) -- see docs/battle_region.png
 local ATTACK_CLICK = Location(2300,1200)
 local SKIP_DEATH_ANIMATION_CLICK = Location(1700, 100) -- see docs/skip_death_animation_click.png
 
