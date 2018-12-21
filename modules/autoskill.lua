@@ -70,6 +70,7 @@ local _stageCountByUserInput = 1
 local _commandsForEachStageArray = {{}, {}, {}, {}, {}}
 local _totalNeededTurnArray = {0, 0, 0, 0, 0}
 local _turnCounterForEachStageArray
+local _castingNP = false
 
 -- functions
 local init
@@ -148,9 +149,16 @@ executeSkill = function ()
 		local isFirstSkill = 1
 		if currentSkill ~= '0' and currentSkill ~= '#' then
 			for command in string.gmatch(currentSkill, ".") do
+				-- Check that skills can be clicked
+				while not _castingNP and not BATTLE_REGION:exists(GeneralImagePath .. "battle.png" ) do end
+				
+				-- With the use of screen recognition, I do not believe it is necessary to use isFirstSkill anymore /TryBane
 				decodeSkill(command, isFirstSkill)
 				isFirstSkill = 0
+				
+				wait(.2)
 			end
+			_castingNP = false
 		end
 		
 		if not _battle.hasClickedAttack() then
@@ -166,6 +174,10 @@ executeSkill = function ()
 end
 
 decodeSkill = function(str, isFirstSkill)
+	-- NOTE: We can compare strings instead of converting to ascii numbers. Do this by str > "0" as an example.
+	-- I believe this is a bit more intuitive than commenting explanations of ascii values
+	-- Out comments can consist only of "Casting NPs" or "Casting Master Skill"
+	
 	-- magic number - check ascii code, a == 97. http://www.asciitable.com/
 	local index = string.byte(str) - 96
 
@@ -174,12 +186,7 @@ decodeSkill = function(str, isFirstSkill)
 
 		Therefore, script is casting regular servant skills.
 	--]]
-	if isFirstSkill == 0 and not _battle.hasClickedAttack() and index >= -44 and _isOrderChanging == 0 then
-		-- Wait for regular servant skill animation executed last time.
-		-- Do not make it shorter, at least 2.9s. Napoleon's skill animation is ridiculously long.
-		wait(3.3)
-	end
-
+	
 	--[[In ascii, char(4, 5, 6) command for servant NP456 = decimal(52, 53, 54) respectively.
 		Hence:
 		52 - 96 = -44
@@ -187,6 +194,7 @@ decodeSkill = function(str, isFirstSkill)
 		54 - 96 = -42
 	--]]
 	if index >= -44 and index <= -42 and not _battle.hasClickedAttack() then
+		_castingNP = true
 		_battle.clickAttack()
 	end
 
@@ -225,7 +233,6 @@ decodeSkill = function(str, isFirstSkill)
 		wait(0.3)
 		click(ORDER_CHANGE_OK_CLICK)
 		_isOrderChanging = 0
-		wait(5)
 	else
 		-- cast skills, NPs, or select target.
 		click(SKILL_CLICK_ARRAY[index])
