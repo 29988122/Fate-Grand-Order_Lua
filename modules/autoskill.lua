@@ -147,7 +147,7 @@ executeSkill = function ()
 				while not _battle.hasClickedAttack() and not _battle.isIdle() do end
 				
 				decodeSkill(command)
-				wait(0.3)
+				wait(0.4)
 			end
 		end
 		
