@@ -168,16 +168,19 @@ end
 
 decodeSkill = function(str)
 	
+	-- Enter Card selection for NP casting
 	if str >= "4" and str <= "6" and not _battle.hasClickedAttack() then
 		_battle.clickAttack()
 	end
 	
+	-- Master Skill selected, opening Master Skill sub-menu
 	if str >= "j" then
 		-- Click master skill menu icon, ready to cast master skill.
 		click(MASTER_SKILL_OPEN_CLICK)
 		wait(0.3)
 	end
 
+	-- Order change selected, enter order change mode
 	if index == "x" then
 		_isOrderChanging = 1
 	end
@@ -201,7 +204,8 @@ decodeSkill = function(str)
 		click(SKILL_CLICK_ARRAY[str])
 	end
 
-	if index > 0 and Skill_Confirmation == 1 then
+	-- Complete Skill Confirmation sub-menu
+	if str >= "a" and Skill_Confirmation == 1 then
 		click(SKILL_OK_CLICK)
 	end
 end
