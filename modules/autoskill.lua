@@ -142,23 +142,16 @@ executeSkill = function ()
 		-- _commandsForEachStageArray is a two-dimensional array with something like abc1jkl4.
 		local currentSkill = _commandsForEachStageArray[currentStage][currentTurn]
 
-		--[[Prevent exessive delay between skill clickings.
-			isFirstSkill = 1 means more delay, cause one has to wait for battle animation.
-			isFirstSkill = 0 means less delay.
-		--]]
-		local isFirstSkill = 1
 		if currentSkill ~= '0' and currentSkill ~= '#' then
 			for command in string.gmatch(currentSkill, ".") do
 				-- Check that skills can be clicked
-				while not _castingNP and not BATTLE_REGION:exists(GeneralImagePath .. "battle.png" ) do end
+				while not _battle.hasClickedAttack() and not BATTLE_REGION:exists(GeneralImagePath .. "battle.png" ) do end
 				
 				-- With the use of screen recognition, I do not believe it is necessary to use isFirstSkill anymore /TryBane
-				decodeSkill(command, isFirstSkill)
-				isFirstSkill = 0
+				decodeSkill(command)
 				
 				wait(.2)
 			end
-			_castingNP = false
 		end
 		
 		if not _battle.hasClickedAttack() then
@@ -173,7 +166,7 @@ executeSkill = function ()
 	end
 end
 
-decodeSkill = function(str, isFirstSkill)
+decodeSkill = function(str)
 	-- NOTE: We can compare strings instead of converting to ascii numbers. Do this by str > "0" as an example.
 	-- I believe this is a bit more intuitive than commenting explanations of ascii values
 	-- Out comments can consist only of "Casting NPs" or "Casting Master Skill"
@@ -194,7 +187,6 @@ decodeSkill = function(str, isFirstSkill)
 		54 - 96 = -42
 	--]]
 	if index >= -44 and index <= -42 and not _battle.hasClickedAttack() then
-		_castingNP = true
 		_battle.clickAttack()
 	end
 
