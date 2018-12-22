@@ -143,19 +143,16 @@ end
 
 --User option PSA dialogue. Also choosble list of perdefined skill.
 function PSADialogue()
-	if PSADialogueShown ~= 0 then
-		return
-	end
 	dialogInit()
 	--Auto Refill dialogue content generation.
 	if Refill_or_Not == 1 then
 		if Use == "Stone" then
 			RefillType = "stones"
-		elseif Use == "All Apples"
+		elseif Use == "All Apples" then
 			RefillType = "all apples"
-		elseif Use == "Gold"
+		elseif Use == "Gold" then
 			RefillType = "gold apples"
-		elseif Use == "Silver"
+		elseif Use == "Silver" then
 			RefillType = "silver apples"
 		else
 			RefillType = "bronze apples"
@@ -164,7 +161,7 @@ function PSADialogue()
 		newRow()
 		addTextView("You are going to use")
 		newRow()
-		addTextView(How_Many .. " " .. RefillType .. ", ")
+		addTextView(Repetitions .. " " .. RefillType .. ", ")
 		newRow()
 		addTextView("remember to check those values everytime you execute the script!")
 		addSeparator()
