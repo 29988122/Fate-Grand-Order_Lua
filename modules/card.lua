@@ -32,7 +32,7 @@ local COMMAND_CARD_CLICK_ARRAY = {
 }
 
 local NP_CARD_CLICK_ARRAY = {
-	Location(1000,400),
+	Location(1000,220),
 	Location(1300,400),
 	Location(1740,400)
 }
