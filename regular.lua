@@ -129,7 +129,6 @@ function result()
 	wait(3)
 
 	--Friend request screen. Non-friend support was selected this battle.  Ofc it's defaulted not sending request.
-	wait(1.5)
 	if FriendrequestRegion:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
 		click(Location(600,1200))
 	end
