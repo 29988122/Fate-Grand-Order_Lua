@@ -19,6 +19,8 @@ QuestrewardRegion = Region(1630,140,370,250)
 FriendrequestRegion = Region(660, 120, 140, 160)
 StaminaRegion = Region(600,200,300,300)
 
+AcceptClick = (Location(1650,1120))
+
 StoneClick = (Location(1270,345))
 GoldClick = (Location(1270,634))
 SilverClick = (Location(1270,922))
