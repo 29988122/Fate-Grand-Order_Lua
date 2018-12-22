@@ -150,7 +150,7 @@ executeSkill = function ()
 				-- With the use of screen recognition, I do not believe it is necessary to use isFirstSkill anymore /TryBane
 				decodeSkill(command)
 				
-				wait(.2)
+				wait(.3)
 			end
 		end
 		
@@ -181,7 +181,7 @@ decodeSkill = function(str)
 	end
 
 	-- Order change selected, enter order change mode
-	if index == "x" then
+	if str == "x" then
 		_isOrderChanging = 1
 	end
 
@@ -189,7 +189,7 @@ decodeSkill = function(str)
 	-- Actual clicking is done by the default case here.
 	if _isOrderChanging == 1 then
 		-- click Order Change icon.
-		click(SKILL_CLICK_ARRAY[12])
+		click(SKILL_CLICK_ARRAY["l"])
 		_isOrderChanging = 2
 	elseif _isOrderChanging == 2 then
 		click(STARTING_MEMBER_CLICK_ARRAY[str])
