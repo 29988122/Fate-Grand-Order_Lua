@@ -70,7 +70,6 @@ local _stageCountByUserInput = 1
 local _commandsForEachStageArray = {{}, {}, {}, {}, {}}
 local _totalNeededTurnArray = {0, 0, 0, 0, 0}
 local _turnCounterForEachStageArray
-local _castingNP = false
 
 -- functions
 local init
