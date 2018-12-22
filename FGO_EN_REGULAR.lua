@@ -23,8 +23,19 @@ end
 
 --StaminaRefill
 Refill_or_Not = 0
-Use_Stone = 0
-How_Many = 0
+
+--[[ Can be set to any of the following:
+    "Stone"         Use Saint Quartz for refills
+    "All Apples"    Use all available Apples for refills
+    "Gold"          Use only Gold Apples for refills
+    "Silver"        Use only Silver Apples for refills
+    "Bronze"        Use only Bronze Apples for refills
+]]
+Use = "All Apples"
+
+-- Represents the amount of times a refill will happen.
+-- Is NOT a counter for number of Apples used when Bronze apples are included
+Repetitions = 0
 
 --Support selection possible options: "first"; "preferred"; "manual"
 --Please check the details here https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#autosupportselection
