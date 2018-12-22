@@ -128,7 +128,7 @@ function result()
 	-- Click through all of the Result screen items. Does NOT account for Max Bond CE acquisition (yet)
 	continueClick(QuestResultNextClick,35)
 
-	wait(3)
+	wait(5)
 
 	--Friend request screen. Non-friend support was selected this battle.  Ofc it's defaulted not sending request.
 	if FriendrequestRegion:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
