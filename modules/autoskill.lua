@@ -145,7 +145,7 @@ executeSkill = function ()
 		if currentSkill ~= '0' and currentSkill ~= '#' then
 			for command in string.gmatch(currentSkill, ".") do
 				-- Check that skills can be clicked
-				while not _battle.hasClickedAttack() and not BATTLE_REGION:exists(GeneralImagePath .. "battle.png" ) do end
+				while not _battle.hasClickedAttack() and not _battle.isIdle() do end
 				
 				-- With the use of screen recognition, I do not believe it is necessary to use isFirstSkill anymore /TryBane
 				decodeSkill(command)
