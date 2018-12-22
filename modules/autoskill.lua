@@ -146,10 +146,8 @@ executeSkill = function ()
 				-- Check that skills can be clicked
 				while not _battle.hasClickedAttack() and not _battle.isIdle() do end
 				
-				-- With the use of screen recognition, I do not believe it is necessary to use isFirstSkill anymore /TryBane
 				decodeSkill(command)
-				
-				wait(.3)
+				wait(0.3)
 			end
 		end
 		
@@ -166,7 +164,6 @@ executeSkill = function ()
 end
 
 decodeSkill = function(str)
-	
 	-- Enter Card selection for NP casting
 	if str >= "4" and str <= "6" and not _battle.hasClickedAttack() then
 		_battle.clickAttack()
