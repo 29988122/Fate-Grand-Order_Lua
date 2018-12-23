@@ -26,21 +26,21 @@ local SERVANT_2_CLICK = Location(1280,880)
 local SERVANT_3_CLICK = Location(1940,880)
 
 local SKILL_CLICK_ARRAY = {
-	[  1] = SKILL_1_CLICK,
-	[  2] = SKILL_2_CLICK,
-	[  3] = SKILL_3_CLICK,
-	[  4] = SKILL_4_CLICK,
-	[  5] = SKILL_5_CLICK,
-	[  6] = SKILL_6_CLICK,
-	[  7] = SKILL_7_CLICK,
-	[  8] = SKILL_8_CLICK,
-	[  9] = SKILL_9_CLICK,
-	[ 10] = MASTER_SKILL_1_CLICK,
-	[ 11] = MASTER_SKILL_2_CLICK,
-	[ 12] = MASTER_SKILL_3_CLICK,
-	[-47] = SERVANT_1_CLICK,
-	[-46] = SERVANT_2_CLICK,
-	[-45] = SERVANT_3_CLICK
+	["a"] = SKILL_1_CLICK,
+	["b"] = SKILL_2_CLICK,
+	["c"] = SKILL_3_CLICK,
+	["d"] = SKILL_4_CLICK,
+	["e"] = SKILL_5_CLICK,
+	["f"] = SKILL_6_CLICK,
+	["g"] = SKILL_7_CLICK,
+	["h"] = SKILL_8_CLICK,
+	["i"] = SKILL_9_CLICK,
+	["j"] = MASTER_SKILL_1_CLICK,
+	["k"] = MASTER_SKILL_2_CLICK,
+	["l"] = MASTER_SKILL_3_CLICK,
+	["1"] = SERVANT_1_CLICK,
+	["2"] = SERVANT_2_CLICK,
+	["3"] = SERVANT_3_CLICK
 }
 
 -- Order Change (front)
@@ -48,9 +48,9 @@ local STARTING_MEMBER_1_CLICK = Location( 280,700)
 local STARTING_MEMBER_2_CLICK = Location( 680,700)
 local STARTING_MEMBER_3_CLICK = Location(1080,700)
 local STARTING_MEMBER_CLICK_ARRAY = {
-	[-47] = STARTING_MEMBER_1_CLICK,
-	[-46] = STARTING_MEMBER_2_CLICK,
-	[-45] = STARTING_MEMBER_3_CLICK
+	["1"] = STARTING_MEMBER_1_CLICK,
+	["2"] = STARTING_MEMBER_2_CLICK,
+	["3"] = STARTING_MEMBER_3_CLICK
 }
 
 -- Order Change (back)
@@ -58,9 +58,9 @@ local SUB_MEMBER_1_CLICK = Location(1480,700)
 local SUB_MEMBER_2_CLICK = Location(1880,700)
 local SUB_MEMBER_3_CLICK = Location(2280,700)
 local SUB_MEMBER_CLICK_ARRAY = {
-	[-47] = SUB_MEMBER_1_CLICK,
-	[-46] = SUB_MEMBER_2_CLICK,
-	[-45] = SUB_MEMBER_3_CLICK
+	["1"] = SUB_MEMBER_1_CLICK,
+	["2"] = SUB_MEMBER_2_CLICK,
+	["3"] = SUB_MEMBER_3_CLICK
 }
 
 --  state vars
@@ -94,9 +94,9 @@ initDependencies = function(battle, card)
 	_battle = battle
 	_card = card
 
-	SKILL_CLICK_ARRAY[-44] = _card.getNpCardLocation(1)
-	SKILL_CLICK_ARRAY[-43] = _card.getNpCardLocation(2)
-	SKILL_CLICK_ARRAY[-42] = _card.getNpCardLocation(3)
+	SKILL_CLICK_ARRAY["4"] = _card.getNpCardLocation(1)
+	SKILL_CLICK_ARRAY["5"] = _card.getNpCardLocation(2)
+	SKILL_CLICK_ARRAY["6"] = _card.getNpCardLocation(3)
 end
 
 initCommands = function()
@@ -141,15 +141,13 @@ executeSkill = function ()
 		-- _commandsForEachStageArray is a two-dimensional array with something like abc1jkl4.
 		local currentSkill = _commandsForEachStageArray[currentStage][currentTurn]
 
-		--[[Prevent exessive delay between skill clickings.
-			isFirstSkill = 1 means more delay, cause one has to wait for battle animation.
-			isFirstSkill = 0 means less delay.
-		--]]
-		local isFirstSkill = 1
 		if currentSkill ~= '0' and currentSkill ~= '#' then
 			for command in string.gmatch(currentSkill, ".") do
-				decodeSkill(command, isFirstSkill)
-				isFirstSkill = 0
+				-- Check that skills can be clicked
+				while not _battle.hasClickedAttack() and not _battle.isIdle() do end
+				
+				decodeSkill(command)
+				wait(0.3)
 			end
 		end
 		
@@ -165,49 +163,21 @@ executeSkill = function ()
 	end
 end
 
-decodeSkill = function(str, isFirstSkill)
-	-- magic number - check ascii code, a == 97. http://www.asciitable.com/
-	local index = string.byte(str) - 96
-
-	--[[isFirstSkill == 0: Not yet proceeded to next turn.
-		index >= -44 and _isOrderChanging == 0: Not currently doing Order Change.
-
-		Therefore, script is casting regular servant skills.
-	--]]
-	if isFirstSkill == 0 and not _battle.hasClickedAttack() and index >= -44 and _isOrderChanging == 0 then
-		-- Wait for regular servant skill animation executed last time.
-		-- Do not make it shorter, at least 2.9s. Napoleon's skill animation is ridiculously long.
-		wait(3.3)
-	end
-
-	--[[In ascii, char(4, 5, 6) command for servant NP456 = decimal(52, 53, 54) respectively.
-		Hence:
-		52 - 96 = -44
-		53 - 96 = -43
-		54 - 96 = -42
-	--]]
-	if index >= -44 and index <= -42 and not _battle.hasClickedAttack() then
+decodeSkill = function(str)
+	-- Enter Card selection for NP casting
+	if str >= "4" and str <= "6" and not _battle.hasClickedAttack() then
 		_battle.clickAttack()
 	end
-
-	--[[In ascii, char(j, k, l) and char(x) command for master skill = decimal(106, 107, 108) and decimal(120) respectively.
-		Hence:
-		106 - 96 = 10
-		107 - 96 = 11
-		108 - 96 = 12
-		120 - 96 = 24
-	--]]
-	if index >= 10 then
+	
+	-- Master Skill selected, opening Master Skill sub-menu
+	if str >= "j" then
 		-- Click master skill menu icon, ready to cast master skill.
 		click(MASTER_SKILL_OPEN_CLICK)
 		wait(0.3)
 	end
 
-	--[[Enter Order Change Mode.
-		In ascii, char(x) = decimal(120)
-		120 - 96 = 24
-	--]]
-	if index == 24 then
+	-- Order change selected, enter order change mode
+	if str == "x" then
 		_isOrderChanging = 1
 	end
 
@@ -215,23 +185,23 @@ decodeSkill = function(str, isFirstSkill)
 	-- Actual clicking is done by the default case here.
 	if _isOrderChanging == 1 then
 		-- click Order Change icon.
-		click(SKILL_CLICK_ARRAY[12])
+		click(SKILL_CLICK_ARRAY["l"])
 		_isOrderChanging = 2
 	elseif _isOrderChanging == 2 then
-		click(STARTING_MEMBER_CLICK_ARRAY[index])
+		click(STARTING_MEMBER_CLICK_ARRAY[str])
 		_isOrderChanging = 3
 	elseif _isOrderChanging == 3 then
-		click(SUB_MEMBER_CLICK_ARRAY[index])
+		click(SUB_MEMBER_CLICK_ARRAY[str])
 		wait(0.3)
 		click(ORDER_CHANGE_OK_CLICK)
 		_isOrderChanging = 0
-		wait(5)
 	else
 		-- cast skills, NPs, or select target.
-		click(SKILL_CLICK_ARRAY[index])
+		click(SKILL_CLICK_ARRAY[str])
 	end
 
-	if index > 0 and Skill_Confirmation == 1 then
+	-- Complete Skill Confirmation sub-menu
+	if str >= "a" and Skill_Confirmation == 1 then
 		click(SKILL_OK_CLICK)
 	end
 end

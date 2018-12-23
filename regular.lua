@@ -19,8 +19,12 @@ QuestrewardRegion = Region(1630,140,370,250)
 FriendrequestRegion = Region(660, 120, 140, 160)
 StaminaRegion = Region(600,200,300,300)
 
-StoneClick = (Location(1270,340))
-AppleClick = (Location(1270,640))
+AcceptClick = (Location(1650,1120))
+
+StoneClick = (Location(1270,345))
+GoldClick = (Location(1270,634))
+SilverClick = (Location(1270,922))
+BronzeClick = (Location(1270,2048))
 
 StartQuestClick = Location(2400,1350)
 StartQuestWithoutItemClick = Location(1652,1304) -- see docs/start_quest_without_item_click.png
@@ -70,18 +74,33 @@ function menu()
 end
 
 function RefillStamina()
-	if Refill_or_Not == 1 and StoneUsed < How_Many then
-		if Use_Stone == 1 then
+	if Refill_Enabled == 1 and StoneUsed < Refill_Repetitions then
+		if Refill_Resource == "SQ" then
 			click(StoneClick)
-			toast("Auto Refilling Stamina")
-			wait(1.5)
-			click(Location(1650,1120))
+			wait(1)
+			click(AcceptClick)
 			StoneUsed = StoneUsed + 1
-		else
-			click(AppleClick)
-			toast("Auto Refilling Stamina")
-			wait(1.5)
-			click(Location(1650,1120))
+		elseif Refill_Resource == "All Apples" then
+			click(BronzeClick)
+			click(SilverClick)
+			click(GoldClick)
+			wait(1)
+			click(AcceptClick)
+			StoneUsed = StoneUsed + 1
+		elseif Refill_Resource == "Gold" then
+			click(GoldClick)
+			wait(1)
+			click(AcceptClick)
+			StoneUsed = StoneUsed + 1
+		elseif Refill_Resource == "Silver" then
+			click(SilverClick)
+			wait(1)
+			click(AcceptClick)
+			StoneUsed = StoneUsed + 1
+		elseif Refill_Resource == "Bronze" then
+			click(BronzeClick)
+			wait(1)
+			click(AcceptClick)
 			StoneUsed = StoneUsed + 1
 		end
 		wait(3)
@@ -105,32 +124,13 @@ function startQuest()
 end
 
 function result()
-	--Bond exp screen.
-	wait(2)
-	click(QuestResultNextClick)
+	
+	-- Click through all of the Result screen items. Does NOT account for Max Bond CE acquisition (yet)
+	continueClick(QuestResultNextClick,35)
 
-	--Bond level up screen.
-	if BondRegion:exists(GeneralImagePath .. "bond.png") then
-		wait(1)
-		click(QuestResultNextClick)
-	end
-
-	--Master exp screen.
-	wait(2)
-	click(QuestResultNextClick)
-
-	--Obtained item screen.
-	wait(1.5)
-	click(QuestResultNextClick)
-
-	--Extra event item screen.
-	if isEvent == 1 then
-		wait(1.5)
-		click(QuestResultNextClick)
-	end
+	wait(5)
 
 	--Friend request screen. Non-friend support was selected this battle.  Ofc it's defaulted not sending request.
-	wait(1.5)
 	if FriendrequestRegion:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
 		click(Location(600,1200))
 	end
@@ -145,22 +145,25 @@ end
 
 --User option PSA dialogue. Also choosble list of perdefined skill.
 function PSADialogue()
-	if PSADialogueShown ~= 0 then
-		return
-	end
 	dialogInit()
 	--Auto Refill dialogue content generation.
-	if Refill_or_Not == 1 then
-		if Use_Stone == 1 then
-			RefillType = "stones"
+	if Refill_Enabled == 1 then
+		if Refill_Resource == "SQ" then
+			RefillType = "sq"
+		elseif Refill_Resource == "All Apples" then
+			RefillType = "all apples"
+		elseif Refill_Resource == "Gold" then
+			RefillType = "gold apples"
+		elseif Refill_Resource == "Silver" then
+			RefillType = "silver apples"
 		else
-			RefillType = "apples"
+			RefillType = "bronze apples"
 		end
 		addTextView("Auto Refill Enabled:")
 		newRow()
 		addTextView("You are going to use")
 		newRow()
-		addTextView(How_Many .. " " .. RefillType .. ", ")
+		addTextView(Refill_Repetitions .. " " .. RefillType .. ", ")
 		newRow()
 		addTextView("remember to check those values everytime you execute the script!")
 		addSeparator()
@@ -193,8 +196,7 @@ function PSADialogue()
 
 	--Show the generated dialogue.
 	dialogShow("CAUTION")
-	PSADialogueShown = 1
-
+	
 	--Put user selection into list for later exception handling.
 	if Enable_Autoskill_List == 1 then
 		Skill_Command = Autoskill_List[AutoskillListIndex][2]
@@ -203,18 +205,17 @@ end
 
 function init()
 	--Set only ONCE for every separated script run.
-	PSADialogueShown = 0
+	setImmersiveMode(true)
+	Settings:setCompareDimension(true,1280)
+	Settings:setScriptDimension(true,2560)
+
+	StoneUsed = 0
 	PSADialogue()
 
 	autoskill.init(battle, card)
 	battle.init(autoskill, card)
 	card.init(autoskill, battle)
 	
-	setImmersiveMode(true)
-	Settings:setCompareDimension(true,1280)
-	Settings:setScriptDimension(true,2560)
-
-	StoneUsed = 0
 end
 
 init()
@@ -226,7 +227,7 @@ while(1) do
 	if battle.isIdle() then
 		battle.performBattle()
 	end
-	if ResultRegion:exists(GeneralImagePath .. "result.png", 0) then
+	if ResultRegion:exists(GeneralImagePath .. "result.png", 0) or BondRegion:exists(GeneralImagePath .. "bond.png", 0) then
 		result()
 	end
 end

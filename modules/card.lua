@@ -16,11 +16,11 @@ local CARD_AFFINITY_REGION_ARRAY = {
 
 local CARD_TYPE_REGION_ARRAY = {
 	-- see docs/card_type_regions.png
-	Region( 200,1060,200,200),
-	Region( 730,1060,200,200),
-	Region(1240,1060,200,200),
-	Region(1750,1060,200,200),
-	Region(2180, 960,350,350)
+	Region(   0,1060,512,200),
+	Region( 512,1060,512,200),
+	Region(1024,1060,512,200),
+	Region(1536,1060,512,200),
+	Region(2048,1060,512,200)
 }
 
 local COMMAND_CARD_CLICK_ARRAY = {
@@ -190,18 +190,12 @@ end
 
 clickCommandCards = function()
 	local commandCards = getCommandCards()
-	local clickCount = 0
 
 	for _, cardPriority in pairs(_cardPriorityArray) do
 		local currentCardTypeStorage = commandCards[cardPriority]
 	
 		for _, cardSlot in pairs(currentCardTypeStorage) do
 			click(COMMAND_CARD_CLICK_ARRAY[cardSlot])
-			clickCount = clickCount + 1
-	
-			if clickCount == 3 then
-				return
-			end
 		end
 	end
 end

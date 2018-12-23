@@ -99,11 +99,17 @@ The behavior can be changed by ```Battle_NoblePhantasm```, please check [Noble P
 ## AutoRefill:
 If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
 
-There are 3 variables - Refill\_or\_Not = 0, Use\_Stone = 0, How\_Many = 0. 
+Set `Refill_Enabled` to 1 to enable AutoRefill.
 
-You should change Refill\_or\_Not to 1 to enable the auto refill feature, Use\_Stone to 1 if you don't have enough apple (default Use\_Stone = 0 will use apple), and How\_Many to your planned refill rounds.
+There are five options available for `Refill_Resource`:
+1. **SQ**: will consume Saint Quartz
+2. **Bronze**: will consume Bronze Apples
+3. **Silver**: will consume Silver Apples
+4. **Gold**: will consume Gold Apples
+5. **All Apples**: will consume all available apples, in the following order: Bronze, Silver, Gold.
 
-For example, Refill\_or\_Not = 1 Use\_Stone = 1 How\_Many = 3 will enable the auto refill feature, use stone 3 times, and stop at the "not enough stamina" screen, without using 4th stone.
+`Refill_Repetitions` controls how many times the script will refill your AP.
+It does **not** reflect the amount of resources consumed, unless you're using SQ or Gold Apples.
 
 ## AutoSkill:
 AutoSkill allows you to execute customized skill command according to your team using a string. To enable, please modify the lua file you are executing(CN, EN, JP or TW).
