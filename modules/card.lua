@@ -190,19 +190,12 @@ end
 
 clickCommandCards = function()
 	local commandCards = getCommandCards()
-	local clickCount = 0
 
 	for _, cardPriority in pairs(_cardPriorityArray) do
 		local currentCardTypeStorage = commandCards[cardPriority]
 	
 		for _, cardSlot in pairs(currentCardTypeStorage) do
 			click(COMMAND_CARD_CLICK_ARRAY[cardSlot])
-			clickCount = clickCount + 1
-			
-			-- Increased clickCount requirement from 3 to 5 to prevent fastclick from missing a click
-			if clickCount == 5 then
-				return
-			end
 		end
 	end
 end
