@@ -22,20 +22,20 @@ for i = 1, 10 do
 end
 
 --スタミナ自動補充
-Refill_or_Not = 0
+Refill_Enabled = 0
 
 --[[ Can be set to any of the following:
-    "Stone"         Use Saint Quartz for refills
+    "SQ"         Use Saint Quartz for refills
     "All Apples"    Use all available Apples for refills
     "Gold"          Use only Gold Apples for refills
     "Silver"        Use only Silver Apples for refills
     "Bronze"        Use only Bronze Apples for refills
 ]]
-Use = "All Apples"
+Refill_Resource = "All Apples"
 
 -- Represents the amount of times a refill will happen.
 -- Is NOT a counter for number of Apples used when Bronze apples are included
-Repetitions = 0
+Refill_Repetitions = 0
 
 --サポートサーヴァント自動選択
 --説明書に参照してください https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#autosupportselection
