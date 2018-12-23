@@ -31,7 +31,7 @@ Refill_Enabled = 0
     "Silver"        Use only Silver Apples for refills
     "Bronze"        Use only Bronze Apples for refills
 ]]
-Refill_Type = "All Apples"
+Refill_Resource = "All Apples"
 
 -- Represents the amount of times a refill will happen.
 -- Is NOT a counter for number of Apples used when Bronze apples are included
