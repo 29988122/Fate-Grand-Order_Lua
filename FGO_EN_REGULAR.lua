@@ -25,7 +25,7 @@ end
 Refill_Enabled = 0
 
 --[[ Can be set to any of the following:
-    "Stone"         Use Saint Quartz for refills
+    "SQ"         Use Saint Quartz for refills
     "All Apples"    Use all available Apples for refills
     "Gold"          Use only Gold Apples for refills
     "Silver"        Use only Silver Apples for refills
