@@ -74,30 +74,30 @@ function menu()
 end
 
 function RefillStamina()
-	if Refill_or_Not == 1 and StoneUsed < Repetitions then
-		if Use == "Stone" then
+	if Refill_Enabled == 1 and StoneUsed < Refill_Repetitions then
+		if Refill_Type == "Stone" then
 			click(StoneClick)
 			wait(1)
 			click(AcceptClick)
 			StoneUsed = StoneUsed + 1
-		elseif Use == "All Apples" then
+		elseif Refill_Type == "All Apples" then
 			click(BronzeClick)
 			click(SilverClick)
 			click(GoldClick)
 			wait(1)
 			click(AcceptClick)
 			StoneUsed = StoneUsed + 1
-		elseif Use == "Gold" then
+		elseif Refill_Type == "Gold" then
 			click(GoldClick)
 			wait(1)
 			click(AcceptClick)
 			StoneUsed = StoneUsed + 1
-		elseif Use == "Silver" then
+		elseif Refill_Type == "Silver" then
 			click(SilverClick)
 			wait(1)
 			click(AcceptClick)
 			StoneUsed = StoneUsed + 1
-		elseif Use == "Bronze" then
+		elseif Refill_Type == "Bronze" then
 			click(BronzeClick)
 			wait(1)
 			click(AcceptClick)
@@ -147,14 +147,14 @@ end
 function PSADialogue()
 	dialogInit()
 	--Auto Refill dialogue content generation.
-	if Refill_or_Not == 1 then
-		if Use == "Stone" then
+	if Refill_Enabled == 1 then
+		if Refill_Type == "Stone" then
 			RefillType = "stones"
-		elseif Use == "All Apples" then
+		elseif Refill_Type == "All Apples" then
 			RefillType = "all apples"
-		elseif Use == "Gold" then
+		elseif Refill_Type == "Gold" then
 			RefillType = "gold apples"
-		elseif Use == "Silver" then
+		elseif Refill_Type == "Silver" then
 			RefillType = "silver apples"
 		else
 			RefillType = "bronze apples"
@@ -163,7 +163,7 @@ function PSADialogue()
 		newRow()
 		addTextView("You are going to use")
 		newRow()
-		addTextView(Repetitions .. " " .. RefillType .. ", ")
+		addTextView(Refill_Repetitions .. " " .. RefillType .. ", ")
 		newRow()
 		addTextView("remember to check those values everytime you execute the script!")
 		addSeparator()
