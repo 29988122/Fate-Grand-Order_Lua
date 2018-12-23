@@ -75,29 +75,29 @@ end
 
 function RefillStamina()
 	if Refill_Enabled == 1 and StoneUsed < Refill_Repetitions then
-		if Refill_Type == "Stone" then
+		if Refill_Resource == "SQ" then
 			click(StoneClick)
 			wait(1)
 			click(AcceptClick)
 			StoneUsed = StoneUsed + 1
-		elseif Refill_Type == "All Apples" then
+		elseif Refill_Resource == "All Apples" then
 			click(BronzeClick)
 			click(SilverClick)
 			click(GoldClick)
 			wait(1)
 			click(AcceptClick)
 			StoneUsed = StoneUsed + 1
-		elseif Refill_Type == "Gold" then
+		elseif Refill_Resource == "Gold" then
 			click(GoldClick)
 			wait(1)
 			click(AcceptClick)
 			StoneUsed = StoneUsed + 1
-		elseif Refill_Type == "Silver" then
+		elseif Refill_Resource == "Silver" then
 			click(SilverClick)
 			wait(1)
 			click(AcceptClick)
 			StoneUsed = StoneUsed + 1
-		elseif Refill_Type == "Bronze" then
+		elseif Refill_Resource == "Bronze" then
 			click(BronzeClick)
 			wait(1)
 			click(AcceptClick)
@@ -148,13 +148,13 @@ function PSADialogue()
 	dialogInit()
 	--Auto Refill dialogue content generation.
 	if Refill_Enabled == 1 then
-		if Refill_Type == "Stone" then
-			RefillType = "stones"
-		elseif Refill_Type == "All Apples" then
+		if Refill_Resource == "SQ" then
+			RefillType = "sq"
+		elseif Refill_Resource == "All Apples" then
 			RefillType = "all apples"
-		elseif Refill_Type == "Gold" then
+		elseif Refill_Resource == "Gold" then
 			RefillType = "gold apples"
-		elseif Refill_Type == "Silver" then
+		elseif Refill_Resource == "Silver" then
 			RefillType = "silver apples"
 		else
 			RefillType = "bronze apples"
