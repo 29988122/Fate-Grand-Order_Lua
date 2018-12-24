@@ -6,9 +6,6 @@ GameRegion = "TW"
 --StageCountRegion issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
 StageCountRegion = Region(1710,25,55,60)
 
---Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
---NotJPserverForStaminaRefillExtraClick = 0
-
 --[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
     UnstableFastSkipDeadAnimation = 1
 --]]

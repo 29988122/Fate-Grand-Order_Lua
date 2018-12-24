@@ -103,11 +103,6 @@ function RefillStamina()
 			StoneUsed = StoneUsed + 1
 		end
 		wait(3)
-		if NotJPserverForStaminaRefillExtraClick == nil then
-			--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089
-			click(Location(1900,400))
-			wait(1.5)
-		end
 	else
 		scriptExit("AP ran out!")
 	end
