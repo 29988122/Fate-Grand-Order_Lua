@@ -57,9 +57,7 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 5. Connect your PC to Android with USB cable, and execute run.bat **on PC** inside```Fate-Grand-Order_Lua\ama_daemon```folder. 
 
 6. After daemon has been installed, you can disable usb debugging and unplug. **Daemon needs to be reinstalled upon phone reboot**.
-* If daemon installation was not successful / driver not properly installed, please install this:
-
-https://forum.xda-developers.com/showthread.php?t=2317790
+* If daemon installation was not successful / driver not properly installed, please install this: https://forum.xda-developers.com/showthread.php?t=2317790
 
 6. Open Ankulua to check if daemon is properly installed - and load the FGO_CN/JP/EN/TW_REGULAR.lua script inside your phone - you're now good to go.
 
