@@ -1,7 +1,7 @@
 # Fate-Grand-Order_Lua
-This script supported CN, EN, JP and TW server. KR server support can be added if user - you - can help us! Check issue forum for further info. 
+This script supported CN, EN, JP and TW server on Android devices and emulators.
 
-Any of the questions can be asked in the "Issues" section, you don't really have to find my mail address or DM me on reddit, I'm always here. Don't be shy xD
+Any of the questions can be asked in the "Issues" section. Don't be shy xD
 
 Please consider Star our repo to encourage us if this script is useful to you : )
 
@@ -17,13 +17,12 @@ Screw those farming events - I only wanna enjoy the (kinoko) story!
 
 Therefore I proudly brought you this: FGO automation script.
 
-As of 2018.10.10, this script is working WITHOUT ROOT / BEING BLOCKED, although I DO NOT take responsibility for your banned account! 
-
-PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for the script.
+As of 2018.12.24, this script is **working without root** / without being blocked or banned, although I DO NOT take responsibility for your banned account! 
 
 [Disclaimer and concern about your account](ACCOUNT%20SAFETY.md)
 
 # Table of Contents:
+* [中文說明 マニュアル](中文說明-マニュアル)
 * [Install](#install)
 * [Usage](#usage)
 * [Extra scripts](#extra-scripts)
@@ -40,6 +39,11 @@ PSA: DO NOT update to Android 8.0 and above, or you'll have to use Emulator for 
 * [Troubleshooting](#troubleshooting)
   * [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
 * [Feature requests, 說明, 要望](#feature-requests)
+
+## 中文說明 マニュアル
+[中文說明](https://github.com/29988122/Fate-Grand-Order_Lua/wiki/readme.md-%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87)
+
+[マニュアル](https://github.com/29988122/Fate-Grand-Order_Lua/wiki/readme.md-%E6%97%A5%E6%9C%AC%E8%AA%9E)
 
 ## Install:
 1. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
