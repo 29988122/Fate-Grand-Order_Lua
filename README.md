@@ -21,12 +21,14 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 
 [Disclaimer and concern about your account](ACCOUNT%20SAFETY.md)
 
+***
+
 # Table of Contents:
 * [中文說明 マニュアル](#中文說明-マニュアル)
 * [Install](#install)
 * [Usage](#usage)
 * [Extra scripts](#extra-scripts)
-* [Behavior details](#behavior-details)
+* [Advanced features](#advanced-features)
   * [AutoRefill](#autorefill)
   * [AutoSkill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
@@ -39,6 +41,8 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 * [Troubleshooting](#troubleshooting)
   * [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
 * [Feature requests, 說明, 要望](#feature-requests)
+
+***
 
 ## 中文說明 マニュアル
 [中文說明](https://github.com/29988122/Fate-Grand-Order_Lua/wiki/readme.md-%E6%AD%A3%E9%AB%94%E4%B8%AD%E6%96%87)
@@ -59,44 +63,42 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 6. After daemon has been installed, you can disable usb debugging and unplug. **Daemon needs to be reinstalled upon phone reboot**.
 * If daemon installation was not successful / driver not properly installed, please install this: https://forum.xda-developers.com/showthread.php?t=2317790
 
-6. Open Ankulua to check if daemon is properly installed - and load the FGO_CN/JP/EN/TW_REGULAR.lua script inside your phone - you're now good to go.
+6. Open Ankulua to check if daemon is properly installed - and load the correct script inside your phone - enjoy the game your way!
 
 ## Usage:
 Please choose the corresponding lua file in AnkuLua according to your:
-- FGO server (supported China / Japan / Taiwan / USA currently).
-Modify the lua file, change settings and add functions such as AutoSkill or AutoRefill to suit your needs.
-(Sometimes, events have extra window options to click. Refer to [Events](#events) for more details.)
+* FGO server (supported China / Japan / Taiwan / USA currently)
+    * FGO_CN_REGULAR.lua
+    * FGO_JP_REGULAR.lua
+    * FGO_TW_REGULAR.lua
+    * FGO_EN_REGULAR.lua
 
-Then, put your game in either:
-- menu, put your desired quest as the 1st item on the screen(upper-right corner).
-- battle screen.
+Put your game in either:
+* Menu screen, make the quest you wanna farm as the 1st item on the screen (upper-right corner)
+* Battle screen
 
-and click the transparent arrow. You're good to go.
+And start the script.
+
+The script will automatically enter battle, choose cards for you, again and again until stamina depleted.
 
 ## Extra scripts:
-* \_auto\_friendgacha.lua
+```_auto_friendgacha.lua```
 
-As title. It will keep gacha until your bag's full.
+As title. It will keep gacha until your bag's full. I suggest using it for friend gacha only, despite it can also be used for stone gacha.
 
-* \_auto\_gift\_exchangeV2.lua
+```_auto_gift_exchange.lua```
 
-Use for Nero matsuri or Christmas events. Their UI really sucked.
+Used for Nero matsuri or Christmas events. Their UX really sucked, so a script for gacha is a nice QoL improvement.
 
-## Behavior details:
-- Major and minor adjustments will be done frequently as FGO updates. **Remember to update!**
+***
 
-- Stamina does NOT automatically refilled, if you need to refill them automatically, please check [AutoRefill](#autorefill).
-
-- Script automatically chooses weak cards, until "boss" fight. The priority of BAQ cards can be changed, please check [Card Priority Customization](#card-priority-customization).
-
-- It will switch target to any "servant" or "danger" enemy ONCE, cast Noble Phantasm immediately and after until battle ended.
-The behavior can be changed by ```Battle_NoblePhantasm```, please check [Noble Phantasm Behavior](#noble-phantasm-behavior) for further detail.
-
-- Choose your party member wisely. Because this script does not do B/A/Q or brave chains, you have to observe the behavior of the script, and arrange your party accordingly in order to gain max clear efficiency / prevent party wipe from highest level event stage. 
-
-- Customized skill command is supported, though the command execution is still highly depends on runtime conditions. Please check [AutoSkill](#autoskill).
-
-- User-defined support selection is supported, though it could be slow at times, please take your farming efficiency into consideration. Check [AutoSupportSelection](#autosupportselection).
+## Advanced features:
+By adjust settings inside your lua file, you can achieve the following things:
+* Cast skills in battle via user-predefined skill lists. [AutoSkill](#autoskill)
+* Refill stamina as you wish. [AutoRefill](#autorefill)
+* Select certain support servant+CE combination. [AutoSupportSelection](#autosupportselection)
+* Customize your card selection priority. [Card Priority Customization](#card-priority-customization)
+* When to cast NP. [Noble Phantasm Behavior](#noble-phantasm-behavior)
 
 ## AutoRefill:
 If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
