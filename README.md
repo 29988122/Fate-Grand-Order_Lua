@@ -46,9 +46,7 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 [マニュアル](https://github.com/29988122/Fate-Grand-Order_Lua/wiki/readme.md-%E6%97%A5%E6%9C%AC%E8%AA%9E)
 
 ## Install:
-1. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
-
-**On Android**, install the latest version of AnkuLua(Sikuli) framework.
+1. **On Android**, install the latest version of AnkuLua(Sikuli) framework. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
 
 2. Download the latest [release](https://github.com/29988122/Fate-Grand-Order_Lua/releases) of script, extract it **on PC**.
 
