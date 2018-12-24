@@ -22,7 +22,7 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 [Disclaimer and concern about your account](ACCOUNT%20SAFETY.md)
 
 # Table of Contents:
-* [中文說明 マニュアル](中文說明-マニュアル)
+* [中文說明 マニュアル](#中文說明-マニュアル)
 * [Install](#install)
 * [Usage](#usage)
 * [Extra scripts](#extra-scripts)
