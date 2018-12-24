@@ -47,21 +47,20 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 
 ## Install:
 1. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
-On Android, install the latest version of sikuli framework here.
+**On Android**, install the latest version of AnkuLua(Sikuli) framework.
 
-2. Download the latest release version of Fate-Grand-Order_Lua, extract it.
+2. Download the latest [release](https://github.com/29988122/Fate-Grand-Order_Lua/releases) of script, extract it **on PC**.
 
-3. Copy the whole extracted folder into your phone.
+3. Copy the whole extracted folder into your Android phone or emulator.
 
-4. On Android, enable developer options->usb debugging, connect your PC to android and execute run.bat inside Fate-Grand-Order_Lua
-\ama\_daemon folder **ON PC**. After daemon has been installed, you can disable usb debugging and unplug. DAEMON NEEDS TO BE REINSTALLED UPON PHONE REBOOT.
+4. **On Android**, enter settings->enable developer options->enable usb debugging.
 
-5. If daemon installation was not successful / driver not properly installed, please install this: https://forum.xda-developers.com/showthread.php?t=2317790
+5. Connect your PC to Android with USB cable, and execute run.bat **on PC** inside```Fate-Grand-Order_Lua\ama_daemon```folder. 
 
-6. Open ankulua to check if daemon is properly installed - and load the script inside your phone - you're done.
+6. After daemon has been installed, you can disable usb debugging and unplug. **Daemon needs to be reinstalled upon phone reboot**.
+* If daemon installation was not successful / driver not properly installed, please install this: https://forum.xda-developers.com/showthread.php?t=2317790
 
-7. Remember to update Fate-Grand-Order_Lua, just download the latest version from here, replace the old version in you phone.
-
+6. Open Ankulua to check if daemon is properly installed - and load the FGO_CN/JP/EN/TW_REGULAR.lua script inside your phone - you're now good to go.
 
 ## Usage:
 Please choose the corresponding lua file in AnkuLua according to your:
