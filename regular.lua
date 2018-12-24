@@ -62,9 +62,12 @@ function menu()
 
 	--Auto refill.
 	if StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) then
-		RefillStamina()
+		if GameRegion == "EN" then
+			RefillStamina()
+		else
+			RefillJP()
+		end
 	end
-
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport then
@@ -112,6 +115,13 @@ function RefillStamina()
 	else
 		scriptExit("AP ran out!")
 	end
+end
+
+function RefillJP()
+	-- Refill Stamina until stamina.png isn't on screen
+	repeat
+		RefillStamina()
+	until not StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0)
 end
 
 function startQuest()
