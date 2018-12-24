@@ -61,10 +61,9 @@ function menu()
 	wait(1.5)
 
 	--Auto refill.
-	if StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) then
+	while StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) do
 		RefillStamina()
 	end
-
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport then
@@ -208,6 +207,8 @@ function init()
 	setImmersiveMode(true)
 	Settings:setCompareDimension(true,1280)
 	Settings:setScriptDimension(true,2560)
+	
+	toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
 
 	StoneUsed = 0
 	PSADialogue()
@@ -221,7 +222,6 @@ end
 init()
 while(1) do
 	if MenuRegion:exists(GeneralImagePath .. "menu.png", 0) then
-		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
 		menu()
 	end
 	if battle.isIdle() then
