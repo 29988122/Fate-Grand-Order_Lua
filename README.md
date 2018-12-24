@@ -29,14 +29,14 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 * [Usage](#usage)
 * [Extra scripts](#extra-scripts)
 * [Advanced features](#advanced-features)
-  * [AutoRefill](#autorefill)
   * [AutoSkill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
     * [AutoSkill List](#autoskill-list)
+  * [AutoRefill](#autorefill)
   * [AutoSupportSelection](#autosupportselection)
-  * [Events](#events)
   * [Card Priority Customization](#card-priority-customization)
   * [Noble Phantasm Behavior](#noble-phantasm-behavior)
+  
   * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Troubleshooting](#troubleshooting)
   * [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
@@ -94,41 +94,25 @@ Used for Nero matsuri or Christmas events. Their UX really sucked, so a script f
 
 ## Advanced features:
 By adjust settings inside your lua file, you can achieve the following things:
-* Cast skills in battle via user-predefined skill lists. [AutoSkill](#autoskill)
-* Refill stamina as you wish. [AutoRefill](#autorefill)
-* Select certain support servant+CE combination. [AutoSupportSelection](#autosupportselection)
-* Customize your card selection priority. [Card Priority Customization](#card-priority-customization)
-* When to cast NP. [Noble Phantasm Behavior](#noble-phantasm-behavior)
-
-## AutoRefill:
-If you really want to refill automatically, please modify the lua file you are executing(TW, EN or JP). 
-
-Set `Refill_Enabled` to 1 to enable AutoRefill.
-
-There are five options available for `Refill_Resource`:
-1. **SQ**: will consume Saint Quartz
-2. **Bronze**: will consume Bronze Apples
-3. **Silver**: will consume Silver Apples
-4. **Gold**: will consume Gold Apples
-5. **All Apples**: will consume all available apples, in the following order: Bronze, Silver, Gold.
-
-`Refill_Repetitions` controls how many times the script will refill your AP.
-It does **not** reflect the amount of resources consumed, unless you're using SQ or Gold Apples.
+* [AutoSkill](#autoskill) Cast skills in battle via user-predefined skill lists.
+* [AutoRefill](#autorefill) Refill stamina as you wish. 
+* [AutoSupportSelection](#autosupportselection) Select certain support servant+CE combination. 
+* [Card Priority Customization](#card-priority-customization) Customize your card selection priority. 
+* [Noble Phantasm Behavior](#noble-phantasm-behavior) When to cast NP in order to face dangerous servants. 
 
 ## AutoSkill:
-AutoSkill allows you to execute customized skill command according to your team using a string. To enable, please modify the lua file you are executing(CN, EN, JP or TW).
+AutoSkill allows you to execute a series of turn-based skill commands, via user-predefined strings.
+Change ```Enable_Autoskill``` to 1 to enable it, 0 to disable. 
 
-Change Enable_Autoskill to 1 if you wish to enable it, 0 to disable. 
-
-Skill_Confirmation allows you to skip the Confirm Skill Use window. Modify it according to your Battle Menu setting: 
+```Skill_Confirmation``` allows you to skip the Confirm Skill Use window. Modify it according to your Battle Menu setting: 
 ```
 OFF = 0
 ON = 1
 ```
-That is, if you need to click through confirmation window to use a skill, make this option Enable_Autoskill = 1. 
-Otherwise, leave it Enable_Autoskill = 0.
+That is, if you need to click through confirmation window to use a skill, make this option ```Skill_Confirmation = 1```. 
+Otherwise, leave it as ```Skill_Confirmation = 0```.
 
-Skill_Command is the command string which follows the rules below:
+```Skill_Command``` strings should be composed by the following rules:
 ```
 ',' = Turn counter
 ',#,' = Battle counter
@@ -141,7 +125,7 @@ Activate Servant NP = 4 5 6
 
 Please insert your command in between the "".
 
-eg:
+e.g.
 Skill_Command = "bce,0,f3hi,#,j2d,#,4,a1g3"
 
 Battle 1:
@@ -162,7 +146,19 @@ However by planning ahead, wrote commands for many rounds(putting a lot of zeros
 
 Also, you can have a band-aid fix by casting skills only on the 1st servant(a1,d1,f1, etc). By doing so, the script will click cancel when the skill's on cooldown, preventing stuck.
 
-Thanks @ryuga93 for implementing this function!
+## AutoRefill:
+Set `Refill_Enabled = 1` to enable AutoRefill.
+
+`Refill_Repetitions` controls how many apples you want to use to refill your AP.
+
+There are five options available for `Refill_Resource`:
+1. **SQ**: will consume Saint Quartz
+2. **Bronze**: will consume Bronze Apples
+3. **Silver**: will consume Silver Apples
+4. **Gold**: will consume Gold Apples
+5. **All Apples**: will consume all available apples in the following order: Bronze, Silver, Gold.
+
+It does **not** reflect the amount of resources consumed, unless you're using SQ or Gold Apples.
 
 ### Chaldea Combat Uniform: Order Change
 To use the Master Skill Order Change for servant exchange, insert the following Skill_Command:
