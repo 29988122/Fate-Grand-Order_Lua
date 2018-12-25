@@ -89,6 +89,7 @@ As title. It will keep gacha until your bag's full. I suggest using it for frien
 ```_auto_gift_exchange.lua```
 
 Used for Nero matsuri or Christmas events. Their UX really sucked, so a script for gacha is a nice QoL improvement.
+You need to change this line in the file ```setImagePath(dir .. "image_JP")``` to either ```image_JP``` ```image_EN``` ```image_TW``` ```image_CN``` to your server.
 
 ***
 
@@ -146,22 +147,9 @@ However by planning ahead, wrote commands for many rounds(putting a lot of zeros
 
 Also, you can have a band-aid fix by casting skills only on the 1st servant(a1,d1,f1, etc). By doing so, the script will click cancel when the skill's on cooldown, preventing stuck.
 
-## AutoRefill:
-Set `Refill_Enabled = 1` to enable AutoRefill.
-
-`Refill_Repetitions` controls how many apples you want to use to refill your AP.
-
-There are five options available for `Refill_Resource`:
-1. **SQ**: will consume Saint Quartz
-2. **Bronze**: will consume Bronze Apples
-3. **Silver**: will consume Silver Apples
-4. **Gold**: will consume Gold Apples
-5. **All Apples**: will consume all available apples in the following order: Bronze, Silver, Gold.
-
-It does **not** reflect the amount of resources consumed, unless you're using SQ or Gold Apples.
-
 ### Chaldea Combat Uniform: Order Change
-To use the Master Skill Order Change for servant exchange, insert the following Skill_Command:
+Order Change from Chaldea Combat Uniform allows you to exchange servants during battle.
+By inserting ```x``` into user-predefined strings, you can make your ```Skill_Command``` more flexible:
 ```
 x - activates Order Change
 Starting Member Position - 1  2  3
@@ -171,15 +159,32 @@ e.g.
 Skill_Command = "x13"
 Exchange starting member 1 with sub-member 3
 ```
-You are able to mix the Order Change command with normal autoskill command:
+Of course, you can mix the Order Change command with normal Autoskill commands:
 ```
+e.g.
 Skill_Command = "bce,0,f3hi,#,j2d,#,4,x13a1g3"
 ```
 
 ### AutoSkill List
-You can set Enable_Autoskill_List = 1 to enable this feature.
-You can setup a predefined autoskill list from 1~10, and the script let you choose whenever it ran.
-This especially helps if you need to farm few different stages during event.
+Set ```Enable_Autoskill_List = 1``` to enable this feature.
+You can setup a predefined autoskill list from 1~10, and the script whould let you choose from it when it starts running.
+This especially helps if you need to farm different stages during events.
+
+## AutoRefill:
+Set `Refill_Enabled = 1` to enable AutoRefill.
+
+There are five options available for `Refill_Resource`:
+1. **SQ**: will consume Saint Quartz
+2. **Gold**: will consume Gold Apples
+3. **Silver**: will consume Silver Apples
+4. **Bronze**: will consume Bronze Apples
+5. **All Apples**: will consume all available apples in the following order: Bronze, Silver, Gold. This option is used when you need to do a full throttle farming.
+
+`Refill_Repetitions` controls how many apples you want to use to refill your AP.
+
+However, this option is only accurate when you're using SQ or Gold Apples.
+
+On average, it will consume 3x the amount from `Refill_Repetitions` when using Bronze Apples, 1.2x the amount when using Silver Apples.
 
 ### AutoSupportSelection
 ```Support_SelectionMode``` has 3 options: first, preferred, and manual.
