@@ -175,6 +175,10 @@ end
 
 chooseTarget = function(targetIndex)
 	click(TARGET_CLICK_ARRAY[targetIndex])
+	if GameRegion = "JP" then
+		click(TARGET_CLICK_ARRAY[targetIndex])
+		--Click again to close extra window. See https://github.com/29988122/Fate-Grand-Order_Lua/issues/109
+	end
 	onTargetChosen()
 end
 
