@@ -2,7 +2,9 @@
 dir = scriptPath()
 setImagePath(dir)
 
-resolutionScaling = require(";" .. dir .. "resolution-scaling.lua")
+package.path = package.path .. ";" .. dir
+
+local resolutionScaling = require("resolution-scaling.lua")
 resolutionScaling:createOffsets()
 
 xOffset = resolutionScaling:getXOffset()
