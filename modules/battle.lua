@@ -4,21 +4,21 @@ local _autoskill
 local _card
 
 -- consts
-local BATTLE_REGION = Region(2105,1259,336,116) -- see docs/battle_region.png
-local ATTACK_CLICK = Location(2300,1200)
-local SKIP_DEATH_ANIMATION_CLICK = Location(1700, 100) -- see docs/skip_death_animation_click.png
+local BATTLE_REGION = Region(2105 + xOffset,1259 + yOffset,336,116) -- see docs/battle_region.png
+local ATTACK_CLICK = Location(2300 + xOffset,1200 + yOffset)
+local SKIP_DEATH_ANIMATION_CLICK = Location(1700 + xOffset, 100 + yOffset) -- see docs/skip_death_animation_click.png
 
 -- see docs/target_regions.png
 local TARGET_REGION_ARRAY = {
-	Region(  0,0,485,220),
-	Region(485,0,482,220),
-	Region(967,0,476,220)
+	Region(  0 + xOffset,0 + yOffset,485,220),
+	Region(485 + xOffset,0 + yOffset,482,220),
+	Region(967 + xOffset,0 + yOffset,476,220)
 }
 
 local TARGET_CLICK_ARRAY = {
-	Location(  90,80),
-	Location( 570,80),
-	Location(1050,80)
+	Location(  90 + xOffset,80 + yOffset),
+	Location( 570 + xOffset,80 + yOffset),
+	Location(1050 + xOffset,80 + yOffset)
 }
 
 -- state vars
