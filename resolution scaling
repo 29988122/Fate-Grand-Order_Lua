@@ -9,3 +9,11 @@ if yDifferential > xDifferential then
 elseif yDifferential < xDifferential then
         xOffset = yDifferential * 2560 / 2
 end
+
+function getYOffset()
+        return yOffset
+end
+
+function getXOffset()
+        return xOffset
+end
