@@ -2,8 +2,10 @@
 dir = scriptPath()
 setImagePath(dir)
 
-xOffset = 150
-yOffset = 0
+resolutionScaling = require("resolution scaling.lua")
+
+xOffset = resolutionScaling:xOffset
+yOffset = resolutionScaling:yOffset
 
 GameRegion = "EN"
 StageCountRegion = Region(1722 + xOffset,25 + yOffset,46,53)
