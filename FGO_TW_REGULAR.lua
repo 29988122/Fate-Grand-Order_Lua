@@ -2,8 +2,10 @@
 dir = scriptPath()
 setImagePath(dir)
 
-xOffset = 150
-yOffset = 0
+resolutionScaling = require("resolution scaling.lua")
+
+xOffset = resolutionScaling:xOffset
+yOffset = resolutionScaling:yOffset
 
 GameRegion = "TW"
 --StageCountRegion issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
