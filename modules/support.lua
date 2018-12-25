@@ -143,8 +143,8 @@ selectPreferred = function(searchMethod)
 end
 
 scrollList = function()
-	local startLocation = Location(146 + xOffset, 1190 + yOffset)
-	local endLocation = Location(146 + xOffset, 390 + yOffset)
+	local startLocation = Location(35 + xOffset, 1190 + yOffset)
+	local endLocation = Location(35 + xOffset, 390 + yOffset)
 
 	local touchActions = {
 		{ action = "touchDown", target = startLocation },
@@ -231,7 +231,7 @@ findServants = function()
 	local servants = {}
 
 	for _, preferredServant in ipairs(PreferredServantArray) do
-		for _, servant in ipairs(regionFindAllNoFindException(ListRegion, SupportImagePath .. preferredServant)) do
+		for _, servant in ipairs(regionFindAllNoFindException(ListRegion, Pattern(SupportImagePath .. preferredServant):similar(.9))) do
 			table.insert(servants, servant)
 		end
 	end
@@ -241,7 +241,7 @@ end
 
 findCraftEssence = function(searchRegion)
 	for _, preferredCraftEssence in ipairs(PreferredCraftEssenceTable) do
-		local craftEssences = regionFindAllNoFindException(searchRegion, Pattern(SupportImagePath .. preferredCraftEssence.Name))
+		local craftEssences = regionFindAllNoFindException(searchRegion, Pattern(SupportImagePath .. preferredCraftEssence.Name):similar(.9))
 
 		for _, craftEssence in ipairs(craftEssences) do
 			if not preferredCraftEssence.PreferLimitBroken or isLimitBroken(craftEssence) then
@@ -266,7 +266,7 @@ findSupportBounds = function(support)
 end
 
 isFriend = function(region)
-	local friendPattern = Pattern(GeneralImagePath .. "friend.png")
+	local friendPattern = Pattern(GeneralImagePath .. "friend.png"):similar(.95)
 	return Support_FriendsOnly == 0 or region:exists(friendPattern)
 end
 
