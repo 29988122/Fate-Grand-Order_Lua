@@ -2,13 +2,17 @@
 dir = scriptPath()
 setImagePath(dir)
 
-package.path = package.path .. ";" .. dir
+local xOffset = 0
+local yOffset = 0
 
-local resolutionScaling = require("resolution-scaling.lua")
-resolutionScaling:createOffsets()
+xDifferential = getAppUsableScreenSize():getX() / 2560
+yDifferential = getAppUsableScreenSize():getY() / 1440
 
-xOffset = resolutionScaling:getXOffset()
-yOffset = resolutionScaling:getYOffset()
+if yDifferential > xDifferential then
+    yOffset = ( getAppUsableScreenSize():getY() - ( xDifferential * 1440 ) ) / xDifferential / 2
+elseif yDifferential < xDifferential then
+    xOffset = ( getAppUsableScreenSize():getX() - ( yDifferential * 2560 ) ) / yDifferential / 2
+end
 
 GameRegion = "EN"
 StageCountRegion = Region(1722 + xOffset,25 + yOffset,46,53)
