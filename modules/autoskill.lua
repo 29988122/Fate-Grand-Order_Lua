@@ -145,9 +145,9 @@ executeSkill = function ()
 			for command in string.gmatch(currentSkill, ".") do
 				-- Check that skills can be clicked
 				while not _battle.hasClickedAttack() and not _battle.isIdle() do end
-				
+				wait(0.4
 				decodeSkill(command)
-				wait(0.3)
+				wait(0.7)
 			end
 		end
 		
