@@ -1,7 +1,7 @@
-xOffset = 0
-yOffset = 0
+local xOffset = 0
+local yOffset = 0
 
-function createOffsets()
+local function createOffsets()
         xDifferential = getAppUsableScreenSize():getX() / 2560
         yDifferential = getAppUsableScreenSize():getY() / 1440
 
@@ -12,11 +12,11 @@ function createOffsets()
         end
 end
 
-function getYOffset()
+local function getYOffset()
         return yOffset
 end
 
-function getXOffset()
+local function getXOffset()
         return xOffset
 end
 
