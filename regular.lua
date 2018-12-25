@@ -12,23 +12,23 @@ local autoskill = require("autoskill")
 
 --Main loop, pattern detection regions.
 --Click pos are hard-coded into code, unlikely to change in the future.
-MenuRegion = Region(2100,1200,1000,1000)
-ResultRegion = Region(100,300,700,200)
-BondRegion = Region(2000,820,120,120)
-QuestrewardRegion = Region(1630,140,370,250)
-FriendrequestRegion = Region(660, 120, 140, 160)
-StaminaRegion = Region(600,200,300,300)
+MenuRegion = Region(2100 + xOffset,1200 + yOffset,1000,1000)
+ResultRegion = Region(100 + xOffset,300 + yOffset,700,200)
+BondRegion = Region(2000 + xOffset,820 + yOffset,120,120)
+QuestrewardRegion = Region(1630 + xOffset,140 + yOffset,370,250)
+FriendrequestRegion = Region(660 + xOffset, 120 + yOffset, 140, 160)
+StaminaRegion = Region(600 + xOffset,200 + yOffset,300,300)
 
-AcceptClick = (Location(1650,1120))
+AcceptClick = (Location(1650 + xOffset,1120 + yOffset))
 
-StoneClick = (Location(1270,345))
-GoldClick = (Location(1270,634))
-SilverClick = (Location(1270,922))
-BronzeClick = (Location(1270,2048))
+StoneClick = (Location(1270 + xOffset,345 + yOffset))
+GoldClick = (Location(1270 + xOffset,634 + yOffset))
+SilverClick = (Location(1270 + xOffset,922 + yOffset))
+BronzeClick = (Location(1270 + xOffset,2048 + yOffset))
 
-StartQuestClick = Location(2400,1350)
-StartQuestWithoutItemClick = Location(1652,1304) -- see docs/start_quest_without_item_click.png
-QuestResultNextClick = Location(2200, 1350) -- see docs/quest_result_next_click.png
+StartQuestClick = Location(2400 + xOffset,1350 + yOffset)
+StartQuestWithoutItemClick = Location(1652 + xOffset,1304 + yOffset) -- see docs/start_quest_without_item_click.png
+QuestResultNextClick = Location(2200 + xOffset, 1350 + yOffset) -- see docs/quest_result_next_click.png
 
 --[[For future use:
 	NpbarRegion = Region(280,1330,1620,50)
@@ -57,7 +57,7 @@ function menu()
 	turnCounter = {0, 0, 0, 0, 0}
 
 	--Click uppermost quest.
-	click(Location(1900,400))
+	click(Location(1900 + xOffset,400 + yOffset))
 	wait(1.5)
 
 	--Auto refill.
@@ -106,7 +106,7 @@ function RefillStamina()
 		wait(3)
 		if NotJPserverForStaminaRefillExtraClick == nil then
 			--Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089
-			click(Location(1900,400))
+			click(Location(1900 + xOffset,400 + yOffset))
 			wait(1.5)
 		end
 	else
@@ -132,14 +132,14 @@ function result()
 
 	--Friend request screen. Non-friend support was selected this battle.  Ofc it's defaulted not sending request.
 	if FriendrequestRegion:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
-		click(Location(600,1200))
+		click(Location(600 + xOffset,1200 + yOffset))
 	end
 
 	wait(15)
 
 	--1st time quest reward screen.
 	if QuestrewardRegion:exists(GeneralImagePath .. "questreward.png") ~= nil then
-		click(Location(100,100))
+		click(Location(100 + xOffset,100 + yOffset))
 	end
 end
 
