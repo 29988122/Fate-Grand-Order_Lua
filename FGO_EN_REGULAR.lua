@@ -3,6 +3,7 @@ dir = scriptPath()
 setImagePath(dir)
 
 resolutionScaling = require(";" .. dir .. "resolution-scaling.lua")
+resolutionScaling:createOffsets()
 
 xOffset = resolutionScaling:getXOffset()
 yOffset = resolutionScaling:getYOffset()
