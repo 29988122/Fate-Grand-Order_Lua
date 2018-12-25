@@ -6,9 +6,9 @@ local function createOffsets()
         yDifferential = getAppUsableScreenSize():getY() / 1440
 
         if yDifferential > xDifferential then
-                yOffset = xDifferential * 1440 / 2
+                yOffset = ( getAppUsableScreenSize():getY() - ( xDifferential * 1440 ) ) / xDifferential / 2
         elseif yDifferential < xDifferential then
-                xOffset = yDifferential * 2560 / 2
+                xOffset = ( getAppUsableScreenSize():getX() - ( yDifferential * 2560 ) ) / yDifferential / 2
         end
 end
 
