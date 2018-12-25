@@ -2,9 +2,12 @@
 dir = scriptPath()
 setImagePath(dir)
 
+xOffset = 150
+yOffset = 0
+
 GameRegion = "TW"
 --StageCountRegion issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
-StageCountRegion = Region(1710,25,55,60)
+StageCountRegion = Region(1710 + xOffset,25 + yOffset,55,60)
 
 --Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
 --NotJPserverForStaminaRefillExtraClick = 0
