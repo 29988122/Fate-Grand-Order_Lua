@@ -205,9 +205,6 @@ end
 
 function init()
 	--Set only ONCE for every separated script run.
-	setImmersiveMode(true)
-	Settings:setCompareDimension(true,1280)
-	Settings:setScriptDimension(true,2560)
 
 	StoneUsed = 0
 	PSADialogue()
