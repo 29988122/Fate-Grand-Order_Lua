@@ -131,9 +131,9 @@ initCardPriorityArrayDetailed = function(errorString)
 end
 
 getCardAffinity = function(region)
-	if region:exists(GeneralImagePath .. "weak.png") then
+	if region:exists(Pattern(GeneralImagePath .. "weak.png"):similar(.9)) then
 		return CARD_AFFINITY.WEAK;
-	elseif region:exists(GeneralImagePath .. "resist.png") then
+	elseif region:exists(Pattern(GeneralImagePath .. "resist.png")similar(.9)) then
 		return CARD_AFFINITY.RESIST;
 	else
 		return CARD_AFFINITY.NORMAL;
