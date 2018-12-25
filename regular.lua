@@ -61,7 +61,7 @@ function menu()
 	wait(1.5)
 
 	--Auto refill.
-	if StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) then
+	if StaminaRegion:exists(Pattern(GeneralImagePath .. "stamina.png"):similar(.9), 0) then
 		RefillStamina()
 	end
 
@@ -131,14 +131,14 @@ function result()
 	wait(5)
 
 	--Friend request screen. Non-friend support was selected this battle.  Ofc it's defaulted not sending request.
-	if FriendrequestRegion:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
+	if FriendrequestRegion:exists(Pattern(GeneralImagePath .. "friendrequest.png"):similar(.9)) ~= nil then
 		click(Location(600 + xOffset,1200 + yOffset))
 	end
 
 	wait(15)
 
 	--1st time quest reward screen.
-	if QuestrewardRegion:exists(GeneralImagePath .. "questreward.png") ~= nil then
+	if QuestrewardRegion:exists(Pattern(GeneralImagePath .. "questreward.png"):similar(.9)) ~= nil then
 		click(Location(100 + xOffset,100 + yOffset))
 	end
 end
@@ -217,14 +217,14 @@ end
 
 init()
 while(1) do
-	if MenuRegion:exists(GeneralImagePath .. "menu.png", 0) then
+	if MenuRegion:exists(Pattern(GeneralImagePath .. "menu.png"):similar(.9), 0) then
 		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
 		menu()
 	end
 	if battle.isIdle() then
 		battle.performBattle()
 	end
-	if ResultRegion:exists(GeneralImagePath .. "result.png", 0) or BondRegion:exists(GeneralImagePath .. "bond.png", 0) then
+	if ResultRegion:exists(Pattern(GeneralImagePath .. "result.png"):similar(.9), 0) or BondRegion:exists(Pattern(GeneralImagePath .. "bond.png"):similar(.9), 0) then
 		result()
 	end
 end
