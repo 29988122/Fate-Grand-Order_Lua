@@ -117,9 +117,6 @@ onTurnStarted = function()
 
 	if not _hasChosenTarget then
 		autoChooseTarget()
-		if( GameRegion == "JP" ) then
-			click( Location( 2560 + xOffset,50 +yOffset )
-		end
 	end
 end
 
@@ -178,6 +175,9 @@ end
 
 chooseTarget = function(targetIndex)
 	click(TARGET_CLICK_ARRAY[targetIndex])
+	if( GameRegion == "JP" ) then
+		click( Location( 2560 + xOffset,50 +yOffset )
+	end
 	onTargetChosen()
 end
 
