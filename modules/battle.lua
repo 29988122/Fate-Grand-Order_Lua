@@ -117,7 +117,9 @@ onTurnStarted = function()
 
 	if not _hasChosenTarget then
 		autoChooseTarget()
-		click( Location( 2560 + xOffset,50 +yOffset )
+		if( GameRegion == "JP" ) then
+			click( Location( 2560 + xOffset,50 +yOffset )
+		end
 	end
 end
 
