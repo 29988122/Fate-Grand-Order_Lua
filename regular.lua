@@ -200,7 +200,8 @@ end
 
 function init()
 	--Set only ONCE for every separated script run.
-
+	toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
+		
 	StoneUsed = 0
 	PSADialogue()
 
@@ -213,7 +214,6 @@ end
 init()
 while(1) do
 	if MenuRegion:exists(Pattern(GeneralImagePath .. "menu.png"):similar(.9), 0) then
-		toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
 		menu()
 	end
 	if battle.isIdle() then
