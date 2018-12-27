@@ -231,7 +231,7 @@ findServants = function()
 	local servants = {}
 
 	for _, preferredServant in ipairs(PreferredServantArray) do
-		for _, servant in ipairs(regionFindAllNoFindException(ListRegion, Pattern(SupportImagePath .. preferredServant):similar(.9))) do
+		for _, servant in ipairs(regionFindAllNoFindException(ListRegion, Pattern(SupportImagePath .. preferredServant))) do
 			table.insert(servants, servant)
 		end
 	end
@@ -241,7 +241,7 @@ end
 
 findCraftEssence = function(searchRegion)
 	for _, preferredCraftEssence in ipairs(PreferredCraftEssenceTable) do
-		local craftEssences = regionFindAllNoFindException(searchRegion, Pattern(SupportImagePath .. preferredCraftEssence.Name):similar(.9))
+		local craftEssences = regionFindAllNoFindException(searchRegion, Pattern(SupportImagePath .. preferredCraftEssence.Name))
 
 		for _, craftEssence in ipairs(craftEssences) do
 			if not preferredCraftEssence.PreferLimitBroken or isLimitBroken(craftEssence) then
@@ -266,7 +266,7 @@ findSupportBounds = function(support)
 end
 
 isFriend = function(region)
-	local friendPattern = Pattern(GeneralImagePath .. "friend.png"):similar(.95)
+	local friendPattern = Pattern(GeneralImagePath .. "friend.png")
 	return Support_FriendsOnly == 0 or region:exists(friendPattern)
 end
 
