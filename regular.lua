@@ -213,13 +213,13 @@ end
 
 init()
 while(1) do
-	if MenuRegion:exists(Pattern(GeneralImagePath .. "menu.png"):similar(.9), 0) then
+	if MenuRegion:exists(Pattern(GeneralImagePath .. "menu.png"):similar(.8), 0) then
 		menu()
 	end
 	if battle.isIdle() then
 		battle.performBattle()
 	end
-	if ResultRegion:exists(Pattern(GeneralImagePath .. "result.png"):similar(.9), 0) or BondRegion:exists(Pattern(GeneralImagePath .. "bond.png"):similar(.9), 0) then
+	if ResultRegion:exists(Pattern(GeneralImagePath .. "result.png"):similar(.8), 0) or BondRegion:exists(Pattern(GeneralImagePath .. "bond.png"):similar(.8), 0) then
 		result()
 	end
 end
