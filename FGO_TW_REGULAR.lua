@@ -2,10 +2,26 @@
 dir = scriptPath()
 setImagePath(dir)
 
-resolutionScaling = require("resolution scaling.lua")
+setImmersiveMode(true)
 
-xOffset = resolutionScaling:xOffset
-yOffset = resolutionScaling:yOffset
+local xOffset = 0
+local yOffset = 0
+
+xDifferential = getAppUsableScreenSize():getX() / 2560
+yDifferential = getAppUsableScreenSize():getY() / 1440
+
+if yDifferential > xDifferential then
+    yOffset = ( getAppUsableScreenSize():getY() - ( xDifferential * 1440 ) ) / xDifferential / 2
+    Settings:setCompareDimension(true,1280)
+    Settings:setScriptDimension(true,2560)
+elseif yDifferential < xDifferential then
+    xOffset = ( getAppUsableScreenSize():getX() - ( yDifferential * 2560 ) ) / yDifferential / 2
+    Settings:setCompareDimension(false,720)
+    Settings:setScriptDimension(false,1440)
+else
+    Settings:setCompareDimension(true,1280)
+    Settings:setScriptDimension(true,2560)
+end
 
 GameRegion = "TW"
 --StageCountRegion issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
