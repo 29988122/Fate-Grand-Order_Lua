@@ -4,8 +4,8 @@ setImagePath(dir)
 
 setImmersiveMode(true)
 
-local xOffset = 0
-local yOffset = 0
+xOffset = 0
+yOffset = 0
 
 xDifferential = getAppUsableScreenSize():getX() / 2560
 yDifferential = getAppUsableScreenSize():getY() / 1440
