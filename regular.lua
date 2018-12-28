@@ -215,7 +215,7 @@ init()
 while(1) do
 	
 	if DebugMode then
-		MenuRegion:highlight(.5)
+		MenuRegion:highlight(2)
 		toast("X Offset is: " .. xOffset .. " and Y Offset is: " .. yOffset )
 	end
 	if MenuRegion:exists(Pattern(GeneralImagePath .. "menu.png"), 0) then
@@ -225,8 +225,8 @@ while(1) do
 		battle.performBattle()
 	end
 	if DebugMode then
-		ResultRegion:highlight(.5)
-		BondRegion:highlight(.5)
+		ResultRegion:highlight(2)
+		BondRegion:highlight(2)
 	end
 	if ResultRegion:exists(Pattern(GeneralImagePath .. "result.png"), 0) or BondRegion:exists(Pattern(GeneralImagePath .. "bond.png"), 0) then
 		result()
