@@ -78,7 +78,8 @@ init = function()
 end
 
 selectSupport = function(selectionMode)
-	if ScreenRegion:exists(GeneralImagePath .. "support_screen.png") then
+	ScreenRegion:highlight(.5)
+	while not ScreenRegion:exists(GeneralImagePath .. "support_screen.png") do end
 		if selectionMode == "first" then
 			return selectFirst()
 
@@ -92,7 +93,6 @@ selectSupport = function(selectionMode)
 		else
 			scriptExit("Invalid support selection mode: \"" + selectionMode + "\".")
 		end
-	end
 
 	return false
 end
