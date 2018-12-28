@@ -163,4 +163,6 @@ Battle_NoblePhantasm = "disabled"
 --Whenever there's additional event point reward window to be clicked through, isEvent = 1. Please check the details on github.
 isEvent = 0
 
+DebugMode = false
+
 dofile(dir .. "regular.lua")
