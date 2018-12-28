@@ -213,11 +213,19 @@ end
 
 init()
 while(1) do
+	
+	if DebugMode then
+		MenuRegion:highlight(.5)
+	end
 	if MenuRegion:exists(Pattern(GeneralImagePath .. "menu.png"), 0) then
 		menu()
 	end
 	if battle.isIdle() then
 		battle.performBattle()
+	end
+	if DebugMode then
+		ResultRegion:highlight(.5)
+		BondRegion:highlight(.5)
 	end
 	if ResultRegion:exists(Pattern(GeneralImagePath .. "result.png"), 0) or BondRegion:exists(Pattern(GeneralImagePath .. "bond.png"), 0) then
 		result()
