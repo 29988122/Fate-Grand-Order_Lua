@@ -215,8 +215,8 @@ init()
 while(1) do
 	
 	if DebugMode then
-		MenuRegion:highlight(2)
 		toast("X Offset is: " .. xOffset .. " and Y Offset is: " .. yOffset )
+		MenuRegion:highlight(2)
 	end
 	if MenuRegion:exists(Pattern(GeneralImagePath .. "menu.png"), 0) then
 		menu()
