@@ -73,6 +73,9 @@ resetState = function()
 end
 
 isIdle = function()
+	if DebugMode then
+		BATTLE_REGION:highlight(.5)
+	end
 	return BATTLE_REGION:exists(GeneralImagePath .. "battle.png")
 end
 
