@@ -165,4 +165,7 @@ isEvent = 0
 
 DebugMode = false
 
+if DebugMode then
+    toast("X resolution is: " .. getAppUsableScreenSize():getX() .. " Y resolution is: " .. getAppUsableScreenSize():getY() )
+end
 dofile(dir .. "regular.lua")
