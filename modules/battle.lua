@@ -74,7 +74,7 @@ end
 
 isIdle = function()
 	if DebugMode then
-		BATTLE_REGION:highlight(.5)
+		BATTLE_REGION:highlight(2)
 	end
 	return BATTLE_REGION:exists(GeneralImagePath .. "battle.png")
 end
