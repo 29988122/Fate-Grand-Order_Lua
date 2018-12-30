@@ -39,6 +39,7 @@ As of 2018.12.30, this script is **working without root** / without being blocke
   * [AutoRefill](#autorefill)
   * [AutoSupportSelection](#autosupportselection)
   * [Card Priority Customization](#card-priority-customization)
+  * [Auto Target Choosing](#auto-target-choosing)
   * [Noble Phantasm Behavior](#noble-phantasm-behavior)
 * [Troubleshooting](#troubleshooting)
   * [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
@@ -240,6 +241,12 @@ You must make sure that you've listed all 9 distinct cards in the input string.
 Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
 It will select weak arts->weak buster->weak buster->arts->buster->quick->resist arts->resist buster->resist quick until all three cards included CPs are selected. 
 ```
+
+### Auto Target Choosing:
+
+By default, ```Battle_AutoChooseTarget = 1``` will choose "servant" or "danger" enemy as target every turn.
+
+Change it to ```Battle_AutoChooseTarget = 0``` to disable this behavior.
 
 ### Noble Phantasm Behavior:
 
