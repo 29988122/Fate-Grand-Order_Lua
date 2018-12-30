@@ -1,5 +1,7 @@
 # Fate-Grand-Order_Lua
-This script supported CN, EN, JP and TW server on Android devices and emulators.
+This script supported CN, EN, JP and TW servers on Android devices < Oreo 8.0 and emulators.
+
+[(What if I have > Android 8.1 phone?)](#android-81-and-above)
 
 Any of the questions can be asked in the "Issues" section. Don't be shy xD
 
@@ -17,7 +19,7 @@ Screw those farming events - I only wanna enjoy the (kinoko) story!
 
 Therefore I proudly brought you this: FGO automation script.
 
-As of 2018.12.24, this script is **working without root** / without being blocked or banned, although I DO NOT take responsibility for your banned account! 
+As of 2018.12.30, this script is **working without root** / without being blocked or banned, although I DO NOT take responsibility for your banned account! 
 
 [Disclaimer and concern about your account](ACCOUNT%20SAFETY.md)
 
@@ -26,6 +28,7 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 # Table of Contents:
 * [中文說明 マニュアル](#中文說明-マニュアル)
 * [Install](#install)
+  * [Android 8.1 and above](#android-81-and-above)
 * [Usage](#usage)
 * [Extra scripts](#extra-scripts)
 * [Advanced features](#advanced-features)
@@ -36,8 +39,8 @@ As of 2018.12.24, this script is **working without root** / without being blocke
   * [AutoSupportSelection](#autosupportselection)
   * [Card Priority Customization](#card-priority-customization)
   * [Noble Phantasm Behavior](#noble-phantasm-behavior)
-  
-  * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
+* [Events](#events)  
+* [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Troubleshooting](#troubleshooting)
   * [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
 * [Feature requests, 說明, 要望](#feature-requests)
@@ -64,6 +67,13 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 * If daemon installation was not successful / driver not properly installed, please install this: https://forum.xda-developers.com/showthread.php?t=2317790
 
 6. Open Ankulua to check if daemon is properly installed - and load the correct script inside your phone - enjoy the game your way!
+
+### Android 8.1 and above:
+As the security level on Android rises, it's getting increasingly harder to apply tweaks, daemons on Android without root.
+You can still use the ```Media Projection``` and ```Android Accessibility``` methods to run FGO automation script **without installing daemon**.
+Adjust them in the settings section inside Ankulua.
+
+Not really recommended, as you'll need to refer to [here](http://ankulua.boards.net/board/1/general-discussion) for troubleshooting - we're not able to debug it as the alternative methods's not matured yet.
 
 ## Usage:
 Please choose the corresponding lua file in AnkuLua according to your:
@@ -101,7 +111,7 @@ By adjust settings inside your lua file, you can achieve the following things:
 * [Card Priority Customization](#card-priority-customization) Customize your card selection priority. 
 * [Noble Phantasm Behavior](#noble-phantasm-behavior) When to cast NP in order to face dangerous servants. 
 
-## AutoSkill:
+### AutoSkill:
 AutoSkill allows you to execute a series of turn-based skill commands, via user-predefined strings.
 Change ```Enable_Autoskill``` to 1 to enable it, 0 to disable. 
 
@@ -145,7 +155,7 @@ We did not implement skill cooldown check yet.
 
 However by planning ahead, wrote commands for many rounds(putting a lot of zeros), you can prevent the script accidently clicked the skills that were still on cooldown.
 
-### Chaldea Combat Uniform: Order Change
+#### Chaldea Combat Uniform: Order Change
 Order Change from Chaldea Combat Uniform allows you to exchange servants during battle.
 By inserting ```x``` into user-predefined strings, you can make your ```Skill_Command``` more flexible:
 ```
@@ -163,12 +173,12 @@ e.g.
 Skill_Command = "bce,0,f3hi,#,j2d,#,4,x13a1g3"
 ```
 
-### AutoSkill List
+#### AutoSkill List
 Set ```Enable_Autoskill_List = 1``` to enable this feature.
 You can setup a predefined autoskill list from 1~10, and the script whould let you choose from it when it starts running.
 This especially helps if you need to farm different stages during events.
 
-## AutoRefill:
+### AutoRefill:
 Set `Refill_Enabled = 1` to enable AutoRefill.
 
 There are five options available for `Refill_Resource`:
@@ -186,82 +196,22 @@ On average, it will consume 3x the amount from `Refill_Repetitions` when using B
 
 ### AutoSupportSelection
 ```Support_SelectionMode``` has 3 options: first, preferred, and manual.
-The default settings ```first``` will select the first visible servant on the selection screen. Fastest one.
+The default setting ```first``` will select the first visible servant on the selection screen. Fastest one.
 
 ```manual``` is used when you can monitor your script running - you need to select the support servant yourself, and the script will continue running after selection.
 
-```preferred``` is our desired option here. By putting screenshots of your pre-defined servant or CE into image_SUPPORT folder, that servant or CE can then be chosen automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put the filename(s) in the options ```Support_PreferredServants``` or ```Support_PreferredCEs```, accordingly.
+```preferred``` is our desired option here. By putting screenshots of your pre-defined servant or CE into image_SUPPORT folder, that servant or CE can then be chosen automatically by the script. 
 
-This selection function will try every combination that you put in the above settings.
+[Follow this guide](https://github.com/29988122/Fate-Grand-Order_Lua/wiki/AutoSupportSelection) if you need to customize your desire servants and CEs. You can also use the the common servants and CEs we provided inside image_SUPPORT folder.
 
-Consider the following example:
-```
-Support_PreferredServants = "Any"
-Support_PreferredServants = ""
-(Putting "any" or leave it blank means that you don't care which servant it is.)
-
-Support_PreferredCEs = "lunchtime.png, maid_in_halloween.png"
-```
-Then the script will search for:
-
-• Any servant with CE Chaldea Lunchtime
-
-• Any servant with CE Maid in Halloween
-
-And select it **immediately** once the script found it. The script searches from the top to the bottom of the friend list. The reverse of the above example also stands true, i.e., waver.png with "Any" CE.
-
-Consider another example:
-```
-Support_PreferredServants = "waver.png, tamamo.png"
-Support_PreferredCEs = "lunchtime.png, maid_in_halloween.png"
-```
-And the script will search for:
-• Waver + Lunchtime
-
-• Waver + Maid in Halloween
-
-• Tamamo + Lunchtime
-
-• Tamamo + Maid in Halloween
-
-And select it **immediately** once the script found it.
-
-Your screenshot can be anything as long as it is inside the area outlined in red:
-![support_list_region](https://raw.githubusercontent.com/29988122/Fate-Grand-Order_Lua/master/docs/support_list_region.png)
-
----
-
-If the servant/CE is not found in the support list, the script will click refresh as many times as defined in ```Support_MaxUpdates```.
-
-If this limit is reached, the script will use the ```Support_FallbackTo``` option to decide what do next. The options are the same as in ```Support_SelectionMode```. So, for instance, if the script is setup like this:
-
-```
-Support_SelectionMode = "preferred"
-Support_PreferredServants = "waver4.png"
-Support_PreferredCEs = "*maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB(Max Level Break, hence the star sign.)
-Support_MaxUpdates = 3
-Support_FallbackTo = "first"
-```
-
-| waver4.png | maid_in_halloween.png |
-| :---:      | :---:                 |
-| ![waver4.png](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/image_SUPPORT/waver4.png?raw=true)  | ![maid_in_halloween.png](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/image_SUPPORT/maid_in_halloween.png?raw=true)  |
-
-.... it will try to find Waver + a MLB Maid in Halloween CE in your support list. If it is not found in 3 refreshes maximum, the script will scroll back to top and pick the first visible servant.
-
-The last option, ```Support_SwipesPerUpdate``` controls the number of swipes/servants before refreshing the screen.
-If you have like 6 friend support servants, make it 6.
+This selection function will search every combination of preferred servants and preferred CEs that you put in the above settings.
 
 Thanks @potchy for implementing this function!
 
-## Events:
-If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
+### Card Priority Customization:
+By changing the ```Battle_CardPriority``` option, you can have your card selection behavior change. There are two modes available, simple and detailed mode. 
 
-This will allow the use of this script for the particular events.
-If there are other additional windows, a custom script is required. 
-
-## Card Priority Customization:
-By changing the Battle_CardPriority option in the lua file you are executing(CN, EN, JP or TW), you can have your card selection behavior change. There are two modes available, simple and detailed mode. For example:
+For example:
 ```
 Simple Mode:
 Battle_CardPriority = "BAQ" 
@@ -269,24 +219,41 @@ It will select Weak Buster->Buster->Resist Buster->Weak Arts->Arts->Resist Arts-
 
 Battle_CardPriority = "ABQ"
 It will select Weak Arts->Arts->Resist Arts->Weak Buster->Buster->Resist Buster->Weak Quick->Quick->Resist Quick cards until all three cards included CPs are selected. 
-
+```
+```
 Detailed Mode:
 Append W to BAQ to turn them into weak cards, append R to BAQ to turn them into resist cards.
 You can create any priority order that will result in the most output you prefer.
-Note that you must make sure that there are 9 distinct cards in your input.
+You must make sure that you've listed all 9 distinct cards in the input string.
 
 Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
 It will select weak arts->weak buster->weak buster->arts->buster->quick->resist arts->resist buster->resist quick until all three cards included CPs are selected. 
 ```
-## Noble Phantasm Behavior:
-• disabled: Will never cast NPs automatically. If you have Autoskill enabled, please use this option.
 
-• danger: Will cast NPs only when there are DANGER or SERVANT enemies on the screen. This option will probably mess up your Autoskill orders.
+### Noble Phantasm Behavior:
 
-• spam: Will cast NPs as soon as they are available.
+```Battle_NoblePhantasm = "disabled"```
+The script will never cast NPs automatically.
 
-Currently, ```danger``` option will only start working, spamming NPs after you've finished all your pre-defined Autoskill commands.
-Still in alpha state. If your Autoskill order got messed up, please use ```disabled``` option instead.
+```Battle_NoblePhantasm = "danger"```
+The script will cast NPs only when there are DANGER or SERVANT enemies on the screen. This option will probably mess up your Autoskill orders.
+
+```Battle_NoblePhantasm = "spam"```
+The script will cast NPs as soon as they are available.
+
+If you have ```Enable_Autoskill = 1```, the above options applied after all of your predefined skills/NPs finished casting. 
+
+## Events:
+If there are events which includes:
+* Power-up items before battle
+* Extra button to be clicked from reward system window after battle  
+
+Please set ```isEvent``` variable to 1.
+
+This will allow the use of this script for certain events.
+
+A custom script is required for summer racing events and Oni island events. 
+Please ask in issue forum if you need this feature.
 
 ## How to capture screen for recognition:
 You can manually replace target\_servant.png inside image folder to customize your priority target.
@@ -299,7 +266,7 @@ You can manually replace target\_servant.png inside image folder to customize yo
 ## Troubleshooting
 Known issues are listed here.
 
-## Syntax error: unexpected symbol near '燎:
+### Syntax error: unexpected symbol near '燎:
 This error shows up when you save FGO_XX_REGULAR.lua using UTF-8-BOM encoding.
 
 Download [Notepad++](https://notepad-plus-plus.org/) or a similar editor and save it using UTF-8 encoding instead.
