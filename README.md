@@ -204,8 +204,8 @@ The default setting ```first``` will select the first visible servant on the sel
 
 This selection function will try every combination that you put in the above settings.
 
-***
-**Preferred:**
+<details>
+  <summary>Click here for detailed explaination about AutoSupportSelection:</summary>
 
 Consider the following example:
 ```
@@ -267,6 +267,8 @@ The last option, ```Support_SwipesPerUpdate``` controls the number of swipes/ser
 If you have like 6 friend support servants, make it 6.
 
 Thanks @potchy for implementing this function!
+
+</details>
 
 ## Events:
 If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
