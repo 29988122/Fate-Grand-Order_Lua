@@ -66,7 +66,7 @@ As of 2018.12.30, this script is **working without root** / without being blocke
 6. After daemon has been installed, you can disable usb debugging and unplug. **Daemon needs to be reinstalled upon phone reboot**.
 * If daemon installation was not successful / driver not properly installed, please install this: https://forum.xda-developers.com/showthread.php?t=2317790
 
-6. Open Ankulua to check if daemon is properly installed - and load the correct script inside your phone - enjoy the game your way!
+7. Open Ankulua to check if daemon is properly installed - and load the correct script inside your phone - enjoy the game your way!
 
 ### Android 8.1 and above:
 As the security level on Android rises, it's getting increasingly harder to apply tweaks, daemons on Android without root.
