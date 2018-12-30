@@ -202,10 +202,17 @@ The default setting ```first``` will select the first visible servant on the sel
 
 ```preferred``` is our desired option here. By putting screenshots of your pre-defined servant or CE into image_SUPPORT folder, that servant or CE can then be chosen automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put the filename(s) in the options ```Support_PreferredServants``` or ```Support_PreferredCEs```, accordingly.
 
-This selection function will try every combination that you put in the above settings.
+Your screenshot can be anything, as long as it's inside the area outlined in red:
+![support_list_region](https://raw.githubusercontent.com/29988122/Fate-Grand-Order_Lua/master/docs/support_list_region.png)
+
+This selection function will search every combination of preferred servants and preferred CEs that you put in the above settings.
+
+Thanks @potchy for implementing this function!
 
 <details>
-  <summary>Click here for detailed explaination about AutoSupportSelection:</summary>
+  <summary>CLICK HERE for detailed usage about AutoSupportSelection:</summary>
+
+**Support_PreferredServants and Support_PreferredCEs**
 
 Consider the following example:
 ```
@@ -221,7 +228,7 @@ Then the script will search for:
 
 • Any servant with CE Maid in Halloween
 
-And select it **immediately** once the script found it. The script searches from the top to the bottom of the friend list. The reverse of the above example also stands true, i.e., waver.png with "Any" CE.
+And select it **immediately** once the script found any of them. The script searches from the top to the bottom of the friend list. The reverse of the above example also stands true, i.e., waver.png with "Any" CE.
 
 Consider another example:
 ```
@@ -240,10 +247,9 @@ And the script will search for:
 
 And select it **immediately** once the script found any of them.
 
-Your screenshot can be anything, as long as it's inside the area outlined in red:
-![support_list_region](https://raw.githubusercontent.com/29988122/Fate-Grand-Order_Lua/master/docs/support_list_region.png)
-
 ***
+
+**Support_SelectionMode, Support_MaxUpdates, and Support_FallbackTo**
 
 If the servant/CE is not found in the support list, the script will click refresh as many times as defined in ```Support_MaxUpdates```.
 
@@ -252,7 +258,7 @@ If this limit is reached, the script will use the ```Support_FallbackTo``` optio
 ```
 Support_SelectionMode = "preferred"
 Support_PreferredServants = "waver4.png"
-Support_PreferredCEs = "*maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB (Max Level Break, hence the star sign.)
+Support_PreferredCEs = "*maid_in_halloween.png"
 Support_MaxUpdates = 3
 Support_FallbackTo = "first"
 ```
@@ -265,8 +271,6 @@ Support_FallbackTo = "first"
 
 The last option, ```Support_SwipesPerUpdate``` controls the number of swipes/servants before refreshing the screen.
 If you have like 6 friend support servants, make it 6.
-
-Thanks @potchy for implementing this function!
 
 </details>
 
