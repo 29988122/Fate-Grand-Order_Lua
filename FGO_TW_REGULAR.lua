@@ -128,6 +128,8 @@ Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
 --]]
 Battle_CardPriority = "BAQ"
 
+Battle_AutoChooseTarget = 1
+
 --[[
 寶具行為：
 • disabled: 不會自己放寶具。如果你有用Autoskill，請選這個選項比較不會出問題。

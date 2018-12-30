@@ -127,6 +127,8 @@ Refer https://github.com/29988122/Fate-Grand-Order_Lua#card-priority-customizati
 --]]
 Battle_CardPriority = "BAQ"
 
+Battle_AutoChooseTarget = 1
+
 --[[
 Noble Phantasm Behavior:
 • disabled: Will never cast NPs automatically. If you have Autoskill enabled, please use this option.

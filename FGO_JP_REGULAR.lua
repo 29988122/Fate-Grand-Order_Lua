@@ -127,6 +127,8 @@ Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
 --]]
 Battle_CardPriority = "BAQ"
 
+Battle_AutoChooseTarget = 1
+
 --[[
 宝具の使用パターン：
 • disabled: 宝具は使わない。Autoskill設定したらこのオプションを使いましょう。

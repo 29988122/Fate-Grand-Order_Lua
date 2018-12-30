@@ -121,7 +121,7 @@ onTurnStarted = function()
 	_currentTurn = _currentTurn + 1
 	_hasClickedAttack = false
 
-	if not _hasChosenTarget then
+	if not _hasChosenTarget and Battle_AutoChooseTarget == 1 then
 		autoChooseTarget()
 	end
 end
