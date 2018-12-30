@@ -1,5 +1,6 @@
 # Fate-Grand-Order_Lua
-This script supported CN, EN, JP and TW server on Android devices and emulators.
+This script supported CN, EN, JP and TW servers on Android devices < Oreo 8.0 and emulators.
+[(What if I have > Android 8.1 phone?)](#Android-8.1-and-above)
 
 Any of the questions can be asked in the "Issues" section. Don't be shy xD
 
@@ -17,7 +18,7 @@ Screw those farming events - I only wanna enjoy the (kinoko) story!
 
 Therefore I proudly brought you this: FGO automation script.
 
-As of 2018.12.24, this script is **working without root** / without being blocked or banned, although I DO NOT take responsibility for your banned account! 
+As of 2018.12.30, this script is **working without root** / without being blocked or banned, although I DO NOT take responsibility for your banned account! 
 
 [Disclaimer and concern about your account](ACCOUNT%20SAFETY.md)
 
@@ -26,6 +27,7 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 # Table of Contents:
 * [中文說明 マニュアル](#中文說明-マニュアル)
 * [Install](#install)
+  * [Android 8.1 and above](#Android-8.1-and-above)
 * [Usage](#usage)
 * [Extra scripts](#extra-scripts)
 * [Advanced features](#advanced-features)
@@ -64,6 +66,13 @@ As of 2018.12.24, this script is **working without root** / without being blocke
 * If daemon installation was not successful / driver not properly installed, please install this: https://forum.xda-developers.com/showthread.php?t=2317790
 
 6. Open Ankulua to check if daemon is properly installed - and load the correct script inside your phone - enjoy the game your way!
+
+### Android 8.1 and above:
+As the security level on Android rises, it's getting increasingly harder to apply tweaks, daemons on Android without root.
+You can still use the ```Media Projection``` and ```Android Accessibility``` methods to run FGO automation script **without installing daemon**.
+Adjust them in the settings section inside Ankulua.
+
+Not really recommended, as you'll need to refer to [here](http://ankulua.boards.net/board/1/general-discussion) for troubleshooting - we're not able to debug it as the alternative methods's not matured yet.
 
 ## Usage:
 Please choose the corresponding lua file in AnkuLua according to your:
@@ -186,13 +195,16 @@ On average, it will consume 3x the amount from `Refill_Repetitions` when using B
 
 ### AutoSupportSelection
 ```Support_SelectionMode``` has 3 options: first, preferred, and manual.
-The default settings ```first``` will select the first visible servant on the selection screen. Fastest one.
+The default setting ```first``` will select the first visible servant on the selection screen. Fastest one.
 
 ```manual``` is used when you can monitor your script running - you need to select the support servant yourself, and the script will continue running after selection.
 
 ```preferred``` is our desired option here. By putting screenshots of your pre-defined servant or CE into image_SUPPORT folder, that servant or CE can then be chosen automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put the filename(s) in the options ```Support_PreferredServants``` or ```Support_PreferredCEs```, accordingly.
 
 This selection function will try every combination that you put in the above settings.
+
+***
+**Preferred:**
 
 Consider the following example:
 ```
@@ -213,32 +225,33 @@ And select it **immediately** once the script found it. The script searches from
 Consider another example:
 ```
 Support_PreferredServants = "waver.png, tamamo.png"
-Support_PreferredCEs = "lunchtime.png, maid_in_halloween.png"
+Support_PreferredCEs = "*lunchtime.png, maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB (Max Level Break, hence the star sign.)
 ```
 And the script will search for:
-• Waver + Lunchtime
+
+• Waver + *Max Level Break* Lunchtime
 
 • Waver + Maid in Halloween
 
-• Tamamo + Lunchtime
+• Tamamo + *Max Level Break* Lunchtime
 
 • Tamamo + Maid in Halloween
 
-And select it **immediately** once the script found it.
+And select it **immediately** once the script found any of them.
 
-Your screenshot can be anything as long as it is inside the area outlined in red:
+Your screenshot can be anything, as long as it's inside the area outlined in red:
 ![support_list_region](https://raw.githubusercontent.com/29988122/Fate-Grand-Order_Lua/master/docs/support_list_region.png)
 
----
+***
 
 If the servant/CE is not found in the support list, the script will click refresh as many times as defined in ```Support_MaxUpdates```.
 
-If this limit is reached, the script will use the ```Support_FallbackTo``` option to decide what do next. The options are the same as in ```Support_SelectionMode```. So, for instance, if the script is setup like this:
+If this limit is reached, the script will use the ```Support_FallbackTo``` option to decide what do next. The options are the same as in ```Support_SelectionMode```. So, for instance, if the script is set up like this:
 
 ```
 Support_SelectionMode = "preferred"
 Support_PreferredServants = "waver4.png"
-Support_PreferredCEs = "*maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB(Max Level Break, hence the star sign.)
+Support_PreferredCEs = "*maid_in_halloween.png" -- prepend a * if you want to make sure it is MLB (Max Level Break, hence the star sign.)
 Support_MaxUpdates = 3
 Support_FallbackTo = "first"
 ```
