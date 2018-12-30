@@ -208,14 +208,10 @@ This selection function will search every combination of preferred servants and 
 
 Thanks @potchy for implementing this function!
 
-## Events:
-If there are events which includes point reward system gained through quests, please set isEvent variable to 1.
-
-This will allow the use of this script for the particular events.
-If there are other additional windows, a custom script is required. 
-
 ## Card Priority Customization:
-By changing the Battle_CardPriority option in the lua file you are executing(CN, EN, JP or TW), you can have your card selection behavior change. There are two modes available, simple and detailed mode. For example:
+By changing the ```Battle_CardPriority``` option, you can have your card selection behavior change. There are two modes available, simple and detailed mode. 
+
+For example:
 ```
 Simple Mode:
 Battle_CardPriority = "BAQ" 
@@ -223,15 +219,17 @@ It will select Weak Buster->Buster->Resist Buster->Weak Arts->Arts->Resist Arts-
 
 Battle_CardPriority = "ABQ"
 It will select Weak Arts->Arts->Resist Arts->Weak Buster->Buster->Resist Buster->Weak Quick->Quick->Resist Quick cards until all three cards included CPs are selected. 
-
+```
+```
 Detailed Mode:
 Append W to BAQ to turn them into weak cards, append R to BAQ to turn them into resist cards.
 You can create any priority order that will result in the most output you prefer.
-Note that you must make sure that there are 9 distinct cards in your input.
+You must make sure that you've listed all 9 distinct cards in the input string.
 
 Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
 It will select weak arts->weak buster->weak buster->arts->buster->quick->resist arts->resist buster->resist quick until all three cards included CPs are selected. 
 ```
+
 ## Noble Phantasm Behavior:
 • disabled: Will never cast NPs automatically. If you have Autoskill enabled, please use this option.
 
@@ -241,6 +239,18 @@ It will select weak arts->weak buster->weak buster->arts->buster->quick->resist 
 
 Currently, ```danger``` option will only start working, spamming NPs after you've finished all your pre-defined Autoskill commands.
 Still in alpha state. If your Autoskill order got messed up, please use ```disabled``` option instead.
+
+## Events:
+If there are events which includes:
+* Power-up items before battle
+* Extra button to be clicked from reward system window after battle  
+
+Please set ```isEvent``` variable to 1.
+
+This will allow the use of this script for certain events.
+
+A custom script is required for summer racing events and Oni island events. 
+Please ask in issue forum if you need this feature.
 
 ## How to capture screen for recognition:
 You can manually replace target\_servant.png inside image folder to customize your priority target.
