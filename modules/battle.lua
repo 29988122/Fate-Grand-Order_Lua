@@ -21,6 +21,12 @@ local TARGET_CLICK_ARRAY = {
 	Location(1050,80)
 }
 
+local TARGET_SELECTED_MARK_ARRAY = {
+	Region(  76,6,24,6),
+	Region( 560,6,24,6),
+	Region(1036,6,24,6)
+}
+
 -- state vars
 local _currentStage
 local _currentTurn
@@ -166,6 +172,11 @@ autoChooseTarget = function()
 	end
 end
 
+isAlreadyTargeted = function(targetIndex)
+	local isTargeted = TARGET_SELECTED_MARK_ARRAY[targetIndex]:exists(GeneralImagePath .. "target_selected.png")
+	return isTargeted
+end
+
 isPriorityTarget = function(target)
 	local isDanger = target:exists(GeneralImagePath .. "target_danger.png")
 	local isServant = target:exists(GeneralImagePath .. "target_servant.png")
@@ -174,7 +185,9 @@ isPriorityTarget = function(target)
 end
 
 chooseTarget = function(targetIndex)
-	click(TARGET_CLICK_ARRAY[targetIndex])
+	if not isAlreadyTargeted(targetIndex) then
+		click(TARGET_CLICK_ARRAY[targetIndex])
+	end
 	onTargetChosen()
 end
 
