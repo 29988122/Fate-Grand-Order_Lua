@@ -89,7 +89,7 @@ Put your game in either:
 
 And start the script.
 
-The script will automatically enter battle, choose cards for you, again and again until stamina depleted.
+The script will automatically enter battle, choose cards for you, again and again until AP depleted.
 
 ## Extra scripts:
 ```_auto_friendgacha.lua```
@@ -260,8 +260,6 @@ The script will cast NPs only when there are DANGER or SERVANT enemies on the sc
 The script will cast NPs as soon as they are available.
 
 If you have ```Enable_Autoskill = 1```, the above options applied after all of your predefined skills/NPs finished casting. 
-
-
 
 ## Troubleshooting
 Known issues are listed here.
