@@ -73,7 +73,7 @@ As the security level on Android rises, it's getting increasingly harder to appl
 You can still use the ```Media Projection``` and ```Android Accessibility``` methods to run FGO automation script **without installing daemon**.
 Adjust them in the settings section inside Ankulua.
 
-Not really recommended, as you'll need to refer to [here](http://ankulua.boards.net/board/1/general-discussion) for troubleshooting - we're not able to debug it as the alternative methods's not matured yet.
+Not really recommended, as you'll *probably* need to refer to [here](http://ankulua.boards.net/board/1/general-discussion) for troubleshooting - we're not able to debug it most of the time, since the issue scale's out of our hand. The alternative methods's not really matured yet, unfortunately :( 
 
 ## Usage:
 Please choose the corresponding lua file in AnkuLua according to your:
