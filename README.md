@@ -31,6 +31,7 @@ As of 2018.12.30, this script is **working without root** / without being blocke
   * [Android 8.1 and above](#android-81-and-above)
 * [Usage](#usage)
 * [Extra scripts](#extra-scripts)
+* [Events](#events)
 * [Advanced features](#advanced-features)
   * [AutoSkill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
@@ -39,8 +40,6 @@ As of 2018.12.30, this script is **working without root** / without being blocke
   * [AutoSupportSelection](#autosupportselection)
   * [Card Priority Customization](#card-priority-customization)
   * [Noble Phantasm Behavior](#noble-phantasm-behavior)
-* [Events](#events)  
-* [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Troubleshooting](#troubleshooting)
   * [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
 * [Feature requests, 說明, 要望](#feature-requests)
@@ -73,7 +72,7 @@ As the security level on Android rises, it's getting increasingly harder to appl
 You can still use the ```Media Projection``` and ```Android Accessibility``` methods to run FGO automation script **without installing daemon**.
 Adjust them in the settings section inside Ankulua.
 
-Not really recommended, as you'll *probably* need to refer to [here](http://ankulua.boards.net/board/1/general-discussion) for troubleshooting - we're not able to debug it most of the time, since the issue scale's out of our hand. The alternative methods's not really matured yet, unfortunately :( 
+Not really recommended, as you'll *probably* need to refer to [here](http://ankulua.boards.net/board/1/general-discussion) for troubleshooting - we're not able to debug it most of the time, since the scope of the issue is out of our hand. The alternative methods's not really matured yet, unfortunately :( 
 
 ## Usage:
 Please choose the corresponding lua file in AnkuLua according to your:
@@ -100,6 +99,18 @@ As title. It will keep gacha until your bag's full. I suggest using it for frien
 
 Used for Nero matsuri or Christmas events. Their UX really sucked, so a script for gacha is a nice QoL improvement.
 You need to change this line in the file ```setImagePath(dir .. "image_JP")``` to either ```image_JP``` ```image_EN``` ```image_TW``` ```image_CN``` to your server.
+
+## Events:
+If there are events which includes:
+* Power-up items before battle
+* Extra button to be clicked from reward system window after battle  
+
+Please set ```isEvent``` variable to 1.
+
+This will allow the use of this script for certain events.
+
+A custom script is required for summer racing events and Oni island events. 
+Please ask in issue forum if you need this feature.
 
 ***
 
@@ -243,25 +254,7 @@ The script will cast NPs as soon as they are available.
 
 If you have ```Enable_Autoskill = 1```, the above options applied after all of your predefined skills/NPs finished casting. 
 
-## Events:
-If there are events which includes:
-* Power-up items before battle
-* Extra button to be clicked from reward system window after battle  
 
-Please set ```isEvent``` variable to 1.
-
-This will allow the use of this script for certain events.
-
-A custom script is required for summer racing events and Oni island events. 
-Please ask in issue forum if you need this feature.
-
-## How to capture screen for recognition:
-You can manually replace target\_servant.png inside image folder to customize your priority target.
-1. screenshot your phone
-2. convert it to png format
-3. resize it to 1280 WIDTH (1920\*1080->1280\*720, 2560\*1440->1280\*720, etc.)
-4. crop the desired pattern(ex: danger, servant, or particular enemy name) for the script to recognize.
-5. replace target.png and test.
 
 ## Troubleshooting
 Known issues are listed here.
@@ -269,16 +262,11 @@ Known issues are listed here.
 ### Syntax error: unexpected symbol near '燎:
 This error shows up when you save FGO_XX_REGULAR.lua using UTF-8-BOM encoding.
 
-Download [Notepad++](https://notepad-plus-plus.org/) or a similar editor and save it using UTF-8 encoding instead.
+Download [Notepad++](https://notepad-plus-plus.org/) or a similar editor and save it using UTF-8 encoding **without BOM** instead.
 
 ![notepad-utf8](https://user-images.githubusercontent.com/4316326/48924293-944ab400-ee9d-11e8-869e-37a0a3456ff9.png)
 
-
 ## Feature requests:
-Any feature request or bugreport are welcomed. Please create a new issue and I'll do my best!
-
-有功能需要加入，腳本有問題，請去上面的issue討論版發新的討論文章，我會盡力做到。
-
-バグとか機能要望とかは大歓迎。issue掲示板で新たなスレを立ち上げてください。
+Any feature request or bug report is welcome. Please create a new issue and I'll do my best.
 
 Enjoy the game!
