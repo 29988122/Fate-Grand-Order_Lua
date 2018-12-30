@@ -1,5 +1,6 @@
 # Fate-Grand-Order_Lua
 This script supported CN, EN, JP and TW servers on Android devices < Oreo 8.0 and emulators.
+
 [(What if I have > Android 8.1 phone?)](#Android-8.1-and-above)
 
 Any of the questions can be asked in the "Issues" section. Don't be shy xD
