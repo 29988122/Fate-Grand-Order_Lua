@@ -200,7 +200,9 @@ The default setting ```first``` will select the first visible servant on the sel
 
 ```manual``` is used when you can monitor your script running - you need to select the support servant yourself, and the script will continue running after selection.
 
-```preferred``` is our desired option here. By putting screenshots of your pre-defined servant or CE into image_SUPPORT folder, that servant or CE can then be chosen automatically by the script. The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put the filename(s) in the options ```Support_PreferredServants``` or ```Support_PreferredCEs```, accordingly.
+```preferred``` is our desired option here. By putting screenshots of your pre-defined servant or CE into image_SUPPORT folder, that servant or CE can then be chosen automatically by the script. 
+
+The pic must be a png file, cropped from 1280\*720 game screenshot. Name the file yourself and put the filename(s) in the options ```Support_PreferredServants``` or ```Support_PreferredCEs```, accordingly.
 
 Your screenshot can be anything, as long as it's inside the area outlined in red:
 ![support_list_region](https://raw.githubusercontent.com/29988122/Fate-Grand-Order_Lua/master/docs/support_list_region.png)
