@@ -39,8 +39,8 @@ As of 2018.12.30, this script is **working without root** / without being blocke
   * [AutoSupportSelection](#autosupportselection)
   * [Card Priority Customization](#card-priority-customization)
   * [Noble Phantasm Behavior](#noble-phantasm-behavior)
-  
-  * [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
+* [Events](#events)  
+* [How to capture screen for recognition](#how-to-capture-screen-for-recognition)
 * [Troubleshooting](#troubleshooting)
   * [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
 * [Feature requests, 說明, 要望](#feature-requests)
@@ -111,7 +111,7 @@ By adjust settings inside your lua file, you can achieve the following things:
 * [Card Priority Customization](#card-priority-customization) Customize your card selection priority. 
 * [Noble Phantasm Behavior](#noble-phantasm-behavior) When to cast NP in order to face dangerous servants. 
 
-## AutoSkill:
+### AutoSkill:
 AutoSkill allows you to execute a series of turn-based skill commands, via user-predefined strings.
 Change ```Enable_Autoskill``` to 1 to enable it, 0 to disable. 
 
@@ -155,7 +155,7 @@ We did not implement skill cooldown check yet.
 
 However by planning ahead, wrote commands for many rounds(putting a lot of zeros), you can prevent the script accidently clicked the skills that were still on cooldown.
 
-### Chaldea Combat Uniform: Order Change
+#### Chaldea Combat Uniform: Order Change
 Order Change from Chaldea Combat Uniform allows you to exchange servants during battle.
 By inserting ```x``` into user-predefined strings, you can make your ```Skill_Command``` more flexible:
 ```
@@ -173,12 +173,12 @@ e.g.
 Skill_Command = "bce,0,f3hi,#,j2d,#,4,x13a1g3"
 ```
 
-### AutoSkill List
+#### AutoSkill List
 Set ```Enable_Autoskill_List = 1``` to enable this feature.
 You can setup a predefined autoskill list from 1~10, and the script whould let you choose from it when it starts running.
 This especially helps if you need to farm different stages during events.
 
-## AutoRefill:
+### AutoRefill:
 Set `Refill_Enabled = 1` to enable AutoRefill.
 
 There are five options available for `Refill_Resource`:
@@ -208,7 +208,7 @@ This selection function will search every combination of preferred servants and 
 
 Thanks @potchy for implementing this function!
 
-## Card Priority Customization:
+### Card Priority Customization:
 By changing the ```Battle_CardPriority``` option, you can have your card selection behavior change. There are two modes available, simple and detailed mode. 
 
 For example:
@@ -230,15 +230,18 @@ Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
 It will select weak arts->weak buster->weak buster->arts->buster->quick->resist arts->resist buster->resist quick until all three cards included CPs are selected. 
 ```
 
-## Noble Phantasm Behavior:
-• disabled: Will never cast NPs automatically. If you have Autoskill enabled, please use this option.
+### Noble Phantasm Behavior:
 
-• danger: Will cast NPs only when there are DANGER or SERVANT enemies on the screen. This option will probably mess up your Autoskill orders.
+```Battle_NoblePhantasm = "disabled"```
+The script will never cast NPs automatically.
 
-• spam: Will cast NPs as soon as they are available.
+```Battle_NoblePhantasm = "danger"```
+The script will cast NPs only when there are DANGER or SERVANT enemies on the screen. This option will probably mess up your Autoskill orders.
 
-Currently, ```danger``` option will only start working, spamming NPs after you've finished all your pre-defined Autoskill commands.
-Still in alpha state. If your Autoskill order got messed up, please use ```disabled``` option instead.
+```Battle_NoblePhantasm = "spam"```
+The script will cast NPs as soon as they are available.
+
+If you have ```Enable_Autoskill = 1```, the above options applied after all of your predefined skills/NPs finished casting. 
 
 ## Events:
 If there are events which includes:
@@ -263,7 +266,7 @@ You can manually replace target\_servant.png inside image folder to customize yo
 ## Troubleshooting
 Known issues are listed here.
 
-## Syntax error: unexpected symbol near '燎:
+### Syntax error: unexpected symbol near '燎:
 This error shows up when you save FGO_XX_REGULAR.lua using UTF-8-BOM encoding.
 
 Download [Notepad++](https://notepad-plus-plus.org/) or a similar editor and save it using UTF-8 encoding instead.
