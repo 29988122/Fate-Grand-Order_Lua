@@ -61,10 +61,9 @@ function menu()
 	wait(1.5)
 
 	--Auto refill.
-	if StaminaRegion:exists(Pattern(GeneralImagePath .. "stamina.png"), 0) then
+	while StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) do
 		RefillStamina()
 	end
-
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport then
@@ -213,12 +212,7 @@ end
 
 init()
 while(1) do
-	
-	if DebugMode then
-		toast("X Offset is: " .. xOffset .. " and Y Offset is: " .. yOffset )
-		MenuRegion:highlight(2)
-	end
-	if MenuRegion:exists(Pattern(GeneralImagePath .. "menu.png"), 0) then
+	if MenuRegion:exists(GeneralImagePath .. "menu.png", 0) then
 		menu()
 	end
 	if battle.isIdle() then

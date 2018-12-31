@@ -26,9 +26,6 @@ end
 GameRegion = "JP"
 StageCountRegion = Region(1722 + xOffset,25 + yOffset,46,53)
 
---Temp solution, https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-357257089 
-NotJPserverForStaminaRefillExtraClick = 1
-
 --[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
     UnstableFastSkipDeadAnimation = 1
 --]]
@@ -150,6 +147,8 @@ Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
 （詳細はこちらを） https://github.com/29988122/Fate-Grand-Order_Lua#card-priority-customization
 --]]
 Battle_CardPriority = "BAQ"
+
+Battle_AutoChooseTarget = 1
 
 --[[
 宝具の使用パターン：

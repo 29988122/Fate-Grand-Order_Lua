@@ -21,6 +21,12 @@ local TARGET_CLICK_ARRAY = {
 	Location(1050 + xOffset,80 + yOffset)
 }
 
+local TARGET_SELECTED_MARK_ARRAY = {
+	Region(  76,6,24,6),
+	Region( 560,6,24,6),
+	Region(1036,6,24,6)
+}
+
 -- state vars
 local _currentStage
 local _currentTurn
@@ -118,7 +124,7 @@ onTurnStarted = function()
 	_currentTurn = _currentTurn + 1
 	_hasClickedAttack = false
 
-	if not _hasChosenTarget then
+	if not _hasChosenTarget and Battle_AutoChooseTarget == 1 then
 		autoChooseTarget()
 	end
 end
@@ -169,6 +175,11 @@ autoChooseTarget = function()
 	end
 end
 
+isAlreadyTargeted = function(targetIndex)
+	local isTargeted = TARGET_SELECTED_MARK_ARRAY[targetIndex]:exists(GeneralImagePath .. "target_selected.png")
+	return isTargeted
+end
+
 isPriorityTarget = function(target)
 	local isDanger = target:exists(GeneralImagePath .. "target_danger.png")
 	local isServant = target:exists(GeneralImagePath .. "target_servant.png")
@@ -177,9 +188,8 @@ isPriorityTarget = function(target)
 end
 
 chooseTarget = function(targetIndex)
-	click(TARGET_CLICK_ARRAY[targetIndex])
-	if( GameRegion == "JP" ) then
-		click( Location( 2560 + xOffset,50 +yOffset ) )
+	if not isAlreadyTargeted(targetIndex) then
+		click(TARGET_CLICK_ARRAY[targetIndex])
 	end
 	onTargetChosen()
 end
