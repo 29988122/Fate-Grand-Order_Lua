@@ -78,9 +78,6 @@ init = function()
 end
 
 selectSupport = function(selectionMode)
-	if DebugMode then
-		ScreenRegion:highlight(2)
-	end
 	while not ScreenRegion:exists(GeneralImagePath .. "support_screen.png") do end
 		if selectionMode == "first" then
 			return selectFirst()
