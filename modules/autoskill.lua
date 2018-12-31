@@ -166,6 +166,8 @@ end
 decodeSkill = function(str)
 	-- Enter Card selection for NP casting
 	if str >= "4" and str <= "6" and not _battle.hasClickedAttack() then
+		--Band aid fix for edge case. Should be cleaned up upon bug fixed.
+		wait(2.7)
 		_battle.clickAttack()
 	end
 	
