@@ -4,21 +4,21 @@ local ankuluaUtils = require "ankulua-utils"
 
 -- consts
 local SupportImagePath = "image_SUPPORT" .. "/"
-local ScreenRegion = Region(0,0,110,332)
-local ListRegion = Region(70,332,378,1091) -- see docs/support_list_region.png
+local ScreenRegion = Region(0 + xOffset,0 + yOffset,110,332)
+local ListRegion = Region(70 + xOffset,332 + yOffset,378,1091) -- see docs/support_list_region.png
 local ListItemRegionArray = {
 	-- see docs/support_list_item_regions_top.png
-	Region(76,338,2356,428),
-	Region(76,778,2356,390),
+	Region(76 + xOffset,338 + yOffset,2356,428),
+	Region(76 + xOffset,778 + yOffset,2356,390),
 
 	-- see docs/support_list_item_regions_bottom.png
-	Region(76,558,2356,390),
-	Region(76,991,2356,428),
+	Region(76 + xOffset,558 + yOffset,2356,390),
+	Region(76 + xOffset,991 + yOffset,2356,428),
 } 
-local FriendRegion = Region(2234, ListRegion:getY(), 120, ListRegion:getH()) -- see docs/friend_region.png
-local ListTopClick = Location(2480,360)
-local UpdateClick = Location(1670,250)
-local UpdateYesClick = Location(1480,1110)
+local FriendRegion = Region(2234 + xOffset, ListRegion:getY(), 120, ListRegion:getH()) -- see docs/friend_region.png
+local ListTopClick = Location(2480 + xOffset,360 + yOffset)
+local UpdateClick = Location(1670 + xOffset,250 + yOffset)
+local UpdateYesClick = Location(1480 + xOffset,1110 + yOffset)
 local CraftEssenceHeight = 90
 local LimitBrokenCharacter = "*"
 
@@ -78,7 +78,10 @@ init = function()
 end
 
 selectSupport = function(selectionMode)
-	if ScreenRegion:exists(GeneralImagePath .. "support_screen.png") then
+	if DebugMode then
+		ScreenRegion:highlight(2)
+	end
+	while not ScreenRegion:exists(GeneralImagePath .. "support_screen.png") do end
 		if selectionMode == "first" then
 			return selectFirst()
 
@@ -92,13 +95,12 @@ selectSupport = function(selectionMode)
 		else
 			scriptExit("Invalid support selection mode: \"" + selectionMode + "\".")
 		end
-	end
 
 	return false
 end
 
 selectFirst = function()
-	click(Location(1900,500))
+	click(Location(1900 + xOffset,500 + yOffset))
 	return true
 end
 
@@ -143,8 +145,8 @@ selectPreferred = function(searchMethod)
 end
 
 scrollList = function()
-	local startLocation = Location(146, 1190)
-	local endLocation = Location(146, 390)
+	local startLocation = Location(35 + xOffset, 1190 + yOffset)
+	local endLocation = Location(35 + xOffset, 390 + yOffset)
 
 	local touchActions = {
 		{ action = "touchDown", target = startLocation },
@@ -231,7 +233,7 @@ findServants = function()
 	local servants = {}
 
 	for _, preferredServant in ipairs(PreferredServantArray) do
-		for _, servant in ipairs(regionFindAllNoFindException(ListRegion, SupportImagePath .. preferredServant)) do
+		for _, servant in ipairs(regionFindAllNoFindException(ListRegion, Pattern(SupportImagePath .. preferredServant))) do
 			table.insert(servants, servant)
 		end
 	end
@@ -271,7 +273,7 @@ isFriend = function(region)
 end
 
 isLimitBroken = function(craftEssence)
-	local limitBreakRegion = Region(376, craftEssence:getY(), 16, CraftEssenceHeight)
+	local limitBreakRegion = Region(376 + xOffset, craftEssence:getY(), 16, CraftEssenceHeight)
 	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.8)
 
 	return limitBreakRegion:exists(limitBreakPattern)

@@ -7,34 +7,34 @@ local _battle
 -- consts
 local CARD_AFFINITY_REGION_ARRAY = {
 	-- see docs/card_affinity_regions.png
-	Region( 295,650,250,200),
-	Region( 810,650,250,200),
-	Region(1321,650,250,200),
-	Region(1834,650,250,200),
-	Region(2348,650,250,200)
+	Region( 295 + xOffset,650 + yOffset,250,200),
+	Region( 810 + xOffset,650 + yOffset,250,200),
+	Region(1321 + xOffset,650 + yOffset,250,200),
+	Region(1834 + xOffset,650 + yOffset,250,200),
+	Region(2348 + xOffset,650 + yOffset,250,200)
 }
 
 local CARD_TYPE_REGION_ARRAY = {
 	-- see docs/card_type_regions.png
-	Region(   0,1060,512,200),
-	Region( 512,1060,512,200),
-	Region(1024,1060,512,200),
-	Region(1536,1060,512,200),
-	Region(2048,1060,512,200)
+	Region(   0 + xOffset,1060 + yOffset,512,200),
+	Region( 512 + xOffset,1060 + yOffset,512,200),
+	Region(1024 + xOffset,1060 + yOffset,512,200),
+	Region(1536 + xOffset,1060 + yOffset,512,200),
+	Region(2048 + xOffset,1060 + yOffset,512,200)
 }
 
 local COMMAND_CARD_CLICK_ARRAY = {
-	Location( 300,1000),
-	Location( 750,1000),
-	Location(1300,1000),
-	Location(1800,1000),
-	Location(2350,1000),
+	Location( 300 + xOffset,1000 + yOffset),
+	Location( 750 + xOffset,1000 + yOffset),
+	Location(1300 + xOffset,1000 + yOffset),
+	Location(1800 + xOffset,1000 + yOffset),
+	Location(2350 + xOffset,1000 + yOffset),
 }
 
 local NP_CARD_CLICK_ARRAY = {
-	Location(1000,220),
-	Location(1300,400),
-	Location(1740,400)
+	Location(1000 + xOffset,220 + yOffset),
+	Location(1300 + xOffset,400 + yOffset),
+	Location(1740 + xOffset,400 + yOffset)
 }
 
 -- see docs/card_formula.jpg
@@ -131,9 +131,9 @@ initCardPriorityArrayDetailed = function(errorString)
 end
 
 getCardAffinity = function(region)
-	if region:exists(GeneralImagePath .. "weak.png") then
+	if region:exists(Pattern(GeneralImagePath .. "weak.png")) then
 		return CARD_AFFINITY.WEAK;
-	elseif region:exists(GeneralImagePath .. "resist.png") then
+	elseif region:exists(Pattern(GeneralImagePath .. "resist.png")) then
 		return CARD_AFFINITY.RESIST;
 	else
 		return CARD_AFFINITY.NORMAL;

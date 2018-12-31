@@ -2,8 +2,29 @@
 dir = scriptPath()
 setImagePath(dir)
 
+setImmersiveMode(true)
+
+xOffset = 0
+yOffset = 0
+
+xDifferential = getRealScreenSize():getX() / 2560
+yDifferential = getRealScreenSize():getY() / 1440
+
+if yDifferential > xDifferential then
+    yOffset = ( getRealScreenSize():getY() - ( xDifferential * 1440 ) ) / xDifferential / 2
+    Settings:setCompareDimension(true,1280)
+    Settings:setScriptDimension(true,2560)
+elseif yDifferential < xDifferential then
+    xOffset = ( getRealScreenSize():getX() - ( yDifferential * 2560 ) ) / yDifferential / 2
+    Settings:setCompareDimension(false,720)
+    Settings:setScriptDimension(false,1440)
+else
+    Settings:setCompareDimension(true,1280)
+    Settings:setScriptDimension(true,2560)
+end
+
 GameRegion = "EN"
-StageCountRegion = Region(1722,25,46,53)
+StageCountRegion = Region(1722 + xOffset,25 + yOffset,46,53)
 
 --[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
     UnstableFastSkipDeadAnimation = 1
@@ -141,4 +162,9 @@ Battle_NoblePhantasm = "disabled"
 --Whenever there's additional event point reward window to be clicked through, isEvent = 1. Please check the details on github.
 isEvent = 0
 
+DebugMode = false
+
+if DebugMode then
+    toast("X resolution is: " .. getAppUsableScreenSize():getX() .. " Y resolution is: " .. getAppUsableScreenSize():getY() )
+end
 dofile(dir .. "regular.lua")

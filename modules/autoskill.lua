@@ -3,27 +3,27 @@ local _battle
 local _card
 
 -- consts
-local SKILL_OK_CLICK = Location(1680,850)
-local MASTER_SKILL_OPEN_CLICK = Location(2380,640)
-local ORDER_CHANGE_OK_CLICK = Location(1280,1260)
+local SKILL_OK_CLICK = Location(1680 + xOffset,850 + yOffset)
+local MASTER_SKILL_OPEN_CLICK = Location(2380 + xOffset,640 + yOffset)
+local ORDER_CHANGE_OK_CLICK = Location(1280 + xOffset,1260 + yOffset)
 
-local SKILL_1_CLICK = Location( 140,1160)
-local SKILL_2_CLICK = Location( 340,1160)
-local SKILL_3_CLICK = Location( 540,1160)
-local SKILL_4_CLICK = Location( 770,1160)
-local SKILL_5_CLICK = Location( 970,1160)
-local SKILL_6_CLICK = Location(1140,1160)
-local SKILL_7_CLICK = Location(1400,1160)
-local SKILL_8_CLICK = Location(1600,1160)
-local SKILL_9_CLICK = Location(1800,1160)
+local SKILL_1_CLICK = Location( 140 + xOffset,1160 + yOffset)
+local SKILL_2_CLICK = Location( 340 + xOffset,1160 + yOffset)
+local SKILL_3_CLICK = Location( 540 + xOffset,1160 + yOffset)
+local SKILL_4_CLICK = Location( 770 + xOffset,1160 + yOffset)
+local SKILL_5_CLICK = Location( 970 + xOffset,1160 + yOffset)
+local SKILL_6_CLICK = Location(1140 + xOffset,1160 + yOffset)
+local SKILL_7_CLICK = Location(1400 + xOffset,1160 + yOffset)
+local SKILL_8_CLICK = Location(1600 + xOffset,1160 + yOffset)
+local SKILL_9_CLICK = Location(1800 + xOffset,1160 + yOffset)
 
-local MASTER_SKILL_1_CLICK = Location(1820,620)
-local MASTER_SKILL_2_CLICK = Location(2000,620)
-local MASTER_SKILL_3_CLICK = Location(2160,620)
+local MASTER_SKILL_1_CLICK = Location(1820 + xOffset,620 + yOffset)
+local MASTER_SKILL_2_CLICK = Location(2000 + xOffset,620 + yOffset)
+local MASTER_SKILL_3_CLICK = Location(2160 + xOffset,620 + yOffset)
 
-local SERVANT_1_CLICK = Location(700,880)
-local SERVANT_2_CLICK = Location(1280,880)
-local SERVANT_3_CLICK = Location(1940,880)
+local SERVANT_1_CLICK = Location(700 + xOffset,880 + yOffset)
+local SERVANT_2_CLICK = Location(1280 + xOffset,880 + yOffset)
+local SERVANT_3_CLICK = Location(1940 + xOffset,880 + yOffset)
 
 local SKILL_CLICK_ARRAY = {
 	["a"] = SKILL_1_CLICK,
@@ -44,9 +44,9 @@ local SKILL_CLICK_ARRAY = {
 }
 
 -- Order Change (front)
-local STARTING_MEMBER_1_CLICK = Location( 280,700)
-local STARTING_MEMBER_2_CLICK = Location( 680,700)
-local STARTING_MEMBER_3_CLICK = Location(1080,700)
+local STARTING_MEMBER_1_CLICK = Location( 280 + xOffset,700 + yOffset)
+local STARTING_MEMBER_2_CLICK = Location( 680 + xOffset,700 + yOffset)
+local STARTING_MEMBER_3_CLICK = Location(1080 + xOffset,700 + yOffset)
 local STARTING_MEMBER_CLICK_ARRAY = {
 	["1"] = STARTING_MEMBER_1_CLICK,
 	["2"] = STARTING_MEMBER_2_CLICK,
@@ -54,9 +54,9 @@ local STARTING_MEMBER_CLICK_ARRAY = {
 }
 
 -- Order Change (back)
-local SUB_MEMBER_1_CLICK = Location(1480,700)
-local SUB_MEMBER_2_CLICK = Location(1880,700)
-local SUB_MEMBER_3_CLICK = Location(2280,700)
+local SUB_MEMBER_1_CLICK = Location(1480 + xOffset,700 + yOffset)
+local SUB_MEMBER_2_CLICK = Location(1880 + xOffset,700 + yOffset)
+local SUB_MEMBER_3_CLICK = Location(2280 + xOffset,700 + yOffset)
 local SUB_MEMBER_CLICK_ARRAY = {
 	["1"] = SUB_MEMBER_1_CLICK,
 	["2"] = SUB_MEMBER_2_CLICK,
@@ -145,9 +145,9 @@ executeSkill = function ()
 			for command in string.gmatch(currentSkill, ".") do
 				-- Check that skills can be clicked
 				while not _battle.hasClickedAttack() and not _battle.isIdle() do end
-				
+				wait(0.4)
 				decodeSkill(command)
-				wait(0.3)
+				wait(0.7)
 			end
 		end
 		

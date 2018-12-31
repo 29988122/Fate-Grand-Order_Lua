@@ -2,9 +2,30 @@
 dir = scriptPath()
 setImagePath(dir)
 
+setImmersiveMode(true)
+
+xOffset = 0
+yOffset = 0
+
+xDifferential = getAppUsableScreenSize():getX() / 2560
+yDifferential = getAppUsableScreenSize():getY() / 1440
+
+if yDifferential > xDifferential then
+    yOffset = ( getAppUsableScreenSize():getY() - ( xDifferential * 1440 ) ) / xDifferential / 2
+    Settings:setCompareDimension(true,1280)
+    Settings:setScriptDimension(true,2560)
+elseif yDifferential < xDifferential then
+    xOffset = ( getAppUsableScreenSize():getX() - ( yDifferential * 2560 ) ) / yDifferential / 2
+    Settings:setCompareDimension(false,720)
+    Settings:setScriptDimension(false,1440)
+else
+    Settings:setCompareDimension(true,1280)
+    Settings:setScriptDimension(true,2560)
+end
+
 GameRegion = "TW"
 --StageCountRegion issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
-StageCountRegion = Region(1710,25,55,60)
+StageCountRegion = Region(1710 + xOffset,25 + yOffset,55,60)
 
 --[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
     UnstableFastSkipDeadAnimation = 1
