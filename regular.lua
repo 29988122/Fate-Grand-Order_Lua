@@ -1,3 +1,8 @@
+--[[このスクリプトは人の動きを真似してるだけなので、サーバーには余計な負担を掛からないはず。
+	私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
+	お願いします。このプログラムを禁止しないでください。
+--]]
+
 --Other import such as ankulua-utils or string-utils are defined in support.lua.
 package.path = package.path .. ";" .. dir .. 'modules/?.lua'
 local support = require("support")
@@ -5,16 +10,12 @@ local card = require("card")
 local battle = require("battle")
 local autoskill = require("autoskill")
 
---[[このスクリプトは人の動きを真似してるだけなので、サーバーには余計な負担を掛からないはず。
-	私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
-	お願いします。このプログラムを禁止しないでください。
---]]
-
 --Main loop, pattern detection regions.
---Click pos are hard-coded into code, unlikely to change in the future.
+--Click pos are hard-coded, unlikely to change in the future.
 MenuRegion = Region(2100 + xOffset,1200 + yOffset,1000,1000)
 ResultRegion = Region(100 + xOffset,300 + yOffset,700,200)
 BondRegion = Region(2000 + xOffset,820 + yOffset,120,120)
+CEdetailRegion = Region(1000 + xOffset, 220 + yOffset, 40, 100)
 QuestrewardRegion = Region(1630 + xOffset,140 + yOffset,370,250)
 FriendrequestRegion = Region(660 + xOffset, 120 + yOffset, 140, 160)
 StaminaRegion = Region(600 + xOffset,200 + yOffset,300,300)
@@ -28,20 +29,10 @@ BronzeClick = (Location(1270 + xOffset,2048 + yOffset))
 
 StartQuestClick = Location(2400 + xOffset,1350 + yOffset)
 StartQuestWithoutItemClick = Location(1652 + xOffset,1304 + yOffset) -- see docs/start_quest_without_item_click.png
+CEdetailCloseClick = Location(80 + xOffset, 60 + yOffset)
 QuestResultNextClick = Location(2200 + xOffset, 1350 + yOffset) -- see docs/quest_result_next_click.png
 
---[[For future use:
-	NpbarRegion = Region(280,1330,1620,50)
-	Ultcard1Region = Region(900,100,200,200)
-	Ultcard2Region = Region(1350,100,200,200)
-	Ultcard3Region = Region(1800,100,200,200)
---]]
-
---File paths
 GeneralImagePath = "image_" .. GameRegion .. "/"
-
---TBD:Autoskill execution optimization, switch target during Autoskill, Do not let Targetchoose().ultcard() interfere with Autoskill, battle()execution order cleanup.
---TBD:Screenshot function refactoring: https://github.com/29988122/Fate-Grand-Order_Lua/issues/21#issuecomment-428015815
 
 --[[recognize speed realated functions:
 	1.setScanInterval(1)
@@ -64,6 +55,7 @@ function menu()
 	while StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) do
 		RefillStamina()
 	end
+	
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport then
@@ -118,13 +110,16 @@ function startQuest()
 end
 
 function result()
-	
-	-- Click through all of the Result screen items. Does NOT account for Max Bond CE acquisition (yet)
+	--Check document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
 	continueClick(QuestResultNextClick,35)
-
 	wait(5)
 
-	--Friend request screen. Non-friend support was selected this battle.  Ofc it's defaulted not sending request.
+	if CEdetailRegion:exists(Pattern(GeneralImagePath .. "ce_reward.png")) ~= nil then
+		click(CEdetailCloseClick)
+		continueClick(QuestResultNextClick,35) --Still need to proceed through reward screen.
+	end
+
+	--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
 	if FriendrequestRegion:exists(Pattern(GeneralImagePath .. "friendrequest.png")) ~= nil then
 		click(Location(600 + xOffset,1200 + yOffset))
 	end
