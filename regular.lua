@@ -24,7 +24,7 @@ AcceptClick = (Location(1650 + xOffset,1120 + yOffset))
 StoneClick = (Location(1270 + xOffset,345 + yOffset))
 GoldClick = (Location(1270 + xOffset,634 + yOffset))
 SilverClick = (Location(1270 + xOffset,922 + yOffset))
-BronzeClick = (Location(1270 + xOffset,2048 + yOffset))
+BronzeClick = (Location(1270 + xOffset,1140 + yOffset))
 
 StartQuestClick = Location(2400 + xOffset,1350 + yOffset)
 StartQuestWithoutItemClick = Location(1652 + xOffset,1304 + yOffset) -- see docs/start_quest_without_item_click.png
