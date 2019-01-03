@@ -213,10 +213,6 @@ while(1) do
 	if battle.isIdle() then
 		battle.performBattle()
 	end
-	if DebugMode then
-		ResultRegion:highlight(2)
-		BondRegion:highlight(2)
-	end
 	if ResultRegion:exists(Pattern(GeneralImagePath .. "result.png"), 0) or BondRegion:exists(Pattern(GeneralImagePath .. "bond.png"), 0) then
 		result()
 	end
