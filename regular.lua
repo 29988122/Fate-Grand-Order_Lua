@@ -14,6 +14,7 @@ local autoskill = require("autoskill")
 --Click pos are hard-coded, unlikely to change in the future.
 MenuRegion = Region(2100 + xOffset,1200 + yOffset,1000,1000)
 ResultRegion = Region(100 + xOffset,300 + yOffset,700,200)
+BondRegion = Region(2000 + xOffset,820 + yOffset,120,120)
 CEdetailRegion = Region(1000 + xOffset, 220 + yOffset, 40, 100)
 QuestrewardRegion = Region(1630 + xOffset,140 + yOffset,370,250)
 FriendrequestRegion = Region(660 + xOffset, 120 + yOffset, 140, 160)
@@ -212,7 +213,11 @@ while(1) do
 	if battle.isIdle() then
 		battle.performBattle()
 	end
-	if ResultRegion:exists(Pattern(GeneralImagePath .. "result.png"), 0) then
+	if DebugMode then
+		ResultRegion:highlight(2)
+		BondRegion:highlight(2)
+	end
+	if ResultRegion:exists(Pattern(GeneralImagePath .. "result.png"), 0) or BondRegion:exists(Pattern(GeneralImagePath .. "bond.png"), 0) then
 		result()
 	end
 end
