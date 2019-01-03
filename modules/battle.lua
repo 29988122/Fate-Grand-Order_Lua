@@ -22,9 +22,9 @@ local TARGET_CLICK_ARRAY = {
 }
 
 local TARGET_SELECTED_MARK_ARRAY = {
-	Region(  76,6,24,6),
-	Region( 560,6,24,6),
-	Region(1036,6,24,6)
+	Region(  76 + xOffset,6 + yOffset,24,6),
+	Region( 560 + xOffset,6 + yOffset,24,6),
+	Region(1036 + xOffset,6 + yOffset,24,6)
 }
 
 -- state vars
@@ -173,7 +173,9 @@ autoChooseTarget = function()
 end
 
 isAlreadyTargeted = function(targetIndex)
+	Settings:set("MinSimilarity", 0.95)
 	local isTargeted = TARGET_SELECTED_MARK_ARRAY[targetIndex]:exists(GeneralImagePath .. "target_selected.png")
+	Settings:set("MinSimilarity", 0.7)
 	return isTargeted
 end
 
