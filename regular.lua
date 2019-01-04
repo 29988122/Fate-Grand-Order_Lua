@@ -111,7 +111,7 @@ end
 
 function result()
 	--Check document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
-	continueClick(QuestResultNextClick,35)
+	continueClick(QuestResultNextClick,45)
 	wait(5)
 
 	if CEdetailRegion:exists(Pattern(GeneralImagePath .. "ce_reward.png")) ~= nil then
