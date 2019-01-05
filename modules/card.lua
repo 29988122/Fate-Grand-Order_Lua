@@ -1,42 +1,11 @@
 -- modules
+local _game = require("game")
 local _ankuluaUtils = require("ankulua-utils")
 local _stringUtils = require("string-utils")
 local _autoskill
 local _battle
 
 -- consts
-local CARD_AFFINITY_REGION_ARRAY = {
-	-- see docs/card_affinity_regions.png
-	Region( 295 + xOffset,650 + yOffset,250,200),
-	Region( 810 + xOffset,650 + yOffset,250,200),
-	Region(1321 + xOffset,650 + yOffset,250,200),
-	Region(1834 + xOffset,650 + yOffset,250,200),
-	Region(2348 + xOffset,650 + yOffset,250,200)
-}
-
-local CARD_TYPE_REGION_ARRAY = {
-	-- see docs/card_type_regions.png
-	Region(   0 + xOffset,1060 + yOffset,512,200),
-	Region( 512 + xOffset,1060 + yOffset,512,200),
-	Region(1024 + xOffset,1060 + yOffset,512,200),
-	Region(1536 + xOffset,1060 + yOffset,512,200),
-	Region(2048 + xOffset,1060 + yOffset,512,200)
-}
-
-local COMMAND_CARD_CLICK_ARRAY = {
-	Location( 300 + xOffset,1000 + yOffset),
-	Location( 750 + xOffset,1000 + yOffset),
-	Location(1300 + xOffset,1000 + yOffset),
-	Location(1800 + xOffset,1000 + yOffset),
-	Location(2350 + xOffset,1000 + yOffset),
-}
-
-local NP_CARD_CLICK_ARRAY = {
-	Location(1000 + xOffset,220 + yOffset),
-	Location(1300 + xOffset,400 + yOffset),
-	Location(1740 + xOffset,400 + yOffset)
-}
-
 -- see docs/card_formula.jpg
 -- a translation of it would be appreciated (lol)
 local CARD_AFFINITY = {
@@ -73,7 +42,6 @@ local initCardPriorityArrayDetailed
 local getCardAffinity
 local getCardType
 local getCommandCards
-local getNpCardLocation
 local clickCommandCards
 local canClickNpCards
 local clickNpCards
@@ -175,8 +143,8 @@ getCommandCards = function()
 
 	local function storeCards()
 		for cardSlot = 1, 5 do
-			local cardAffinity = getCardAffinity(CARD_AFFINITY_REGION_ARRAY[cardSlot])
-			local cardType = getCardType(CARD_TYPE_REGION_ARRAY[cardSlot])
+			local cardAffinity = getCardAffinity(_game.BATTLE_CARD_AFFINITY_REGION_ARRAY[cardSlot])
+			local cardType = getCardType(_game.BATTLE_CARD_TYPE_REGION_ARRAY[cardSlot])
 			local cardScore = cardAffinity * cardType
 
 			local properStorage = storagePerScore[cardScore]
@@ -195,7 +163,7 @@ clickCommandCards = function()
 		local currentCardTypeStorage = commandCards[cardPriority]
 	
 		for _, cardSlot in pairs(currentCardTypeStorage) do
-			click(COMMAND_CARD_CLICK_ARRAY[cardSlot])
+			click(_game.BATTLE_COMMAND_CARD_CLICK_ARRAY[cardSlot])
 		end
 	end
 end
@@ -208,19 +176,14 @@ canClickNpCards = function()
 end
 
 clickNpCards = function()
-	for _, npCard in pairs(NP_CARD_CLICK_ARRAY) do
+	for _, npCard in pairs(_game.BATTLE_NP_CARD_CLICK_ARRAY) do
 		click(npCard)
 	end
-end
-
-getNpCardLocation = function(servantIndex)
-	return NP_CARD_CLICK_ARRAY[servantIndex]
 end
 
 -- "public" interface
 return {
 	init = init,
-	getNpCardLocation = getNpCardLocation,
 	clickCommandCards = clickCommandCards,
 	canClickNpCards = canClickNpCards,
 	clickNpCards = clickNpCards

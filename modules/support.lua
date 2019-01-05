@@ -1,24 +1,10 @@
 -- modules
-local stringUtils = require "string-utils"
-local ankuluaUtils = require "ankulua-utils"
+local game = require("game")
+local stringUtils = require("string-utils")
+local ankuluaUtils = require("ankulua-utils")
 
 -- consts
 local SupportImagePath = "image_SUPPORT" .. "/"
-local ScreenRegion = Region(0 + xOffset,0 + yOffset,110,332)
-local ListRegion = Region(70 + xOffset,332 + yOffset,378,1091) -- see docs/support_list_region.png
-local ListItemRegionArray = {
-	-- see docs/support_list_item_regions_top.png
-	Region(76 + xOffset,338 + yOffset,2356,428),
-	Region(76 + xOffset,778 + yOffset,2356,390),
-
-	-- see docs/support_list_item_regions_bottom.png
-	Region(76 + xOffset,558 + yOffset,2356,390),
-	Region(76 + xOffset,991 + yOffset,2356,428),
-} 
-local FriendRegion = Region(2234 + xOffset, ListRegion:getY(), 120, ListRegion:getH()) -- see docs/friend_region.png
-local ListTopClick = Location(2480 + xOffset,360 + yOffset)
-local UpdateClick = Location(1670 + xOffset,250 + yOffset)
-local UpdateYesClick = Location(1480 + xOffset,1110 + yOffset)
 local CraftEssenceHeight = 90
 local LimitBrokenCharacter = "*"
 
@@ -78,7 +64,7 @@ init = function()
 end
 
 selectSupport = function(selectionMode)
-	while not ScreenRegion:exists(GeneralImagePath .. "support_screen.png") do end
+	while not game.SUPPORT_SCREEN_REGION:exists(GeneralImagePath .. "support_screen.png") do end
 		if selectionMode == "first" then
 			return selectFirst()
 
@@ -97,7 +83,7 @@ selectSupport = function(selectionMode)
 end
 
 selectFirst = function()
-	click(Location(1900 + xOffset,500 + yOffset))
+	click(game.SUPPORT_FIRST_SUPPORT_CLICK)
 	return true
 end
 
@@ -126,41 +112,38 @@ selectPreferred = function(searchMethod)
 			toast("Support list will be updated in 3 seconds.")
 			wait(3)
 
-			click(UpdateClick)
+			click(game.SUPPORT_UPDATE_CLICK)
 			wait(1)
-			click(UpdateYesClick)
+			click(game.SUPPORT_UPDATE_YES_CLICK)
 			wait(3)
 
 			numberOfUpdates = numberOfUpdates + 1
 			numberOfSwipes = 0
 
 		else -- okay, we have run out of options, let's give up
-			click(ListTopClick)
+			click(game.SUPPORT_LIST_TOP_CLICK)
 			return selectSupport(Support_FallbackTo)
 		end
 	end
 end
 
 scrollList = function()
-	local startLocation = Location(35 + xOffset, 1190 + yOffset)
-	local endLocation = Location(35 + xOffset, 390 + yOffset)
-
 	local touchActions = {
-		{ action = "touchDown", target = startLocation },
-		{ action = "touchMove", target =   endLocation },
-		{ action =      "wait", target =           0.4 },
-		{ action =   "touchUp", target =   endLocation },
-		{ action =      "wait", target =           0.5 } -- leaving some room for animations to finish
+		{ action = "touchDown", target = game.SUPPORT_SWIPE_START_CLICK },
+		{ action = "touchMove", target = game.SUPPORT_SWIPE_END_CLICK },
+		{ action =      "wait", target = 0.4 },
+		{ action =   "touchUp", target = game.SUPPORT_SWIPE_END_CLICK },
+		{ action =      "wait", target = 0.5 } -- leaving some room for animations to finish
 	}
 
-	-- I want the movement to be as accurate as possible
+	-- the movement has to be as accurate as possible
 	setManualTouchParameter(1, 1)
 	manualTouch(touchActions)
 end
 
 searchVisible = function(searchMethod)
 	local function performSearch()
-		if not isFriend(FriendRegion) then
+		if not isFriend(game.SUPPORT_FRIEND_REGION) then
 			return {"no-friends-at-all"} -- no friends on screen, so there's no point in scrolling anymore
 		end
 
@@ -206,7 +189,7 @@ searchMethod = {
 	end,
 
 	byCraftEssence = function()
-		return findCraftEssence(ListRegion)
+		return findCraftEssence(game.SUPPORT_LIST_REGION)
 	end,
 
 	byServantAndCraftEssence = function()
@@ -230,7 +213,7 @@ findServants = function()
 	local servants = {}
 
 	for _, preferredServant in ipairs(PreferredServantArray) do
-		for _, servant in ipairs(regionFindAllNoFindException(ListRegion, Pattern(SupportImagePath .. preferredServant))) do
+		for _, servant in ipairs(regionFindAllNoFindException(game.SUPPORT_LIST_REGION, Pattern(SupportImagePath .. preferredServant))) do
 			table.insert(servants, servant)
 		end
 	end
@@ -253,14 +236,14 @@ findCraftEssence = function(searchRegion)
 end
 
 findSupportBounds = function(support)
-	for _, supportBounds in ipairs(ListItemRegionArray) do
+	for _, supportBounds in ipairs(game.SUPPORT_LIST_ITEM_REGION_ARRAY) do
 		if ankuluaUtils.doesRegionContain(supportBounds, support) then
 			return supportBounds
 		end
 	end
 
-	-- we're not supposed to end down here, but if we do, there's probably something wrong with ListItemRegionArray or ListRegion
-	local message = "The Servant or Craft Essence (X: %i, Y: %i, Width: %i, Height: %i) is not contained in ListItemRegionArray."
+	-- we're not supposed to end down here, but if we do, there's probably something wrong with SUPPORT_LIST_ITEM_REGION_ARRAY or SUPPORT_LIST_REGION
+	local message = "The Servant or Craft Essence (X: %i, Y: %i, Width: %i, Height: %i) is not contained in SUPPORT_LIST_ITEM_REGION_ARRAY."
 	error(message:format(support:getX(), support:getY(), support:getW(), support:getH()))
 end
 
@@ -270,7 +253,7 @@ isFriend = function(region)
 end
 
 isLimitBroken = function(craftEssence)
-	local limitBreakRegion = Region(376 + xOffset, craftEssence:getY(), 16, CraftEssenceHeight)
+	local limitBreakRegion = ankuluaUtils.SetY(game.SUPPORT_LIMIT_BREAK_REGION, craftEssence:getY())
 	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.8)
 
 	return limitBreakRegion:exists(limitBreakPattern)

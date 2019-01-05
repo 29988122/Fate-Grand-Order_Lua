@@ -1,31 +1,8 @@
 -- modules
+local _game = require("game")
 local _ankuluaUtils = require("ankulua-utils")
 local _autoskill
 local _card
-
--- consts
-local BATTLE_REGION = Region(2105 + xOffset,1259 + yOffset,336,116) -- see docs/battle_region.png
-local ATTACK_CLICK = Location(2300 + xOffset,1200 + yOffset)
-local SKIP_DEATH_ANIMATION_CLICK = Location(1700 + xOffset, 100 + yOffset) -- see docs/skip_death_animation_click.png
-
--- see docs/target_regions.png
-local TARGET_REGION_ARRAY = {
-	Region(  0 + xOffset,0 + yOffset,485,220),
-	Region(485 + xOffset,0 + yOffset,482,220),
-	Region(967 + xOffset,0 + yOffset,476,220)
-}
-
-local TARGET_CLICK_ARRAY = {
-	Location(  90 + xOffset,80 + yOffset),
-	Location( 570 + xOffset,80 + yOffset),
-	Location(1050 + xOffset,80 + yOffset)
-}
-
-local TARGET_SELECTED_MARK_ARRAY = {
-	Region(  76 + xOffset,6 + yOffset,24,6),
-	Region( 560 + xOffset,6 + yOffset,24,6),
-	Region(1036 + xOffset,6 + yOffset,24,6)
-}
 
 -- state vars
 local _currentStage
@@ -79,7 +56,7 @@ resetState = function()
 end
 
 isIdle = function()
-	return BATTLE_REGION:exists(GeneralImagePath .. "battle.png")
+	return _game.BATTLE_SCREEN_REGION:exists(GeneralImagePath .. "battle.png")
 end
 
 getCurrentStage = function()
@@ -129,7 +106,7 @@ end
 skipDeathAnimation = function()
 	-- https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 Experimental
 	for i = 1, 3 do
-		click(SKIP_DEATH_ANIMATION_CLICK)
+		click(_game.BATTLE_SKIP_DEATH_ANIMATION_CLICK)
 		wait(1)
 	end
 end
@@ -146,11 +123,11 @@ didStageChange = function()
 	-- This will compare last screenshot with current screen, effectively get to know if stage changed or not.
 
 	local currentStagePattern = Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png"):similar(0.8)
-	return not StageCountRegion:exists(currentStagePattern)
+	return not _game.BATTLE_STAGE_COUNT_REGION:exists(currentStagePattern)
 end
 
 takeStageSnapshot = function()
-	StageCountRegion:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
+	_game.BATTLE_STAGE_COUNT_REGION:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
 	onStageSnapshotTaken()
 end
 
@@ -164,7 +141,7 @@ onStageChanged = function()
 end
 
 autoChooseTarget = function()
-	for i, target in ipairs(TARGET_REGION_ARRAY) do
+	for i, target in ipairs(_game.BATTLE_TARGET_REGION_ARRAY) do
 		if isPriorityTarget(target) then
 			chooseTarget(i)			
 			return
@@ -174,7 +151,7 @@ end
 
 isAlreadyTargeted = function(targetIndex)
 	Settings:set("MinSimilarity", 0.95)
-	local isTargeted = TARGET_SELECTED_MARK_ARRAY[targetIndex]:exists(GeneralImagePath .. "target_selected.png")
+	local isTargeted = _game.BATTLE_TARGET_SELECTED_MARK_ARRAY[targetIndex]:exists(GeneralImagePath .. "target_selected.png")
 	Settings:set("MinSimilarity", 0.7)
 	return isTargeted
 end
@@ -188,7 +165,7 @@ end
 
 chooseTarget = function(targetIndex)
 	if not isAlreadyTargeted(targetIndex) then
-		click(TARGET_CLICK_ARRAY[targetIndex])
+		click(_game.BATTLE_TARGET_CLICK_ARRAY[targetIndex])
 	end
 	onTargetChosen()
 end
@@ -202,7 +179,7 @@ hasChosenTarget = function()
 end
 
 clickAttack = function()
-	click(ATTACK_CLICK)
+	click(_game.BATTLE_ATTACK_CLICK)
 	wait(1.5) -- Although it seems slow, make it no shorter than 1 sec to protect user with less processing power devices.
 
 	onAttackClicked()
