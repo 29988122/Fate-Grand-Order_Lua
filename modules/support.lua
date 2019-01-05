@@ -154,7 +154,7 @@ scrollList = function()
 	}
 
 	-- I want the movement to be as accurate as possible
-	setManualTouchParameter(1, 1)
+	setManualTouchParameter(5, 5)
 	manualTouch(touchActions)
 end
 
