@@ -3,56 +3,35 @@
 	お願いします。このプログラムを禁止しないでください。
 --]]
 
---Other import such as ankulua-utils or string-utils are defined in support.lua.
+setImmersiveMode(true)
 package.path = package.path .. ";" .. dir .. 'modules/?.lua'
+
+-- consts
+GeneralImagePath = "image_" .. GameRegion .. "/"
+local IMAGE_WIDTH = 1280
+local IMAGE_HEIGHT = 720
+local SCRIPT_WIDTH = 2560
+local SCRIPT_HEIGHT = 1440
+
+-- imports
+local scaling = require("scaling")
+local game = scaling.ApplyAspectRatioFix(require("game"), SCRIPT_WIDTH, SCRIPT_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT)
 local support = require("support")
 local card = require("card")
 local battle = require("battle")
 local autoskill = require("autoskill")
 
---Main loop, pattern detection regions.
---Click pos are hard-coded, unlikely to change in the future.
-MenuRegion = Region(2100 + xOffset,1200 + yOffset,1000,1000)
-ResultRegion = Region(100 + xOffset,300 + yOffset,700,200)
-BondRegion = Region(2000 + xOffset,820 + yOffset,120,120)
-CEdetailRegion = Region(1000 + xOffset, 220 + yOffset, 40, 100)
-QuestrewardRegion = Region(1630 + xOffset,140 + yOffset,370,250)
-FriendrequestRegion = Region(660 + xOffset, 120 + yOffset, 140, 160)
-StaminaRegion = Region(600 + xOffset,200 + yOffset,300,300)
-
-AcceptClick = (Location(1650 + xOffset,1120 + yOffset))
-
-StoneClick = (Location(1270 + xOffset,345 + yOffset))
-GoldClick = (Location(1270 + xOffset,634 + yOffset))
-SilverClick = (Location(1270 + xOffset,922 + yOffset))
-BronzeClick = (Location(1270 + xOffset,1140 + yOffset))
-
-StartQuestClick = Location(2400 + xOffset,1350 + yOffset)
-StartQuestWithoutItemClick = Location(1652 + xOffset,1304 + yOffset) -- see docs/start_quest_without_item_click.png
-CEdetailCloseClick = Location(80 + xOffset, 60 + yOffset)
-QuestResultNextClick = Location(2200 + xOffset, 1350 + yOffset) -- see docs/quest_result_next_click.png
-
-GeneralImagePath = "image_" .. GameRegion .. "/"
-
---[[recognize speed realated functions:
-	1.setScanInterval(1)
-	2.Settings:set("MinSimilarity", 0.5)
-	3.Settings:set("AutoWaitTimeout", 1)
-	4.usePreviousSnap(true)
-	5.resolution 1280
-	6.exists(var ,0)
---]]
-
+-- functions
 function menu()
 	battle.resetState()
 	turnCounter = {0, 0, 0, 0, 0}
 
 	--Click uppermost quest.
-	click(Location(1900 + xOffset,400 + yOffset))
+	click(game.MENU_SELECT_QUEST_CLICK)
 	wait(1.5)
 
 	--Auto refill.
-	while StaminaRegion:exists(GeneralImagePath .. "stamina.png", 0) do
+	while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png", 0) do
 		RefillStamina()
 	end
 	
@@ -67,31 +46,31 @@ end
 function RefillStamina()
 	if Refill_Enabled == 1 and StoneUsed < Refill_Repetitions then
 		if Refill_Resource == "SQ" then
-			click(StoneClick)
+			click(game.STAMINA_SQ_CLICK)
 			wait(1)
-			click(AcceptClick)
+			click(game.STAMINA_OK_CLICK)
 			StoneUsed = StoneUsed + 1
 		elseif Refill_Resource == "All Apples" then
-			click(BronzeClick)
-			click(SilverClick)
-			click(GoldClick)
+			click(game.STAMINA_BRONZE_CLICK)
+			click(game.STAMINA_SILVER_CLICK)
+			click(game.STAMINA_GOLD_CLICK)
 			wait(1)
-			click(AcceptClick)
+			click(game.STAMINA_OK_CLICK)
 			StoneUsed = StoneUsed + 1
 		elseif Refill_Resource == "Gold" then
-			click(GoldClick)
+			click(game.STAMINA_GOLD_CLICK)
 			wait(1)
-			click(AcceptClick)
+			click(game.STAMINA_OK_CLICK)
 			StoneUsed = StoneUsed + 1
 		elseif Refill_Resource == "Silver" then
-			click(SilverClick)
+			click(game.STAMINA_SILVER_CLICK)
 			wait(1)
-			click(AcceptClick)
+			click(game.STAMINA_OK_CLICK)
 			StoneUsed = StoneUsed + 1
 		elseif Refill_Resource == "Bronze" then
-			click(BronzeClick)
+			click(game.STAMINA_BRONZE_CLICK)
 			wait(1)
-			click(AcceptClick)
+			click(game.STAMINA_OK_CLICK)
 			StoneUsed = StoneUsed + 1
 		end
 		wait(3)
@@ -101,34 +80,34 @@ function RefillStamina()
 end
 
 function startQuest()
-	click(StartQuestClick)
+	click(game.MENU_START_QUEST_CLICK)
 
 	if isEvent == 1 then
 		wait(2)
-		click(StartQuestWithoutItemClick)
+		click(game.MENU_START_QUEST_WITHOUT_ITEM_CLICK)
 	end
 end
 
 function result()
 	--Check document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
-	continueClick(QuestResultNextClick,45)
+	continueClick(game.RESULT_NEXT_CLICK,45)
 	wait(5)
 
-	if CEdetailRegion:exists(Pattern(GeneralImagePath .. "ce_reward.png")) ~= nil then
-		click(CEdetailCloseClick)
-		continueClick(QuestResultNextClick,35) --Still need to proceed through reward screen.
+	if game.RESULT_CE_REWARD_REGION:exists(Pattern(GeneralImagePath .. "ce_reward.png")) ~= nil then
+		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
+		continueClick(game.RESULT_NEXT_CLICK,35) --Still need to proceed through reward screen.
 	end
 
 	--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
-	if FriendrequestRegion:exists(Pattern(GeneralImagePath .. "friendrequest.png")) ~= nil then
-		click(Location(600 + xOffset,1200 + yOffset))
+	if game.RESULT_FRIEND_REQUEST_REGION:exists(Pattern(GeneralImagePath .. "friendrequest.png")) ~= nil then
+		click(game.RESULT_FRIEND_REQUEST_REJECT_CLICK)
 	end
 
 	wait(15)
 
 	--1st time quest reward screen.
-	if QuestrewardRegion:exists(Pattern(GeneralImagePath .. "questreward.png")) ~= nil then
-		click(Location(100 + xOffset,100 + yOffset))
+	if game.RESULT_QUEST_REWARD_REGION:exists(Pattern(GeneralImagePath .. "questreward.png")) ~= nil then
+		click(game.RESULT_NEXT_CLICK)
 	end
 end
 
@@ -194,26 +173,25 @@ end
 
 function init()
 	--Set only ONCE for every separated script run.
+	autoskill.init(battle, card)
+	battle.init(autoskill, card)
+	card.init(autoskill, battle)
+
 	toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
 		
 	StoneUsed = 0
 	PSADialogue()
-
-	autoskill.init(battle, card)
-	battle.init(autoskill, card)
-	card.init(autoskill, battle)
-	
 end
 
 init()
 while(1) do
-	if MenuRegion:exists(GeneralImagePath .. "menu.png", 0) then
+	if game.MENU_SCREEN_REGION:exists(GeneralImagePath .. "menu.png", 0) then
 		menu()
 	end
 	if battle.isIdle() then
 		battle.performBattle()
 	end
-	if ResultRegion:exists(Pattern(GeneralImagePath .. "result.png"), 0) or BondRegion:exists(Pattern(GeneralImagePath .. "bond.png"), 0) then
+	if game.RESULT_SCREEN_REGION:exists(Pattern(GeneralImagePath .. "result.png"), 0) or game.RESULT_BOND_REGION:exists(Pattern(GeneralImagePath .. "bond.png"), 0) then
 		result()
 	end
 end
