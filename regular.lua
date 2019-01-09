@@ -2,8 +2,6 @@
 	私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
 	お願いします。このプログラムを禁止しないでください。
 --]]
-
-setImmersiveMode(true)
 package.path = package.path .. ";" .. dir .. 'modules/?.lua'
 
 -- consts
@@ -15,7 +13,7 @@ local SCRIPT_HEIGHT = 1440
 
 -- imports
 local scaling = require("scaling")
-local game = scaling.ApplyAspectRatioFix(require("game"), SCRIPT_WIDTH, SCRIPT_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT)
+local game = require("game")
 local support = require("support")
 local card = require("card")
 local battle = require("battle")
@@ -173,6 +171,10 @@ end
 
 function init()
 	--Set only ONCE for every separated script run.
+	Settings:setCompareDimension(true, IMAGE_WIDTH)
+	Settings:setScriptDimension(true, SCRIPT_WIDTH)
+	scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT)
+	
 	autoskill.init(battle, card)
 	battle.init(autoskill, card)
 	card.init(autoskill, battle)
