@@ -7,11 +7,7 @@ local function DecideScaleToFitRate(originalWidth, originalHeight, desiredWidth,
 	local rateToScaleByWidth = desiredWidth / originalWidth
 	local rateToScaleByHeight = desiredHeight / originalHeight
 
-	if rateToScaleByWidth < rateToScaleByHeight then
-		return rateToScaleByWidth
-	else
-		return rateToScaleByHeight
-	end
+	return math.min(rateToScaleByWidth, rateToScaleByHeight)
 end
 
 local function Scale(originalWidth, originalHeight, rate)
