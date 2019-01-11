@@ -46,6 +46,16 @@ function scaling.ApplyAspectRatioFix(scriptWidth, scriptHeight)
 	local gameWithoutBorders = CalculateGameRegionWithoutBorders(scriptWidth, scriptHeight, gameWithBorders:getW(), gameWithBorders:getH())
 	local gameWithoutBordersAndNotch = ApplyNotchOffset(gameWithoutBorders, gameWithBorders:getX())
 
+	dialogInit()
+	local message = "gameWithBorders: Region(%i, %i, %i, %i)\n"
+	message = message .. "gameWithoutBorders: Region(%i, %i, %i, %i)\n"
+	message = message .. "gameWithoutBordersAndNotch: Region(%i, %i, %i, %i)"
+	message = message:format(gameWithBorders:getX(), gameWithBorders:getY(), gameWithBorders:getW(), gameWithBorders:getH()
+						   , gameWithoutBorders:getX(), gameWithoutBorders:getY(), gameWithoutBorders:getW(), gameWithoutBorders:getH()
+						   , gameWithoutBordersAndNotch:getX(), gameWithoutBordersAndNotch:getY(), gameWithoutBordersAndNotch:getW(), gameWithoutBordersAndNotch:getH())
+	addTextView(message)
+	dialogShow("Resolution")
+
     setGameArea(gameWithoutBordersAndNotch)
 end
 
