@@ -175,14 +175,14 @@ function init()
 	Settings:setScriptDimension(true, SCRIPT_WIDTH)
 	scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT)
 	
+	StoneUsed = 0
+	PSADialogue()
+
 	autoskill.init(battle, card)
 	battle.init(autoskill, card)
 	card.init(autoskill, battle)
 
 	toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
-		
-	StoneUsed = 0
-	PSADialogue()
 end
 
 init()
