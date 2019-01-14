@@ -47,14 +47,10 @@ function scaling.ApplyAspectRatioFix(scriptWidth, scriptHeight)
 	local gameWithoutBordersAndNotch = ApplyNotchOffset(gameWithoutBorders, gameWithBorders:getX())
 
 	dialogInit()
-	local message = "getRealScreenSize(): %ix%i\n"
-	message = message .. "getAppUsableScreenSize(): %ix%i\n"
-	message = message .. "gameWithBorders: Region(%i, %i, %i, %i)\n"
+	local message = "gameWithBorders: Region(%i, %i, %i, %i)\n"
 	message = message .. "gameWithoutBorders: Region(%i, %i, %i, %i)\n"
 	message = message .. "gameWithoutBordersAndNotch: Region(%i, %i, %i, %i)"
-	message = message:format(getRealScreenSize():getX(), getRealScreenSize():getY()
-	                       , getAppUsableScreenSize():getX(), getAppUsableScreenSize():getY()
-		                   , gameWithBorders:getX(), gameWithBorders:getY(), gameWithBorders:getW(), gameWithBorders:getH()
+	message = message:format(gameWithBorders:getX(), gameWithBorders:getY(), gameWithBorders:getW(), gameWithBorders:getH()
 						   , gameWithoutBorders:getX(), gameWithoutBorders:getY(), gameWithoutBorders:getW(), gameWithoutBorders:getH()
 						   , gameWithoutBordersAndNotch:getX(), gameWithoutBordersAndNotch:getY(), gameWithoutBordersAndNotch:getW(), gameWithoutBordersAndNotch:getH())
 	addTextView(message)
