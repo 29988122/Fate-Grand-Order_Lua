@@ -172,7 +172,7 @@ canClickNpCards = function()
 	local weCanSpam = Battle_NoblePhantasm == "spam"
 	local weAreInDanger = Battle_NoblePhantasm == "danger" and _battle.hasChosenTarget()
 
-	return (weCanSpam or weAreInDanger) and _autoskill.hasFinishedCastingNp()
+	return (weCanSpam or weAreInDanger) and _autoskill.IsFinished()
 end
 
 clickNpCards = function()

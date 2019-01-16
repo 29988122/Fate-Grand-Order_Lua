@@ -47,7 +47,7 @@ init = function(autoskill, card)
 end
 
 resetState = function()
-	_autoskill.resetState()
+	_autoskill.ResetState()
 	_currentStage = 0
 	_currentTurn = 0
 	_hasTakenFirstStageSnapshot = false
@@ -72,7 +72,7 @@ performBattle = function()
 	wait(2)
 	
 	if Enable_Autoskill == 1 then
-		_autoskill.executeSkill()
+		_autoskill.Execute()
 	end
 
 	-- maybe Autoskill already did this, so we need to check
@@ -137,6 +137,7 @@ end
 
 onStageChanged = function()
 	_currentStage = _currentStage + 1
+	_currentTurn = 0
 	_hasChosenTarget = false
 end
 

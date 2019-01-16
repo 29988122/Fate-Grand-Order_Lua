@@ -178,7 +178,7 @@ function init()
 	StoneUsed = 0
 	PSADialogue()
 
-	autoskill.init(battle, card)
+	autoskill.Init(battle, card)
 	battle.init(autoskill, card)
 	card.init(autoskill, battle)
 
