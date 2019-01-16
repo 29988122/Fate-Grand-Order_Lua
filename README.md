@@ -55,7 +55,7 @@ As of 2018.12.30, this script is **working without root** / without being blocke
 ## Install:
 1. **On Android**, install the latest version of AnkuLua(Sikuli) framework. https://play.google.com/store/apps/details?id=com.appautomatic.ankulua.trial
 
-2. Download the latest [release](https://github.com/29988122/Fate-Grand-Order_Lua/releases) of script, extract it **on PC**.
+2. Download the latest [release](https://github.com/29988122/Fate-Grand-Order_Lua/archive/master.zip) of script, extract it **on PC**.
 
 3. Copy the whole extracted folder into your Android phone or emulator.
 
