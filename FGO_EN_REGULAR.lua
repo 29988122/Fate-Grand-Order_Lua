@@ -1,13 +1,9 @@
---Default, I suggest you not to modify them
+--Internal settings - do not modify.
+--***************************************************************************
 dir = scriptPath()
 setImagePath(dir)
-
 GameRegion = "EN"
 StageCountRegion = Region(1722,25,46,53)
-
---[[Experimental https://github.com/29988122/Fate-Grand-Order_Lua/issues/55 
-    UnstableFastSkipDeadAnimation = 1
---]]
 
 --Initalize for user input listnames
 Autoskill_List = {}
@@ -17,25 +13,18 @@ for i = 1, 10 do
         Autoskill_List[i][j] = 0
     end
 end
+--***************************************************************************
 
---StaminaRefill
+
+
+--Script Configuration, check instructions here: https://github.com/29988122/Fate-Grand-Order_Lua/wiki/Script-configuration-English
+--***************************************************************************
+--AutoRefill Stamina
 Refill_Enabled = 0
-
---[[ Can be set to any of the following:
-    "SQ"         Use Saint Quartz for refills
-    "All Apples"    Use all available Apples for refills
-    "Gold"          Use only Gold Apples for refills
-    "Silver"        Use only Silver Apples for refills
-    "Bronze"        Use only Bronze Apples for refills
-]]
 Refill_Resource = "All Apples"
-
--- Represents the amount of times a refill will happen.
--- Is NOT a counter for number of Apples used when Bronze apples are included
 Refill_Repetitions = 0
 
---Support selection possible options: "first"; "preferred"; "manual"
---Please check the details here https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#autosupportselection
+--AutoSupportSelection
 Support_SelectionMode = "first"
 Support_SwipesPerUpdate = 10
 Support_MaxUpdates = 3
@@ -44,44 +33,14 @@ Support_FriendsOnly = 0
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
 Support_PreferredCEs = "*chaldea_lunchtime.png"
 
---[[
-AutoSkill:
-',' = Turn counter
-',#,' = Battle counter
-'0' = Skip 1 turn
-
-Servant skill = a b c	d e f	g h i
-Master skill = j k l
-Target Servant = 1 2 3
-Activate Servant NP = 4 5 6
-
-Please insert your command in between the "".
-
-eg:
-Skill_Command = "bce,0,f3hi,#,j2d,#,4,a1g3"
-
-Battle 1:
-Turn 1 - Servant 1 skill b, c, Servant 2 skill e
-Turn 2 - No skill
-Turn 3 - Servant 2 skill f on servant 3, Servant 3 skill h, i
-
-Battle 2:
-Turn 1 - Master skill j on servant 2, Servant 2 skill d
-
-Battle 3:
-Turn 1 - Activate NP servant 1
-Turn 2 - Servant 1 skill a on self, Servant 3 skill g on self
-
-Skill_Confirmation: OFF = 0
-(When you need to confirm skill use) ON = 1
---]]
+--AutoSkill
 Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = "abc,#,def,#,ghi"
 
---When Enable_Autoskill_List = 1, the script starts with a dialogue for you to choose Autoskill setting from one of the predefined list
+--AutoSkillList
 Enable_Autoskill_List = 0
---The folllowing are predefined settings by user
+
 Autoskill_List[1][1] = "Settings No.1"
 Autoskill_List[1][2] = "abc,#,def,#,ghi"
 
@@ -112,32 +71,15 @@ Autoskill_List[9][2] = ""
 Autoskill_List[10][1] = "Settings No.10"
 Autoskill_List[10][2] = ""
 
---[[
-You can change card selection priority. 
-Two modes are available.
-Simple Mode:
-For example, "BAQ" stands for weak buster->buster->resist buster->weak arts->arts->resist arts->weak quick->quick->resist quick
+--Card Priority Customization
 Battle_CardPriority = "BAQ"
-
-Detailed Mode:
-For example, "WA, WB, WQ, A, B, Q, RA, RQ, RB" stands for weak arts->weak buster->weak buster->arts->buster->quick->resist arts->resist buster->resist quick
-Battle_CardPriority = "WA, WB, WQ, A, B, Q, RA, RQ, RB"
-
-Refer https://github.com/29988122/Fate-Grand-Order_Lua#card-priority-customization for details.
---]]
-Battle_CardPriority = "BAQ"
-
+--AutoChooseTarget
 Battle_AutoChooseTarget = 1
-
---[[
-Noble Phantasm Behavior:
-• disabled: Will never cast NPs automatically. If you have Autoskill enabled, please use this option.
-• danger: Will cast NPs only when there are DANGER or SERVANT enemies on the screen. This option will probably mess up your Autoskill orders.
-• spam: Will cast NPs as soon as they are available.
-Check https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/README.md#noble-phantasm-behavior for further detail.
---]]
+--NoblePhantasm Casting
 Battle_NoblePhantasm = "disabled" 
-
---Whenever there's additional event point reward window to be clicked through, isEvent = 1. Please check the details on github.
+--FastSkipDeadAnimation
+UnstableFastSkipDeadAnimation = 0
+--Event Stage
 isEvent = 0
+
 dofile(dir .. "regular.lua")
