@@ -33,7 +33,7 @@ init = function()
 		local values = {}
 
 		for value in str:gmatch("[^,]+") do
-			value = stringUtils.trim(value)
+			value = stringUtils.Trim(value)
 
 			if value:lower() ~= "any" then
 				table.insert(values, value)
@@ -45,18 +45,18 @@ init = function()
 
 	-- servants
 	for _, servant in ipairs(split(Support_PreferredServants)) do
-		servant = stringUtils.trim(servant)
+		servant = stringUtils.Trim(servant)
 		table.insert(PreferredServantArray, servant)
 	end
 
 	-- craft essences
 	for _, craftEssence in ipairs(split(Support_PreferredCEs)) do
-		craftEssence = stringUtils.trim(craftEssence)
+		craftEssence = stringUtils.Trim(craftEssence)
 
 		local craftEssenceEntry =
 		{
 			Name = craftEssence:gsub("%" .. LimitBrokenCharacter, ""),
-			PreferLimitBroken = stringUtils.starts_with(craftEssence, LimitBrokenCharacter)
+			PreferLimitBroken = stringUtils.StartsWith(craftEssence, LimitBrokenCharacter)
 		}
 
 		table.insert(PreferredCraftEssenceTable, craftEssenceEntry)
