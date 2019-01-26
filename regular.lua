@@ -204,7 +204,7 @@ local SCREENS = {
 
 Init()
 while(true) do
-	local actor = ankuluaUtils.useSameSnapIn(function()
+	local actor = ankuluaUtils.UseSameSnapIn(function()
 		for _, screen in pairs(SCREENS) do
 			if screen.Validator() then
 				return screen.Actor

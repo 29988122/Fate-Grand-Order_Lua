@@ -162,7 +162,7 @@ searchVisible = function(searchMethod)
 	end
 
 	-- see https://www.lua.org/pil/5.1.html for details on "unpack"
-	return unpack(ankuluaUtils.useSameSnapIn(performSearch))
+	return unpack(ankuluaUtils.UseSameSnapIn(performSearch))
 end
 
 decideSearchMethod = function()
@@ -237,7 +237,7 @@ end
 
 findSupportBounds = function(support)
 	for _, supportBounds in ipairs(game.SUPPORT_LIST_ITEM_REGION_ARRAY) do
-		if ankuluaUtils.doesRegionContain(supportBounds, support) then
+		if ankuluaUtils.DoesRegionContain(supportBounds, support) then
 			return supportBounds
 		end
 	end

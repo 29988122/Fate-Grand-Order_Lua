@@ -152,7 +152,7 @@ getCommandCards = function()
 		end
 	end
 	
-	_ankuluaUtils.useSameSnapIn(storeCards)
+	_ankuluaUtils.UseSameSnapIn(storeCards)
 	return storagePerPriority
 end
 
