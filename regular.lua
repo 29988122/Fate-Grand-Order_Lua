@@ -23,32 +23,7 @@ local autoskill = require("autoskill")
 -- fields
 local StoneUsed = 0
 
-local function IsInMenu()
-	return game.MENU_SCREEN_REGION:exists(GeneralImagePath .. "menu.png")
-end
-
 -- functions
-local function Menu()
-	battle.resetState()
-	turnCounter = {0, 0, 0, 0, 0}
-
-	--Click uppermost quest.
-	click(game.MENU_SELECT_QUEST_CLICK)
-	wait(1.5)
-
-	--Auto refill.
-	while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
-		RefillStamina()
-	end
-	
-	--Friend selection.
-	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
-	if hasSelectedSupport then
-		wait(2.5)
-		StartQuest()
-	end
-end
-
 local function RefillStamina()
 	if Refill_Enabled == 1 and StoneUsed < Refill_Repetitions then
 		if Refill_Resource == "SQ" then
@@ -82,6 +57,31 @@ local function RefillStamina()
 		wait(3)
 	else
 		scriptExit("AP ran out!")
+	end
+end
+
+local function IsInMenu()
+	return game.MENU_SCREEN_REGION:exists(GeneralImagePath .. "menu.png")
+end
+
+local function Menu()
+	battle.resetState()
+	turnCounter = {0, 0, 0, 0, 0}
+
+	--Click uppermost quest.
+	click(game.MENU_SELECT_QUEST_CLICK)
+	wait(1.5)
+
+	--Auto refill.
+	while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
+		RefillStamina()
+	end
+	
+	--Friend selection.
+	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
+	if hasSelectedSupport then
+		wait(2.5)
+		StartQuest()
 	end
 end
 
