@@ -60,6 +60,15 @@ local function RefillStamina()
 	end
 end
 
+local function StartQuest()
+	click(game.MENU_START_QUEST_CLICK)
+
+	if isEvent == 1 then
+		wait(2)
+		click(game.MENU_START_QUEST_WITHOUT_ITEM_CLICK)
+	end
+end
+
 local function IsInMenu()
 	return game.MENU_SCREEN_REGION:exists(GeneralImagePath .. "menu.png")
 end
@@ -82,15 +91,6 @@ local function Menu()
 	if hasSelectedSupport then
 		wait(2.5)
 		StartQuest()
-	end
-end
-
-local function StartQuest()
-	click(game.MENU_START_QUEST_CLICK)
-
-	if isEvent == 1 then
-		wait(2)
-		click(game.MENU_START_QUEST_WITHOUT_ITEM_CLICK)
 	end
 end
 
