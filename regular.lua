@@ -89,7 +89,7 @@ end
 function result()
 	--Check document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
 	continueClick(game.RESULT_NEXT_CLICK,45)
-	wait(5)
+	wait(10)
 
 	if game.RESULT_CE_REWARD_REGION:exists(Pattern(GeneralImagePath .. "ce_reward.png")) ~= nil then
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)

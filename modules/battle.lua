@@ -151,7 +151,7 @@ autoChooseTarget = function()
 end
 
 isAlreadyTargeted = function(targetIndex)
-	Settings:set("MinSimilarity", 0.95)
+	Settings:set("MinSimilarity", 0.83)
 	local isTargeted = _game.BATTLE_TARGET_SELECTED_MARK_ARRAY[targetIndex]:exists(GeneralImagePath .. "target_selected.png")
 	Settings:set("MinSimilarity", 0.7)
 	return isTargeted
