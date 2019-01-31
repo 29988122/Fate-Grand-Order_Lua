@@ -118,7 +118,11 @@ local function Result()
 
 	if game.RESULT_CE_REWARD_REGION:exists(Pattern(GeneralImagePath .. "ce_reward.png")) ~= nil then
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
+		wait(1)
+		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
 	end
+
+	wait(5)
 
 	--1st time quest reward screen.
 	if game.RESULT_QUEST_REWARD_REGION:exists(Pattern(GeneralImagePath .. "questreward.png")) ~= nil then

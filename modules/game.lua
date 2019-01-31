@@ -36,6 +36,7 @@ game.SUPPORT_FIRST_SUPPORT_CLICK = Location(1900,500)
 
 game.BATTLE_SCREEN_REGION = Region(2105,1259,336,116) -- see docs/battle_region.png
 game.BATTLE_STAGE_COUNT_REGION = StageCountRegion -- this is provided by the config file
+game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK = Location(2550,0)
 game.BATTLE_ATTACK_CLICK = Location(2300,1200)
 game.BATTLE_SKIP_DEATH_ANIMATION_CLICK = Location(1700, 100) -- see docs/skip_death_animation_click.png
 
@@ -50,12 +51,6 @@ game.BATTLE_TARGET_CLICK_ARRAY = {
 	Location(90,80),
 	Location(570,80),
 	Location(1050,80)
-}
-
-game.BATTLE_TARGET_SELECTED_MARK_ARRAY = {
-	Region(76,6,24,6),
-	Region(560,6,24,6),
-	Region(1036,6,24,6)
 }
 
 game.BATTLE_SKILL_1_CLICK = Location(140,1160)

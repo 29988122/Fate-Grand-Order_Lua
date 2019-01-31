@@ -150,13 +150,6 @@ autoChooseTarget = function()
 	end
 end
 
-isAlreadyTargeted = function(targetIndex)
-	Settings:set("MinSimilarity", 0.83)
-	local isTargeted = _game.BATTLE_TARGET_SELECTED_MARK_ARRAY[targetIndex]:exists(GeneralImagePath .. "target_selected.png")
-	Settings:set("MinSimilarity", 0.7)
-	return isTargeted
-end
-
 isPriorityTarget = function(target)
 	local isDanger = target:exists(GeneralImagePath .. "target_danger.png")
 	local isServant = target:exists(GeneralImagePath .. "target_servant.png")
@@ -165,9 +158,9 @@ isPriorityTarget = function(target)
 end
 
 chooseTarget = function(targetIndex)
-	if not isAlreadyTargeted(targetIndex) then
-		click(_game.BATTLE_TARGET_CLICK_ARRAY[targetIndex])
-	end
+	click(_game.BATTLE_TARGET_CLICK_ARRAY[targetIndex])
+	wait(0.5)
+	click(_game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK)
 	onTargetChosen()
 end
 
