@@ -12,6 +12,7 @@ local SCRIPT_WIDTH = 2560
 local SCRIPT_HEIGHT = 1440
 
 -- imports
+local ankuluaUtils = require("ankulua-utils")
 local scaling = require("scaling")
 local game = require("game")
 local support = require("support")
@@ -19,29 +20,11 @@ local card = require("card")
 local battle = require("battle")
 local autoskill = require("autoskill")
 
+-- fields
+local StoneUsed = 0
+
 -- functions
-function menu()
-	battle.resetState()
-	turnCounter = {0, 0, 0, 0, 0}
-
-	--Click uppermost quest.
-	click(game.MENU_SELECT_QUEST_CLICK)
-	wait(1.5)
-
-	--Auto refill.
-	while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png", 0) do
-		RefillStamina()
-	end
-	
-	--Friend selection.
-	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
-	if hasSelectedSupport then
-		wait(2.5)
-		startQuest()
-	end
-end
-
-function RefillStamina()
+local function RefillStamina()
 	if Refill_Enabled == 1 and StoneUsed < Refill_Repetitions then
 		if Refill_Resource == "SQ" then
 			click(game.STAMINA_SQ_CLICK)
@@ -77,7 +60,7 @@ function RefillStamina()
 	end
 end
 
-function startQuest()
+local function StartQuest()
 	click(game.MENU_START_QUEST_CLICK)
 
 	if isEvent == 1 then
@@ -86,8 +69,37 @@ function startQuest()
 	end
 end
 
-function result()
-	--Check document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
+local function IsInMenu()
+	return game.MENU_SCREEN_REGION:exists(GeneralImagePath .. "menu.png")
+end
+
+local function Menu()
+	battle.resetState()
+	turnCounter = {0, 0, 0, 0, 0}
+
+	--Click uppermost quest.
+	click(game.MENU_SELECT_QUEST_CLICK)
+	wait(1.5)
+
+	--Auto refill.
+	while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
+		RefillStamina()
+	end
+	
+	--Friend selection.
+	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
+	if hasSelectedSupport then
+		wait(2.5)
+		StartQuest()
+	end
+end
+
+local function IsInResult()
+	return game.RESULT_SCREEN_REGION:exists(GeneralImagePath .. "result.png") or game.RESULT_BOND_REGION:exists(GeneralImagePath .. "bond.png")
+end
+
+local function Result()
+	--Validator document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
 	continueClick(game.RESULT_NEXT_CLICK,45)
 	wait(10)
 
@@ -110,7 +122,7 @@ function result()
 end
 
 --User option PSA dialogue. Also choosble list of perdefined skill.
-function PSADialogue()
+local function PSADialogue()
 	dialogInit()
 	--Auto Refill dialogue content generation.
 	if Refill_Enabled == 1 then
@@ -169,13 +181,12 @@ function PSADialogue()
 	end
 end
 
-function init()
+local function Init()
 	--Set only ONCE for every separated script run.
 	Settings:setCompareDimension(true, IMAGE_WIDTH)
 	Settings:setScriptDimension(true, SCRIPT_WIDTH)
 	scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT)
-	
-	StoneUsed = 0
+
 	PSADialogue()
 
 	autoskill.Init(battle, card)
@@ -185,15 +196,25 @@ function init()
 	toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
 end
 
-init()
-while(1) do
-	if game.MENU_SCREEN_REGION:exists(GeneralImagePath .. "menu.png", 0) then
-		menu()
+local SCREENS = {
+	{ Validator = battle.isIdle, Actor = battle.performBattle },
+	{ Validator = IsInMenu,      Actor = Menu },
+	{ Validator = IsInResult,    Actor = Result }
+}
+
+Init()
+while(true) do
+	local actor = ankuluaUtils.UseSameSnapIn(function()
+		for _, screen in pairs(SCREENS) do
+			if screen.Validator() then
+				return screen.Actor
+			end
+		end
+	end)
+
+	if actor ~= nil then
+		actor()
 	end
-	if battle.isIdle() then
-		battle.performBattle()
-	end
-	if game.RESULT_SCREEN_REGION:exists(Pattern(GeneralImagePath .. "result.png"), 0) or game.RESULT_BOND_REGION:exists(Pattern(GeneralImagePath .. "bond.png"), 0) then
-		result()
-	end
+
+	wait(1)
 end

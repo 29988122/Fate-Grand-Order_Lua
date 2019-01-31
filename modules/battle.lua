@@ -68,7 +68,7 @@ getCurrentTurn = function()
 end
 
 performBattle = function()
-	_ankuluaUtils.useSameSnapIn(onTurnStarted)
+	_ankuluaUtils.UseSameSnapIn(onTurnStarted)
 	wait(2)
 	
 	if Enable_Autoskill == 1 then
