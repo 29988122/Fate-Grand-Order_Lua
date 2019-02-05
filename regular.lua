@@ -192,9 +192,7 @@ end
 
 local function Init()
 	--Set only ONCE for every separated script run.
-	Settings:setCompareDimension(true, IMAGE_WIDTH)
-	Settings:setScriptDimension(true, SCRIPT_WIDTH)
-	scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT)
+	scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT)
 
 	PSADialogue()
 
