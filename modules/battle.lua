@@ -1,6 +1,7 @@
 -- modules
 local _game = require("game")
 local _ankuluaUtils = require("ankulua-utils")
+local _luaUtils = require("lua-utils")
 local _autoskill
 local _card
 
@@ -142,7 +143,11 @@ onStageChanged = function()
 end
 
 autoChooseTarget = function()
-	for i, target in ipairs(_game.BATTLE_TARGET_REGION_ARRAY) do
+	-- from my experience, most boss stages are ordered like (Servant 1)(Servant 2)(Servant 3),
+	-- where (Servant 3) is the most powerful one. see docs/boss_stage.png
+	-- that's why the table is iterated backwards.
+
+	for i, target in _luaUtils.Reverse(_game.BATTLE_TARGET_REGION_ARRAY) do
 		if isPriorityTarget(target) then
 			chooseTarget(i)			
 			return
