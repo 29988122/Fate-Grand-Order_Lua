@@ -49,6 +49,7 @@ local function CastNoblePhantasm(location)
 	return function()
 		if not battle.hasClickedAttack() then
 			battle.clickAttack()
+                        wait(2)  -- There is a delay after clicking attack before NP Cards come up. DON'T DELETE!
 		end
 
 		click(location)
