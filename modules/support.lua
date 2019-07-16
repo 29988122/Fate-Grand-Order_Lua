@@ -84,6 +84,7 @@ end
 
 selectFirst = function()
 	click(game.SUPPORT_FIRST_SUPPORT_CLICK)
+	--https://github.com/29988122/Fate-Grand-Order_Lua/issues/192 , band-aid fix but it's working well. 
 	if game.SUPPORT_SCREEN_REGION:exists(GeneralImagePath .. "support_screen.png") then
 		wait(2)
 		while game.SUPPORT_SCREEN_REGION:exists(GeneralImagePath .. "support_screen.png")
