@@ -76,6 +76,9 @@ local function BeginOrderChange()
 	return function()
 		OpenMasterSkillMenu()
 		click(game.BATTLE_MASTER_SKILL_3_CLICK)
+		if Skill_Confirmation == 1 then
+			click(game.BATTLE_SKILL_OK_CLICK)
+		end
 		wait(0.3)
 
 		ChangeArray(STARTING_MEMBER_FUNCTION_ARRAY)
