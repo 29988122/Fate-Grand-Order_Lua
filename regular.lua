@@ -92,13 +92,6 @@ local function Menu()
 	while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
 		RefillStamina()
 	end
-	
-	--Friend selection.
-	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
-	if hasSelectedSupport then
-		wait(2.5)
-		StartQuest()
-	end
 end
 
 local function IsInResult()
@@ -108,22 +101,33 @@ end
 local function Result()
 	--Validator document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
 	continueClick(game.RESULT_NEXT_CLICK,45)
+        
+        if Region(1400,1000,600,200):exists(GeneralImagePath .. "confirm.png") then
+                click(AcceptClick)
+                wait(1.5)
+
+                --Auto refill.
+	        while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
+	   	        RefillStamina()
+	        end
+        else
+
 
 	wait(5)
 
-	if game.RESULT_CE_REWARD_REGION:exists(Pattern(GeneralImagePath .. "ce_reward.png")) ~= nil then
+	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
 		continueClick(game.RESULT_NEXT_CLICK,35) --Still need to proceed through reward screen.
 	end
 
 	--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
-	if game.RESULT_FRIEND_REQUEST_REGION:exists(Pattern(GeneralImagePath .. "friendrequest.png")) ~= nil then
+	if game.RESULT_FRIEND_REQUEST_REGION:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
 		click(game.RESULT_FRIEND_REQUEST_REJECT_CLICK)
 	end
 
 	wait(15)
 
-	if game.RESULT_CE_REWARD_REGION:exists(Pattern(GeneralImagePath .. "ce_reward.png")) ~= nil then
+	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
 		wait(1)
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
@@ -132,9 +136,25 @@ local function Result()
 	wait(5)
 
 	--1st time quest reward screen.
-	if game.RESULT_QUEST_REWARD_REGION:exists(Pattern(GeneralImagePath .. "questreward.png")) ~= nil then
+	if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png") ~= nil then
 		click(game.RESULT_NEXT_CLICK)
 	end
+        end
+end
+
+local function IsInSupport()
+        return game.SUPPORT_SCREEN_REGION:exists(GeneralImagePath .. "support_screen.png")
+end
+
+local function Support()
+
+	--Friend selection.
+	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
+	if hasSelectedSupport then
+		wait(2.5)
+		StartQuest()
+	end
+
 end
 
 --User option PSA dialogue. Also choosble list of perdefined skill.
@@ -213,7 +233,8 @@ end
 local SCREENS = {
 	{ Validator = battle.isIdle, Actor = battle.performBattle },
 	{ Validator = IsInMenu,      Actor = Menu },
-	{ Validator = IsInResult,    Actor = Result }
+	{ Validator = IsInResult,    Actor = Result},
+        { Validator = IsInSupport,   Actor = Support}
 }
 
 Init()
