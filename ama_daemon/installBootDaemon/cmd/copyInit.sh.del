@@ -1,4 +1,0 @@
-mount -rw -o remount /system
-cp /system/bin/init.sh /sdcard/installBootDaemon.tmp/init.sh.org
-
-
