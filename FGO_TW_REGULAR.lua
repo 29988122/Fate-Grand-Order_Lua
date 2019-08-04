@@ -33,6 +33,14 @@ Support_FriendsOnly = 0
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
 Support_PreferredCEs = "*chaldea_lunchtime.png"
 
+--BoostItem
+BoostItem_SelectionMode = "disabled" --[[
+	possible values: disabled, 1, 2 or 3
+	if you want to use this, make sure "Confirm Use of Boost Item" is off
+	
+	TODO: move this explanation to the documentation
+--]]
+
 --自動施放技能
 Enable_Autoskill = 0
 Skill_Confirmation = 0
@@ -79,7 +87,5 @@ Battle_AutoChooseTarget = 1
 Battle_NoblePhantasm = "disabled"
 --快速跳過死亡動畫
 UnstableFastSkipDeadAnimation = 0
---活動關卡
-isEvent = 0
 
 dofile(dir .. "regular.lua")

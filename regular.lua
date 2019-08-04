@@ -63,9 +63,16 @@ end
 local function StartQuest()
 	click(game.MENU_START_QUEST_CLICK)
 
-	if isEvent == 1 then
-		wait(2)
-		click(game.MENU_START_QUEST_WITHOUT_ITEM_CLICK)
+	-- old scripts might not have this option set
+	-- don't wanna force everyone to update their configs
+	if BoostItem_SelectionMode ~= nil then	
+		if game.MENU_BOOST_ITEM_CLICK_ARRAY[BoostItem_SelectionMode] ~= nil then
+			wait(2)
+			click(game.MENU_BOOST_ITEM_CLICK_ARRAY[BoostItem_SelectionMode])
+			click(game.MENU_BOOST_ITEM_SKIP_CLICK) -- in case you run out of items
+		else
+			scriptExit("Invalid boost item selection mode: \"" + BoostItem_SelectionMode + "\".")
+		end
 	end
 end
 

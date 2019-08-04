@@ -3,7 +3,18 @@ local game = {}
 game.MENU_SCREEN_REGION = Region(2100,1200,1000,1000)
 game.MENU_SELECT_QUEST_CLICK = Location(1900,400)
 game.MENU_START_QUEST_CLICK = Location(2400,1350)
-game.MENU_START_QUEST_WITHOUT_ITEM_CLICK = Location(1652,1304) -- see docs/start_quest_without_item_click.png
+
+-- see docs/menu_boost_item_click_array.png
+game.MENU_BOOST_ITEM_1_CLICK = Location(1280,418)
+game.MENU_BOOST_ITEM_2_CLICK = Location(1280,726)
+game.MENU_BOOST_ITEM_3_CLICK = Location(1280,1000)
+game.MENU_BOOST_ITEM_SKIP_CLICK = Location(1652,1304)
+game.MENU_BOOST_ITEM_CLICK_ARRAY = {
+	["1"] = game.MENU_BOOST_ITEM_1_CLICK,
+	["2"] = game.MENU_BOOST_ITEM_2_CLICK,
+	["3"] = game.MENU_BOOST_ITEM_3_CLICK,
+	["disabled"] = game.MENU_BOOST_ITEM_SKIP_CLICK
+}
 
 game.STAMINA_SCREEN_REGION = Region(600,200,300,300)
 game.STAMINA_OK_CLICK = Location(1650,1120)
