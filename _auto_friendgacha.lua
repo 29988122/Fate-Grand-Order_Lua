@@ -18,8 +18,10 @@ else
 end
 
 setImmersiveMode(true)
+click(Location(1400 + xOffset,1120 + yOffset))
+click(Location(1600 + xOffset,1120 + yOffset))
 while(1) do
-    click(Location(1600 + xOffset,1120 + yOffset))
+    click(Location(1600 + xOffset,1420 + yOffset))
     click(Location(1600 + xOffset,1120 + yOffset))
     wait(3)
     continueClick(Location(1660 + xOffset,1300 + yOffset), 15)
