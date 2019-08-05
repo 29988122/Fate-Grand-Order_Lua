@@ -155,8 +155,6 @@ local function Support()
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport then
-		wait(2.5)
-		StartQuest()
 	end
 
 end
