@@ -101,23 +101,7 @@ end
 
 local function Result()
 	--Validator document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
-	continueClick(game.RESULT_NEXT_CLICK,45)
-        
-        if Region(1400,1000,600,200):exists(GeneralImagePath .. "confirm.png") then
-                IsContinuing = 1
-                click(game.STAMINA_OK_CLICK)
-                battle.resetState()
-	        turnCounter = {0, 0, 0, 0, 0}
-
-
-                wait(1.5)
-
-                --Auto refill.
-	        while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
-	   	        RefillStamina()
-	        end
-        else
-
+	continueClick(game.RESULT_NEXT_CLICK,35)
 
 	wait(5)
 
@@ -125,27 +109,45 @@ local function Result()
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
 		continueClick(game.RESULT_NEXT_CLICK,35) --Still need to proceed through reward screen.
 	end
+	
+	
+	if Region(1400,1000,600,200):exists(GeneralImagePath .. "confirm.png") then
+		IsContinuing = 1 -- Needed to show we don't need to enter the "StartQuest" function
+		
+		-- Pressing Continue option after completing a quest, reseting the state as would occur in "Menu" function
+		click(game.CONTINUE_CLICK)
+		battle.resetState()
+		turnCounter = {0, 0, 0, 0, 0}
+		
+		wait(1.5)
+		
+		--If Stamina is empty, follow same protocol as is in "Menu" function
+                --Auto refill.
+		while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
+			RefillStamina()
+		end
+	else
 
-	--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
-	if game.RESULT_FRIEND_REQUEST_REGION:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
-		click(game.RESULT_FRIEND_REQUEST_REJECT_CLICK)
+		--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
+		if game.RESULT_FRIEND_REQUEST_REGION:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
+			click(game.RESULT_FRIEND_REQUEST_REJECT_CLICK)
+		end
+
+		wait(15)
+
+		if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
+			click(game.RESULT_CE_REWARD_CLOSE_CLICK)
+			wait(1)
+			click(game.RESULT_CE_REWARD_CLOSE_CLICK)
+		end
+
+		wait(5)
+
+		--1st time quest reward screen.
+		if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png") ~= nil then
+			click(game.RESULT_NEXT_CLICK)
+		end
 	end
-
-	wait(15)
-
-	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
-		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
-		wait(1)
-		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
-	end
-
-	wait(5)
-
-	--1st time quest reward screen.
-	if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png") ~= nil then
-		click(game.RESULT_NEXT_CLICK)
-	end
-        end
 end
 
 local function IsInSupport()
