@@ -106,9 +106,13 @@ local function Result()
 	wait(5)
 
 	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
-		if StopAfterBond10 then
-			scriptExit("Bond 10 CE GET!")
+		
+		if StopAfterBond10 ~= nil then --Making sure they can still run it without updating FGO_XX_REGULAR files
+			if StopAfterBond10 then
+				scriptExit("Bond 10 CE GET!")
+			end
 		end
+		
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
 		continueClick(game.RESULT_NEXT_CLICK,35) --Still need to proceed through reward screen.
 	end
