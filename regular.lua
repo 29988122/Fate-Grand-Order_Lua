@@ -22,6 +22,7 @@ local autoskill = require("autoskill")
 
 -- fields
 local StoneUsed = 0
+local IsContinuing = 0
 
 -- functions
 local function RefillStamina()
@@ -103,6 +104,7 @@ local function Result()
 	continueClick(game.RESULT_NEXT_CLICK,45)
         
         if Region(1400,1000,600,200):exists(GeneralImagePath .. "confirm.png") then
+                IsContinuing = 1
                 click(game.STAMINA_OK_CLICK)
                 battle.resetState()
 	        turnCounter = {0, 0, 0, 0, 0}
@@ -155,6 +157,10 @@ local function Support()
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport then
+                if IsContinuing then
+                        wait(2.5)
+                        StartQuest()
+                end
 	end
 
 end
