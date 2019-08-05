@@ -114,7 +114,7 @@ local function Result()
 	end
 	
 	
-	if Region(1400,1000,600,200):exists(GeneralImagePath .. "confirm.png") then
+	if game.CONTINUE_REGION:exists(GeneralImagePath .. "confirm.png") then
 		IsContinuing = 1 -- Needed to show we don't need to enter the "StartQuest" function
 		
 		-- Pressing Continue option after completing a quest, reseting the state as would occur in "Menu" function
