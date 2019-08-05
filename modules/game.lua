@@ -1,8 +1,10 @@
 local game = {}
 
 game.MENU_SCREEN_REGION = Region(2100,1200,1000,1000)
+game.CONTINUE_REGION = Region(1400,1000,600,200)
 game.MENU_SELECT_QUEST_CLICK = Location(1900,400)
 game.MENU_START_QUEST_CLICK = Location(2400,1350)
+game.CONTINUE_CLICK = Location(1650,1120)
 
 -- see docs/menu_boost_item_click_array.png
 game.MENU_BOOST_ITEM_1_CLICK = Location(1280,418)
@@ -44,7 +46,6 @@ game.SUPPORT_UPDATE_CLICK = Location(1670,250)
 game.SUPPORT_UPDATE_YES_CLICK = Location(1480,1110)
 game.SUPPORT_LIST_TOP_CLICK = Location(2480,360)
 game.SUPPORT_FIRST_SUPPORT_CLICK = Location(1900,500)
-game.CONTINUE_CLICK = Location(1650,1120)
 
 game.BATTLE_SCREEN_REGION = Region(2105,1259,336,116) -- see docs/battle_region.png
 game.BATTLE_STAGE_COUNT_REGION = StageCountRegion -- this is provided by the config file
