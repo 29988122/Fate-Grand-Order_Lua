@@ -103,7 +103,7 @@ local function Result()
 	continueClick(game.RESULT_NEXT_CLICK,45)
         
         if Region(1400,1000,600,200):exists(GeneralImagePath .. "confirm.png") then
-                click(AcceptClick)
+                click(game.STAMINA_OK_CLICK)
                 wait(1.5)
 
                 --Auto refill.
