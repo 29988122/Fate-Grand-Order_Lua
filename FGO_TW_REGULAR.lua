@@ -33,6 +33,12 @@ Support_FriendsOnly = 0
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
 Support_PreferredCEs = "*chaldea_lunchtime.png"
 
+--Bond CE Get
+StopAfterBond10 = 0--[[
+	This option is switched to 1 if you want to stop the script after retreiving a Bond 10 CE card
+	TODO: move this explanation to documentation
+--]]
+
 --BoostItem
 BoostItem_SelectionMode = "disabled" --[[
 	possible values: disabled, 1, 2 or 3
