@@ -104,6 +104,10 @@ local function Result()
         
         if Region(1400,1000,600,200):exists(GeneralImagePath .. "confirm.png") then
                 click(game.STAMINA_OK_CLICK)
+                battle.resetState()
+	        turnCounter = {0, 0, 0, 0, 0}
+
+
                 wait(1.5)
 
                 --Auto refill.
