@@ -25,6 +25,8 @@ local StoneUsed = 0
 local IsContinuing = 0
 
 -- functions
+
+--Refill stamina based on selected option within FGO_XX_REGULAR.lua
 local function RefillStamina()
 	if Refill_Enabled == 1 and StoneUsed < Refill_Repetitions then
 		if Refill_Resource == "SQ" then
@@ -61,6 +63,7 @@ local function RefillStamina()
 	end
 end
 
+--Click begin quest in Formation selection, then select boost item, if applicable, then confirm selection.
 local function StartQuest()
 	click(game.MENU_START_QUEST_CLICK)
 
@@ -77,10 +80,12 @@ local function StartQuest()
 	end
 end
 
+--Checking if in menu.png is on screen, indicating you are in the screen to choose your quest
 local function IsInMenu()
 	return game.MENU_SCREEN_REGION:exists(GeneralImagePath .. "menu.png")
 end
 
+--Reset battle state, then click quest and refill stamina if needed.
 local function Menu()
 	battle.resetState()
 	turnCounter = {0, 0, 0, 0, 0}
@@ -95,16 +100,17 @@ local function Menu()
 	end
 end
 
+--Checking if Quest Completed screen is up, specifically if Bond point/reward is up.
 local function IsInResult()
 	return game.RESULT_SCREEN_REGION:exists(GeneralImagePath .. "result.png") or game.RESULT_BOND_REGION:exists(GeneralImagePath .. "bond.png")
 end
 
+--Click through reward screen, continue if option presents itself, otherwise continue clicking through
 local function Result()
 	--Validator document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
 	continueClick(game.RESULT_NEXT_CLICK,35)
 
-	wait(5)
-
+	--Checking if there was a Bond CE reward
 	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
 		
 		if StopAfterBond10 ~= nil then --Making sure they can still run it without updating FGO_XX_REGULAR files
@@ -117,7 +123,7 @@ local function Result()
 		continueClick(game.RESULT_NEXT_CLICK,35) --Still need to proceed through reward screen.
 	end
 	
-	
+	--Only for JP currently. Searches for the Continue option after select Free Quests
 	if game.CONTINUE_REGION:exists(GeneralImagePath .. "confirm.png") then
 		IsContinuing = 1 -- Needed to show we don't need to enter the "StartQuest" function
 		
@@ -134,7 +140,8 @@ local function Result()
 			RefillStamina()
 		end
 	else
-
+		wait(5)
+		
 		--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
 		if game.RESULT_FRIEND_REQUEST_REGION:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
 			click(game.RESULT_FRIEND_REQUEST_REJECT_CLICK)
@@ -142,6 +149,7 @@ local function Result()
 
 		wait(15)
 
+		--Quest Completion reward. Exits the screen when it is presented.
 		if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
 			click(game.RESULT_CE_REWARD_CLOSE_CLICK)
 			wait(1)
@@ -150,17 +158,19 @@ local function Result()
 
 		wait(5)
 
-		--1st time quest reward screen.
+		--1st time quest reward screen, eg. Mana Prisms, Event CE, Materials, etc.
 		if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png") ~= nil then
 			click(game.RESULT_NEXT_CLICK)
 		end
 	end
 end
 
+--Checks if Support Selection menu is up
 local function IsInSupport()
         return game.SUPPORT_SCREEN_REGION:exists(GeneralImagePath .. "support_screen.png")
 end
 
+--Selections Support option, code located in modules/support.lua
 local function Support()
 
 	--Friend selection.
@@ -234,6 +244,10 @@ local function PSADialogue()
 	end
 end
 
+--[[
+	Initialize Aspect Ratio adjustment for different sized screens,ask for input from user for Autoskill plus confirming Apple/Stone usage
+	Then initialize the Autoskill, Battle, and Card modules in modules/.
+]]--
 local function Init()
 	--Set only ONCE for every separated script run.
 	scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT)
@@ -247,6 +261,14 @@ local function Init()
 	toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
 end
 
+--[[
+	SCREENS represents list of Validators and Actors
+	When Validator returns true/1, perform the Actor
+	Code for battle.performBattle can be found in modules/battle.lua
+	Code for Menu is on line 89 of this Script
+	Code for Result is on line 109 of this Script
+	Code for Support is on line 174 of this Script
+]]--
 local SCREENS = {
 	{ Validator = battle.isIdle, Actor = battle.performBattle },
 	{ Validator = IsInMenu,      Actor = Menu },
@@ -255,6 +277,8 @@ local SCREENS = {
 }
 
 Init()
+
+--Loop through SCREENS until a Validator returns true/1
 while(true) do
 	local actor = ankuluaUtils.UseSameSnapIn(function()
 		for _, screen in pairs(SCREENS) do
