@@ -146,7 +146,7 @@ scrollList = function()
 		{ action = "touchDown", target = game.SUPPORT_SWIPE_START_CLICK },
 		{ action = "touchMove", target = game.SUPPORT_SWIPE_END_CLICK },
 		{ action =      "wait", target = 0.4 },
-		{ action =   "touchUp", target = game.SUPPORT_SWIPE_END_CLICK },
+		{ action =   "touchUp", target = SUPPORT_SWIPE_END_CLICK }, -- removed game. due to UI changes and lag associated with selections affecting the support selection
 		{ action =      "wait", target = 0.5 } -- leaving some room for animations to finish
 	}
 
