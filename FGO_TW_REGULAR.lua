@@ -4,6 +4,7 @@ dir = scriptPath()
 setImagePath(dir)
 GameRegion = "TW" --StageCountRegion issue comment https://github.com/29988122/Fate-Grand-Order_Lua/issues/39#issuecomment-390208639
 StageCountRegion = Region(1710,25,55,60)
+SUPPORT_SWIPE_END_CLICK = Location(35,390)
 
 --Initalize for user input listnames
 Autoskill_List = {}
