@@ -124,43 +124,45 @@ local function Result()
 	end
 	
 	--Only for JP currently. Searches for the Continue option after select Free Quests
-	if game.CONTINUE_REGION:exists(GeneralImagePath .. "confirm.png") then
-		IsContinuing = 1 -- Needed to show we don't need to enter the "StartQuest" function
-		
-		-- Pressing Continue option after completing a quest, reseting the state as would occur in "Menu" function
-		click(game.CONTINUE_CLICK)
-		battle.resetState()
-		turnCounter = {0, 0, 0, 0, 0}
-		
-		wait(1.5)
-		
-		--If Stamina is empty, follow same protocol as is in "Menu" function
-                --Auto refill.
-		while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
-			RefillStamina()
-		end
-	else
-		wait(5)
-		
-		--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
-		if game.RESULT_FRIEND_REQUEST_REGION:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
-			click(game.RESULT_FRIEND_REQUEST_REJECT_CLICK)
-		end
+	if Pattern(GeneralImagePath .. "confirm.png") ~= nil then
+		if game.CONTINUE_REGION:exists(GeneralImagePath .. "confirm.png") then
+			IsContinuing = 1 -- Needed to show we don't need to enter the "StartQuest" function
 
-		wait(15)
+			-- Pressing Continue option after completing a quest, reseting the state as would occur in "Menu" function
+			click(game.CONTINUE_CLICK)
+			battle.resetState()
+			turnCounter = {0, 0, 0, 0, 0}
 
-		--Quest Completion reward. Exits the screen when it is presented.
-		if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
-			click(game.RESULT_CE_REWARD_CLOSE_CLICK)
-			wait(1)
-			click(game.RESULT_CE_REWARD_CLOSE_CLICK)
-		end
+			wait(1.5)
 
-		wait(5)
+			--If Stamina is empty, follow same protocol as is in "Menu" function
+			--Auto refill.
+			while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
+				RefillStamina()
+			end
+		else
+			wait(5)
 
-		--1st time quest reward screen, eg. Mana Prisms, Event CE, Materials, etc.
-		if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png") ~= nil then
-			click(game.RESULT_NEXT_CLICK)
+			--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
+			if game.RESULT_FRIEND_REQUEST_REGION:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
+				click(game.RESULT_FRIEND_REQUEST_REJECT_CLICK)
+			end
+
+			wait(15)
+
+			--Quest Completion reward. Exits the screen when it is presented.
+			if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
+				click(game.RESULT_CE_REWARD_CLOSE_CLICK)
+				wait(1)
+				click(game.RESULT_CE_REWARD_CLOSE_CLICK)
+			end
+
+			wait(5)
+
+			--1st time quest reward screen, eg. Mana Prisms, Event CE, Materials, etc.
+			if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png") ~= nil then
+				click(game.RESULT_NEXT_CLICK)
+			end
 		end
 	end
 end
