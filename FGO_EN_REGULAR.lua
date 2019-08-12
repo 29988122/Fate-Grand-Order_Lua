@@ -4,7 +4,7 @@ dir = scriptPath()
 setImagePath(dir)
 GameRegion = "EN"
 StageCountRegion = Region(1722,25,46,53)
-SUPPORT_SWIPE_END_CLICK = Location(35,390)
+SupportSwipeClickEnd = Location(35,390)
 
 --Initalize for user input listnames
 Autoskill_List = {}
