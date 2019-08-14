@@ -187,8 +187,10 @@ end
 local function Support()
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
-	if hasSelectedSupport == 1 then
-    	if IsContinuing == 0 then
+	if hasSelectedSupport == true then
+		toast("test")
+		if IsContinuing == 0 then
+			toast("inside")
         	StartQuest()
     	end
 	end
