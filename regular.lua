@@ -159,9 +159,10 @@ local function Result()
 		while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
 			RefillStamina()
 		end
+		return
 	end
 
-	wait(15)
+	wait(10)
 
 	--Quest Completion reward. Exits the screen when it is presented.
 	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
