@@ -214,7 +214,7 @@ local function PSADialogue()
 	if Enable_Autoskill == 1 then
 		addTextView("AutoSkill Enabled:")
 		newRow()
-		addTextView("Start the script from memu or Battle 1/3 to make it work properly.")
+		addTextView("Start the script from menu or Battle 1/3 to make it work properly.")
 		addSeparator()
 	end
 
