@@ -48,6 +48,10 @@ BoostItem_SelectionMode = "disabled" --[[
 	TODO: move this explanation to the documentation
 --]]
 
+StorySkip = 0 --[[
+	People really want this feature.
+]]
+
 --自動施放技能
 Enable_Autoskill = 0
 Skill_Confirmation = 0

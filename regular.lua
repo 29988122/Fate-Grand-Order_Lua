@@ -78,6 +78,17 @@ local function StartQuest()
 			scriptExit("Invalid boost item selection mode: \"" + BoostItem_SelectionMode + "\".")
 		end
 	end
+
+	if StorySkip ~= nil then
+		if StorySkip == 1 then
+			wait(10)
+			if game.MENU_STORY_SKIP_REGION:exists(GeneralImagePath .. "storyskip.png") then
+				click(game.MENU_STORY_SKIP_CLICK)
+				wait(0.5)
+				click(game.MENU_STORY_SKIP_YES_CLICK)
+			end
+		end
+	end
 end
 
 --Checking if in menu.png is on screen, indicating you are in the screen to choose your quest
@@ -114,7 +125,7 @@ local function Result()
 	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
 		
 		if StopAfterBond10 ~= nil then --Making sure they can still run it without updating FGO_XX_REGULAR files
-			if StopAfterBond10 then
+			if StopAfterBond10 == 1 then
 				scriptExit("Bond 10 CE GET!")
 			end
 		end
@@ -122,46 +133,48 @@ local function Result()
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
 		continueClick(game.RESULT_NEXT_CLICK,35) --Still need to proceed through reward screen.
 	end
-	
+
+	wait(5)
+
+	--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
+	if game.RESULT_FRIEND_REQUEST_REGION:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
+		click(game.RESULT_FRIEND_REQUEST_REJECT_CLICK)
+	end
+
+	wait(1)
+
 	--Only for JP currently. Searches for the Continue option after select Free Quests
 	if GameRegion == "JP" and game.CONTINUE_REGION:exists(GeneralImagePath .. "confirm.png") then
 		IsContinuing = 1 -- Needed to show we don't need to enter the "StartQuest" function
-
+	
 		-- Pressing Continue option after completing a quest, reseting the state as would occur in "Menu" function
 		click(game.CONTINUE_CLICK)
 		battle.resetState()
 		turnCounter = {0, 0, 0, 0, 0}
 
 		wait(1.5)
-
+	
 		--If Stamina is empty, follow same protocol as is in "Menu" function
 		--Auto refill.
 		while game.STAMINA_SCREEN_REGION:exists(GeneralImagePath .. "stamina.png") do
 			RefillStamina()
 		end
-	else
-		wait(5)
+	end
 
-		--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
-		if game.RESULT_FRIEND_REQUEST_REGION:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
-			click(game.RESULT_FRIEND_REQUEST_REJECT_CLICK)
-		end
+	wait(15)
 
-		wait(15)
+	--Quest Completion reward. Exits the screen when it is presented.
+	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
+		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
+		wait(1)
+		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
+	end
 
-		--Quest Completion reward. Exits the screen when it is presented.
-		if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
-			click(game.RESULT_CE_REWARD_CLOSE_CLICK)
-			wait(1)
-			click(game.RESULT_CE_REWARD_CLOSE_CLICK)
-		end
+	wait(5)
 
-		wait(5)
-
-		--1st time quest reward screen, eg. Mana Prisms, Event CE, Materials, etc.
-		if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png") ~= nil then
-			click(game.RESULT_NEXT_CLICK)
-		end
+	--1st time quest reward screen, eg. Mana Prisms, Event CE, Materials, etc.
+	if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png") ~= nil then
+		click(game.RESULT_NEXT_CLICK)
 	end
 end
 
@@ -172,16 +185,13 @@ end
 
 --Selections Support option, code located in modules/support.lua
 local function Support()
-
 	--Friend selection.
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
-	if hasSelectedSupport then
-                if IsContinuing then
-                        wait(2.5)
-                        StartQuest()
-                end
+	if hasSelectedSupport == 1 then
+    	if IsContinuing == 0 then
+        	StartQuest()
+    	end
 	end
-
 end
 
 --User option PSA dialogue. Also choosble list of perdefined skill.
@@ -273,7 +283,7 @@ local SCREENS = {
 	{ Validator = battle.isIdle, Actor = battle.performBattle },
 	{ Validator = IsInMenu,      Actor = Menu },
 	{ Validator = IsInResult,    Actor = Result},
-        { Validator = IsInSupport,   Actor = Support}
+    { Validator = IsInSupport,   Actor = Support}
 }
 
 Init()
