@@ -202,6 +202,8 @@ local function Support()
 	if hasSelectedSupport == true then
 		if IsContinuing == 0 then
 			StartQuest()
+		elseif IsContinuing == nil then
+			StartQuest()
 		end
 	end
 end
