@@ -201,8 +201,8 @@ local function Support()
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport == true then
 		if IsContinuing == 0 then
-        	StartQuest()
-    	end
+			StartQuest()
+		end
 	end
 end
 
