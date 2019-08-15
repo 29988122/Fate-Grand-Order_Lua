@@ -7,7 +7,7 @@ game.MENU_START_QUEST_CLICK = Location(2400,1350)
 game.CONTINUE_CLICK = Location(1650,1120)
 game.MENU_STORY_SKIP_REGION = Region(2240,20,300,120)
 game.MENU_STORY_SKIP_CLICK = Location(2360,80)
-game.MENU_STORY_SKIP_YES_CLICK = Location(1600,860)
+game.MENU_STORY_SKIP_YES_CLICK = Location(1600,1100)
 
 -- see docs/menu_boost_item_click_array.png
 game.MENU_BOOST_ITEM_1_CLICK = Location(1280,418)

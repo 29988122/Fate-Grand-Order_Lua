@@ -162,6 +162,17 @@ local function Result()
 		return
 	end
 
+	--Post-battle story is sometimes there.
+	if StorySkip ~= nil then
+		if StorySkip == 1 then
+			if game.MENU_STORY_SKIP_REGION:exists(GeneralImagePath .. "storyskip.png") then
+				click(game.MENU_STORY_SKIP_CLICK)
+				wait(0.5)
+				click(game.MENU_STORY_SKIP_YES_CLICK)
+			end
+		end
+	end
+
 	wait(10)
 
 	--Quest Completion reward. Exits the screen when it is presented.
