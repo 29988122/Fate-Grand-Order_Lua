@@ -33,6 +33,8 @@ local function CastSkill(location)
 		if Skill_Confirmation == 1 then
 			click(game.BATTLE_SKILL_OK_CLICK)
 		end
+		wait(0.3)
+		click(location) -- for resetting when you click on a skill with a cooldown
 
 		WaitForAnimationToFinish()
 	end
