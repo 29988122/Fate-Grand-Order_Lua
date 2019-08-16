@@ -4,6 +4,7 @@ dir = scriptPath()
 setImagePath(dir)
 GameRegion = "EN"
 StageCountRegion = Region(1722,25,46,53)
+SupportSwipeEndClick  = Location(35,390)
 
 --Initalize for user input listnames
 Autoskill_List = {}
@@ -110,7 +111,6 @@ Support_PreferredCEs = "any"
 --Bond CE Get
 StopAfterBond10 = 0--[[
 	This option is switched to 1 if you want to stop the script after retreiving a Bond 10 CE card
-
 	TODO: move this explanation to documentation
 --]]
 
@@ -121,6 +121,10 @@ BoostItem_SelectionMode = "disabled" --[[
 	
 	TODO: move this explanation to the documentation
 --]]
+
+StorySkip = 0 --[[
+	People really want this feature.
+]]
 
 --AutoSkill
 Enable_Autoskill = 1
