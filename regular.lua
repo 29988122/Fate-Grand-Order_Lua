@@ -201,6 +201,7 @@ local function Support()
 	local hasSelectedSupport = support.selectSupport(Support_SelectionMode)
 	if hasSelectedSupport == true then
 		if IsContinuing == 0 then
+			wait(2.5)
 			StartQuest()
 		elseif IsContinuing == nil then
 			StartQuest()
