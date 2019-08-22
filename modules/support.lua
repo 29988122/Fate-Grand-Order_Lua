@@ -157,10 +157,11 @@ selectFriend = function()
 	
 	while(true)
 	do
-		if findFriendName then
-			click( match:getTarget() )
+		local result, support = searchFriends()
+		if result == "ok" then
+			click( support )
 			
-		elseif numberOfSwipes < Support_SwipesPerUpdate then
+		elseif result == "not-found" and numberOfSwipes < Support_SwipesPerUpdate then
 			scrollList()
 			numberOfSwipes = numberOfSwipes + 1
 			wait(0.3)
@@ -316,13 +317,35 @@ isLimitBroken = function(craftEssence)
 	return limitBreakRegion:exists(limitBreakPattern)
 end
 
+searchFriends = function()
+		local function performSearch()
+		
+		if not isFriend(game.SUPPORT_FRIEND_REGION) then
+			return {"no-friends-at-all"} -- no friends on screen, so there's no point in scrolling anymore
+		end
+
+		local support = findFriendName()
+		if support == nil then
+			return {"not-found"} -- nope, not found this time. keep scrolling
+		end
+
+		return {"ok", support}
+	end
+
+	-- see https://www.lua.org/pil/5.1.html for details on "unpack"
+	return unpack(ankuluaUtils.UseSameSnapIn(performSearch))
+end
+
 findFriendName = function()
-	for _, friend in ipairs(friend) do
-			if game.SUPPORT_FRIENDS_REGION:exists(GeneralImagePath .. friend) then
-				return true
-			end
+	local friends = {}
+
+	for _, preferredServant in ipairs(PreferredServantArray) do
+		for _, theFriend in ipairs(regionFindAllNoFindException(game.SUPPORT_FRIENDS_REGION, Pattern(SupportImagePath .. friend))) do
+			table.insert(friends, theFriend)
 		end
 	end
+
+	return friends[1]
 end
 
 -- "public" interface
