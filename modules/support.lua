@@ -11,6 +11,7 @@ local LimitBrokenCharacter = "*"
 -- state vars
 local PreferredServantArray = {}
 local PreferredCraftEssenceTable = {}
+local FriendNameArray = {}
 
 -- functions
 local init
@@ -18,6 +19,7 @@ local selectSupport
 local selectFirst
 local selectManual
 local selectPreferred
+local selectFriend
 local scrollList
 local searchVisible
 local decideSearchMethod
@@ -61,6 +63,12 @@ init = function()
 
 		table.insert(PreferredCraftEssenceTable, craftEssenceEntry)
 	end
+	
+	-- friends
+	for _, friend in ipairs(split(Support_FriendNames)) do
+		friend = stringUtils.Trim(friend)
+		table.insert(FriendNameArray, friend)
+	end
 end
 
 selectSupport = function(selectionMode)
@@ -75,6 +83,8 @@ selectSupport = function(selectionMode)
 			local searchMethod = decideSearchMethod()
 			return selectPreferred(searchMethod)
 
+		elseif selectionMode =="friend" then
+			return selectFriend()
 		else
 			scriptExit("Invalid support selection mode: \"" + selectionMode + "\".")
 		end
@@ -135,6 +145,39 @@ selectPreferred = function(searchMethod)
 			numberOfSwipes = 0
 
 		else -- okay, we have run out of options, let's give up
+			click(game.SUPPORT_LIST_TOP_CLICK)
+			return selectSupport(Support_FallbackTo)
+		end
+	end
+end
+
+selectFriend = function()
+	local numberOfSwipes = 0
+	local numberOfUpdates = 0
+	
+	while(true)
+	do
+		if findFriendName then
+			click( match:getTarget() )
+			
+		elseif numberOfSwipes < Support_SwipesPerUpdate then
+			scrollList()
+			numberOfSwipes = numberOfSwipes + 1
+			wait(0.3)
+	
+		elseif numberOfUpdates < Support_MaxUpdates then
+			toast("Support list will be updated in 3 seconds.")
+			wait(3)
+			
+			click(game.SUPPORT_UPDATE_CLICK)
+			wait(1)
+			click(game.SUPPORT_UPDATE_YES_CLICK)
+			wait(3)
+
+			numberOfUpdates = numberOfUpdates + 1
+			numberOfSwipes = 0
+			
+		else
 			click(game.SUPPORT_LIST_TOP_CLICK)
 			return selectSupport(Support_FallbackTo)
 		end
@@ -271,6 +314,15 @@ isLimitBroken = function(craftEssence)
 	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.8)
 
 	return limitBreakRegion:exists(limitBreakPattern)
+end
+
+findFriendName = function()
+	for _, friend in ipairs(friend) do
+			if game.SUPPORT_FRIENDS_REGION:exists(GeneralImagePath .. friend) then
+				return true
+			end
+		end
+	end
 end
 
 -- "public" interface
