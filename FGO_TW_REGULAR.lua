@@ -33,6 +33,7 @@ Support_FallbackTo = "manual"
 Support_FriendsOnly = 0
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
 Support_PreferredCEs = "*chaldea_lunchtime.png"
+Support_FriendNames = ""
 
 --Bond CE Get
 StopAfterBond10 = 0--[[
