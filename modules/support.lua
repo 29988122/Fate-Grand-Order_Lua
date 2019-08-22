@@ -161,6 +161,7 @@ selectFriend = function()
 		local result, support = searchFriends()
 		if result == "ok" then
 			click( support )
+			return true
 			
 		elseif result == "not-found" and numberOfSwipes < Support_SwipesPerUpdate then
 			scrollList()
