@@ -103,6 +103,17 @@ local function SelectSubMember(location)
 	end
 end
 
+local function SelectTarget()
+	ChangeArray(ENEMY_TARGET_ARRAY)
+end
+
+local function SelectEnemyTarget(location)
+	click(location)
+	click(game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK) -- Exit any extra menu
+	
+	ChangeArray(DEFAULT_FUNCTION_ARRAY)
+end
+
 DEFAULT_FUNCTION_ARRAY = {
 	["a"] = CastSkill(game.BATTLE_SKILL_1_CLICK),
 	["b"] = CastSkill(game.BATTLE_SKILL_2_CLICK),
@@ -117,6 +128,7 @@ DEFAULT_FUNCTION_ARRAY = {
 	["k"] = CastMasterSkill(game.BATTLE_MASTER_SKILL_2_CLICK),
 	["l"] = CastMasterSkill(game.BATTLE_MASTER_SKILL_3_CLICK),
 	["x"] = BeginOrderChange(),
+	["t"] = SelectTarget(),
 	["0"] = DoAbsolutelyNothing(),
 	["1"] = SelectSkillTarget(game.BATTLE_SERVANT_1_CLICK),
 	["2"] = SelectSkillTarget(game.BATTLE_SERVANT_2_CLICK),
@@ -138,6 +150,12 @@ SUB_MEMBER_FUNCTION_ARRAY = {
 	["3"] = SelectSubMember(game.BATTLE_SUB_MEMBER_3_CLICK)
 }
 
+ENEMY_TARGET_ARRAY = {
+	["1"] = SelectEnemyTarget(game.BATTLE_TARGET_CLICK_ARRAY[1]),
+	["2"] = SelectEnemyTarget(game.BATTLE_TARGET_CLICK_ARRAY[2]),
+	["3"] = SelectEnemyTarget(game.BATTLE_TARGET_CLICK_ARRAY[3])
+}
+
 -- other stuff
 local function InitCommands()
 	local stageCount = 1
@@ -148,7 +166,7 @@ local function InitCommands()
 				scriptExit("Error at '" .. commandList .. "': Skill Command cannot start with number '1', '2' and '3'!")
 			elseif string.match(commandList, "[%w+][#]") or string.match(commandList, "[#][%w+]") then
 				scriptExit("Error at '" .. commandList .. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
-			elseif string.match(commandList, "[^a-l^1-6^#^x]") then
+			elseif string.match(commandList, "[^a-l^1-6^#^t^x]") then
 				scriptExit("Error at '" .. commandList .. "': Skill Command exceeded alphanumeric range! Expected 'x' or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
 			end
 		end
