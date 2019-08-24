@@ -104,12 +104,15 @@ local function SelectSubMember(location)
 end
 
 local function SelectTarget()
-	ChangeArray(ENEMY_TARGET_ARRAY)
+	return function()
+		ChangeArray(ENEMY_TARGET_ARRAY)
+	end
 end
 
 local function SelectEnemyTarget(location)
 	return function()
 		click(location)
+		wait(0.5)
 		click(game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK) -- Exit any extra menu
 	
 		ChangeArray(DEFAULT_FUNCTION_ARRAY)
