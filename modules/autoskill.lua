@@ -108,10 +108,12 @@ local function SelectTarget()
 end
 
 local function SelectEnemyTarget(location)
-	click(location)
-	click(game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK) -- Exit any extra menu
+	return function()
+		click(location)
+		click(game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK) -- Exit any extra menu
 	
-	ChangeArray(DEFAULT_FUNCTION_ARRAY)
+		ChangeArray(DEFAULT_FUNCTION_ARRAY)
+	end
 end
 
 DEFAULT_FUNCTION_ARRAY = {
