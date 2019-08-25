@@ -79,6 +79,9 @@ selectSupport = function(selectionMode)
 
 		elseif selectionMode == "manual" then
 			selectManual()
+		
+		elseif selectionMode == "friend" then
+			return selectFriend()
 
 		elseif selectionMode == "preferred" then
 			local searchMethod = decideSearchMethod()
@@ -112,6 +115,14 @@ end
 
 selectManual = function()
 	scriptExit("Support selection mode set to \"manual\".")
+end
+
+selectFriend = function()
+	if #FriendNameArray > 0 then
+		return selectPreferred(searchMethod.byFriendName)
+	end
+	
+	scriptExit("When using \"friend\" support selection mode, specify at least one friend name.")
 end
 
 selectPreferred = function(searchMethod)
@@ -189,14 +200,10 @@ searchVisible = function(searchMethod)
 end
 
 decideSearchMethod = function()
-	local hasFriendNames = #FriendNameArray > 0
 	local hasServants = #PreferredServantArray > 0
 	local hasCraftEssences = #PreferredCraftEssenceTable > 0
 
-	if hasFriendNames then
-		return searchMethod.byFriendName
-
-	elseif hasServants and hasCraftEssences then
+	if hasServants and hasCraftEssences then
 		return searchMethod.byServantAndCraftEssence
 
 	elseif hasServants then
@@ -206,7 +213,7 @@ decideSearchMethod = function()
 		return searchMethod.byCraftEssence
 
 	else
-		scriptExit("When using \"preferred\" support selection mode, specify at least one friend's name, a Servant or a Craft Essence.")
+		scriptExit("When using \"preferred\" support selection mode, specify at least one Servant or Craft Essence.")
 	end
 end
 
