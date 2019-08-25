@@ -11,6 +11,7 @@ local _currentTurn
 local _hasChosenTarget
 local _hasTakenFirstStageSnapshot
 local _hasClickedAttack
+local _prevCards
 
 -- functions
 local init
@@ -71,7 +72,9 @@ end
 performBattle = function()
 	_ankuluaUtils.UseSameSnapIn(onTurnStarted)
 	wait(2)
-	
+
+	_prevCards = 0
+
 	if Enable_Autoskill == 1 then
 		_autoskill.Execute()
 	end
@@ -85,7 +88,7 @@ performBattle = function()
 		_card.clickNpCards()
 	end
 	
-	_card.clickCommandCards(5)
+	_card.clickCommandCards(_prevCards,5)
 
 	if UnstableFastSkipDeadAnimation == 1 then
 		skipDeathAnimation()
@@ -192,6 +195,10 @@ hasClickedAttack = function()
 	return _hasClickedAttack
 end
 
+selectedCardNumber = function(selected)
+	_prevCards = selected
+end
+
 -- "public" interface
 return {
 	init = init,
@@ -203,5 +210,6 @@ return {
 	chooseTarget = chooseTarget,
 	hasChosenTarget = hasChosenTarget,
 	clickAttack = clickAttack,
-	hasClickedAttack = hasClickedAttack
+	hasClickedAttack = hasClickedAttack,
+	selectedCardNumber = selectedCardNumber
 }
