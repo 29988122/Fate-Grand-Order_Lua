@@ -119,6 +119,26 @@ local function SelectEnemyTarget(location)
 	end
 end
 
+local function PreloadNoblePhantasm()
+	return function()	
+		if not battle.hasClickedAttack() then
+			battle.clickAttack()
+            wait(2)  -- There is a delay after clicking attack before NP Cards come up. DON'T DELETE!
+		end
+		
+		ChangeArray(CARDS_PRESSED)
+	end
+end
+
+local function PressCards(numCards)
+	return function()
+		
+		card.clickCommandCards(numCards)
+		
+		ChangeArray(DEFAULT_FUNCTION_ARRAY)
+	end
+end
+
 DEFAULT_FUNCTION_ARRAY = {
 	["a"] = CastSkill(game.BATTLE_SKILL_1_CLICK),
 	["b"] = CastSkill(game.BATTLE_SKILL_2_CLICK),
@@ -134,6 +154,7 @@ DEFAULT_FUNCTION_ARRAY = {
 	["l"] = CastMasterSkill(game.BATTLE_MASTER_SKILL_3_CLICK),
 	["x"] = BeginOrderChange(),
 	["t"] = SelectTarget(),
+	["n"] = PreloadNoblePhantasm(),
 	["0"] = DoAbsolutelyNothing(),
 	["1"] = SelectSkillTarget(game.BATTLE_SERVANT_1_CLICK),
 	["2"] = SelectSkillTarget(game.BATTLE_SERVANT_2_CLICK),
@@ -159,6 +180,11 @@ ENEMY_TARGET_ARRAY = {
 	["1"] = SelectEnemyTarget(game.BATTLE_TARGET_CLICK_ARRAY[1]),
 	["2"] = SelectEnemyTarget(game.BATTLE_TARGET_CLICK_ARRAY[2]),
 	["3"] = SelectEnemyTarget(game.BATTLE_TARGET_CLICK_ARRAY[3])
+}
+
+CARDS_PRESSED = {
+	["1"] = PressCards(1),
+	["2"] = PressCards(2)
 }
 
 -- other stuff
