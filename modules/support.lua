@@ -24,6 +24,7 @@ local scrollList
 local searchVisible
 local decideSearchMethod
 local searchMethod
+local findFriendName
 local findServants
 local findCraftEssence
 local findSupportBounds
@@ -44,6 +45,12 @@ init = function()
 
 		return values
 	end
+	
+	-- friend names
+	for _, friend in ipairs(split(Support_FriendNames)) do
+		friend = stringUtils.Trim(friend)
+		table.insert(FriendNameArray, friend)
+	end
 
 	-- servants
 	for _, servant in ipairs(split(Support_PreferredServants)) do
@@ -63,12 +70,6 @@ init = function()
 
 		table.insert(PreferredCraftEssenceTable, craftEssenceEntry)
 	end
-	
-	-- friends
-	for _, friend in ipairs(split(Support_FriendNames)) do
-		friend = stringUtils.Trim(friend)
-		table.insert(FriendNameArray, friend)
-	end
 end
 
 selectSupport = function(selectionMode)
@@ -78,13 +79,14 @@ selectSupport = function(selectionMode)
 
 		elseif selectionMode == "manual" then
 			selectManual()
+		
+		elseif selectionMode == "friend" then
+			return selectFriend()
 
 		elseif selectionMode == "preferred" then
 			local searchMethod = decideSearchMethod()
 			return selectPreferred(searchMethod)
 
-		elseif selectionMode =="friend" then
-			return selectFriend()
 		else
 			scriptExit("Invalid support selection mode: \"" + selectionMode + "\".")
 		end
@@ -113,6 +115,14 @@ end
 
 selectManual = function()
 	scriptExit("Support selection mode set to \"manual\".")
+end
+
+selectFriend = function()
+	if #FriendNameArray > 0 then
+		return selectPreferred(searchMethod.byFriendName)
+	end
+	
+	scriptExit("When using \"friend\" support selection mode, specify at least one friend name.")
 end
 
 selectPreferred = function(searchMethod)
@@ -145,42 +155,6 @@ selectPreferred = function(searchMethod)
 			numberOfSwipes = 0
 
 		else -- okay, we have run out of options, let's give up
-			click(game.SUPPORT_LIST_TOP_CLICK)
-			return selectSupport(Support_FallbackTo)
-		end
-	end
-end
-
-
-selectFriend = function()
-	local numberOfSwipes = 0
-	local numberOfUpdates = 0
-	
-	while(true)
-	do
-		local result, support = searchFriends()
-		if result == "ok" then
-			click( support )
-			return true
-			
-		elseif result == "not-found" and numberOfSwipes < Support_SwipesPerUpdate then
-			scrollList()
-			numberOfSwipes = numberOfSwipes + 1
-			wait(0.3)
-	
-		elseif numberOfUpdates < Support_MaxUpdates then
-			toast("Support list will be updated in 3 seconds.")
-			wait(3)
-			
-			click(game.SUPPORT_UPDATE_CLICK)
-			wait(1)
-			click(game.SUPPORT_UPDATE_YES_CLICK)
-			wait(3)
-
-			numberOfUpdates = numberOfUpdates + 1
-			numberOfSwipes = 0
-			
-		else
 			click(game.SUPPORT_LIST_TOP_CLICK)
 			return selectSupport(Support_FallbackTo)
 		end
@@ -244,6 +218,10 @@ decideSearchMethod = function()
 end
 
 searchMethod = {
+	byFriendName = function()
+		return findFriendName()
+	end,
+
 	byServant = function()
 		return findServants()[1]
 	end,
@@ -268,6 +246,16 @@ searchMethod = {
 		return nil -- not found, continue scrolling
 	end
 }
+
+findFriendName = function()
+	for _, friendName in ipairs(FriendNameArray) do
+		for _, theFriend in ipairs(regionFindAllNoFindException(game.SUPPORT_FRIENDS_REGION, Pattern(SupportImagePath .. friendName))) do
+			return theFriend
+		end
+	end
+	
+	return nil
+end
 
 findServants = function()
 	local servants = {}
@@ -317,37 +305,6 @@ isLimitBroken = function(craftEssence)
 	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.8)
 
 	return limitBreakRegion:exists(limitBreakPattern)
-end
-
-searchFriends = function()
-		local function performSearch()
-		
-		if not isFriend(game.SUPPORT_FRIEND_REGION) then
-			return {"no-friends-at-all"} -- no friends on screen, so there's no point in scrolling anymore
-		end
-
-		local support = findFriendName()
-		if support == nil then
-			return {"not-found"} -- nope, not found this time. keep scrolling
-		end
-
-		return {"ok", support}
-	end
-
-	-- see https://www.lua.org/pil/5.1.html for details on "unpack"
-	return unpack(ankuluaUtils.UseSameSnapIn(performSearch))
-end
-
-findFriendName = function()
-	local friends = {}
-
-	for _, friendName in ipairs(FriendNameArray) do
-		for _, theFriend in ipairs(regionFindAllNoFindException(game.SUPPORT_FRIENDS_REGION, Pattern(SupportImagePath .. friendName))) do
-			table.insert(friends, theFriend)
-		end
-	end
-
-	return friends[1]
 end
 
 -- "public" interface
