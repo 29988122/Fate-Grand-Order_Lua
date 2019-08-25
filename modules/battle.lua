@@ -85,7 +85,7 @@ performBattle = function()
 		_card.clickNpCards()
 	end
 	
-	_card.clickCommandCards()
+	_card.clickCommandCards(5)
 
 	if UnstableFastSkipDeadAnimation == 1 then
 		skipDeathAnimation()
