@@ -132,8 +132,10 @@ end
 
 local function PressCards(numCards)
 	return function()
-		
-		card.clickCommandCards(numCards)
+
+		battle.selectedCardNumber(numCards)
+
+		card.clickCommandCards(0,numCards)
 		
 		ChangeArray(DEFAULT_FUNCTION_ARRAY)
 	end
