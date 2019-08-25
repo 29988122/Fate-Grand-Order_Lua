@@ -164,7 +164,7 @@ clickCommandCards = function(prevCards, numCards)
 		local currentCardTypeStorage = commandCards[cardPriority]
 	
 		for _, cardSlot in pairs(currentCardTypeStorage) do
-			if index > index > prevCards then
+			if index > prevCards then
 				click(_game.BATTLE_COMMAND_CARD_CLICK_ARRAY[cardSlot])
 			end
 
