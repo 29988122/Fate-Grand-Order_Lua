@@ -29,6 +29,7 @@ end
 
 local function CastSkill(location)
 	return function()
+		wait(.2)		-- Should finally solve the occasional problem of skills not activating
 		click(location)
 		if Skill_Confirmation == 1 then
 			click(game.BATTLE_SKILL_OK_CLICK)
