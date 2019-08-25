@@ -35,6 +35,7 @@ As of 2018.12.30, this script is **working without root** / without being blocke
 * [Advanced features](#advanced-features)
   * [AutoSkill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
+    * [Targeting Enemies](#targeting-enemies) 
     * [AutoSkill List](#autoskill-list)
   * [AutoRefill](#autorefill)
   * [AutoSupportSelection](#autosupportselection)
@@ -86,6 +87,8 @@ Please choose the corresponding lua file in AnkuLua according to your:
 Put your game in either:
 * Menu screen, make the quest you wanna farm as the 1st item on the screen (upper-right corner)
 * Battle screen
+* Results screen (first menu with or without bond level up)
+* Support Selection screen
 
 And start the script.
 
@@ -184,6 +187,19 @@ Of course, you can mix the Order Change command with normal Autoskill commands:
 e.g.
 Skill_Command = "bce,0,f3hi,#,j2d,#,4,x13a1g3"
 ```
+
+#### Targeting Enemies
+You can target specific enemies you wish to target with your skills or NP.
+By inserting ```t``` into user-predefined strings, you can make use of this for more complex fights:
+```
+t - informs script of targeting
+Position of enemy - 1 2 3
+
+e.g.
+Skill_Command = "t1at35"
+Target far left enemy for using Servant 1 skill 1, then target far right enemy for using Servant 1 NP
+```
+Lastly, the ```Battle_AutoChooseTarget``` variable in the config file is set to on by default. Using the autoskill functionality to target specific enemies is redundant with the auto selection, so it is recommended that you turn auto selection off if you plan to use this Target feature.
 
 #### AutoSkill List
 Set ```Enable_Autoskill_List = 1``` to enable this feature.
