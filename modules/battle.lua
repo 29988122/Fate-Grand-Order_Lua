@@ -122,6 +122,11 @@ end
 didStageChange = function()
 	-- Alternative fix for different font of stage count number among different regions, worked pretty damn well tho.
 	-- This will compare last screenshot with current screen, effectively get to know if stage changed or not.
+	if file_exists(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. _currentStage .. ".png") then
+		scriptExit("Found File")
+	else
+		scriptExit("No File Found")
+	end
 
 	local currentStagePattern = Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. _currentStage .. ".png"):similar(0.8)
 	return not _game.BATTLE_STAGE_COUNT_REGION:exists(currentStagePattern)
@@ -190,6 +195,11 @@ end
 
 hasClickedAttack = function()
 	return _hasClickedAttack
+end
+
+file_exists = function(name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return true else return false end
 end
 
 -- "public" interface
