@@ -302,7 +302,12 @@ local SCREENS = {
 }
 
 Init()
-
+while(debug) do
+	game.MENU_SCREEN_REGION:highlight(5)
+	game.SUPPORT_SCREEN_REGION:highlight(5)
+	game.BATTLE_SCREEN_REGION(5)
+	game.RESULT_SCREEN_REGION(5)
+end
 --Loop through SCREENS until a Validator returns true/1
 while(true) do
 	local actor = ankuluaUtils.UseSameSnapIn(function()
