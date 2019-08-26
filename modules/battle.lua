@@ -114,8 +114,8 @@ end
 
 checkCurrentStage = function()
 	if not _hasTakenFirstStageSnapshot or didStageChange() then
-		takeStageSnapshot()
 		onStageChanged()
+		takeStageSnapshot()
 	end
 end
 
@@ -123,12 +123,12 @@ didStageChange = function()
 	-- Alternative fix for different font of stage count number among different regions, worked pretty damn well tho.
 	-- This will compare last screenshot with current screen, effectively get to know if stage changed or not.
 
-	local currentStagePattern = Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png"):similar(0.8)
+	local currentStagePattern = Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. _currentStage .. ".png"):similar(0.8)
 	return not _game.BATTLE_STAGE_COUNT_REGION:exists(currentStagePattern)
 end
 
 takeStageSnapshot = function()
-	_game.BATTLE_STAGE_COUNT_REGION:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
+	_game.BATTLE_STAGE_COUNT_REGION:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. _currentStage .. ".png")
 	onStageSnapshotTaken()
 end
 
