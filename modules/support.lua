@@ -290,9 +290,7 @@ findSupportBounds = function(support)
 		end
 	end
 
-	-- we're not supposed to end down here, but if we do, there's probably something wrong with SUPPORT_LIST_ITEM_REGION_ARRAY or SUPPORT_LIST_REGION
-	local message = "The Servant or Craft Essence (X: %i, Y: %i, Width: %i, Height: %i) is not contained in SUPPORT_LIST_ITEM_REGION_ARRAY."
-	error(message:format(support:getX(), support:getY(), support:getW(), support:getH()))
+	return nil
 end
 
 isFriend = function(region)
