@@ -11,6 +11,7 @@ local LimitBrokenCharacter = "*"
 -- state vars
 local PreferredServantArray = {}
 local PreferredCraftEssenceTable = {}
+local FriendNameArray = {}
 
 -- functions
 local init
@@ -18,10 +19,12 @@ local selectSupport
 local selectFirst
 local selectManual
 local selectPreferred
+local selectFriend
 local scrollList
 local searchVisible
 local decideSearchMethod
 local searchMethod
+local findFriendName
 local findServants
 local findCraftEssence
 local findSupportBounds
@@ -41,6 +44,12 @@ init = function()
 		end
 
 		return values
+	end
+	
+	-- friend names
+	for _, friend in ipairs(split(Support_FriendNames)) do
+		friend = stringUtils.Trim(friend)
+		table.insert(FriendNameArray, friend)
 	end
 
 	-- servants
@@ -70,6 +79,9 @@ selectSupport = function(selectionMode)
 
 		elseif selectionMode == "manual" then
 			selectManual()
+		
+		elseif selectionMode == "friend" then
+			return selectFriend()
 
 		elseif selectionMode == "preferred" then
 			local searchMethod = decideSearchMethod()
@@ -103,6 +115,14 @@ end
 
 selectManual = function()
 	scriptExit("Support selection mode set to \"manual\".")
+end
+
+selectFriend = function()
+	if #FriendNameArray > 0 then
+		return selectPreferred(searchMethod.byFriendName)
+	end
+	
+	scriptExit("When using \"friend\" support selection mode, specify at least one friend name.")
 end
 
 selectPreferred = function(searchMethod)
@@ -198,6 +218,10 @@ decideSearchMethod = function()
 end
 
 searchMethod = {
+	byFriendName = function()
+		return findFriendName()
+	end,
+
 	byServant = function()
 		return findServants()[1]
 	end,
@@ -222,6 +246,16 @@ searchMethod = {
 		return nil -- not found, continue scrolling
 	end
 }
+
+findFriendName = function()
+	for _, friendName in ipairs(FriendNameArray) do
+		for _, theFriend in ipairs(regionFindAllNoFindException(game.SUPPORT_FRIENDS_REGION, Pattern(SupportImagePath .. friendName))) do
+			return theFriend
+		end
+	end
+	
+	return nil
+end
 
 findServants = function()
 	local servants = {}

@@ -31,6 +31,7 @@ game.STAMINA_BRONZE_CLICK = Location(1270,1140)
 game.SUPPORT_SCREEN_REGION = Region(0,0,110,332)
 game.SUPPORT_LIST_REGION = Region(70,332,378,1091) -- see docs/support_list_region.png
 game.SUPPORT_SWIPE_START_CLICK = Location(35,1190)
+game.SUPPORT_FRIENDS_REGION = Region(448,332,1210,1091)
 game.SUPPORT_SWIPE_END_CLICK = SupportSwipeEndClick -- this is provided by the config file
 
 game.SUPPORT_LIST_ITEM_REGION_ARRAY = {
