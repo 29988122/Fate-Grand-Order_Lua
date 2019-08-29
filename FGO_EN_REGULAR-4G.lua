@@ -105,6 +105,7 @@ Support_SwipesPerUpdate = 3
 Support_MaxUpdates = 3
 Support_FallbackTo = "manual"
 Support_FriendsOnly = 0
+Support_FriendNames = ""
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
 Support_PreferredCEs = "any"
 
@@ -172,7 +173,5 @@ Battle_AutoChooseTarget = 1
 Battle_NoblePhantasm = "danger" 
 --FastSkipDeadAnimation
 UnstableFastSkipDeadAnimation = 0
---Event Stage
-isEvent = 0
 
 dofile(dir .. "regular.lua")
