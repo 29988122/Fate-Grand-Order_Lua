@@ -19,5 +19,5 @@ end
 
 setImmersiveMode(true)
 while(1) do
-    click(Location(830 + xOffset,830 + yOffset))
+    click(Location(850 + xOffset,850 + yOffset))
 end
