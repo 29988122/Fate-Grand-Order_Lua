@@ -284,12 +284,29 @@ findCraftEssence = function(searchRegion)
 end
 
 findSupportBounds = function(support)
+	local supportBound = Region(76,0,2356,428)
+	local regionAnchor = Pattern(SupportImagePath .. "support_region_tool.png")
+	local regionArray = regionFindAllNoFindException( Region(1670,0,90,1440), regionAnchor)
+	
+	for _, testRegion in ipairs(regionArray) do
+		supportBound:moveTo(Location(76,testRegion:getY()-156))
+		if ankuluaUtils.DoesRegionContain(supportBound,support) then
+			if ( supportBound:getY() + supportBound:getH() ) >
+				( game.SUPPORT_LIST_REGION:getY() + game.SUPPORT_LIST_REGION:getH() ) then
+				return nil
+			else
+				return supportBound
+			end
+		end
+	end
+	
+	[[--
 	for _, supportBounds in ipairs(game.SUPPORT_LIST_ITEM_REGION_ARRAY) do
 		if ankuluaUtils.DoesRegionContain(supportBounds, support) then
 			return supportBounds
 		end
 	end
-
+	--]]
 	return nil
 end
 
