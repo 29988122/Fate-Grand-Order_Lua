@@ -289,10 +289,11 @@ findSupportBounds = function(support)
 	local regionArray = regionFindAllNoFindException( Region(1670,0,90,1440), regionAnchor)
 	
 	for _, testRegion in ipairs(regionArray) do
-		supportBound:moveTo(Location(76,testRegion:getY()-156))
+		supportBound:setY(testRegion:getY()-156)
 		if ankuluaUtils.DoesRegionContain(supportBound,support) then
 			if ( supportBound:getY() + supportBound:getH() ) >
-				( game.SUPPORT_LIST_REGION:getY() + game.SUPPORT_LIST_REGION:getH() ) then
+			   ( game.SUPPORT_LIST_REGION:getY() + game.SUPPORT_LIST_REGION:getH() and
+			   ( supportBound:getY() < game.SUPPORT_LIST_REGION:getY() ) then
 				return nil
 			else
 				return supportBound
@@ -300,13 +301,13 @@ findSupportBounds = function(support)
 		end
 	end
 	
-	[[--
+	--[[
 	for _, supportBounds in ipairs(game.SUPPORT_LIST_ITEM_REGION_ARRAY) do
 		if ankuluaUtils.DoesRegionContain(supportBounds, support) then
 			return supportBounds
 		end
 	end
-	--]]
+	]]--
 	return nil
 end
 
