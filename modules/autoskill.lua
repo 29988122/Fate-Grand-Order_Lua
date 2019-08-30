@@ -34,7 +34,8 @@ local function CastSkill(location)
 			click(game.BATTLE_SKILL_OK_CLICK)
 		end
 		wait(0.3)
-		click(location) -- for resetting when you click on a skill with a cooldown
+		click(Location(1280,1160)) -- for resetting error msg when you click on a skill that has a requirement. also useful for clicking a skill with a cooldown.
+		click(Location(1280,1160)) -- hopefully resets the target selection when target not selected
 
 		WaitForAnimationToFinish()
 	end
