@@ -119,7 +119,7 @@ end
 --Click through reward screen, continue if option presents itself, otherwise continue clicking through
 local function Result()
 	--Validator document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
-	continueClick(game.RESULT_NEXT_CLICK,35)
+	continueClick(game.RESULT_NEXT_CLICK,55)
 
 	--Checking if there was a Bond CE reward
 	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
