@@ -292,22 +292,11 @@ findSupportBounds = function(support)
 	for _, testRegion in ipairs(regionArray) do
 		supportBound:setY(testRegion:getY()-156)
 		if ankuluaUtils.DoesRegionContain(supportBound,support) then
-			if ( supportBound:getY() + supportBound:getH() ) >
-				( game.SUPPORT_LIST_REGION:getY() + game.SUPPORT_LIST_REGION:getH() ) then
-				return defaultRegion
-			else
-				return supportBound
-			end
+			return supportBound
 		end
 	end
 	
-	--[[
-	for _, supportBounds in ipairs(game.SUPPORT_LIST_ITEM_REGION_ARRAY) do
-		if ankuluaUtils.DoesRegionContain(supportBounds, support) then
-			return supportBounds
-		end
-	end
-	]]
+	toast( "Default Region being returned; file an issue on the github for this issue" )
 	return defaultRegion
 end
 
