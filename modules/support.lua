@@ -284,15 +284,20 @@ findCraftEssence = function(searchRegion)
 end
 
 findSupportBounds = function(support)
-	for _, supportBounds in ipairs(game.SUPPORT_LIST_ITEM_REGION_ARRAY) do
-		if ankuluaUtils.DoesRegionContain(supportBounds, support) then
-			return supportBounds
+	local supportBound = Region(76,0,2356,428)
+	local regionAnchor = Pattern(SupportImagePath .. "support_region_tool.png")
+	local regionArray = regionFindAllNoFindException( Region(1670,0,90,1440), regionAnchor)
+	local defaultRegion = supportBound
+	
+	for _, testRegion in ipairs(regionArray) do
+		supportBound:setY(testRegion:getY()-156)
+		if ankuluaUtils.DoesRegionContain(supportBound,support) then
+			return supportBound
 		end
 	end
-
-	-- we're not supposed to end down here, but if we do, there's probably something wrong with SUPPORT_LIST_ITEM_REGION_ARRAY or SUPPORT_LIST_REGION
-	local message = "The Servant or Craft Essence (X: %i, Y: %i, Width: %i, Height: %i) is not contained in SUPPORT_LIST_ITEM_REGION_ARRAY."
-	error(message:format(support:getX(), support:getY(), support:getW(), support:getH()))
+	
+	toast( "Default Region being returned; file an issue on the github for this issue" )
+	return defaultRegion
 end
 
 isFriend = function(region)
