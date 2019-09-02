@@ -24,6 +24,8 @@ Next, install [Tesseract library for OCR](https://github.com/tesseract-ocr/tesse
 
 Then, in Anaconda, create a Python 3.6 envirionment and install all the required packages in the /api/requirements.txt
 
+Note: Put everything into your mobile device except the api folder which will stay in your PC.
+
 ## Usage:
 Please choose the corresponding lua file in AnkuLua according to your:
 * FGO server (supported China / Japan / Taiwan / USA currently)
