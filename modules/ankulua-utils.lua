@@ -2,7 +2,7 @@ local ankuluaUtils = {}
 
 -- determines if a match is completely contained in a region
 -- algorithm taken from https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Rectangle.cs,366
-function ankuluaUtils.doesRegionContain(region, match)
+function ankuluaUtils.DoesRegionContain(region, match)
 	return region:getX() <= match:getX()
 		and match:getX() + match:getW() <= region:getX() + region:getW()
 
@@ -11,7 +11,7 @@ function ankuluaUtils.doesRegionContain(region, match)
 end
 
 -- see http://ankulua.boards.net/thread/7/settings#snapshot
-function ankuluaUtils.useSameSnapIn(func)
+function ankuluaUtils.UseSameSnapIn(func)
 	snapshot()
 	local value = func()
 	usePreviousSnap(false)

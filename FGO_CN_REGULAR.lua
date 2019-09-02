@@ -4,6 +4,7 @@ dir = scriptPath()
 setImagePath(dir)
 GameRegion = "CN"
 StageCountRegion = Region(1722,25,46,53)
+SupportSwipeEndClick  = Location(35,390)
 
 --Initalize for user input listnames
 Autoskill_List = {}
@@ -30,8 +31,27 @@ Support_SwipesPerUpdate = 10
 Support_MaxUpdates = 3
 Support_FallbackTo = "manual"
 Support_FriendsOnly = 0
+Support_FriendNames = ""
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
 Support_PreferredCEs = "*chaldea_lunchtime.png"
+
+--Bond CE Get
+StopAfterBond10 = 0--[[
+	This option is switched to 1 if you want to stop the script after retreiving a Bond 10 CE card
+	TODO: move this explanation to documentation
+--]]
+
+--BoostItem
+BoostItem_SelectionMode = "disabled" --[[
+	possible values: disabled, 1, 2 or 3
+	if you want to use this, make sure "Confirm Use of Boost Item" is off
+	
+	TODO: move this explanation to the documentation
+--]]
+
+StorySkip = 0 --[[
+	People really want this feature.
+]]
 
 --自動施放技能
 Enable_Autoskill = 0
@@ -79,7 +99,5 @@ Battle_AutoChooseTarget = 1
 Battle_NoblePhantasm = "disabled"
 --快速跳過死亡動畫
 UnstableFastSkipDeadAnimation = 0
---活動關卡
-isEvent = 0
 
 dofile(dir .. "regular.lua")

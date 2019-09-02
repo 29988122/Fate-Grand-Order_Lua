@@ -1,9 +1,25 @@
 local game = {}
 
 game.MENU_SCREEN_REGION = Region(2100,1200,1000,1000)
+game.CONTINUE_REGION = Region(1400,1000,600,200)
 game.MENU_SELECT_QUEST_CLICK = Location(1900,400)
 game.MENU_START_QUEST_CLICK = Location(2400,1350)
-game.MENU_START_QUEST_WITHOUT_ITEM_CLICK = Location(1652,1304) -- see docs/start_quest_without_item_click.png
+game.CONTINUE_CLICK = Location(1650,1120)
+game.MENU_STORY_SKIP_REGION = Region(2240,20,300,120)
+game.MENU_STORY_SKIP_CLICK = Location(2360,80)
+game.MENU_STORY_SKIP_YES_CLICK = Location(1600,1100)
+
+-- see docs/menu_boost_item_click_array.png
+game.MENU_BOOST_ITEM_1_CLICK = Location(1280,418)
+game.MENU_BOOST_ITEM_2_CLICK = Location(1280,726)
+game.MENU_BOOST_ITEM_3_CLICK = Location(1280,1000)
+game.MENU_BOOST_ITEM_SKIP_CLICK = Location(1652,1304)
+game.MENU_BOOST_ITEM_CLICK_ARRAY = {
+	["1"] = game.MENU_BOOST_ITEM_1_CLICK,
+	["2"] = game.MENU_BOOST_ITEM_2_CLICK,
+	["3"] = game.MENU_BOOST_ITEM_3_CLICK,
+	["disabled"] = game.MENU_BOOST_ITEM_SKIP_CLICK
+}
 
 game.STAMINA_SCREEN_REGION = Region(600,200,300,300)
 game.STAMINA_OK_CLICK = Location(1650,1120)
@@ -15,7 +31,8 @@ game.STAMINA_BRONZE_CLICK = Location(1270,1140)
 game.SUPPORT_SCREEN_REGION = Region(0,0,110,332)
 game.SUPPORT_LIST_REGION = Region(70,332,378,1091) -- see docs/support_list_region.png
 game.SUPPORT_SWIPE_START_CLICK = Location(35,1190)
-game.SUPPORT_SWIPE_END_CLICK = Location(35,390)
+game.SUPPORT_FRIENDS_REGION = Region(448,332,1210,1091)
+game.SUPPORT_SWIPE_END_CLICK = SupportSwipeEndClick -- this is provided by the config file
 
 game.SUPPORT_LIST_ITEM_REGION_ARRAY = {
 	-- see docs/support_list_item_regions_top.png
@@ -36,6 +53,7 @@ game.SUPPORT_FIRST_SUPPORT_CLICK = Location(1900,500)
 
 game.BATTLE_SCREEN_REGION = Region(2105,1259,336,116) -- see docs/battle_region.png
 game.BATTLE_STAGE_COUNT_REGION = StageCountRegion -- this is provided by the config file
+game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK = Location(2550,0)
 game.BATTLE_ATTACK_CLICK = Location(2300,1200)
 game.BATTLE_SKIP_DEATH_ANIMATION_CLICK = Location(1700, 100) -- see docs/skip_death_animation_click.png
 
@@ -50,12 +68,6 @@ game.BATTLE_TARGET_CLICK_ARRAY = {
 	Location(90,80),
 	Location(570,80),
 	Location(1050,80)
-}
-
-game.BATTLE_TARGET_SELECTED_MARK_ARRAY = {
-	Region(76,6,24,6),
-	Region(560,6,24,6),
-	Region(1036,6,24,6)
 }
 
 game.BATTLE_SKILL_1_CLICK = Location(140,1160)
@@ -120,7 +132,7 @@ game.BATTLE_NP_CARD_CLICK_ARRAY = {
 
 game.RESULT_SCREEN_REGION = Region(100,300,700,200)
 game.RESULT_BOND_REGION = Region(2000,820,120,120)
-game.RESULT_CE_REWARD_REGION = Region(1000,220,40,100)
+game.RESULT_CE_REWARD_REGION = Region(1050,1216,33,28)
 game.RESULT_CE_REWARD_CLOSE_CLICK = Location(80,60)
 game.RESULT_FRIEND_REQUEST_REGION = Region(660,120,140,160)
 game.RESULT_FRIEND_REQUEST_REJECT_CLICK = Location(600,1200)

@@ -11,6 +11,7 @@ local LimitBrokenCharacter = "*"
 -- state vars
 local PreferredServantArray = {}
 local PreferredCraftEssenceTable = {}
+local FriendNameArray = {}
 
 -- functions
 local init
@@ -18,10 +19,12 @@ local selectSupport
 local selectFirst
 local selectManual
 local selectPreferred
+local selectFriend
 local scrollList
 local searchVisible
 local decideSearchMethod
 local searchMethod
+local findFriendName
 local findServants
 local findCraftEssence
 local findSupportBounds
@@ -33,7 +36,7 @@ init = function()
 		local values = {}
 
 		for value in str:gmatch("[^,]+") do
-			value = stringUtils.trim(value)
+			value = stringUtils.Trim(value)
 
 			if value:lower() ~= "any" then
 				table.insert(values, value)
@@ -42,21 +45,27 @@ init = function()
 
 		return values
 	end
+	
+	-- friend names
+	for _, friend in ipairs(split(Support_FriendNames)) do
+		friend = stringUtils.Trim(friend)
+		table.insert(FriendNameArray, friend)
+	end
 
 	-- servants
 	for _, servant in ipairs(split(Support_PreferredServants)) do
-		servant = stringUtils.trim(servant)
+		servant = stringUtils.Trim(servant)
 		table.insert(PreferredServantArray, servant)
 	end
 
 	-- craft essences
 	for _, craftEssence in ipairs(split(Support_PreferredCEs)) do
-		craftEssence = stringUtils.trim(craftEssence)
+		craftEssence = stringUtils.Trim(craftEssence)
 
 		local craftEssenceEntry =
 		{
 			Name = craftEssence:gsub("%" .. LimitBrokenCharacter, ""),
-			PreferLimitBroken = stringUtils.starts_with(craftEssence, LimitBrokenCharacter)
+			PreferLimitBroken = stringUtils.StartsWith(craftEssence, LimitBrokenCharacter)
 		}
 
 		table.insert(PreferredCraftEssenceTable, craftEssenceEntry)
@@ -70,6 +79,9 @@ selectSupport = function(selectionMode)
 
 		elseif selectionMode == "manual" then
 			selectManual()
+		
+		elseif selectionMode == "friend" then
+			return selectFriend()
 
 		elseif selectionMode == "preferred" then
 			local searchMethod = decideSearchMethod()
@@ -84,11 +96,33 @@ end
 
 selectFirst = function()
 	click(game.SUPPORT_FIRST_SUPPORT_CLICK)
+	--https://github.com/29988122/Fate-Grand-Order_Lua/issues/192 , band-aid fix but it's working well. 
+	if game.SUPPORT_SCREEN_REGION:exists(GeneralImagePath .. "support_screen.png") then
+		wait(2)
+		while game.SUPPORT_SCREEN_REGION:exists(GeneralImagePath .. "support_screen.png")
+		do
+			wait(10)
+			click(game.SUPPORT_UPDATE_CLICK)
+			wait(1)
+			click(game.SUPPORT_UPDATE_YES_CLICK)
+			wait(3)
+			click(game.SUPPORT_FIRST_SUPPORT_CLICK)
+			wait(1)
+		end
+	end
 	return true
 end
 
 selectManual = function()
 	scriptExit("Support selection mode set to \"manual\".")
+end
+
+selectFriend = function()
+	if #FriendNameArray > 0 then
+		return selectPreferred(searchMethod.byFriendName)
+	end
+	
+	scriptExit("When using \"friend\" support selection mode, specify at least one friend name.")
 end
 
 selectPreferred = function(searchMethod)
@@ -162,7 +196,7 @@ searchVisible = function(searchMethod)
 	end
 
 	-- see https://www.lua.org/pil/5.1.html for details on "unpack"
-	return unpack(ankuluaUtils.useSameSnapIn(performSearch))
+	return unpack(ankuluaUtils.UseSameSnapIn(performSearch))
 end
 
 decideSearchMethod = function()
@@ -184,6 +218,10 @@ decideSearchMethod = function()
 end
 
 searchMethod = {
+	byFriendName = function()
+		return findFriendName()
+	end,
+
 	byServant = function()
 		return findServants()[1]
 	end,
@@ -208,6 +246,16 @@ searchMethod = {
 		return nil -- not found, continue scrolling
 	end
 }
+
+findFriendName = function()
+	for _, friendName in ipairs(FriendNameArray) do
+		for _, theFriend in ipairs(regionFindAllNoFindException(game.SUPPORT_FRIENDS_REGION, Pattern(SupportImagePath .. friendName))) do
+			return theFriend
+		end
+	end
+	
+	return nil
+end
 
 findServants = function()
 	local servants = {}
@@ -236,15 +284,20 @@ findCraftEssence = function(searchRegion)
 end
 
 findSupportBounds = function(support)
-	for _, supportBounds in ipairs(game.SUPPORT_LIST_ITEM_REGION_ARRAY) do
-		if ankuluaUtils.doesRegionContain(supportBounds, support) then
-			return supportBounds
+	local supportBound = Region(76,0,2356,428)
+	local regionAnchor = Pattern(SupportImagePath .. "support_region_tool.png")
+	local regionArray = regionFindAllNoFindException( Region(1670,0,90,1440), regionAnchor)
+	local defaultRegion = supportBound
+	
+	for _, testRegion in ipairs(regionArray) do
+		supportBound:setY(testRegion:getY()-156)
+		if ankuluaUtils.DoesRegionContain(supportBound,support) then
+			return supportBound
 		end
 	end
-
-	-- we're not supposed to end down here, but if we do, there's probably something wrong with SUPPORT_LIST_ITEM_REGION_ARRAY or SUPPORT_LIST_REGION
-	local message = "The Servant or Craft Essence (X: %i, Y: %i, Width: %i, Height: %i) is not contained in SUPPORT_LIST_ITEM_REGION_ARRAY."
-	error(message:format(support:getX(), support:getY(), support:getW(), support:getH()))
+	
+	toast( "Default Region being returned; file an issue on the github for this issue" )
+	return defaultRegion
 end
 
 isFriend = function(region)

@@ -1,6 +1,7 @@
 -- modules
 local _game = require("game")
 local _ankuluaUtils = require("ankulua-utils")
+local _luaUtils = require("lua-utils")
 local _autoskill
 local _card
 
@@ -68,7 +69,7 @@ getCurrentTurn = function()
 end
 
 performBattle = function()
-	_ankuluaUtils.useSameSnapIn(onTurnStarted)
+	_ankuluaUtils.UseSameSnapIn(onTurnStarted)
 	wait(2)
 	
 	if Enable_Autoskill == 1 then
@@ -142,19 +143,16 @@ onStageChanged = function()
 end
 
 autoChooseTarget = function()
-	for i, target in ipairs(_game.BATTLE_TARGET_REGION_ARRAY) do
+	-- from my experience, most boss stages are ordered like (Servant 1)(Servant 2)(Servant 3),
+	-- where (Servant 3) is the most powerful one. see docs/boss_stage.png
+	-- that's why the table is iterated backwards.
+
+	for i, target in _luaUtils.Reverse(_game.BATTLE_TARGET_REGION_ARRAY) do
 		if isPriorityTarget(target) then
 			chooseTarget(i)			
 			return
 		end
 	end
-end
-
-isAlreadyTargeted = function(targetIndex)
-	Settings:set("MinSimilarity", 0.95)
-	local isTargeted = _game.BATTLE_TARGET_SELECTED_MARK_ARRAY[targetIndex]:exists(GeneralImagePath .. "target_selected.png")
-	Settings:set("MinSimilarity", 0.7)
-	return isTargeted
 end
 
 isPriorityTarget = function(target)
@@ -165,9 +163,9 @@ isPriorityTarget = function(target)
 end
 
 chooseTarget = function(targetIndex)
-	if not isAlreadyTargeted(targetIndex) then
-		click(_game.BATTLE_TARGET_CLICK_ARRAY[targetIndex])
-	end
+	click(_game.BATTLE_TARGET_CLICK_ARRAY[targetIndex])
+	wait(0.5)
+	click(_game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK)
 	onTargetChosen()
 end
 

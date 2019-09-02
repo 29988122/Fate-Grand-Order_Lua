@@ -24,3 +24,4 @@ _device_debug.lua
 _test.lua
 Nox_TitaniumBackup(offline backup)/
 *.apk
+LOCAL_debug.lua

@@ -79,7 +79,7 @@ initCardPriorityArrayDetailed = function(errorString)
 	local cardCounter = 0
 
 	for card in Battle_CardPriority:gmatch("[^,]+") do
-		card = _stringUtils.trim(card:upper())
+		card = _stringUtils.Trim(card:upper())
 		
 		if card:len() < 1 or card:len() > 2 then
 			scriptExit(errorString .. card .. "': Invalid card length.")
@@ -152,7 +152,7 @@ getCommandCards = function()
 		end
 	end
 	
-	_ankuluaUtils.useSameSnapIn(storeCards)
+	_ankuluaUtils.UseSameSnapIn(storeCards)
 	return storagePerPriority
 end
 
