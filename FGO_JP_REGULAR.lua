@@ -20,6 +20,9 @@ end
 
 --スクリプトコンフィグ、簡易説明を参照してください。 https://github.com/29988122/Fate-Grand-Order_Lua/wiki/Script-configuration-%E6%97%A5%E6%9C%AC%E8%AA%9E/
 --***************************************************************************
+--Project Avalon
+Use_Avalon = 0
+
 --スタミナ自動補充
 Refill_Enabled = 0
 Refill_Resource = "All Apples"

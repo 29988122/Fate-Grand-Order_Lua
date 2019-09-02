@@ -2,9 +2,14 @@
 	私の国では仕事時間は異常に長いので、もう満足プレイする時間すらできない。休日を使ってシナリオを読むことがもう精一杯…
 	お願いします。このプログラムを禁止しないでください。
 --]]
-package.path = package.path .. ";" .. dir .. 'modules/?.lua'
+package.path = package.path .. ";" .. dir .. 'modules/?.lua;' .. dir .. 'avalon/?.lua'
 
 -- consts
+if Use_Avalon == 1 then
+	AvalonPath = "pendragon"
+else
+	AvalonPath = "fgoLua"
+end
 GeneralImagePath = "image_" .. GameRegion .. "/"
 local IMAGE_WIDTH = 1280
 local IMAGE_HEIGHT = 720
