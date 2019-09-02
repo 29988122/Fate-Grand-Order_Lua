@@ -17,6 +17,8 @@ Note: This project is currently WIP and hence be aware of messy codes and bugs.
 
 The main aim of using Avalon wrapper is to reduce the coupling of FGO_Lua and Project Avalon. By using this method, FGO_Lua can be developed independently from Project Avalon. Besides, users could use the standalone FGO_Lua scripts when the Avalon server isn't available.
 
+The FGO_Lua folder holds the Lua codes factored out from the original FGO_Lua scripts. Pendragon folder holds the lua functions for REST API(in /pendragon/api.lua), as well as FGO module algorithms modifed to handle REST API.
+
 ## Installation
 To run the Avalon features, Python 3.6 is required in your PC. Personally, I use [Anaconda](https://www.anaconda.com/) to manage my Python environments.
 
