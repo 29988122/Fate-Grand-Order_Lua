@@ -44,7 +44,7 @@ In /api/source, change the Tesseract related file settings ```pytesseract.pytess
 
 Then, run the Python script called ```index.py``` in /api/source, using terminal/comand prompt or Python IDE such as [Liclipse](https://www.liclipse.com/).
 
-## Features:
+## Features/Proof Of Concept:
 Currently, the only Avalon feature available is the detection of Stage, which enables Fate-Grand-Order_Lua to execute AutoSkills in any stages in battle. Instead of the need to start Fate-Grand-Order_Lua at Stage 1/3, you can run it at any stage such as 2/3 or 3/3 and have AutoSkills for that stage to be executed. [Demo](https://streamable.com/v58lv)
 
 Currently, there are other features that are being planned such as Context Aware AutoSkill and Reinforced Learning Card Chaining. If you have additional idea implementations to contribute, please submit a pull request.
