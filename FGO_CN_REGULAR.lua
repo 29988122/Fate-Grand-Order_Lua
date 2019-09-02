@@ -20,6 +20,9 @@ end
 
 --腳本設定說明請參照： https://github.com/29988122/Fate-Grand-Order_Lua/wiki/Script-configuration-正體中文/
 --***************************************************************************
+--Project Avalon
+Use_Avalon = 0
+
 --自動補體
 Refill_Enabled = 0
 Refill_Resource = "All Apples"

@@ -20,6 +20,9 @@ end
 
 --Script Configuration, check instructions here: https://github.com/29988122/Fate-Grand-Order_Lua/wiki/Script-configuration-English
 --***************************************************************************
+--Project Avalon
+Use_Avalon = 0
+
 --AutoRefill Stamina
 Refill_Enabled = 0
 Refill_Resource = "All Apples"

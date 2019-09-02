@@ -4,6 +4,7 @@ local _ankuluaUtils = require("ankulua-utils")
 local _luaUtils = require("lua-utils")
 local _autoskill
 local _card
+local _avalonBattle = require(AvalonPath .. "/battle")
 
 -- state vars
 local _currentStage
@@ -137,7 +138,7 @@ onStageSnapshotTaken = function()
 end
 
 onStageChanged = function()
-	_currentStage = _currentStage + 1
+	_currentStage = _avalonBattle.onStageChange(_currentStage)
 	_currentTurn = 0
 	_hasChosenTarget = false
 end
