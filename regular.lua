@@ -192,7 +192,7 @@ end
 
 --Checks if Support Selection menu is up
 local function IsInSupport()
-        return game.SUPPORT_SCREEN_REGION:exists(GeneralImagePath .. "support_screen.png")
+        return game.SUPPORT_SCREEN_REGION:exists(Pattern(GeneralImagePath .. "support_screen.png"):similar(.85))
 end
 
 --Selections Support option, code located in modules/support.lua
