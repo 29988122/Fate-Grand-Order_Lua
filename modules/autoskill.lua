@@ -101,6 +101,7 @@ local function SelectSubMember(location)
 		WaitForAnimationToFinish(15)
 
 		ChangeArray(DEFAULT_FUNCTION_ARRAY)
+		wait(1)
 	end
 end
 
