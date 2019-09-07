@@ -21,40 +21,37 @@ end
 --Script Configuration, check instructions here: https://github.com/29988122/Fate-Grand-Order_Lua/wiki/Script-configuration-English
 --***************************************************************************
 --AutoRefill Stamina
-Refill_Enabled = 0
-Refill_Resource = "All Apples"
-Refill_Repetitions = 0
+Refill_Enabled = 1
+Refill_Resource = "Gold"
+Refill_Repetitions = 5
 
 --AutoSupportSelection
-Support_SelectionMode = "first"
-Support_SwipesPerUpdate = 10
+Support_SelectionMode = "preferred"
+Support_SwipesPerUpdate = 5
 Support_MaxUpdates = 3
-Support_FallbackTo = "manual"
+Support_FallbackTo = "first"
 Support_FriendsOnly = 0
 Support_FriendNames = ""
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
-Support_PreferredCEs = "*chaldea_lunchtime.png"
+Support_PreferredCEs = "cheer_for_master.png"
 
 --Bond CE Get
-StopAfterBond10 = 0--[[
-	This option is switched to 1 if you want to stop the script after retreiving a Bond 10 CE card
-	TODO: move this explanation to documentation
---]]
+StopAfterBond10 = 0 
+--This option is switched to 1 if you want to stop the script after retreiving a Bond 10 CE card
+--TODO: move this explanation to documentation
 
 --BoostItem
-BoostItem_SelectionMode = "disabled" --[[
-	possible values: disabled, 1, 2 or 3
-	if you want to use this, make sure "Confirm Use of Boost Item" is off
+BoostItem_SelectionMode = "disabled" 
+--possible values: disabled, 1, 2 or 3
+--if you want to use this, make sure "Confirm Use of Boost Item" is off
 	
-	TODO: move this explanation to the documentation
---]]
+--TODO: move this explanation to the documentation
 
-StorySkip = 0 --[[
-	People really want this feature.
-]]
+StorySkip = 0
+--People really want this feature.
 
 --AutoSkill
-Enable_Autoskill = 0
+Enable_Autoskill = 1
 Skill_Confirmation = 0
 Skill_Command = "abc,#,def,#,ghi"
 
@@ -64,8 +61,8 @@ Enable_Autoskill_List = 1
 Autoskill_List[1][1] = "Fran,Arash,Shake,Spart,0,Supp"
 Autoskill_List[1][2] = "jfgi2x335,#,g1hief5,#,c4"
 
-Autoskill_List[2][1] = "Spam Everything"
-Autoskill_List[2][2] = "abcdefghi,0,0,0,0,0,0,0,0,abcdefghi,0,0,0,0,0,0,0,0,abcdefghi"
+Autoskill_List[2][1] = "Event Heroic"
+Autoskill_List[2][2] = "eg1h,abdfl1j3,#,i5,5,#,f1cdk14"
 
 Autoskill_List[3][1] = "Spam at Battle 1,3"
 Autoskill_List[3][2] = "abcdefghi,#,#,abcdefghi"
@@ -73,8 +70,8 @@ Autoskill_List[3][2] = "abcdefghi,#,#,abcdefghi"
 Autoskill_List[4][1] = "Settings No.4"
 Autoskill_List[4][2] = "abcdefghi,#,5,5,5,#,abcdefghi"
 
-Autoskill_List[5][1] = "Settings No.5"
-Autoskill_List[5][2] = ""
+Autoskill_List[5][1] = "Event Conqueror"
+Autoskill_List[5][2] = "agi6,#,ex33fhijkg15,#,bcdf14"
 
 Autoskill_List[6][1] = "Settings No.6"
 Autoskill_List[6][2] = ""
@@ -92,7 +89,8 @@ Autoskill_List[10][1] = "Settings No.10"
 Autoskill_List[10][2] = ""
 
 --Card Priority Customization
-Battle_CardPriority = "BAQ"
+--Battle_CardPriority = "BAQ"
+Battle_CardPriority = "WB, WA, WQ, A, B, Q, RA, RQ, RB"
 --AutoChooseTarget
 Battle_AutoChooseTarget = 1
 --NoblePhantasm Casting
