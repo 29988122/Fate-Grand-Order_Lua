@@ -1,43 +1,34 @@
--- settings
-xOffset = 0
-yOffset = 0
+dir = scriptPath()
+setImagePath(dir)
+GameRegion = "EN"
+package.path = package.path .. ";" .. dir .. 'modules/?.lua'
 
-xDifferential = getAppUsableScreenSize():getX() / 1280
-yDifferential = getAppUsableScreenSize():getY() / 720
+GeneralImagePath = "image_" .. GameRegion .. "/"
+local IMAGE_WIDTH = 1280
+local IMAGE_HEIGHT = 720
+local SCRIPT_WIDTH = 2560
+local SCRIPT_HEIGHT = 1440
 
-if yDifferential > xDifferential then
-    yOffset = ( getAppUsableScreenSize():getY() - ( xDifferential * 720 ) ) / xDifferential / 2
-    Settings:setCompareDimension(true,1280)
-    Settings:setScriptDimension(true,1280)
-elseif yDifferential < xDifferential then
-    xOffset = ( getAppUsableScreenSize():getX() - ( yDifferential * 1280 ) ) / yDifferential / 2
-    Settings:setCompareDimension(false,720)
-    Settings:setScriptDimension(false,720)
-else
-    Settings:setCompareDimension(true,1280)
-    Settings:setScriptDimension(true,1280)
-end
-
-setImmersiveMode(true)
-local dir = scriptPath()
-setImagePath(dir .. "image_EN")
+-- imports
+local scaling = require("scaling")
+scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT)
 
 -- consts
-local SpinClick = Location(417 + xOffset, 430 + yOffset)
-local FinishedLotteryBoxRegion = Region(177 + xOffset, 411 + yOffset, 258, 151)
-local FullPresentBoxRegion = Region(640 + xOffset, 360 + yOffset, 640, 360)
-local ResetClick = Location(1100 + xOffset, 240 + yOffset)
-local ResetConfirmationClick = Location(837 + xOffset, 561 + yOffset)
-local ResetCloseClick = Location(635 + xOffset, 560 + yOffset)
+local SpinClick = Location(834, 860)
+local FinishedLotteryBoxRegion = Region(520, 840, 70, 100)
+local FullPresentBoxRegion = Region(1280, 720, 1280, 720)
+local ResetClick = Location(2200, 480)
+local ResetConfirmationClick = Location(1774, 1122)
+local ResetCloseClick = Location(1270, 1120)
 
 -- script
 local function spin()
-	continueClick(SpinClick,620)
+	continueClick(SpinClick,480)
 end
 
 local function reset()
 	click(ResetClick)
-	wait(0.2)
+	wait(0.5)
 
 	click(ResetConfirmationClick)
 	wait(3)
@@ -46,10 +37,12 @@ local function reset()
 	wait(2)
 end
 
+FinishedLotteryBoxPattern = Pattern(GeneralImagePath .. "lottery.png")
+FinishedLotteryBoxPattern:similar(0.65)
 while(true) do
-	if FinishedLotteryBoxRegion:exists("lottery.png") then
+	if FinishedLotteryBoxRegion:exists(FinishedLotteryBoxPattern) then
 		reset()
-	elseif FullPresentBoxRegion:exists("StopGifts.png") then
+	elseif FullPresentBoxRegion:exists(GeneralImagePath .. "StopGifts.png") then
 		scriptExit("Present Box Full")
 	else
 		spin()
