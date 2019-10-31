@@ -20,8 +20,4 @@ ama_daemon/desktop.ini
 >>>>>>> roundtest
 image_JP/_GeneratedStagecountSnapshot.png
 LOCAL_FGO_JP_REGULAR.lua
-_device_debug.lua
-_test.lua
-Nox_TitaniumBackup(offline backup)/
-*.apk
 LOCAL_debug.lua
