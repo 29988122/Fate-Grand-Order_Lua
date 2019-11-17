@@ -287,11 +287,11 @@ end
 findSupportBounds = function(support)
 	local supportBound = Region(76,0,2356,428)
 	local regionAnchor = Pattern(SupportImagePath .. "support_region_tool.png")
-	local regionArray = regionFindAllNoFindException( Region(1670,0,90,1440), regionAnchor)
+	local regionArray = regionFindAllNoFindException( Region(1670,0,2356,1440), regionAnchor)
 	local defaultRegion = supportBound
 	
 	for _, testRegion in ipairs(regionArray) do
-		supportBound:setY(testRegion:getY()-156)
+		supportBound:setY(testRegion:getY()-172)
 		if ankuluaUtils.DoesRegionContain(supportBound,support) then
 			return supportBound
 		end
