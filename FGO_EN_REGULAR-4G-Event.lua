@@ -23,17 +23,18 @@ end
 --AutoRefill Stamina
 Refill_Enabled = 1
 Refill_Resource = "Gold"
-Refill_Repetitions = 5
+Refill_Repetitions = 1
 
 --AutoSupportSelection
 Support_SelectionMode = "preferred"
-Support_SwipesPerUpdate = 5
-Support_MaxUpdates = 3
+Support_SwipesPerUpdate = 3
+Support_MaxUpdates = 5
 Support_FallbackTo = "first"
 Support_FriendsOnly = 0
 Support_FriendNames = ""
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
-Support_PreferredCEs = "cheer_for_master.png"
+--Support_PreferredServants = "any"
+Support_PreferredCEs = "*holy_night_supper.png"
 
 --Bond CE Get
 StopAfterBond10 = 0 
@@ -61,14 +62,14 @@ Enable_Autoskill_List = 1
 Autoskill_List[1][1] = "Fran,Arash,Shake,Spart,0,Supp"
 Autoskill_List[1][2] = "jfgi2x335,#,g1hief5,#,c4"
 
-Autoskill_List[2][1] = "Event Heroic"
-Autoskill_List[2][2] = "eg1h,abdfl1j3,#,i5,5,#,f1cdk14"
+Autoskill_List[2][1] = "Event Gold"
+Autoskill_List[2][2] = "abdet1,c,0,h,#,gi1x31hf5,#,ijkg364"
 
-Autoskill_List[3][1] = "Spam at Battle 1,3"
-Autoskill_List[3][2] = "abcdefghi,#,#,abcdefghi"
+Autoskill_List[3][1] = "Event Snow"
+Autoskill_List[3][2] = "ab4,#,c2defx11a5,#,ghc3j6"
 
-Autoskill_List[4][1] = "Settings No.4"
-Autoskill_List[4][2] = "abcdefghi,#,5,5,5,#,abcdefghi"
+Autoskill_List[4][1] = "Lava Run"
+Autoskill_List[4][2] = "cedh,bfik,#,agj6,#,x33gi25"
 
 Autoskill_List[5][1] = "Event Conqueror"
 Autoskill_List[5][2] = "agi6,#,ex33fhijkg15,#,bcdf14"
