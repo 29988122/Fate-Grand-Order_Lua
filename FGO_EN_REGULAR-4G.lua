@@ -35,10 +35,12 @@ Support_FallbackTo = "first"
 Support_FriendsOnly = 0
 Support_FriendNames = ""
 --Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
-Support_PreferredServants = "any"
---Support_PreferredCEs = "any"
 --Support_PreferredCEs = "chaldea_lunchtime.png"
+
+Support_PreferredServants = "any"
 Support_PreferredCEs = "*mona_lisa.png"
+
+--Support_PreferredCEs = "any"
 
 
 --Bond CE Get
