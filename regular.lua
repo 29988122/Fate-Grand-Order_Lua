@@ -100,6 +100,8 @@ end
 local function Menu()
 	battle.resetState()
 	turnCounter = {0, 0, 0, 0, 0}
+	-- Prints a message containing the amount of apple used
+	toast(StoneUsed)
 
 	--Click uppermost quest.
 	click(game.MENU_SELECT_QUEST_CLICK)
