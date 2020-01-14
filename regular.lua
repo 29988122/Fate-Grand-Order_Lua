@@ -101,7 +101,7 @@ local function Menu()
 	battle.resetState()
 	turnCounter = {0, 0, 0, 0, 0}
 	-- Prints a message containing the amount of apple used
-	toast(StoneUsed)
+	toast(StoneUsed .. " refills used out of " .. Refill_Repetitions)
 
 	--Click uppermost quest.
 	click(game.MENU_SELECT_QUEST_CLICK)
