@@ -17,13 +17,15 @@ else
     Settings:setScriptDimension(true,2560)
 end
 
+setContinueClickTiming(50, 100)
 setImmersiveMode(true)
 click(Location(1400 + xOffset,1120 + yOffset))
 click(Location(1600 + xOffset,1120 + yOffset))
 while(1) do
-    click(Location(1600 + xOffset,1420 + yOffset))
+    click(Location(1600 + xOffset,1120 + yOffset))
+    wait(0.3)
     click(Location(1600 + xOffset,1120 + yOffset))
     wait(3)
-    continueClick(Location(1660 + xOffset,1300 + yOffset), 15)
+    continueClick(Location(1660 + xOffset,1300 + yOffset), 20)
     wait(0.5)
 end
