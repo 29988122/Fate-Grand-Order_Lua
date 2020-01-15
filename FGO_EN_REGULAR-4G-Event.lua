@@ -22,19 +22,23 @@ end
 --***************************************************************************
 --AutoRefill Stamina
 Refill_Enabled = 1
-Refill_Resource = "Gold"
-Refill_Repetitions = 1
+Refill_Resource = "Silver"
+Refill_Repetitions = 5
 
 --AutoSupportSelection
 Support_SelectionMode = "preferred"
 Support_SwipesPerUpdate = 3
 Support_MaxUpdates = 5
-Support_FallbackTo = "first"
+Support_FallbackTo = "manual"
 Support_FriendsOnly = 0
 Support_FriendNames = ""
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
---Support_PreferredServants = "any"
-Support_PreferredCEs = "*holy_night_supper.png"
+--Support_PreferredServants = "merlin1.png, merlin2.png, merlin4.png"
+Support_PreferredCEs = "gentle_affection.png, scholars_of_chaldea.png"
+--Support_PreferredCEs = "gentle_affection.png"
+--Support_PreferredCEs = "art_of_the_poisonous_snake.png"
+--Support_PreferredCEs = "art_of_death.png"
+--Support_PreferredCEs = "any"
 
 --Bond CE Get
 StopAfterBond10 = 0 
@@ -59,17 +63,17 @@ Skill_Command = "abc,#,def,#,ghi"
 --AutoSkillList
 Enable_Autoskill_List = 1
 
-Autoskill_List[1][1] = "Fran,Arash,Shake,Spart,0,Supp"
-Autoskill_List[1][2] = "jfgi2x335,#,g1hief5,#,c4"
+Autoskill_List[1][1] = "Caster Gold Currency Hearts"
+Autoskill_List[1][2] = "ab4,#,x13a2bcf5,#,degijt2k65"
 
-Autoskill_List[2][1] = "Event Gold"
-Autoskill_List[2][2] = "abdet1,c,0,h,#,gi1x31hf5,#,ijkg364"
+Autoskill_List[2][1] = "Lancer Bronze"
+Autoskill_List[2][2] = "d,#,b,ac3x11aei5,#,bc3gjkh6"
 
-Autoskill_List[3][1] = "Event Snow"
-Autoskill_List[3][2] = "ab4,#,c2defx11a5,#,ghc3j6"
+Autoskill_List[3][1] = "Assasin Silver"
+Autoskill_List[3][2] = "geh,#,abc3x12afd5,5,#,c3bij6,ghik"
 
-Autoskill_List[4][1] = "Lava Run"
-Autoskill_List[4][2] = "cedh,bfik,#,agj6,#,x33gi25"
+Autoskill_List[4][1] = "G4 Candles"
+Autoskill_List[4][2] = "d,0,af,#,age5,#,d1e1f1k1bhi1j1t24,c"
 
 Autoskill_List[5][1] = "Event Conqueror"
 Autoskill_List[5][2] = "agi6,#,ex33fhijkg15,#,bcdf14"

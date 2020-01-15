@@ -74,7 +74,7 @@ Autoskill_List[3][1] = "3 Turn Embers"
 Autoskill_List[3][2] =  "abc14,#,x13hief5,#,g1jac4"
 
 Autoskill_List[4][1] = "3 Turn Doors"
-Autoskill_List[4][2] = "abc14,#,efk25,#,gi6"
+Autoskill_List[4][2] = "abc14,#,def25,#,ghi3j36"
 
 Autoskill_List[5][1] = "3T Fangs"
 Autoskill_List[5][2] = "df5,#,x23ai6,#,c2efgh56"
