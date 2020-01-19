@@ -15,7 +15,7 @@ scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT, IMAGE_WIDTH, IMAGE_HEIG
 
 -- consts
 local SpinClick = Location(834, 860)
-local FinishedLotteryBoxRegion = Region(520, 840, 70, 100)
+local FinishedLotteryBoxRegion = Region(575, 860, 70, 100)
 local FullPresentBoxRegion = Region(1280, 720, 1280, 720)
 local ResetClick = Location(2200, 480)
 local ResetConfirmationClick = Location(1774, 1122)
