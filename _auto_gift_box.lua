@@ -1,20 +1,29 @@
 -- settings
 setImmersiveMode(true)
-Settings:setCompareDimension(true,1280)
-Settings:setScriptDimension(true,1280)
 local dir = scriptPath()
 setImagePath(dir .. "image_JP")
+package.path = package.path .. ";" .. dir .. 'modules/?.lua'
+
+local IMAGE_WIDTH = 1280
+local IMAGE_HEIGHT = 720
+local SCRIPT_WIDTH = 1280
+local SCRIPT_HEIGHT = 720
+
+local scaling = require("scaling")
+scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT)
 
 -- consts
 local checkRegion = Region(820, 225, 60, 1050)
 local clickCount = 0
 local goldThreshold = 3
-
+local NACountRegionX = 420
+local JPCountRegionX = 355
+local CountRegionX = NACountRegionX
 
 -- script
 local function checkGifts()
 	for _, gift in ipairs(listToTable(checkRegion:findAll("Check.png"))) do
-		countRegion = Region(355, gift:getY() - 50, 100, 30)
+		countRegion = Region(CountRegionX, gift:getY() - 50, 100, 30)
 		iconRegion = Region(95, gift:getY() - 58, 115, 120)
 		clickSpot = Location(850, gift:getY() + 25)
 		if numberOCRNoFindException(countRegion, "Gift") < goldThreshold then
