@@ -45,10 +45,22 @@ local function scrollList()
 		{ action = "touchMove", target = Location(700, 175) },
 		{ action =      "wait", target = 0.4 },
 		{ action =   "touchUp", target = Location(700, 175) },
-		{ action =      "wait", target = 0.5 } -- leaving some room for animations to finish
+		{ action =      "wait", target = 0.5 }
 	}
+	
+	--[[
+	alternative values that work with navigation gestures turned on.
+	read https://github.com/29988122/Fate-Grand-Order_Lua/pull/293 for more info
+	
+	local touchActions = {
+		{ action = "touchDown", target = Location(700, 680) },
+		{ action = "touchMove", target = Location(700, 130) },
+		{ action =      "wait", target = 0.4 },
+		{ action =   "touchUp", target = Location(700, 130) },
+		{ action =      "wait", target = 0.5 }
+	}
+	--]]
 
-	-- the movement has to be as accurate as possible
 	setManualTouchParameter(5, 10)
 	manualTouch(touchActions)
 end
