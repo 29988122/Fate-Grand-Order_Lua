@@ -64,8 +64,8 @@ Skill_Command = "abc,#,def,#,ghi"
 --AutoSkillList
 Enable_Autoskill_List = 1
 
-Autoskill_List[1][1] = "Fran,Arash,Shake,Spart,0,Supp"
-Autoskill_List[1][2] = "jfgi2x335,#,g1hief5,#,c4"
+Autoskill_List[1][1] = "3T Stakes"
+Autoskill_List[1][2] = "ab4,#,x13fg5,#,cbadef2i1j45"
 
 Autoskill_List[2][1] = "Spam Everything"
 Autoskill_List[2][2] = "abcdefghi,0,0,0,0,0,0,0,0,abcdefghi,0,0,0,0,0,0,0,0,abcdefghi"
