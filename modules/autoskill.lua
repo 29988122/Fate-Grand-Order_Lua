@@ -126,10 +126,10 @@ local function PreloadNP()
 	return function()
 		if not battle.hasClickedAttack() then
 			battle.clickAttack()
-			wait(2)
+			wait(2)		-- There is a delay after clicking attack before NP Cards come up. DON'T DELETE!
 		end
 		
-		ChangeArray(CARDS_PRESSED) -- There is a delay after clicking attack before NP Cards come up. DON'T DELETE!
+		ChangeArray(CARDS_PRESSED)
 	end
 end
 
