@@ -200,7 +200,7 @@ local function InitCommands()
 			elseif string.match(commandList, "[%w+][#]") or string.match(commandList, "[#][%w+]") then
 				scriptExit("Error at '" .. commandList .. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
 			elseif string.match(commandList, "[^a-l^1-6^#^n^t^x]") then
-				scriptExit("Error at '" .. commandList .. "': Skill Command exceeded alphanumeric range! Expected 'x' or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
+				scriptExit("Error at '" .. commandList .. "': Skill Command exceeded alphanumeric range! Expected 'x', 'n', 't', or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
 			end
 		end
 
