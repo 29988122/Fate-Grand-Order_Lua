@@ -93,7 +93,7 @@ performBattle = function()
 		skipDeathAnimation()
 	end
 	
-	_game.resetCommandCards()
+	_card.resetCommandCards()
 	
 	if NPsClicked then
 		wait(25)
@@ -190,7 +190,7 @@ clickAttack = function()
 	wait(1.5) -- Although it seems slow, make it no shorter than 1 sec to protect user with less processing power devices.
 
 	onAttackClicked()
-	_game.readCommandCards()
+	_card.readCommandCards()
 end
 
 onAttackClicked = function()

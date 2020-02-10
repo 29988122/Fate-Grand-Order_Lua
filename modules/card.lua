@@ -160,22 +160,24 @@ getCommandCards = function()
 end
 
 clickCommandCards = function(clicks)
-
+	local i = 1
+		
 	for _, cardPriority in pairs(_cardPriorityArray) do
 		local currentCardTypeStorage = _commandCards[cardPriority]
 	
-		local i = 1
 		for _, cardSlot in pairs(currentCardTypeStorage) do
+			
+			if (clicks < i) then
+				cardsClickedSoFar = i - 1
+				return
+			end
+			
 			if(i > cardsClickedSoFar) then
 				click(_game.BATTLE_COMMAND_CARD_CLICK_ARRAY[cardSlot])
 			end
 			
-			if (clicks <= i) then
-				cardsClickedSoFar = i
-				return
-			end
+			i = i + 1
 			
-			i++
 		end
 	end
 end

@@ -262,4 +262,8 @@ function autoskill.IsFinished()
 	return isFinished
 end
 
+function autoskill.ResetNPTimer()
+	NPsClicked = false
+end
+
 return autoskill
