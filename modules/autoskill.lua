@@ -9,6 +9,7 @@ local card
 local commandTable = {} -- this is a two-dimensional array with something like "abc1jkl4"
 local currentArray
 local isFinished
+local NPsClicked = false
 
 -- command framework
 local DEFAULT_FUNCTION_ARRAY
@@ -29,6 +30,7 @@ end
 
 local function CastSkill(location)
 	return function()
+		wait(.3)
 		click(location)
 		if Skill_Confirmation == 1 then
 			click(game.BATTLE_SKILL_OK_CLICK)
@@ -49,10 +51,11 @@ local function CastNoblePhantasm(location)
 	return function()
 		if not battle.hasClickedAttack() then
 			battle.clickAttack()
-                        wait(2)  -- There is a delay after clicking attack before NP Cards come up. DON'T DELETE!
+            wait(2)  -- There is a delay after clicking attack before NP Cards come up. DON'T DELETE!
 		end
 
 		click(location)
+		NPsClicked = true
 	end
 end
 
@@ -103,6 +106,41 @@ local function SelectSubMember(location)
 	end
 end
 
+local function SelectTarget()
+	return function()
+		ChangeArray(ENEMY_TARGET_ARRAY)
+	end
+end
+
+local function SelectEnemyTarget(location)
+	return function()
+		click(location)
+		wait(0.5)
+		click(game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK) -- Exit any extra menu
+	
+		ChangeArray(DEFAULT_FUNCTION_ARRAY)
+	end
+end
+
+local function PreloadNP()
+	return function()
+		if not battle.hasClickedAttack() then
+			battle.clickAttack()
+			wait(2)
+		end
+		
+		ChangeArray(CARDS_PRESSED) -- There is a delay after clicking attack before NP Cards come up. DON'T DELETE!
+	end
+end
+
+local function PressCards(numCards)
+	return function()
+		card.clickCommandCards(numCards)
+		
+		ChangeArray(DEFAULT_FUNCTION_ARRAY)
+	end
+end
+
 DEFAULT_FUNCTION_ARRAY = {
 	["a"] = CastSkill(game.BATTLE_SKILL_1_CLICK),
 	["b"] = CastSkill(game.BATTLE_SKILL_2_CLICK),
@@ -117,6 +155,8 @@ DEFAULT_FUNCTION_ARRAY = {
 	["k"] = CastMasterSkill(game.BATTLE_MASTER_SKILL_2_CLICK),
 	["l"] = CastMasterSkill(game.BATTLE_MASTER_SKILL_3_CLICK),
 	["x"] = BeginOrderChange(),
+	["t"] = SelectTarget(),
+	["n"] = PreloadNP(),
 	["0"] = DoAbsolutelyNothing(),
 	["1"] = SelectSkillTarget(game.BATTLE_SERVANT_1_CLICK),
 	["2"] = SelectSkillTarget(game.BATTLE_SERVANT_2_CLICK),
@@ -138,6 +178,17 @@ SUB_MEMBER_FUNCTION_ARRAY = {
 	["3"] = SelectSubMember(game.BATTLE_SUB_MEMBER_3_CLICK)
 }
 
+ENEMY_TARGET_ARRAY = {
+	["1"] = SelectEnemyTarget(game.BATTLE_TARGET_CLICK_ARRAY[1]),
+	["2"] = SelectEnemyTarget(game.BATTLE_TARGET_CLICK_ARRAY[2]),
+	["3"] = SelectEnemyTarget(game.BATTLE_TARGET_CLICK_ARRAY[3])
+}
+
+CARDS_PRESSED = {
+	["1"] = PressCards(1),
+	["2"] = PressCards(2)
+}
+
 -- other stuff
 local function InitCommands()
 	local stageCount = 1
@@ -148,7 +199,7 @@ local function InitCommands()
 				scriptExit("Error at '" .. commandList .. "': Skill Command cannot start with number '1', '2' and '3'!")
 			elseif string.match(commandList, "[%w+][#]") or string.match(commandList, "[#][%w+]") then
 				scriptExit("Error at '" .. commandList .. "': '#' must be preceded and followed by ','! Correct: ',#,' ")
-			elseif string.match(commandList, "[^a-l^1-6^#^x]") then
+			elseif string.match(commandList, "[^a-l^1-6^#^n^t^x]") then
 				scriptExit("Error at '" .. commandList .. "': Skill Command exceeded alphanumeric range! Expected 'x' or range 'a' to 'l' for alphabets and '0' to '6' for numbers.")
 			end
 		end
@@ -203,6 +254,8 @@ function autoskill.Execute()
 	elseif currentStage >= #commandTable then
 		isFinished = true -- this will allow NP spam after all commands have been executed
 	end
+	
+	return NPsClicked
 end
 
 function autoskill.IsFinished()

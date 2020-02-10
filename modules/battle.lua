@@ -72,8 +72,10 @@ performBattle = function()
 	_ankuluaUtils.UseSameSnapIn(onTurnStarted)
 	wait(2)
 	
+	local NPsClicked = false
 	if Enable_Autoskill == 1 then
-		_autoskill.Execute()
+		NPsClicked = _autoskill.Execute()
+		_autoskill.ResetNPTimer()
 	end
 
 	-- maybe Autoskill already did this, so we need to check
@@ -82,16 +84,22 @@ performBattle = function()
 	end
 	
 	if _card.canClickNpCards() then
-		_card.clickNpCards()
+		NPsClicked = _card.clickNpCards()
 	end
 	
-	_card.clickCommandCards()
+	_card.clickCommandCards(5)
 
 	if UnstableFastSkipDeadAnimation == 1 then
 		skipDeathAnimation()
 	end
-
-	wait(2)
+	
+	_game.resetCommandCards()
+	
+	if NPsClicked then
+		wait(25)
+	else
+		wait(5)
+	end
 end
 
 onTurnStarted = function()
@@ -122,18 +130,13 @@ end
 didStageChange = function()
 	-- Alternative fix for different font of stage count number among different regions, worked pretty damn well tho.
 	-- This will compare last screenshot with current screen, effectively get to know if stage changed or not.
-	if file_exists(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. _currentStage .. ".png") then
-		scriptExit("Found File")
-	else
-		scriptExit("No File Found")
-	end
-
-	local currentStagePattern = Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. _currentStage .. ".png"):similar(0.8)
+	
+	local currentStagePattern = Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. ".png"):similar(0.8)
 	return not _game.BATTLE_STAGE_COUNT_REGION:exists(currentStagePattern)
 end
 
 takeStageSnapshot = function()
-	_game.BATTLE_STAGE_COUNT_REGION:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. _currentStage .. ".png")
+	_game.BATTLE_STAGE_COUNT_REGION:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. ".png")
 	onStageSnapshotTaken()
 end
 
@@ -187,6 +190,7 @@ clickAttack = function()
 	wait(1.5) -- Although it seems slow, make it no shorter than 1 sec to protect user with less processing power devices.
 
 	onAttackClicked()
+	_game.readCommandCards()
 end
 
 onAttackClicked = function()
@@ -195,11 +199,6 @@ end
 
 hasClickedAttack = function()
 	return _hasClickedAttack
-end
-
-file_exists = function(name)
-   local f=io.open(name,"r")
-   if f~=nil then io.close(f) return true else return false end
 end
 
 -- "public" interface

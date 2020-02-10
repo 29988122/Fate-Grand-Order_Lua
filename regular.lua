@@ -63,6 +63,14 @@ local function RefillStamina()
 	end
 end
 
+local function NeedsToRetry()
+	return game.RetryRegion:exists(GeneralImagePath .. "retry.png")
+end
+
+local function Retry()
+	click(game.STAMINA_OK_CLICK)
+end
+
 --Click begin quest in Formation selection, then select boost item, if applicable, then confirm selection.
 local function StartQuest()
 	click(game.MENU_START_QUEST_CLICK)
@@ -186,6 +194,7 @@ local function Result()
 
 	--1st time quest reward screen, eg. Mana Prisms, Event CE, Materials, etc.
 	if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png") ~= nil then
+		wait(1)
 		click(game.RESULT_NEXT_CLICK)
 	end
 end
@@ -205,6 +214,7 @@ local function Support()
 			StartQuest()
 		elseif IsContinuing == nil then
 			StartQuest()
+			wait(25)	-- Wait timer til battle starts. Uses less battery to wait than to search for images for 25 seconds. Adjust according to device.
 		end
 	end
 end
@@ -289,12 +299,14 @@ end
 --[[
 	SCREENS represents list of Validators and Actors
 	When Validator returns true/1, perform the Actor
+	Code for Retry can be found on line 66 of this Script
 	Code for battle.performBattle can be found in modules/battle.lua
-	Code for Menu is on line 89 of this Script
-	Code for Result is on line 109 of this Script
-	Code for Support is on line 174 of this Script
+	Code for Menu is on line 108 of this Script
+	Code for Result is on line 128 of this Script
+	Code for Support is on line 208 of this Script
 ]]--
 local SCREENS = {
+	{ Validator = NeedsToRetry,  Actor = Retry },
 	{ Validator = battle.isIdle, Actor = battle.performBattle },
 	{ Validator = IsInMenu,      Actor = Menu },
 	{ Validator = IsInResult,    Actor = Result},

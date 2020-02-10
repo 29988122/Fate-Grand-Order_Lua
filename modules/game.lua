@@ -8,6 +8,7 @@ game.CONTINUE_CLICK = Location(1650,1120)
 game.MENU_STORY_SKIP_REGION = Region(2240,20,300,120)
 game.MENU_STORY_SKIP_CLICK = Location(2360,80)
 game.MENU_STORY_SKIP_YES_CLICK = Location(1600,1100)
+game.RetryRegion = Region(1300,1000,700,300)
 
 -- see docs/menu_boost_item_click_array.png
 game.MENU_BOOST_ITEM_1_CLICK = Location(1280,418)
@@ -28,11 +29,11 @@ game.STAMINA_GOLD_CLICK = Location(1270,634)
 game.STAMINA_SILVER_CLICK = Location(1270,922)
 game.STAMINA_BRONZE_CLICK = Location(1270,1140)
 
-game.SUPPORT_SCREEN_REGION = Region(0,0,110,332)
+game.SUPPORT_SCREEN_REGION = Region(0,0,200,400)
 game.SUPPORT_LIST_REGION = Region(70,332,378,1091) -- see docs/support_list_region.png
 game.SUPPORT_SWIPE_START_CLICK = Location(35,1190)
 game.SUPPORT_FRIENDS_REGION = Region(448,332,1210,1091)
-game.SUPPORT_SWIPE_END_CLICK = SupportSwipeEndClick -- this is provided by the config file
+game.SUPPORT_SWIPE_END_CLICK = Location(35, 550) -- this is provided by the config file
 
 game.SUPPORT_LIST_ITEM_REGION_ARRAY = {
 	-- see docs/support_list_item_regions_top.png
