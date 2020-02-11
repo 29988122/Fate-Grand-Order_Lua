@@ -48,6 +48,7 @@ local getCommandCards
 local clickCommandCards
 local canClickNpCards
 local clickNpCards
+local 
 
 init = function(autoskill, battle)
 	_autoskill = autoskill
@@ -160,6 +161,11 @@ getCommandCards = function()
 end
 
 clickCommandCards = function(clicks)
+	if chains then
+		
+		return
+	end
+
 	local i = 1
 		
 	for _, cardPriority in pairs(_cardPriorityArray) do

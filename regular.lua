@@ -23,6 +23,7 @@ local autoskill = require("autoskill")
 -- fields
 local StoneUsed = 0
 local IsContinuing = 0
+local MatchClick = nil
 
 -- functions
 
@@ -64,10 +65,25 @@ local function RefillStamina()
 end
 
 local function NeedsToRetry()
-	return game.RetryRegion:exists(GeneralImagePath .. "retry.png")
+	MatchClick = game.RETRY_REGION:exists(GeneralImagePath .. "retry.png")	-- MatchClick used to click on the found image
+	return MatchClick
 end
 
 local function Retry()
+	click(MatchClick)
+	MatchClick = nil		-- Return MatchClick to default state, to avoid any false positive clicking
+	wait(2)
+end
+
+local function NeedsToWithdraw()
+	MatchClick = game.WITHDRAW_REGION:exists(GeneralImagePath .. "withdraw.png")	-- MatchClick used to click on the found image
+	return MatchClick
+end
+
+local function Withdraw()
+	click(MatchClick)
+	MatchClick = nil		-- Return MatchClick to default state, to avoid any false positive clicking
+	wait(.5)
 	click(game.STAMINA_OK_CLICK)
 end
 
@@ -309,8 +325,9 @@ local SCREENS = {
 	{ Validator = NeedsToRetry,  Actor = Retry },
 	{ Validator = battle.isIdle, Actor = battle.performBattle },
 	{ Validator = IsInMenu,      Actor = Menu },
-	{ Validator = IsInResult,    Actor = Result},
-    { Validator = IsInSupport,   Actor = Support}
+	{ Validator = IsInResult,    Actor = Result },
+    { Validator = IsInSupport,   Actor = Support },
+	{ Validator = NeedsToWithdraw, Actor = Withdraw}
 }
 
 Init()

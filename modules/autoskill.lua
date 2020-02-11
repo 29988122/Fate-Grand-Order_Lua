@@ -11,10 +11,16 @@ local currentArray
 local isFinished
 local NPsClicked = false
 
+-- constants
+local NORMAL = 1
+local CHAINING = 2
+
 -- command framework
 local DEFAULT_FUNCTION_ARRAY
 local STARTING_MEMBER_FUNCTION_ARRAY
 local SUB_MEMBER_FUNCTION_ARRAY
+local ENEMY_TARGET_ARRAY
+local CARDS_PRESSED
 
 local function DoAbsolutelyNothing()
 	return function()
@@ -53,7 +59,15 @@ local function CastNoblePhantasm(location)
 			battle.clickAttack()
             wait(2)  -- There is a delay after clicking attack before NP Cards come up. DON'T DELETE!
 		end
-
+		
+		--[[
+			Embed the PreloadNP Feature in this function to as a prerequisite for chaining to be viable.
+			
+			Problem with Chaining (as of right now). PreloadNP feature clicks cards prior to knowing what NPs are being clicked.
+			If the NP was known (in this function for instance) then the script can register the face of the NP user first,
+			then use that face to determine what cards to select in PreloadNP.
+		]]--
+		
 		click(location)
 		NPsClicked = true
 	end
@@ -125,7 +139,7 @@ end
 local function PreloadNP()
 	return function()
 		if not battle.hasClickedAttack() then
-			battle.clickAttack()
+			battle.clickAttack(NORMAL)
 			wait(2)		-- There is a delay after clicking attack before NP Cards come up. DON'T DELETE!
 		end
 		

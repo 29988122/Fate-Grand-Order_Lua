@@ -149,6 +149,9 @@ selectPreferred = function(searchMethod)
 			click(game.SUPPORT_UPDATE_CLICK)
 			wait(1)
 			click(game.SUPPORT_UPDATE_YES_CLICK)
+			while NeedsToRetry() do
+				Retry()
+			end
 			wait(3)
 
 			numberOfUpdates = numberOfUpdates + 1

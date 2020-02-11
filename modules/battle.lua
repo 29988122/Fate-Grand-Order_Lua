@@ -11,6 +11,10 @@ local _currentTurn
 local _hasChosenTarget
 local _hasTakenFirstStageSnapshot
 local _hasClickedAttack
+local _chaining
+local _NPsClicked
+local _servantChain
+local chaining
 
 -- functions
 local init
@@ -40,9 +44,17 @@ local clickAttack
 local onAttackClicked
 local hasClickedAttack
 
+local braveChainNP
+
 init = function(autoskill, card)
 	_autoskill = autoskill
 	_card = card
+	
+	if chains ~= nil then
+		chaining = chains
+	else
+		chaining = false
+	end
 
 	resetState()
 end
@@ -54,6 +66,10 @@ resetState = function()
 	_hasTakenFirstStageSnapshot = false
 	_hasChosenTarget = false
 	_hasClickedAttack = false
+	_chaining = chaining
+	_servantChain = 0
+	_NPsClicked = 0
+	
 end
 
 isIdle = function()
@@ -199,6 +215,16 @@ end
 
 hasClickedAttack = function()
 	return _hasClickedAttack
+end
+
+braveChainNP = function(numberOfNP)
+	_servantChain = numberOfNP - 3
+	_NPsClicked = _NPsClicked + 1
+	_chaining = chaining
+	
+	if(NPsClicked > 1) then
+		_chaining = false
+	end
 end
 
 -- "public" interface

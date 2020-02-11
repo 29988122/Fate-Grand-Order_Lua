@@ -8,7 +8,8 @@ game.CONTINUE_CLICK = Location(1650,1120)
 game.MENU_STORY_SKIP_REGION = Region(2240,20,300,120)
 game.MENU_STORY_SKIP_CLICK = Location(2360,80)
 game.MENU_STORY_SKIP_YES_CLICK = Location(1600,1100)
-game.RetryRegion = Region(1300,1000,700,300)
+game.RETRY_REGION = Region(1300,1000,700,300)
+game.WITHDRAW_REGION = Region(400,540,1800,190)
 
 -- see docs/menu_boost_item_click_array.png
 game.MENU_BOOST_ITEM_1_CLICK = Location(1280,418)
@@ -129,6 +130,18 @@ game.BATTLE_NP_CARD_CLICK_ARRAY = {
 	Location(1000,220),
 	Location(1300,400),
 	Location(1740,400)
+}
+
+game.BATTLE_SERVANT_FACE_REGION_ARRAY = {
+	Region(106 ,800,300,200),
+	Region(620 ,800,300,200),
+	Region(1130,800,300,200),
+	Region(1644,800,300,200),
+	Region(2160,800,300,200),
+	
+	Region(678 ,190,300,200),
+	Region(1138,190,300,200),
+	Region(1606,190,300,200)
 }
 
 game.RESULT_SCREEN_REGION = Region(100,300,700,200)
