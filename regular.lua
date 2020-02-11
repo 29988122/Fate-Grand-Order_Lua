@@ -126,6 +126,8 @@ end
 local function Menu()
 	battle.resetState()
 	turnCounter = {0, 0, 0, 0, 0}
+	-- Prints a message containing the amount of apple used
+	toast(StoneUsed .. " refills used out of " .. Refill_Repetitions)
 
 	--Click uppermost quest.
 	click(game.MENU_SELECT_QUEST_CLICK)
@@ -145,7 +147,7 @@ end
 --Click through reward screen, continue if option presents itself, otherwise continue clicking through
 local function Result()
 	--Validator document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
-	continueClick(game.RESULT_NEXT_CLICK,35)
+	continueClick(game.RESULT_NEXT_CLICK,55)
 
 	--Checking if there was a Bond CE reward
 	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
@@ -219,7 +221,7 @@ end
 
 --Checks if Support Selection menu is up
 local function IsInSupport()
-        return game.SUPPORT_SCREEN_REGION:exists(GeneralImagePath .. "support_screen.png")
+        return game.SUPPORT_SCREEN_REGION:exists(Pattern(GeneralImagePath .. "support_screen.png"):similar(.85))
 end
 
 --Selections Support option, code located in modules/support.lua

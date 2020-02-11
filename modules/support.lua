@@ -24,6 +24,7 @@ local scrollList
 local searchVisible
 local decideSearchMethod
 local searchMethod
+local findFriendName
 local findServants
 local findCraftEssence
 local findSupportBounds
@@ -43,6 +44,12 @@ init = function()
 		end
 
 		return values
+	end
+	
+	-- friend names
+	for _, friend in ipairs(split(Support_FriendNames)) do
+		friend = stringUtils.Trim(friend)
+		table.insert(FriendNameArray, friend)
 	end
 
 	-- friends
@@ -69,7 +76,6 @@ init = function()
 
 		table.insert(PreferredCraftEssenceTable, craftEssenceEntry)
 	end
-	
 end
 
 selectSupport = function(selectionMode)
@@ -79,6 +85,9 @@ selectSupport = function(selectionMode)
 
 		elseif selectionMode == "manual" then
 			selectManual()
+		
+		elseif selectionMode == "friend" then
+			return selectFriend()
 
 		elseif selectionMode =="friend" then
 			return selectFriend()
@@ -95,6 +104,7 @@ selectSupport = function(selectionMode)
 end
 
 selectFirst = function()
+	wait(1)
 	click(game.SUPPORT_FIRST_SUPPORT_CLICK)
 	--https://github.com/29988122/Fate-Grand-Order_Lua/issues/192 , band-aid fix but it's working well. 
 	if game.SUPPORT_SCREEN_REGION:exists(GeneralImagePath .. "support_screen.png") then
@@ -212,6 +222,10 @@ decideSearchMethod = function()
 end
 
 searchMethod = {
+	byFriendName = function()
+		return findFriendName()
+	end,
+
 	byServant = function()
 		return findServants()[1]
 	end,
