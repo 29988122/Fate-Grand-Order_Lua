@@ -10,6 +10,7 @@ game.MENU_STORY_SKIP_CLICK = Location(2360,80)
 game.MENU_STORY_SKIP_YES_CLICK = Location(1600,1100)
 game.RETRY_REGION = Region(1300,1000,700,300)
 game.WITHDRAW_REGION = Region(400,540,1800,190)
+game.WITHDRAW_ACCEPT_CLICK = Location(1765,720)
 
 -- see docs/menu_boost_item_click_array.png
 game.MENU_BOOST_ITEM_1_CLICK = Location(1280,418)

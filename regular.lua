@@ -84,7 +84,9 @@ local function Withdraw()
 	click(MatchClick)
 	MatchClick = nil		-- Return MatchClick to default state, to avoid any false positive clicking
 	wait(.5)
-	click(game.STAMINA_OK_CLICK)
+	click(game.WITHDRAW_ACCEPT_CLICK)	-- Click the "Accept" button after choosing to withdraw
+	wait(1)
+	click(game.STAMINA_BRONZE_CLICK)	-- Click the "Close" button after accepting the withdrawal
 end
 
 --Click begin quest in Formation selection, then select boost item, if applicable, then confirm selection.
