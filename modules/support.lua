@@ -159,8 +159,8 @@ selectPreferred = function(searchMethod)
 			click(game.SUPPORT_UPDATE_CLICK)
 			wait(1)
 			click(game.SUPPORT_UPDATE_YES_CLICK)
-			while NeedsToRetry() do
-				Retry()
+			while game.NeedsToRetry() do
+				game.Retry()
 			end
 			wait(3)
 
