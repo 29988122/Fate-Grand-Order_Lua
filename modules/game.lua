@@ -154,15 +154,16 @@ game.RESULT_FRIEND_REQUEST_REJECT_CLICK = Location(600,1200)
 game.RESULT_QUEST_REWARD_REGION = Region(1630,140,370,250)
 game.RESULT_NEXT_CLICK = Location(2200,1350) -- see docs/quest_result_next_click.png
 
+game.MatchClick = nil
 
 function NeedsToRetry()
-	MatchClick = game.RETRY_REGION:exists(GeneralImagePath .. "retry.png")	-- MatchClick used to click on the found image
-	return MatchClick
+	game.MatchClick = game.RETRY_REGION:exists(GeneralImagePath .. "retry.png")	-- MatchClick used to click on the found image
+	return game.MatchClick
 end
 
 function Retry()
-	click(MatchClick)
-	MatchClick = nil		-- Return MatchClick to default state, to avoid any false positive clicking
+	click(game.MatchClick)
+	game.MatchClick = nil		-- Return MatchClick to default state, to avoid any false positive clicking
 	wait(2)
 end
 
