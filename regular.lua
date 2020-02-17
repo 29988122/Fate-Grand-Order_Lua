@@ -64,17 +64,6 @@ local function RefillStamina()
 	end
 end
 
-local function NeedsToRetry()
-	MatchClick = game.RETRY_REGION:exists(GeneralImagePath .. "retry.png")	-- MatchClick used to click on the found image
-	return MatchClick
-end
-
-local function Retry()
-	click(MatchClick)
-	MatchClick = nil		-- Return MatchClick to default state, to avoid any false positive clicking
-	wait(2)
-end
-
 local function NeedsToWithdraw()
 	MatchClick = game.WITHDRAW_REGION:exists(GeneralImagePath .. "withdraw.png")	-- MatchClick used to click on the found image
 	return MatchClick
@@ -326,7 +315,7 @@ end
 	Code for Support is on line 208 of this Script
 ]]--
 local SCREENS = {
-	{ Validator = NeedsToRetry,  Actor = Retry },
+	{ Validator = game.NeedsToRetry,  Actor = game.Retry },
 	{ Validator = battle.isIdle, Actor = battle.performBattle },
 	{ Validator = IsInMenu,      Actor = Menu },
 	{ Validator = IsInResult,    Actor = Result },
