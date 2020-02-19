@@ -8,6 +8,9 @@ game.CONTINUE_CLICK = Location(1650,1120)
 game.MENU_STORY_SKIP_REGION = Region(2240,20,300,120)
 game.MENU_STORY_SKIP_CLICK = Location(2360,80)
 game.MENU_STORY_SKIP_YES_CLICK = Location(1600,1100)
+game.RETRY_REGION = Region(1300,1000,700,300)
+game.WITHDRAW_REGION = Region(400,540,1800,190)
+game.WITHDRAW_ACCEPT_CLICK = Location(1765,720)
 
 -- see docs/menu_boost_item_click_array.png
 game.MENU_BOOST_ITEM_1_CLICK = Location(1280,418)
@@ -28,11 +31,9 @@ game.STAMINA_GOLD_CLICK = Location(1270,634)
 game.STAMINA_SILVER_CLICK = Location(1270,922)
 game.STAMINA_BRONZE_CLICK = Location(1270,1140)
 
-game.SUPPORT_SCREEN_REGION = Region(0,0,110,332)
+game.SUPPORT_SCREEN_REGION = Region(0,0,200,400)
 game.SUPPORT_LIST_REGION = Region(70,332,378,1091) -- see docs/support_list_region.png
-game.SUPPORT_SWIPE_START_CLICK = Location(35,1190)
 game.SUPPORT_FRIENDS_REGION = Region(448,332,1210,1091)
-game.SUPPORT_SWIPE_END_CLICK = SupportSwipeEndClick -- this is provided by the config file
 
 game.SUPPORT_LIST_ITEM_REGION_ARRAY = {
 	-- see docs/support_list_item_regions_top.png
@@ -49,7 +50,9 @@ game.SUPPORT_FRIEND_REGION = Region(2234,game.SUPPORT_LIST_REGION:getY(),120,gam
 game.SUPPORT_UPDATE_CLICK = Location(1670,250)
 game.SUPPORT_UPDATE_YES_CLICK = Location(1480,1110)
 game.SUPPORT_LIST_TOP_CLICK = Location(2480,360)
-game.SUPPORT_FIRST_SUPPORT_CLICK = Location(1900,500)
+game.SUPPORT_SWIPE_START_CLICK = Location(35,1190)
+game.SUPPORT_FRIENDS_REGION = Region(448,332,1210,1091)
+game.SUPPORT_SWIPE_END_CLICK = Location(35, 550) -- this is provided by the config file
 
 game.BATTLE_SCREEN_REGION = Region(2105,1259,336,116) -- see docs/battle_region.png
 game.BATTLE_STAGE_COUNT_REGION = StageCountRegion -- this is provided by the config file
@@ -130,6 +133,18 @@ game.BATTLE_NP_CARD_CLICK_ARRAY = {
 	Location(1740,400)
 }
 
+game.BATTLE_SERVANT_FACE_REGION_ARRAY = {
+	Region(106 ,800,300,200),
+	Region(620 ,800,300,200),
+	Region(1130,800,300,200),
+	Region(1644,800,300,200),
+	Region(2160,800,300,200),
+	
+	Region(678 ,190,300,200),
+	Region(1138,190,300,200),
+	Region(1606,190,300,200)
+}
+
 game.RESULT_SCREEN_REGION = Region(100,300,700,200)
 game.RESULT_BOND_REGION = Region(2000,820,120,120)
 game.RESULT_CE_REWARD_REGION = Region(1050,1216,33,28)
@@ -138,5 +153,18 @@ game.RESULT_FRIEND_REQUEST_REGION = Region(660,120,140,160)
 game.RESULT_FRIEND_REQUEST_REJECT_CLICK = Location(600,1200)
 game.RESULT_QUEST_REWARD_REGION = Region(1630,140,370,250)
 game.RESULT_NEXT_CLICK = Location(2200,1350) -- see docs/quest_result_next_click.png
+
+game.MatchClick = nil
+
+game.NeedsToRetry = function()
+	game.MatchClick = game.RETRY_REGION:exists(GeneralImagePath .. "retry.png")	-- MatchClick used to click on the found image
+	return game.MatchClick
+end
+
+game.Retry = function()
+	click(game.MatchClick)
+	game.MatchClick = nil		-- Return MatchClick to default state, to avoid any false positive clicking
+	wait(2)
+end
 
 return game

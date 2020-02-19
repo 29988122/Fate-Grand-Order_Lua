@@ -52,6 +52,12 @@ init = function()
 		table.insert(FriendNameArray, friend)
 	end
 
+	-- friends
+	for _, friend in ipairs(split(Support_FriendNames)) do
+		friend = stringUtils.Trim(friend)
+		table.insert(FriendNameArray, friend)
+	end
+
 	-- servants
 	for _, servant in ipairs(split(Support_PreferredServants)) do
 		servant = stringUtils.Trim(servant)
@@ -83,6 +89,9 @@ selectSupport = function(selectionMode)
 		elseif selectionMode == "friend" then
 			return selectFriend()
 
+		elseif selectionMode =="friend" then
+			return selectFriend()
+		
 		elseif selectionMode == "preferred" then
 			local searchMethod = decideSearchMethod()
 			return selectPreferred(searchMethod)
@@ -150,6 +159,9 @@ selectPreferred = function(searchMethod)
 			click(game.SUPPORT_UPDATE_CLICK)
 			wait(1)
 			click(game.SUPPORT_UPDATE_YES_CLICK)
+			while game.NeedsToRetry() do
+				game.Retry()
+			end
 			wait(3)
 
 			numberOfUpdates = numberOfUpdates + 1
@@ -272,7 +284,7 @@ end
 
 findCraftEssence = function(searchRegion)
 	for _, preferredCraftEssence in ipairs(PreferredCraftEssenceTable) do
-		local craftEssences = regionFindAllNoFindException(searchRegion, Pattern(SupportImagePath .. preferredCraftEssence.Name))
+		local craftEssences = regionFindAllNoFindException(searchRegion, Pattern(SupportImagePath .. preferredCraftEssence.Name):similar(.90))
 
 		for _, craftEssence in ipairs(craftEssences) do
 			if not preferredCraftEssence.PreferLimitBroken or isLimitBroken(craftEssence) then
@@ -286,18 +298,18 @@ end
 
 findSupportBounds = function(support)
 	local supportBound = Region(76,0,2356,428)
-	local regionAnchor = Pattern(SupportImagePath .. "support_region_tool.png")
-	local regionArray = regionFindAllNoFindException( Region(1670,0,90,1440), regionAnchor)
+	local regionAnchor = Pattern(GeneralImagePath .. "support_region_tool.png")
+	local regionArray = regionFindAllNoFindException( Region(2100,0,300,1440), regionAnchor)
 	local defaultRegion = supportBound
-	
+
 	for _, testRegion in ipairs(regionArray) do
-		supportBound:setY(testRegion:getY()-156)
-		if ankuluaUtils.DoesRegionContain(supportBound,support) then
+		supportBound:setY(testRegion:getY() - 114)
+		if ankuluaUtils.DoesRegionContain(supportBound, support) then
 			return supportBound
 		end
 	end
-	
-	toast( "Default Region being returned; file an issue on the github for this issue" )
+
+	--toast( "Default Region being returned; file an issue on the github for this issue" )
 	return defaultRegion
 end
 
@@ -308,7 +320,7 @@ end
 
 isLimitBroken = function(craftEssence)
 	local limitBreakRegion = ankuluaUtils.SetY(game.SUPPORT_LIMIT_BREAK_REGION, craftEssence:getY())
-	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.8)
+	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.85)
 
 	return limitBreakRegion:exists(limitBreakPattern)
 end

@@ -34,6 +34,9 @@ local CARD_SCORE = {
 
 -- state vars
 local _cardPriorityArray = {}
+local _commandCards = {}
+
+local cardsClickedSoFar = 0
 
 -- functions
 local init
@@ -45,6 +48,7 @@ local getCommandCards
 local clickCommandCards
 local canClickNpCards
 local clickNpCards
+local 
 
 init = function(autoskill, battle)
 	_autoskill = autoskill
@@ -156,14 +160,30 @@ getCommandCards = function()
 	return storagePerPriority
 end
 
-clickCommandCards = function()
-	local commandCards = getCommandCards()
+clickCommandCards = function(clicks)
+	if chains then
+		
+		return
+	end
 
+	local i = 1
+		
 	for _, cardPriority in pairs(_cardPriorityArray) do
-		local currentCardTypeStorage = commandCards[cardPriority]
+		local currentCardTypeStorage = _commandCards[cardPriority]
 	
 		for _, cardSlot in pairs(currentCardTypeStorage) do
-			click(_game.BATTLE_COMMAND_CARD_CLICK_ARRAY[cardSlot])
+			
+			if (clicks < i) then
+				cardsClickedSoFar = i - 1
+				return
+			end
+			
+			if(i > cardsClickedSoFar) then
+				click(_game.BATTLE_COMMAND_CARD_CLICK_ARRAY[cardSlot])
+			end
+			
+			i = i + 1
+			
 		end
 	end
 end
@@ -176,9 +196,22 @@ canClickNpCards = function()
 end
 
 clickNpCards = function()
+	local NPsClicked = false
 	for _, npCard in pairs(_game.BATTLE_NP_CARD_CLICK_ARRAY) do
 		click(npCard)
+		NPsClicked = true
 	end
+	
+	return NPsClicked
+end
+
+readCommandCards = function()
+	_commandCards = getCommandCards()
+end
+
+resetCommandCards = function()
+	_commandCards = {}
+	cardsClickedSoFar = 0
 end
 
 -- "public" interface
@@ -186,5 +219,7 @@ return {
 	init = init,
 	clickCommandCards = clickCommandCards,
 	canClickNpCards = canClickNpCards,
-	clickNpCards = clickNpCards
+	clickNpCards = clickNpCards,
+	readCommandCards = readCommandCards,
+	resetCommandCards = resetCommandCards
 }

@@ -11,6 +11,10 @@ local _currentTurn
 local _hasChosenTarget
 local _hasTakenFirstStageSnapshot
 local _hasClickedAttack
+local _chaining
+local _NPsClicked
+local _servantChain
+local chaining
 
 -- functions
 local init
@@ -40,9 +44,17 @@ local clickAttack
 local onAttackClicked
 local hasClickedAttack
 
+local braveChainNP
+
 init = function(autoskill, card)
 	_autoskill = autoskill
 	_card = card
+	
+	if chains ~= nil then
+		chaining = chains
+	else
+		chaining = false
+	end
 
 	resetState()
 end
@@ -54,6 +66,10 @@ resetState = function()
 	_hasTakenFirstStageSnapshot = false
 	_hasChosenTarget = false
 	_hasClickedAttack = false
+	_chaining = chaining
+	_servantChain = 0
+	_NPsClicked = 0
+	
 end
 
 isIdle = function()
@@ -72,8 +88,10 @@ performBattle = function()
 	_ankuluaUtils.UseSameSnapIn(onTurnStarted)
 	wait(2)
 	
+	local NPsClicked = false
 	if Enable_Autoskill == 1 then
-		_autoskill.Execute()
+		NPsClicked = _autoskill.Execute()
+		_autoskill.ResetNPTimer()
 	end
 
 	-- maybe Autoskill already did this, so we need to check
@@ -82,16 +100,22 @@ performBattle = function()
 	end
 	
 	if _card.canClickNpCards() then
-		_card.clickNpCards()
+		NPsClicked = _card.clickNpCards()
 	end
 	
-	_card.clickCommandCards()
+	_card.clickCommandCards(5)
 
 	if UnstableFastSkipDeadAnimation == 1 then
 		skipDeathAnimation()
 	end
-
-	wait(2)
+	
+	_card.resetCommandCards()
+	
+	if NPsClicked then
+		wait(25)
+	else
+		wait(5)
+	end
 end
 
 onTurnStarted = function()
@@ -114,21 +138,21 @@ end
 
 checkCurrentStage = function()
 	if not _hasTakenFirstStageSnapshot or didStageChange() then
-		takeStageSnapshot()
 		onStageChanged()
+		takeStageSnapshot()
 	end
 end
 
 didStageChange = function()
 	-- Alternative fix for different font of stage count number among different regions, worked pretty damn well tho.
 	-- This will compare last screenshot with current screen, effectively get to know if stage changed or not.
-
-	local currentStagePattern = Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png"):similar(0.8)
+	
+	local currentStagePattern = Pattern(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. ".png"):similar(0.8)
 	return not _game.BATTLE_STAGE_COUNT_REGION:exists(currentStagePattern)
 end
 
 takeStageSnapshot = function()
-	_game.BATTLE_STAGE_COUNT_REGION:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot.png")
+	_game.BATTLE_STAGE_COUNT_REGION:save(GeneralImagePath .. "_GeneratedStageCounterSnapshot" .. ".png")
 	onStageSnapshotTaken()
 end
 
@@ -182,6 +206,7 @@ clickAttack = function()
 	wait(1.5) -- Although it seems slow, make it no shorter than 1 sec to protect user with less processing power devices.
 
 	onAttackClicked()
+	_card.readCommandCards()
 end
 
 onAttackClicked = function()
@@ -190,6 +215,16 @@ end
 
 hasClickedAttack = function()
 	return _hasClickedAttack
+end
+
+braveChainNP = function(numberOfNP)
+	_servantChain = numberOfNP - 3
+	_NPsClicked = _NPsClicked + 1
+	_chaining = chaining
+	
+	if(NPsClicked > 1) then
+		_chaining = false
+	end
 end
 
 -- "public" interface

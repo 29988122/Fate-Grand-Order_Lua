@@ -6,6 +6,8 @@ GameRegion = "EN"
 StageCountRegion = Region(1722,25,46,53)
 SupportSwipeEndClick  = Location(35,390)
 
+debug = false -- set to 'true' if needing to debug
+
 --Initalize for user input listnames
 Autoskill_List = {}
 for i = 1, 10 do
