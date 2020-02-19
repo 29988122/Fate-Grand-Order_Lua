@@ -156,12 +156,12 @@ game.RESULT_NEXT_CLICK = Location(2200,1350) -- see docs/quest_result_next_click
 
 game.MatchClick = nil
 
-function NeedsToRetry()
+game.NeedsToRetry = function()
 	game.MatchClick = game.RETRY_REGION:exists(GeneralImagePath .. "retry.png")	-- MatchClick used to click on the found image
 	return game.MatchClick
 end
 
-function Retry()
+game.Retry = function()
 	click(game.MatchClick)
 	game.MatchClick = nil		-- Return MatchClick to default state, to avoid any false positive clicking
 	wait(2)
