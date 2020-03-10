@@ -210,7 +210,7 @@ end
 
 --Checks if Support Selection menu is up
 local function IsInSupport()
-        return game.SUPPORT_SCREEN_REGION:exists(Pattern(GeneralImagePath .. "support_screen.png"):similar(.85))
+	return game.SUPPORT_SCREEN_REGION:exists(Pattern(GeneralImagePath .. "support_screen.png"):similar(.85))
 end
 
 --Selections Support option, code located in modules/support.lua
@@ -319,7 +319,7 @@ local SCREENS = {
 	{ Validator = battle.isIdle, Actor = battle.performBattle },
 	{ Validator = IsInMenu,      Actor = Menu },
 	{ Validator = IsInResult,    Actor = Result },
-    { Validator = IsInSupport,   Actor = Support },
+	{ Validator = IsInSupport,   Actor = Support },
 	{ Validator = NeedsToWithdraw, Actor = Withdraw}
 }
 
