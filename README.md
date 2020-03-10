@@ -201,7 +201,7 @@ Target far left enemy for using Servant 1 skill 1, then target far right enemy f
 ```
 Lastly, the ```Battle_AutoChooseTarget``` variable in the config file is set to on by default. Using the autoskill functionality to target specific enemies is redundant with the auto selection, so it is recommended that you turn auto selection off if you plan to use this Target feature.
 
-### Attack with Command Cards before NPs
+#### Attack with Command Cards before NPs
 You can attack using 1 or 2 Command Cards before attacking with NPs.
 
 To use it, insert either ```n1``` or ```n2``` to use 1 or 2 Command Cards before launching the configured NPs.
