@@ -52,7 +52,7 @@ game.SUPPORT_UPDATE_YES_CLICK = Location(1480,1110)
 game.SUPPORT_FIRST_SUPPORT_CLICK = Location(1900,500)
 game.SUPPORT_LIST_TOP_CLICK = Location(2480,360)
 game.SUPPORT_SWIPE_START_CLICK = Location(35,1190)
-game.SUPPORT_SWIPE_END_CLICK = Location(35, 550) -- this is provided by the config file
+game.SUPPORT_SWIPE_END_CLICK = SupportSwipeEndClick -- this is provided by the config file
 
 game.BATTLE_SCREEN_REGION = Region(2105,1259,336,116) -- see docs/battle_region.png
 game.BATTLE_STAGE_COUNT_REGION = StageCountRegion -- this is provided by the config file
