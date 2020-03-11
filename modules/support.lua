@@ -284,7 +284,7 @@ end
 
 findCraftEssence = function(searchRegion)
 	for _, preferredCraftEssence in ipairs(PreferredCraftEssenceTable) do
-		local craftEssences = regionFindAllNoFindException(searchRegion, Pattern(SupportImagePath .. preferredCraftEssence.Name):similar(.90))
+		local craftEssences = regionFindAllNoFindException(searchRegion, Pattern(SupportImagePath .. preferredCraftEssence.Name))
 
 		for _, craftEssence in ipairs(craftEssences) do
 			if not preferredCraftEssence.PreferLimitBroken or isLimitBroken(craftEssence) then
@@ -320,7 +320,7 @@ end
 
 isLimitBroken = function(craftEssence)
 	local limitBreakRegion = ankuluaUtils.SetY(game.SUPPORT_LIMIT_BREAK_REGION, craftEssence:getY())
-	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.85)
+	local limitBreakPattern = Pattern(GeneralImagePath .. "limitBroken.png"):similar(0.8)
 
 	return limitBreakRegion:exists(limitBreakPattern)
 end
