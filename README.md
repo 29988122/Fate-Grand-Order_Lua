@@ -36,7 +36,7 @@ As of 2018.12.30, this script is **working without root** / without being blocke
   * [AutoSkill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
     * [Targeting Enemies](#targeting-enemies)
-	* [Attack with Command Cards before NPs](#attack-with-command-cards-before-nps) 
+    * [Attack with Command Cards before NPs](#attack-with-command-cards-before-nps) 
     * [AutoSkill List](#autoskill-list)
   * [AutoRefill](#autorefill)
   * [AutoSupportSelection](#autosupportselection)
