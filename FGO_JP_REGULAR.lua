@@ -6,7 +6,7 @@ GameRegion = "JP"
 StageCountRegion = Region(1722,25,46,53)
 SupportSwipeEndClick  = Location(35,350)
 
-debug_mode = false -- set to 'true' if needing to debug
+Debug_Mode = false -- set to 'true' if needing to debug
 
 --Initalize for user input listnames
 Autoskill_List = {}

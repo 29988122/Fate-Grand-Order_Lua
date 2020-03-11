@@ -324,7 +324,7 @@ local SCREENS = {
 }
 
 Init()
-while(debug_mode) do
+while(Debug_Mode) do
 	game.MENU_SCREEN_REGION:highlight(5)
 	game.SUPPORT_SCREEN_REGION:highlight(5)
 	game.BATTLE_SCREEN_REGION:highlight(5)
