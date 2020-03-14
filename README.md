@@ -35,7 +35,8 @@ As of 2018.12.30, this script is **working without root** / without being blocke
 * [Advanced features](#advanced-features)
   * [AutoSkill](#autoskill)
     * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
-    * [Targeting Enemies](#targeting-enemies) 
+    * [Targeting Enemies](#targeting-enemies)
+    * [Attack with Command Cards before NPs](#attack-with-command-cards-before-nps) 
     * [AutoSkill List](#autoskill-list)
   * [AutoRefill](#autorefill)
   * [AutoSupportSelection](#autosupportselection)
@@ -200,6 +201,20 @@ Skill_Command = "t1at35"
 Target far left enemy for using Servant 1 skill 1, then target far right enemy for using Servant 1 NP
 ```
 Lastly, the ```Battle_AutoChooseTarget``` variable in the config file is set to on by default. Using the autoskill functionality to target specific enemies is redundant with the auto selection, so it is recommended that you turn auto selection off if you plan to use this Target feature.
+
+#### Attack with Command Cards before NPs
+You can attack using 1 or 2 Command Cards before attacking with NPs.
+
+To use it, insert either ```n1``` or ```n2``` to use 1 or 2 Command Cards before launching the configured NPs.
+
+Here are some examples:
+```
+Skill_Command = "n145"
+Use 1 regular Command Card according to the priority from Battle_CardPriority, then use the NPs of the first and second Servants
+
+Skill_Command = "n26"
+Use 2 regular Command Cards, then use the NP of the third Servant
+```
 
 #### AutoSkill List
 Set ```Enable_Autoskill_List = 1``` to enable this feature.
