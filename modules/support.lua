@@ -35,11 +35,13 @@ init = function()
 	local function split(str)
 		local values = {}
 
-		for value in str:gmatch("[^,]+") do
-			value = stringUtils.Trim(value)
+		if str ~= nil then
+			for value in str:gmatch("[^,]+") do
+				value = stringUtils.Trim(value)
 
-			if value:lower() ~= "any" then
-				table.insert(values, value)
+				if value:lower() ~= "any" then
+					table.insert(values, value)
+				end
 			end
 		end
 
@@ -47,12 +49,6 @@ init = function()
 	end
 	
 	-- friend names
-	for _, friend in ipairs(split(Support_FriendNames)) do
-		friend = stringUtils.Trim(friend)
-		table.insert(FriendNameArray, friend)
-	end
-
-	-- friends
 	for _, friend in ipairs(split(Support_FriendNames)) do
 		friend = stringUtils.Trim(friend)
 		table.insert(FriendNameArray, friend)
