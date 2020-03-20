@@ -85,9 +85,6 @@ selectSupport = function(selectionMode)
 		elseif selectionMode == "friend" then
 			return selectFriend()
 
-		elseif selectionMode =="friend" then
-			return selectFriend()
-		
 		elseif selectionMode == "preferred" then
 			local searchMethod = decideSearchMethod()
 			return selectPreferred(searchMethod)
