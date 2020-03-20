@@ -23,12 +23,12 @@ end
 -- this one also works on normal Lua objects, like tables
 -- Lua's built-in type() function is not available in AnkuLua
 function ankuluaUtils.TypeOf(object)
-    local type = typeOf(object)
-    if type == "userdata" then
-        type = object:typeOf()
-    end
+	local type = typeOf(object)
+	if type == "userdata" then
+		type = object:typeOf()
+	end
 	
-    return type
+	return type
 end
 
 -- AnkuLua unfortunately doesn't provide Sikuli's setX() and setY() as of 2019-01-04
