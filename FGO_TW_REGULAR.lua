@@ -11,10 +11,10 @@ Debug_Mode = false -- set to 'true' if needing to debug
 --Initalize for user input listnames
 Autoskill_List = {}
 for i = 1, 10 do
-    Autoskill_List[i] = {}
-    for j = 1, 2 do
-        Autoskill_List[i][j] = 0
-    end
+	Autoskill_List[i] = {}
+	for j = 1, 2 do
+		Autoskill_List[i][j] = 0
+	end
 end
 --***************************************************************************
 
