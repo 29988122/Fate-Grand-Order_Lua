@@ -27,7 +27,7 @@ local MatchClick = nil
 
 -- functions
 
---Refill stamina based on selected option within FGO_XX_REGULAR.lua
+--Refill stamina based on selected option within FGO_REGULAR.lua
 local function RefillStamina()
 	if Refill_Enabled == 1 and StoneUsed < Refill_Repetitions then
 		if Refill_Resource == "SQ" then
@@ -141,7 +141,7 @@ local function Result()
 	--Checking if there was a Bond CE reward
 	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
 		
-		if StopAfterBond10 ~= nil then --Making sure they can still run it without updating FGO_XX_REGULAR files
+		if StopAfterBond10 ~= nil then --Making sure they can still run it without updating FGO_REGULAR files
 			if StopAfterBond10 == 1 then
 				scriptExit("Bond 10 CE GET!")
 			end

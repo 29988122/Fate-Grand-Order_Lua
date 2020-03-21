@@ -52,10 +52,28 @@ game.SUPPORT_UPDATE_YES_CLICK = Location(1480,1110)
 game.SUPPORT_FIRST_SUPPORT_CLICK = Location(1900,500)
 game.SUPPORT_LIST_TOP_CLICK = Location(2480,360)
 game.SUPPORT_SWIPE_START_CLICK = Location(35,1190)
-game.SUPPORT_SWIPE_END_CLICK = SupportSwipeEndClick -- this is provided by the config file
+
+local SUPPORT_SWIPE_END_CLICK_LIST = {
+	EN = Location(35,390),
+	CN = Location(35,390),
+	JP = Location(35,350),
+	TW = Location(35,390)
+}
+
+-- this depends on GameRegion
+game.SUPPORT_SWIPE_END_CLICK = SUPPORT_SWIPE_END_CLICK_LIST[GameRegion]
 
 game.BATTLE_SCREEN_REGION = Region(2105,1259,336,116) -- see docs/battle_region.png
-game.BATTLE_STAGE_COUNT_REGION = StageCountRegion -- this is provided by the config file
+
+local STAGE_COUNT_REGION_LIST = {
+	EN = Region(1722,25,46,53),
+	CN = Region(1722,25,46,53),
+	JP = Region(1722,25,46,53),
+	TW = Region(1710,25,55,60)
+}
+
+-- this depends on GameRegion
+game.BATTLE_STAGE_COUNT_REGION = STAGE_COUNT_REGION_LIST[GameRegion]
 game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK = Location(2550,0)
 game.BATTLE_ATTACK_CLICK = Location(2300,1200)
 game.BATTLE_SKIP_DEATH_ANIMATION_CLICK = Location(1700, 100) -- see docs/skip_death_animation_click.png
