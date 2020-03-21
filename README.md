@@ -78,12 +78,15 @@ Adjust them in the settings section inside Ankulua.
 Not really recommended, as you'll *probably* need to refer to [here](http://ankulua.boards.net/board/1/general-discussion) for troubleshooting - we're not able to debug it most of the time, since the scope of the issue is out of our hand. The alternative methods's not really matured yet, unfortunately :( 
 
 ## Usage:
-Please choose the corresponding lua file in AnkuLua according to your:
-* FGO server (supported China / Japan / Taiwan / USA currently)
-    * FGO_CN_REGULAR.lua
-    * FGO_JP_REGULAR.lua
-    * FGO_TW_REGULAR.lua
-    * FGO_EN_REGULAR.lua
+Please set your server region in `FGO_REGULAR.lua`:
+```
+GameRegion = "EN"
+```
+
+- CN for China
+- JP for Japan
+- TW for Taiwan
+- EN for USA
 
 Put your game in either:
 * Menu screen, make the quest you wanna farm as the 1st item on the screen (upper-right corner)
@@ -91,7 +94,7 @@ Put your game in either:
 * Results screen (first menu with or without bond level up)
 * Support Selection screen
 
-And start the script.
+And start the script (`FGO_REGULAR.lua`).
 
 The script will automatically enter battle, choose cards for you, again and again until AP depleted.
 
@@ -296,7 +299,7 @@ If you have ```Enable_Autoskill = 1```, the above options applied after all of y
 Known issues are listed here.
 
 ### Syntax error: unexpected symbol near '燎:
-This error shows up when you save FGO_XX_REGULAR.lua using UTF-8-BOM encoding.
+This error shows up when you save FGO_REGULAR.lua using UTF-8-BOM encoding.
 
 Download [Notepad++](https://notepad-plus-plus.org/) or a similar editor and save it using UTF-8 encoding **without BOM** instead.
 
