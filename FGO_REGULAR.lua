@@ -1,10 +1,7 @@
---内部用設定、変更しないでください。
+--Internal settings - do not modify.
 --***************************************************************************
 dir = scriptPath()
 setImagePath(dir)
-GameRegion = "JP"
-StageCountRegion = Region(1722,25,46,53)
-SupportSwipeEndClick  = Location(35,350)
 
 Debug_Mode = false -- set to 'true' if needing to debug
 
@@ -18,16 +15,17 @@ for i = 1, 10 do
 end
 --***************************************************************************
 
+-- Can be EN, JP, CN or TW
+GameRegion = "EN"
 
-
---スクリプトコンフィグ、簡易説明を参照してください。 https://github.com/29988122/Fate-Grand-Order_Lua/wiki/Script-configuration-%E6%97%A5%E6%9C%AC%E8%AA%9E/
+--Script Configuration, check instructions here: https://github.com/29988122/Fate-Grand-Order_Lua/wiki/Script-configuration-English
 --***************************************************************************
---スタミナ自動補充
+--AutoRefill Stamina
 Refill_Enabled = 0
 Refill_Resource = "All Apples"
 Refill_Repetitions = 0
 
---サポートサーヴァント自動選択
+--AutoSupportSelection
 Support_SelectionMode = "first"
 Support_SwipesPerUpdate = 10
 Support_MaxUpdates = 3
@@ -55,12 +53,12 @@ StorySkip = 0 --[[
 	People really want this feature.
 ]]
 
---オートスキル
+--AutoSkill
 Enable_Autoskill = 0
 Skill_Confirmation = 0
 Skill_Command = "abc,#,def,#,ghi"
 
---オートスキルリスト
+--AutoSkillList
 Enable_Autoskill_List = 0
 
 Autoskill_List[1][1] = "Settings No.1"
@@ -93,13 +91,13 @@ Autoskill_List[9][2] = ""
 Autoskill_List[10][1] = "Settings No.10"
 Autoskill_List[10][2] = ""
 
---カード選択順位変更
+--Card Priority Customization
 Battle_CardPriority = "BAQ"
---目標自動選択
+--AutoChooseTarget
 Battle_AutoChooseTarget = 1
---宝具自動使用
-Battle_NoblePhantasm = "disabled"
---エネミーと味方の消滅短縮
+--NoblePhantasm Casting
+Battle_NoblePhantasm = "disabled" 
+--FastSkipDeadAnimation
 UnstableFastSkipDeadAnimation = 0
 
 dofile(dir .. "regular.lua")
