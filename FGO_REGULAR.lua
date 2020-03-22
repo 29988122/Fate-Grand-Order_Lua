@@ -1,19 +1,4 @@
---Internal settings - do not modify.
---***************************************************************************
-dir = scriptPath()
-setImagePath(dir)
-
 Debug_Mode = false -- set to 'true' if needing to debug
-
---Initalize for user input listnames
-Autoskill_List = {}
-for i = 1, 10 do
-	Autoskill_List[i] = {}
-	for j = 1, 2 do
-		Autoskill_List[i][j] = 0
-	end
-end
---***************************************************************************
 
 -- Can be EN, JP, CN or TW
 GameRegion = "EN"
@@ -25,7 +10,7 @@ Refill_Enabled = 0
 Refill_Resource = "All Apples"
 Refill_Repetitions = 0
 
---AutoSupportSelection
+--AutoSupportSelection Defaults
 Support_SelectionMode = "first"
 Support_SwipesPerUpdate = 10
 Support_MaxUpdates = 3
@@ -56,40 +41,28 @@ StorySkip = 0 --[[
 --AutoSkill
 Enable_Autoskill = 0
 Skill_Confirmation = 0
-Skill_Command = "abc,#,def,#,ghi"
 
---AutoSkillList
-Enable_Autoskill_List = 0
-
-Autoskill_List[1][1] = "Settings No.1"
-Autoskill_List[1][2] = "abc,#,def,#,ghi"
-
-Autoskill_List[2][1] = "Settings No.2"
-Autoskill_List[2][2] = ""
-
-Autoskill_List[3][1] = "Settings No.3"
-Autoskill_List[3][2] = ""
-
-Autoskill_List[4][1] = "Settings No.4"
-Autoskill_List[4][2] = ""
-
-Autoskill_List[5][1] = "Settings No.5"
-Autoskill_List[5][2] = ""
-
-Autoskill_List[6][1] = "Settings No.6"
-Autoskill_List[6][2] = ""
-
-Autoskill_List[7][1] = "Settings No.7"
-Autoskill_List[7][2] = ""
-
-Autoskill_List[8][1] = "Settings No.8"
-Autoskill_List[8][2] = ""
-
-Autoskill_List[9][1] = "Settings No.9"
-Autoskill_List[9][2] = ""
-
-Autoskill_List[10][1] = "Settings No.10"
-Autoskill_List[10][2] = ""
+Autoskill_List =
+{
+	{
+		Name = "QP",
+		Skill_Command = "4,#,f5,#,i6",
+		Support_SelectionMode = "preferred",
+		Support_PreferredServants = "",
+		Support_PreferredCEs = "*mona_lisa.png"
+	},
+	{
+		Name = "Dust",
+		Skill_Command = "cdg5,#,e5,#,abi1k14",
+		Support_SelectionMode = "preferred",
+		Support_PreferredServants = "merlin1.png, merlin23.png, merlin4.png, merlin_c.png"
+	},
+	{
+		Name = "Gear",
+		Skill_Command = "6,#,h6,#,bx31fed1gj46",
+		Support_SelectionMode = "preferred"
+	}
+}
 
 --Card Priority Customization
 Battle_CardPriority = "BAQ"
@@ -100,4 +73,6 @@ Battle_NoblePhantasm = "disabled"
 --FastSkipDeadAnimation
 UnstableFastSkipDeadAnimation = 0
 
-dofile(dir .. "regular.lua")
+-- Do not modify below this line
+dir = scriptPath()
+dofile(dir .. "middleware.lua")
