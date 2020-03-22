@@ -53,6 +53,11 @@ StorySkip = 0 --[[
 	People really want this feature.
 ]]
 
+--Auto Withdrawing
+Withdraw_Enabled = 0 --[[
+	Set this to 1 if you want to automatically withdraw and try the quest again when all your Servants have been defeated.
+]]
+
 --AutoSkill
 Enable_Autoskill = 0
 Skill_Confirmation = 0

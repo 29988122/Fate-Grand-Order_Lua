@@ -70,12 +70,16 @@ local function NeedsToWithdraw()
 end
 
 local function Withdraw()
-	click(MatchClick)
-	MatchClick = nil		-- Return MatchClick to default state, to avoid any false positive clicking
-	wait(.5)
-	click(game.WITHDRAW_ACCEPT_CLICK)	-- Click the "Accept" button after choosing to withdraw
-	wait(1)
-	click(game.STAMINA_BRONZE_CLICK)	-- Click the "Close" button after accepting the withdrawal
+	if Withdraw_Enabled then
+		click(MatchClick)
+		MatchClick = nil		-- Return MatchClick to default state, to avoid any false positive clicking
+		wait(.5)
+		click(game.WITHDRAW_ACCEPT_CLICK)	-- Click the "Accept" button after choosing to withdraw
+		wait(1)
+		click(game.STAMINA_BRONZE_CLICK)	-- Click the "Close" button after accepting the withdrawal
+	else
+		scriptExit("All servants have been defeated and auto-withdrawing is disabled.")
+	end
 end
 
 --Click begin quest in Formation selection, then select boost item, if applicable, then confirm selection.
