@@ -1,36 +1,13 @@
 setImagePath(dir)
 
-local function SetSupportOptions(selected_autoskill)
-	if selected_autoskill["Support_SelectionMode"] ~= nil then
-		Support_SelectionMode = selected_autoskill["Support_SelectionMode"]
-	end
-
-	if selected_autoskill["Support_SwipesPerUpdate"] ~= nil then
-		Support_SwipesPerUpdate = selected_autoskill["Support_SwipesPerUpdate"]
-	end
-
-	if selected_autoskill["Support_MaxUpdates"] ~= nil then
-		Support_MaxUpdates = selected_autoskill["Support_MaxUpdates"]
-	end
-
-	if selected_autoskill["Support_FallbackTo"] ~= nil then
-		Support_FallbackTo = selected_autoskill["Support_FallbackTo"]
-	end
-
-	if selected_autoskill["Support_FriendsOnly"] ~= nil then
-		Support_FriendsOnly = selected_autoskill["Support_FriendsOnly"]
-	end
-
-	if selected_autoskill["Support_FriendNames"] ~= nil then
-		Support_FriendNames = selected_autoskill["Support_FriendNames"]
-	end
-
-	if selected_autoskill["Support_PreferredServants"] ~= nil then
-		Support_PreferredServants = selected_autoskill["Support_PreferredServants"]
-	end
-
-	if selected_autoskill["Support_PreferredCEs"] ~= nil then
-		Support_PreferredCEs = selected_autoskill["Support_PreferredCEs"]
+-- Writes autoskill options into global variables
+local function ExtractAutoskillOptions(selected_autoskill)
+	for key, value in pairs(selected_autoskill) do
+		-- We don't want to make Name a global variable
+		if key ~= "Name" then
+			-- _G is global variable table
+			_G[key] = value
+		end
 	end
 end
 
@@ -85,9 +62,8 @@ function PSADialogue()
 	if Enable_Autoskill == 1 then
 		--Put user selection into variables
 		local selected_autoskill = Autoskill_List[AutoSkillIndex]
-		Skill_Command = selected_autoskill["Skill_Command"]
 
-		SetSupportOptions(selected_autoskill)
+		ExtractAutoskillOptions(selected_autoskill)
 	end
 end
 

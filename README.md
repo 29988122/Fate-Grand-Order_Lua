@@ -146,13 +146,13 @@ The script would let you choose one from it when it starts running.
 This especially helps if you need to farm different stages during events.
 
 Every entry in ```Autoskill_List``` should have a ```Name``` and ```Skill_Command```. You can have any number of entries in ```Autoskill_List```.  
-Optionally, you can also override ```AutoSupportSelection``` options.
+Optionally, you can also override any globally defined option.
 
 e.g.
 ```lua
 Autoskill_List =
 {
-	-- Setting 1 does not override AutoSupportSelection options
+	-- Setting 1 does not override global options
 	{
 		Name = "Party 1",
 		Skill_Command = "4,#,f5,#,i6"
@@ -164,6 +164,12 @@ Autoskill_List =
 		Support_SelectionMode = "preferred",
 		Support_PreferredServants = "",
 		Support_PreferredCEs = "*mona_lisa.png"
+	},
+	-- Setting 3 overrides Card Priority
+	{
+		Name = "Quick",
+		Skill_Command = "d1g14,#,e14,#,h1fi4",
+		Battle_CardPriority = "QBA"
 	}
 }
 ```
