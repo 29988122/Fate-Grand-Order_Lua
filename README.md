@@ -8,9 +8,9 @@ Any of the questions can be asked in the "Issues" section. Don't be shy xD
 Please consider Star our repo to encourage us if this script is useful to you : )
 
 <p align="center">
-  <a href="https://imgur.com/a/c6vKI">
-    <img alt="Chaldea" src="https://camo.githubusercontent.com/19a9a5e1023613c01ba79aa1d03cae17d201f610/68747470733a2f2f7669676e65747465312e77696b69612e6e6f636f6f6b69652e6e65742f666174656772616e646f726465722f696d616765732f322f32642f4368616c6465615f53656375726974795f4f7267616e697a6174696f6e5f4c6f676f2e706e672f7265766973696f6e2f6c61746573742f7363616c652d746f2d77696474682d646f776e2f323030303f63623d3230313631313139303833333437" width="400"/>
-  </a>
+	<a href="https://imgur.com/a/c6vKI">
+		<img alt="Chaldea" src="https://camo.githubusercontent.com/19a9a5e1023613c01ba79aa1d03cae17d201f610/68747470733a2f2f7669676e65747465312e77696b69612e6e6f636f6f6b69652e6e65742f666174656772616e646f726465722f696d616765732f322f32642f4368616c6465615f53656375726974795f4f7267616e697a6174696f6e5f4c6f676f2e706e672f7265766973696f6e2f6c61746573742f7363616c652d746f2d77696474682d646f776e2f323030303f63623d3230313631313139303833333437" width="400"/>
+	</a>
 </p>
 
 [![Lua-5.1-Sikuli](https://cdn.rawgit.com/29988122/Fate-Grand-Order_Lua/ffdafd04/docs/Lua--Sikuli-5.1-blue.svg)](http://www.sikuli.org/)[![GitHub license](https://cdn.rawgit.com/29988122/Fate-Grand-Order_Lua/ffdafd04/docs/Fate-Grand-Order_Lua.svg)](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/LICENSE)
@@ -28,23 +28,22 @@ As of 2018.12.30, this script is **working without root** / without being blocke
 # Table of Contents:
 * [中文說明 マニュアル](#中文說明-マニュアル)
 * [Install](#install)
-  * [Android 8.1 and above](#android-81-and-above)
+	* [Android 8.1 and above](#android-81-and-above)
 * [Usage](#usage)
 * [Extra scripts](#extra-scripts)
 * [Events](#events)
 * [Advanced features](#advanced-features)
-  * [AutoSkill](#autoskill)
-    * [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
-    * [Targeting Enemies](#targeting-enemies)
-    * [Attack with Command Cards before NPs](#attack-with-command-cards-before-nps) 
-    * [AutoSkill List](#autoskill-list)
-  * [AutoRefill](#autorefill)
-  * [AutoSupportSelection](#autosupportselection)
-  * [Card Priority Customization](#card-priority-customization)
-  * [Auto Target Choosing](#auto-target-choosing)
-  * [Noble Phantasm Behavior](#noble-phantasm-behavior)
+	* [AutoSkill](#autoskill)
+		* [Chaldea Combat Uniform: Order Change](#chaldea-combat-uniform-order-change)
+		* [Targeting Enemies](#targeting-enemies)
+		* [Attack with Command Cards before NPs](#attack-with-command-cards-before-nps)
+	* [AutoRefill](#autorefill)
+	* [AutoSupportSelection](#autosupportselection)
+	* [Card Priority Customization](#card-priority-customization)
+	* [Auto Target Choosing](#auto-target-choosing)
+	* [Noble Phantasm Behavior](#noble-phantasm-behavior)
 * [Troubleshooting](#troubleshooting)
-  * [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
+	* [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
 * [Feature requests, 說明, 要望](#feature-requests)
 
 ***
@@ -142,6 +141,39 @@ ON = 1
 That is, if you need to click through confirmation window to use a skill, make this option ```Skill_Confirmation = 1```. 
 Otherwise, leave it as ```Skill_Confirmation = 0```.
 
+```Autoskill_List``` is where you setup predefined autoskill settings.
+The script would let you choose one from it when it starts running.
+This especially helps if you need to farm different stages during events.
+
+Every entry in ```Autoskill_List``` should have a ```Name``` and ```Skill_Command```. You can have any number of entries in ```Autoskill_List```.  
+Optionally, you can also override any globally defined option.
+
+e.g.
+```lua
+Autoskill_List =
+{
+	-- Setting 1 does not override global options
+	{
+		Name = "Party 1",
+		Skill_Command = "4,#,f5,#,i6"
+	},
+	-- Setting 2 overrides support selection method to preferred, Preferred Support servant to Any and CE to mona lisa.
+	{
+		Name = "QP",
+		Skill_Command = "4,#,f5,#,i6",
+		Support_SelectionMode = "preferred",
+		Support_PreferredServants = "",
+		Support_PreferredCEs = "*mona_lisa.png"
+	},
+	-- Setting 3 overrides Card Priority
+	{
+		Name = "Quick",
+		Skill_Command = "d1g14,#,e14,#,h1fi4",
+		Battle_CardPriority = "QBA"
+	}
+}
+```
+
 ```Skill_Command``` strings should be composed by the following rules:
 ```
 ',' = Turn counter
@@ -218,11 +250,6 @@ Use 1 regular Command Card according to the priority from Battle_CardPriority, t
 Skill_Command = "n26"
 Use 2 regular Command Cards, then use the NP of the third Servant
 ```
-
-#### AutoSkill List
-Set ```Enable_Autoskill_List = 1``` to enable this feature.
-You can setup a predefined autoskill list from 1~10, and the script whould let you choose from it when it starts running.
-This especially helps if you need to farm different stages during events.
 
 ### AutoRefill:
 Set `Refill_Enabled = 1` to enable AutoRefill.
