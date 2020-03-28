@@ -1,9 +1,7 @@
-Debug_Mode = false -- set to 'true' if needing to debug
-
 -- Can be EN, JP, CN or TW
 GameRegion = "EN"
 
---Script Configuration, check instructions here: https://github.com/29988122/Fate-Grand-Order_Lua/wiki/Script-configuration-English
+--Script Configuration, check instructions in the README and wiki: https://github.com/29988122/Fate-Grand-Order_Lua/wiki/Script-configuration-English
 --***************************************************************************
 --AutoRefill Stamina
 Refill_Enabled = 0
@@ -19,29 +17,6 @@ Support_FriendsOnly = 0
 Support_FriendNames = ""
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
 Support_PreferredCEs = "*chaldea_lunchtime.png"
-
---Bond CE Get
-StopAfterBond10 = 0--[[
-	This option is switched to 1 if you want to stop the script after retreiving a Bond 10 CE card
-	TODO: move this explanation to documentation
---]]
-
---BoostItem
-BoostItem_SelectionMode = "disabled" --[[
-	possible values: disabled, 1, 2 or 3
-	if you want to use this, make sure "Confirm Use of Boost Item" is off
-	
-	TODO: move this explanation to the documentation
---]]
-
-StorySkip = 0 --[[
-	People really want this feature.
-]]
-
---Auto Withdrawing
-Withdraw_Enabled = false --[[
-	Set this to true if you want to automatically withdraw and try the quest again when all your Servants have been defeated.
-]]
 
 --AutoSkill
 Enable_Autoskill = 0
@@ -74,9 +49,7 @@ Battle_CardPriority = "BAQ"
 --AutoChooseTarget
 Battle_AutoChooseTarget = 1
 --NoblePhantasm Casting
-Battle_NoblePhantasm = "disabled" 
---FastSkipDeadAnimation
-UnstableFastSkipDeadAnimation = 0
+Battle_NoblePhantasm = "disabled"
 
 -- Do not modify below this line
 dir = scriptPath()

@@ -1,5 +1,25 @@
 setImagePath(dir)
 
+local function ApplyDefaults()
+	local Defaults =
+	{
+		BoostItem_SelectionMode = "disabled",
+		Story_Skip = 0,
+		Debug_Mode = false,
+		StopAfterBond10 = 0,
+		UnstableFastSkipDeadAnimation = 0,
+		Withdraw_Enabled = false
+	}
+
+	for key, defaultValue in pairs(Defaults) do
+		globalValue = _G[key]
+		
+		if globalValue == nil then
+			_G[key] = defaultValue
+		end
+	end
+end
+
 -- Writes autoskill options into global variables
 local function ExtractAutoskillOptions(selected_autoskill)
 	for key, value in pairs(selected_autoskill) do
@@ -67,6 +87,7 @@ function PSADialogue()
 	end
 end
 
+ApplyDefaults()
 PSADialogue()
 
 dofile(dir .. "regular.lua")
