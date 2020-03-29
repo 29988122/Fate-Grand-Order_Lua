@@ -296,7 +296,7 @@ findSupportBounds = function(support)
 	local defaultRegion = supportBound
 
 	for _, testRegion in ipairs(regionArray) do
-		supportBound:setY(testRegion:getY() - 114)
+		supportBound:setY(testRegion:getY() - 70)
 		if ankuluaUtils.DoesRegionContain(supportBound, support) then
 			return supportBound
 		end
