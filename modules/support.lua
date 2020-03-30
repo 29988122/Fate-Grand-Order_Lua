@@ -168,19 +168,17 @@ selectPreferred = function(searchMethod)
 end
 
 scrollList = function()
-	-- local touchActions = {
-	-- 	{ action = "touchDown", target = game.SUPPORT_SWIPE_START_CLICK },
-	-- 	{ action = "touchMove", target = game.SUPPORT_SWIPE_END_CLICK },
-	-- 	{ action =      "wait", target = 0.4 },
-	-- 	{ action =   "touchUp", target = game.SUPPORT_SWIPE_END_CLICK },
-	-- 	{ action =      "wait", target = 0.5 } -- leaving some room for animations to finish
-	-- }
+	local touchActions = {
+		{ action = "touchDown", target = game.SUPPORT_SWIPE_START_CLICK },
+		{ action = "touchMove", target = game.SUPPORT_SWIPE_END_CLICK },
+		{ action =      "wait", target = 0.4 },
+		{ action =   "touchUp", target = game.SUPPORT_SWIPE_END_CLICK },
+		{ action =      "wait", target = 0.5 } -- leaving some room for animations to finish
+	}
 
-	-- -- the movement has to be as accurate as possible
-	-- setManualTouchParameter(5, 5)
-	-- manualTouch(touchActions)
-
-	swipe(game.SUPPORT_SWIPE_START_CLICK, game.SUPPORT_SWIPE_END_CLICK)
+	-- the movement has to be as accurate as possible
+	setManualTouchParameter(5, 5)
+	manualTouch(touchActions)
 end
 
 searchVisible = function(searchMethod)
