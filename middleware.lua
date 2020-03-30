@@ -8,7 +8,30 @@ local function ApplyDefaults()
 		Debug_Mode = false,
 		StopAfterBond10 = 0,
 		UnstableFastSkipDeadAnimation = 0,
-		Withdraw_Enabled = false
+		Withdraw_Enabled = false,
+
+		GameRegion = "EN",
+
+		Refill_Enabled = 0,
+		Refill_Resource = "All Apples",
+		Refill_Repetitions = 0,
+
+		Support_SelectionMode = "first",
+		Support_SwipesPerUpdate = 10,
+		Support_MaxUpdates = 3,
+		Support_FallbackTo = "manual",
+		Support_FriendsOnly = 0,
+		Support_FriendNames = "",
+		Support_PreferredServants = "",
+		Support_PreferredCEs = "",
+
+		Enable_Autoskill = 0,
+		Skill_Confirmation = 0,
+		Autoskill_List = { },
+
+		Battle_CardPriority = "BAQ",
+		Battle_AutoChooseTarget = 1,
+		Battle_NoblePhantasm = "disabled"
 	}
 
 	for key, defaultValue in pairs(Defaults) do
