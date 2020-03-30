@@ -51,6 +51,18 @@ Battle_AutoChooseTarget = 1
 --NoblePhantasm Casting
 Battle_NoblePhantasm = "disabled"
 
+-- set to 'true' if needing to debug
+Debug_Mode = false
+-- stop the script after retreiving a Bond 10 CE card
+StopAfterBond10 = 0
+-- Boost item, possible values: disabled, 1, 2 or 3. Make sure "Confirm Use of Boost Item" is off
+BoostItem_SelectionMode = "disabled"
+StorySkip = 0
+--Auto Withdrawing
+Withdraw_Enabled = false
+--FastSkipDeadAnimation
+UnstableFastSkipDeadAnimation = 0
+
 -- Do not modify below this line
 dir = scriptPath()
 dofile(dir .. "middleware.lua")
