@@ -86,26 +86,20 @@ end
 local function StartQuest()
 	click(game.MENU_START_QUEST_CLICK)
 
-	-- old scripts might not have this option set
-	-- don't wanna force everyone to update their configs
-	if BoostItem_SelectionMode ~= nil then	
-		if game.MENU_BOOST_ITEM_CLICK_ARRAY[BoostItem_SelectionMode] ~= nil then
-			wait(2)
-			click(game.MENU_BOOST_ITEM_CLICK_ARRAY[BoostItem_SelectionMode])
-			click(game.MENU_BOOST_ITEM_SKIP_CLICK) -- in case you run out of items
-		else
-			scriptExit("Invalid boost item selection mode: \"" + BoostItem_SelectionMode + "\".")
-		end
+	if game.MENU_BOOST_ITEM_CLICK_ARRAY[BoostItem_SelectionMode] ~= nil then
+		wait(2)
+		click(game.MENU_BOOST_ITEM_CLICK_ARRAY[BoostItem_SelectionMode])
+		click(game.MENU_BOOST_ITEM_SKIP_CLICK) -- in case you run out of items
+	else
+		scriptExit("Invalid boost item selection mode: \"" + BoostItem_SelectionMode + "\".")
 	end
-
-	if StorySkip ~= nil then
-		if StorySkip == 1 then
-			wait(10)
-			if game.MENU_STORY_SKIP_REGION:exists(GeneralImagePath .. "storyskip.png") then
-				click(game.MENU_STORY_SKIP_CLICK)
-				wait(0.5)
-				click(game.MENU_STORY_SKIP_YES_CLICK)
-			end
+	
+	if StorySkip == 1 then
+		wait(10)
+		if game.MENU_STORY_SKIP_REGION:exists(GeneralImagePath .. "storyskip.png") then
+			click(game.MENU_STORY_SKIP_CLICK)
+			wait(0.5)
+			click(game.MENU_STORY_SKIP_YES_CLICK)
 		end
 	end
 end
@@ -145,10 +139,8 @@ local function Result()
 	--Checking if there was a Bond CE reward
 	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
 		
-		if StopAfterBond10 ~= nil then --Making sure they can still run it without updating FGO_REGULAR files
-			if StopAfterBond10 == 1 then
-				scriptExit("Bond 10 CE GET!")
-			end
+		if StopAfterBond10 == 1 then
+			scriptExit("Bond 10 CE GET!")
 		end
 		
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
@@ -184,13 +176,11 @@ local function Result()
 	end
 
 	--Post-battle story is sometimes there.
-	if StorySkip ~= nil then
-		if StorySkip == 1 then
-			if game.MENU_STORY_SKIP_REGION:exists(GeneralImagePath .. "storyskip.png") then
-				click(game.MENU_STORY_SKIP_CLICK)
-				wait(0.5)
-				click(game.MENU_STORY_SKIP_YES_CLICK)
-			end
+	if StorySkip == 1 then
+		if game.MENU_STORY_SKIP_REGION:exists(GeneralImagePath .. "storyskip.png") then
+			click(game.MENU_STORY_SKIP_CLICK)
+			wait(0.5)
+			click(game.MENU_STORY_SKIP_YES_CLICK)
 		end
 	end
 

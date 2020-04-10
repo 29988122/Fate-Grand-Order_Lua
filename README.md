@@ -42,6 +42,7 @@ As of 2018.12.30, this script is **working without root** / without being blocke
 	* [Card Priority Customization](#card-priority-customization)
 	* [Auto Target Choosing](#auto-target-choosing)
 	* [Noble Phantasm Behavior](#noble-phantasm-behavior)
+* [More script options](#more-script-options)
 * [Troubleshooting](#troubleshooting)
 	* [Syntax error: unexpected symbol near '燎](#syntax-error-unexpected-symbol-near-燎)
 * [Feature requests, 說明, 要望](#feature-requests)
@@ -320,7 +321,49 @@ The script will cast NPs only when there are DANGER or SERVANT enemies on the sc
 ```Battle_NoblePhantasm = "spam"```
 The script will cast NPs as soon as they are available.
 
-If you have ```Enable_Autoskill = 1```, the above options applied after all of your predefined skills/NPs finished casting. 
+If you have ```Enable_Autoskill = 1```, the above options applied after all of your predefined skills/NPs finished casting.
+
+## More script options
+These are some optional features you can use in your scripts
+
+### Debug_Mode
+Debug mode highlights the region of the game recognized by the script on your screen instead of actually running the script. To enable, set:
+```lua
+Debug_Mode = true
+```
+
+### StopAfterBond10
+If you want to stop the script after retreiving a Bond 10 CE card, set:
+```lua
+StopAfterBond10 = 1
+```
+
+### BoostItem_SelectionMode
+Enables the use of event boost items.
+
+Possible values: `disabled` (default), `1`, `2` or `3`.
+
+If you want to use this, make sure **Confirm Use of Boost Item** is off.
+
+### StorySkip
+If you want the script to automatically skip story scenes, set:
+```lua
+StorySkip = 1
+```
+
+### Withdraw_Enabled
+If you want to automatically withdraw and try the quest again when all your Servants have been defeated, set:
+```lua
+Withdraw_Enabled = true
+```
+
+### UnstableFastSkipDeadAnimation
+If you want to skip the death animations, set:
+```lua
+UnstableFastSkipDeadAnimation = 1
+```
+
+This feature is unstable, so its use is not recommended.
 
 ## Troubleshooting
 Known issues are listed here.

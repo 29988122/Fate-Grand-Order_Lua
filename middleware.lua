@@ -1,5 +1,48 @@
 setImagePath(dir)
 
+local function ApplyDefaults()
+	local Defaults =
+	{
+		BoostItem_SelectionMode = "disabled",
+		Story_Skip = 0,
+		Debug_Mode = false,
+		StopAfterBond10 = 0,
+		UnstableFastSkipDeadAnimation = 0,
+		Withdraw_Enabled = false,
+
+		GameRegion = "EN",
+
+		Refill_Enabled = 0,
+		Refill_Resource = "All Apples",
+		Refill_Repetitions = 0,
+
+		Support_SelectionMode = "first",
+		Support_SwipesPerUpdate = 10,
+		Support_MaxUpdates = 3,
+		Support_FallbackTo = "manual",
+		Support_FriendsOnly = 0,
+		Support_FriendNames = "",
+		Support_PreferredServants = "",
+		Support_PreferredCEs = "",
+
+		Enable_Autoskill = 0,
+		Skill_Confirmation = 0,
+		Autoskill_List = { },
+
+		Battle_CardPriority = "BAQ",
+		Battle_AutoChooseTarget = 1,
+		Battle_NoblePhantasm = "disabled"
+	}
+
+	for key, defaultValue in pairs(Defaults) do
+		globalValue = _G[key]
+		
+		if globalValue == nil then
+			_G[key] = defaultValue
+		end
+	end
+end
+
 -- Writes autoskill options into global variables
 local function ExtractAutoskillOptions(selected_autoskill)
 	for key, value in pairs(selected_autoskill) do
@@ -67,6 +110,7 @@ function PSADialogue()
 	end
 end
 
+ApplyDefaults()
 PSADialogue()
 
 dofile(dir .. "regular.lua")
