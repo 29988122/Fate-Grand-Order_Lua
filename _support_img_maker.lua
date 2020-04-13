@@ -23,6 +23,10 @@ local regionAnchor = Pattern(GeneralImagePath .. "support_region_tool.png")
 local regionArray = regionFindAllNoFindException(Region(2100,0,300,1440), regionAnchor)
 local screenBounds = Region(0,0,SCRIPT_WIDTH,SCRIPT_HEIGHT)
 
+local datetime = os.date('%Y%m%d-%H%M%S')
+local folder = 'support_' .. datetime .. '/'
+os.execute('mkdir ' .. dir .. '/' .. folder)
+
 local i = 0
 
 for _, testRegion in ipairs(regionArray) do
@@ -35,11 +39,17 @@ for _, testRegion in ipairs(regionArray) do
 
   if ankuluaUtils.DoesRegionContain(screenBounds, supportBound) then
     local servantBound = Region(supportBound:getX(), supportBound:getY(), 250, 88)
-    servantBound:save('servant_' .. i .. '.png')
+    servantBound:save(folder .. 'servant_' .. i .. '.png')
 
     local ceBound = Region(supportBound:getX(), supportBound:getY() + 160, supportBound:getW(), 60)
-    ceBound:save('ce_' .. i .. '.png')
+    ceBound:save(folder .. 'ce_' .. i .. '.png')
 
     i = i + 1
   end
+end
+
+if i == 0 then
+  scriptExit("No images generated")
+else
+  scriptExit(i .. " servant and ce images stored into '" .. folder .. "' folder")
 end
