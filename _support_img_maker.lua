@@ -34,7 +34,7 @@ for _, testRegion in ipairs(regionArray) do
   supportBound:setY(testRegion:getY() - 70 + 68 * 2)
 
   if ankuluaUtils.DoesRegionContain(screenBounds, supportBound) then
-    local servantBound = Region(supportBound:getX(), supportBound:getY(), supportBound:getW(), 88)
+    local servantBound = Region(supportBound:getX(), supportBound:getY(), 250, 88)
     servantBound:save('servant_' .. i .. '.png')
 
     local ceBound = Region(supportBound:getX(), supportBound:getY() + 160, supportBound:getW(), 60)
