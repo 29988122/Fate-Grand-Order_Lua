@@ -1,0 +1,9 @@
+pages:
+  stage: deploy
+  script:
+    - cp -r docs/. public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master

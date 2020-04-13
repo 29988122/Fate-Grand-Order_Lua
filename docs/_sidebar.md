@@ -1,0 +1,7 @@
+* [中文說明 マニュアル](ch-jp.md)
+* [Install](install.md)
+* [Usage](usage.md)
+* [Features](features.md)
+* [Extra scripts](extra-scripts.md)
+* [Troubleshooting](troubleshooting.md)
+* [Account Safety](account-safety.md)
