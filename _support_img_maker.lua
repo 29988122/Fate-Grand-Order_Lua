@@ -51,5 +51,5 @@ end
 if i == 0 then
   scriptExit("No support images were found on the current screen")
 else
-  scriptExit(i .. " servant and ce images stored into '" .. folder .. "' folder")
+  scriptExit(i .. " Servant and CE images have been stored in the  folder '" .. folder .. "'")
 end
