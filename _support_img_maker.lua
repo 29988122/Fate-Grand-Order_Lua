@@ -49,7 +49,7 @@ for _, testRegion in ipairs(regionArray) do
 end
 
 if i == 0 then
-  scriptExit("No images generated")
+  scriptExit("No support images were found on the current screen")
 else
   scriptExit(i .. " servant and ce images stored into '" .. folder .. "' folder")
 end
