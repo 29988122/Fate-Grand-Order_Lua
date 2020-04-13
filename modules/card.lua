@@ -6,7 +6,7 @@ local _autoskill
 local _battle
 
 -- consts
--- see docs/card_formula.jpg
+-- see docs/media/card_formula.jpg
 -- a translation of it would be appreciated (lol)
 local CARD_AFFINITY = {
 	WEAK   = 2.0,

@@ -243,7 +243,7 @@ searchMethod = {
 			local craftEssence = findCraftEssence(supportBounds)
 
 			-- CEs are always below Servants in the support list
-			-- see docs/support_list_edge_case_fix.png to understand why this conditional exists
+			-- see docs/media/support_list_edge_case_fix.png to understand why this conditional exists
 			if craftEssence ~= nil and craftEssence:getY() > servant:getY() then
 				return craftEssence, supportBounds -- only return if found. if not, try the other servants before scrolling
 			end
