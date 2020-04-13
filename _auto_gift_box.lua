@@ -1,5 +1,4 @@
--- settings
-setImmersiveMode(true)
+-- constants
 local dir = scriptPath()
 setImagePath(dir .. "image_JP")
 package.path = package.path .. ";" .. dir .. 'modules/?.lua'
@@ -12,21 +11,27 @@ local SCRIPT_HEIGHT = 720
 local scaling = require("scaling")
 scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT, IMAGE_WIDTH, IMAGE_HEIGHT)
 
--- consts
 local checkRegion = Region(820, 225, 60, 1050)
 local clickCount = 0
-local goldThreshold = 3
 local NACountRegionX = 420
 local JPCountRegionX = 355
-local CountRegionX = NACountRegionX
+--*****************************************
+
+-- user configuration
+--stack size limitation for 4* EXP cards, any stacks with a size < threshold will be collected
+local Gold_Threshold = 3
+--either use NACountRegionX or JPCountRegionX
+local Count_Region_X = NACountRegionX
+local Max_Click_Count = 99
+--*****************************************
 
 -- script
 local function checkGifts()
 	for _, gift in ipairs(listToTable(checkRegion:findAll("Check.png"))) do
-		countRegion = Region(CountRegionX, gift:getY() - 50, 100, 30)
+		countRegion = Region(Count_Region_X, gift:getY() - 50, 100, 30)
 		iconRegion = Region(95, gift:getY() - 58, 115, 120)
 		clickSpot = Location(850, gift:getY() + 25)
-		if numberOCRNoFindException(countRegion, "Gift") < goldThreshold then
+		if numberOCRNoFindException(countRegion, "Gift") < Gold_Threshold then
 			click(clickSpot)
 			clickCount = clickCount + 1
 		else
@@ -65,7 +70,7 @@ local function scrollList()
 	manualTouch(touchActions)
 end
 
-while(clickCount < 99) do
+while(clickCount < Max_Click_Count) do
 	checkGifts()
 	scrollList()
 end
