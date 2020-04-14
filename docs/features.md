@@ -151,13 +151,70 @@ The default setting `first` will select the first visible servant on the selecti
 
 `manual` is used when you can monitor your script running - you need to select the support servant yourself, and the script will continue running after selection.
 
-`preferred` is our desired option here. By putting screenshots of your pre-defined servant or CE into image_SUPPORT folder, that servant or CE can then be chosen automatically by the script. 
+`preferred` is our desired option here. By putting screenshots of your pre-defined servant or CE into image_SUPPORT folder, that servant or CE can then be chosen automatically by the script.
 
-[Follow this guide](auto-support-selection.md) if you need to customize your desire servants and CEs. You can also use the the common servants and CEs we provided inside image_SUPPORT folder.
+### Support_PreferredServants and Support_PreferredCEs
 
-This selection function will search every combination of preferred servants and preferred CEs that you put in the above settings.
+Consider the following example:
+```
+Support_PreferredServants = "Any"
+Support_PreferredServants = ""
+(Putting "any" or leave it blank means that you don't care which servant it is.)
 
-Thanks @potchy for implementing this function!
+Support_PreferredCEs = "lunchtime.png, maid_in_halloween.png"
+```
+Then the script will search for:
+
+• Any servant with CE Chaldea Lunchtime
+
+• Any servant with CE Maid in Halloween
+
+And select it **immediately** once the script found any of them. The script searches from the top to the bottom of the friend list. The reverse of the above example also stands true, i.e., waver.png with "Any" CE.
+
+Consider another example:
+```
+Support_PreferredServants = "waver.png, tamamo.png"
+Support_PreferredCEs = "*lunchtime.png, maid_in_halloween.png"
+(Prepend a * if you want to make sure it is MLB (Max Level Break, hence the star sign)).
+```
+And the script will search for:
+
+• Waver + *Max Level Break* Lunchtime
+
+• Waver + Maid in Halloween
+
+• Tamamo + *Max Level Break* Lunchtime
+
+• Tamamo + Maid in Halloween
+
+And select it **immediately** once the script found any of them.
+
+### Support_SelectionMode, Support_MaxUpdates, and Support_FallbackTo
+
+If the servant/CE is not found in the support list, the script will click refresh as many times as defined in ```Support_MaxUpdates```.
+
+If this limit is reached, the script will use the ```Support_FallbackTo``` option to decide what do next. The options are the same as in ```Support_SelectionMode```. So, for instance, if the script is set up like this:
+
+```lua
+Support_SelectionMode = "preferred"
+Support_PreferredServants = "waver4.png"
+Support_PreferredCEs = "*maid_in_halloween.png"
+Support_MaxUpdates = 3
+Support_FallbackTo = "first"
+```
+
+| waver4.png | maid_in_halloween.png |
+| :---:      | :---:                 |
+| ![waver4.png](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/image_SUPPORT/waver4.png?raw=true)  | ![maid_in_halloween.png](https://github.com/29988122/Fate-Grand-Order_Lua/blob/master/image_SUPPORT/maid_in_halloween.png?raw=true)  |
+
+.... it will try to find Waver + a MLB Maid in Halloween CE in your support list. If it is not found in 3 refreshes maximum, the script will scroll back to top and pick the first visible servant.
+
+The last option, ```Support_SwipesPerUpdate``` controls the number of swipes/servants before refreshing the screen.
+If you have like 6 friend support servants, make it 6.
+
+### Using Your Own Images
+
+[Follow this guide](support-image-maker.md) if you need to customize your desire servants and CEs. You can also use the the common servants and CEs we provided inside image_SUPPORT folder.
 
 ## Card Priority Customization
 By changing the `Battle_CardPriority` option, you can have your card selection behavior change. There are two modes available, simple and detailed mode. 
