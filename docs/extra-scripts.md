@@ -36,3 +36,9 @@ The configuration parameters are:
 | Max_Click_Count | The maximum number of presents to collect.<br><br>If your inventory space is very limited, you should choose a low number.                                                                             |
 
 You will probably have to optimize the Y positions in the `touchActions` part of the script yourself, since scrolling behaves differently dependening on your device and Ankulua settings.
+
+## `_support_img_maker.lua`
+
+You can use this script to make your own images to be used with `Auto Support Selection`.
+
+See the guide [here](support-image-maker.md).
