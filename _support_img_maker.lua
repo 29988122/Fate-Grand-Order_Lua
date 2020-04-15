@@ -4,6 +4,7 @@ setImagePath(dir)
 
 local ankuluaUtils = require("ankulua-utils")
 local scaling = require("scaling")
+local game = require("game")
 
 GameRegion = "EN"
 GeneralImagePath = "image_" .. GameRegion .. "/"
@@ -17,6 +18,9 @@ scaling.ApplyAspectRatioFix(SCRIPT_WIDTH, SCRIPT_HEIGHT, IMAGE_WIDTH, IMAGE_HEIG
 
 -- Single screenshot is enough
 snapshot()
+
+--Checks if Support Selection menu is up
+local isSupportScreen =	game.SUPPORT_SCREEN_REGION:exists(Pattern(GeneralImagePath .. "support_screen.png"):similar(.85))
 
 local supportBound = Region(106,0,286,220)
 local regionAnchor = Pattern(GeneralImagePath .. "support_region_tool.png")
@@ -35,13 +39,18 @@ for _, testRegion in ipairs(regionArray) do
     break
   end
 
-  supportBound:setY(testRegion:getY() - 70 + 68 * 2)
+  if isSupportScreen then
+    supportBound:setY(testRegion:getY() - 70 + 68 * 2)
+  else -- Assume we are on Friend List
+    supportBound:setY(testRegion:getY() + 82)
+    supportBound = ankuluaUtils.AddX(supportBound, 10)
+  end
 
   if ankuluaUtils.DoesRegionContain(screenBounds, supportBound) then
     local servantBound = Region(supportBound:getX(), supportBound:getY(), 250, 88)
     servantBound:save(folder .. 'servant_' .. i .. '.png')
 
-    local ceBound = Region(supportBound:getX(), supportBound:getY() + 160, supportBound:getW(), 60)
+    local ceBound = Region(supportBound:getX(), supportBound:getY() + 160, supportBound:getW(), 50)
     ceBound:save(folder .. 'ce_' .. i .. '.png')
 
     i = i + 1
