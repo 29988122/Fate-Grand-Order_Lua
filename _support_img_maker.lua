@@ -58,7 +58,7 @@ for _, testRegion in ipairs(regionArray) do
 end
 
 if i == 0 then
-  scriptExit("No support images were found on the current screen")
+  scriptExit("No support images were found. Make sure you're in the Support Selection or in the Friend List and that the correct GameRegion is set in the script.")
 else
   scriptExit(i .. " Servant and CE images have been stored in the  folder '" .. folder .. "'")
 end
