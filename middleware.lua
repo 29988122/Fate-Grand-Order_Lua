@@ -107,6 +107,8 @@ function PSADialogue()
 		local selected_autoskill = Autoskill_List[AutoSkillIndex]
 
 		ExtractAutoskillOptions(selected_autoskill)
+	else
+		addTextView("AutoSkill is disabled, the script will battle automatically.")
 	end
 end
 
