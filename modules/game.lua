@@ -74,7 +74,7 @@ local STAGE_COUNT_REGION_LIST = {
 
 -- this depends on GameRegion
 game.BATTLE_STAGE_COUNT_REGION = STAGE_COUNT_REGION_LIST[GameRegion]
-game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK = Location(2550,0)
+game.BATTLE_EXTRAINFO_WINDOW_CLOSE_CLICK = Location(2550,10)
 game.BATTLE_ATTACK_CLICK = Location(2300,1200)
 game.BATTLE_SKIP_DEATH_ANIMATION_CLICK = Location(1700, 100) -- see docs/media/skip_death_animation_click.png
 
