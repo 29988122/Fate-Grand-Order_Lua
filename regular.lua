@@ -85,6 +85,13 @@ end
 --Click begin quest in Formation selection, then select boost item, if applicable, then confirm selection.
 local function StartQuest()
 	if game.PARTY_SELECTION_ARRAY[Party_Number] ~= nil then
+		--Start Quest Button becomes unresponsive if the same party is clicked. So we switch to one party and then to the user-specified one.
+		if Party_Number == 1 then
+			click(game.PARTY_SELECTION_ARRAY[2])
+		else
+			click(game.PARTY_SELECTION_ARRAY[1])
+		end
+		wait(1)
 		click(game.PARTY_SELECTION_ARRAY[Party_Number])
 		wait(1.2)
 	else
