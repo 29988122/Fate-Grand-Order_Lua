@@ -84,6 +84,12 @@ end
 
 --Click begin quest in Formation selection, then select boost item, if applicable, then confirm selection.
 local function StartQuest()
+	if Party_Number ~= nil then
+		click(game.PARTY_SELECTION_ARRAY[Party_Number])
+		wait(0.5)
+
+	end
+	
 	click(game.MENU_START_QUEST_CLICK)
 
 	if game.MENU_BOOST_ITEM_CLICK_ARRAY[BoostItem_SelectionMode] ~= nil then

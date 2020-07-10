@@ -16,6 +16,7 @@ local function ApplyDefaults()
 		Refill_Resource = "All Apples",
 		Refill_Repetitions = 0,
 
+		Party_Number = nil,
 		Support_SelectionMode = "first",
 		Support_SwipesPerUpdate = 10,
 		Support_MaxUpdates = 3,

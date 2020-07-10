@@ -53,6 +53,19 @@ game.SUPPORT_FIRST_SUPPORT_CLICK = Location(1900,500)
 game.SUPPORT_LIST_TOP_CLICK = Location(2480,360)
 game.SUPPORT_SWIPE_START_CLICK = Location(35,1190)
 
+game.PARTY_SELECTION_ARRAY = {
+	Location(1055,100),
+	Location(1105,100),
+	Location(1155,100),
+	Location(1205,100),
+	Location(1255,100),
+	Location(1305,100),
+	Location(1355,100),
+	Location(1405,100),
+	Location(1455,100),
+	Location(1505,100)
+}
+
 local SUPPORT_SWIPE_END_CLICK_LIST = {
 	EN = Location(35,390),
 	CN = Location(35,390),
