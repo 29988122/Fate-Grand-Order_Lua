@@ -84,10 +84,11 @@ end
 
 --Click begin quest in Formation selection, then select boost item, if applicable, then confirm selection.
 local function StartQuest()
-	if Party_Number ~= nil then
+	if game.PARTY_SELECTION_ARRAY[Party_Number] ~= nil then
 		click(game.PARTY_SELECTION_ARRAY[Party_Number])
-		wait(0.5)
-
+		wait(1.2)
+	else
+		scriptExit("Invalid party number selected: \"" .. Party_Number .. "\".")
 	end
 	
 	click(game.MENU_START_QUEST_CLICK)
