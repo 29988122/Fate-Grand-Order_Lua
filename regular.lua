@@ -89,7 +89,7 @@ end
 	3. The story is skipped if StorySkip is activated
 ]]
 local function StartQuest()
-	if Party_Number ~= null then
+	if Party_Number ~= nil then
 		if game.PARTY_SELECTION_ARRAY[Party_Number] ~= nil then
 			--Start Quest Button becomes unresponsive if the same party is clicked. So we switch to one party and then to the user-specified one.
 			if Party_Number == 1 then
