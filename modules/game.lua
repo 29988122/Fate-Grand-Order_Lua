@@ -53,6 +53,16 @@ game.SUPPORT_FIRST_SUPPORT_CLICK = Location(1900,500)
 game.SUPPORT_LIST_TOP_CLICK = Location(2480,360)
 game.SUPPORT_SWIPE_START_CLICK = Location(35,1190)
 
+local SUPPORT_SWIPE_END_CLICK_LIST = {
+	EN = Location(35,390),
+	CN = Location(35,390),
+	JP = Location(35,350),
+	TW = Location(35,390)
+}
+
+-- this depends on GameRegion
+game.SUPPORT_SWIPE_END_CLICK = SUPPORT_SWIPE_END_CLICK_LIST[GameRegion]
+
 game.PARTY_SELECTION_ARRAY = {
 	Location(1055,100),
 	Location(1105,100),
@@ -65,16 +75,6 @@ game.PARTY_SELECTION_ARRAY = {
 	Location(1455,100),
 	Location(1505,100)
 }
-
-local SUPPORT_SWIPE_END_CLICK_LIST = {
-	EN = Location(35,390),
-	CN = Location(35,390),
-	JP = Location(35,350),
-	TW = Location(35,390)
-}
-
--- this depends on GameRegion
-game.SUPPORT_SWIPE_END_CLICK = SUPPORT_SWIPE_END_CLICK_LIST[GameRegion]
 
 game.BATTLE_SCREEN_REGION = Region(2105,1259,336,116) -- see docs/media/battle_region.png
 

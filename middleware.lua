@@ -16,7 +16,6 @@ local function ApplyDefaults()
 		Refill_Resource = "All Apples",
 		Refill_Repetitions = 0,
 
-		Party_Number = nil,
 		Support_SelectionMode = "first",
 		Support_SwipesPerUpdate = 10,
 		Support_MaxUpdates = 3,
@@ -25,6 +24,8 @@ local function ApplyDefaults()
 		Support_FriendNames = "",
 		Support_PreferredServants = "",
 		Support_PreferredCEs = "",
+
+		Party_Number = nil,
 
 		Enable_Autoskill = 0,
 		Skill_Confirmation = 0,
@@ -93,7 +94,7 @@ local function AddAutoskillListToDialog()
 	end
 end
 
---User option PSA dialogue. Also choosable list of perdefined skill.
+--User option PSA dialogue. Also choosable list of predefined skill.
 function PSADialogue()
 	dialogInit()
 

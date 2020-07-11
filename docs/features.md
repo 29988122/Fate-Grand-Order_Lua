@@ -6,6 +6,7 @@ By adjusting the settings inside your FGO_REGULAR.lua file, you can achieve the 
 * [AutoSupportSelection](#autosupportselection) Select certain support servant+CE combination. 
 * [Card Priority Customization](#card-priority-customization) Customize your card selection priority. 
 * [Noble Phantasm Behavior](#noble-phantasm-behavior) When to cast NP in order to face dangerous servants.
+* [Party Selection](#party-selection) Select one of your parties when starting a quest.
 
 ## AutoSkill
 AutoSkill allows you to execute a series of turn-based skill commands, via user-predefined strings.
@@ -256,6 +257,11 @@ The script will cast NPs only when there are DANGER or SERVANT enemies on the sc
 The script will cast NPs as soon as they are available.
 
 If you have ```Enable_Autoskill = 1```, the above options applied after all of your predefined skills/NPs finished casting.
+
+## Party Selection
+If you set `Party_Number` to a number between 1 and 10, the script will automatically switch to that party after selecting the support Servant.
+
+You can either set this value globally or as part of the ```Autoskill_List``` entries.
 
 ## More script options
 These are some optional features you can use in your scripts

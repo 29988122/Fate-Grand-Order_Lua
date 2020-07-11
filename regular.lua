@@ -82,20 +82,27 @@ local function Withdraw()
 	end
 end
 
---Click begin quest in Formation selection, then select boost item, if applicable, then confirm selection.
+--[[
+	Starts the quest after the support has already been selected. The following features are done optionally:
+	1. The configured party is selected if Party_Number is set
+	2. A boost item is selected if BoostItem_SelectionMode is set (needed in some events)
+	3. The story is skipped if StorySkip is activated
+]]
 local function StartQuest()
-	if game.PARTY_SELECTION_ARRAY[Party_Number] ~= nil then
-		--Start Quest Button becomes unresponsive if the same party is clicked. So we switch to one party and then to the user-specified one.
-		if Party_Number == 1 then
-			click(game.PARTY_SELECTION_ARRAY[2])
+	if Party_Number ~= null then
+		if game.PARTY_SELECTION_ARRAY[Party_Number] ~= nil then
+			--Start Quest Button becomes unresponsive if the same party is clicked. So we switch to one party and then to the user-specified one.
+			if Party_Number == 1 then
+				click(game.PARTY_SELECTION_ARRAY[2])
+			else
+				click(game.PARTY_SELECTION_ARRAY[1])
+			end
+			wait(1)
+			click(game.PARTY_SELECTION_ARRAY[Party_Number])
+			wait(1.2)
 		else
-			click(game.PARTY_SELECTION_ARRAY[1])
+			scriptExit("Invalid party number selected: \"" .. Party_Number .. "\".")
 		end
-		wait(1)
-		click(game.PARTY_SELECTION_ARRAY[Party_Number])
-		wait(1.2)
-	else
-		scriptExit("Invalid party number selected: \"" .. Party_Number .. "\".")
 	end
 	
 	click(game.MENU_START_QUEST_CLICK)
@@ -127,8 +134,11 @@ end
 local function Menu()
 	battle.resetState()
 	turnCounter = {0, 0, 0, 0, 0}
-	-- Prints a message containing the amount of apple used
-	toast(StoneUsed .. " refills used out of " .. Refill_Repetitions)
+	
+	if Refill_Repetitions > 0 then
+		-- Prints a message containing the amount of apple used
+		toast(StoneUsed .. " refills used out of " .. Refill_Repetitions)
+	end
 
 	--Click uppermost quest.
 	click(game.MENU_SELECT_QUEST_CLICK)
@@ -229,9 +239,6 @@ local function Support()
 		if IsContinuing == 0 then
 			wait(2.5)
 			StartQuest()
-		elseif IsContinuing == nil then
-			StartQuest()
-			wait(25)	-- Wait timer til battle starts. Uses less battery to wait than to search for images for 25 seconds. Adjust according to device.
 		end
 	end
 end
@@ -247,8 +254,6 @@ local function Init()
 	autoskill.Init(battle, card)
 	battle.init(autoskill, card)
 	card.init(autoskill, battle)
-
-	toast("Will only select servant/danger enemy as noble phantasm target, unless specified using Skill Command. Please check github for further detail.")
 end
 
 --[[
