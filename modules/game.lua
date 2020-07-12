@@ -63,6 +63,19 @@ local SUPPORT_SWIPE_END_CLICK_LIST = {
 -- this depends on GameRegion
 game.SUPPORT_SWIPE_END_CLICK = SUPPORT_SWIPE_END_CLICK_LIST[GameRegion]
 
+game.PARTY_SELECTION_ARRAY = {
+	Location(1055,100),
+	Location(1105,100),
+	Location(1155,100),
+	Location(1205,100),
+	Location(1255,100),
+	Location(1305,100),
+	Location(1355,100),
+	Location(1405,100),
+	Location(1455,100),
+	Location(1505,100)
+}
+
 game.BATTLE_SCREEN_REGION = Region(2105,1259,336,116) -- see docs/media/battle_region.png
 
 local STAGE_COUNT_REGION_LIST = {

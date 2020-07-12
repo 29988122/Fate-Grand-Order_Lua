@@ -25,6 +25,8 @@ local function ApplyDefaults()
 		Support_PreferredServants = "",
 		Support_PreferredCEs = "",
 
+		Party_Number = nil,
+
 		Enable_Autoskill = 0,
 		Skill_Confirmation = 0,
 		Autoskill_List = { },
@@ -92,7 +94,7 @@ local function AddAutoskillListToDialog()
 	end
 end
 
---User option PSA dialogue. Also choosable list of perdefined skill.
+--User option PSA dialogue. Also choosable list of predefined skill.
 function PSADialogue()
 	dialogInit()
 

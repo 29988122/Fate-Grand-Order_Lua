@@ -1,7 +1,7 @@
 -- Can be EN, JP, CN or TW
 GameRegion = "EN"
 
---Script Configuration, check instructions in the README and wiki: https://github.com/29988122/Fate-Grand-Order_Lua/wiki/Script-configuration-English
+--Script Configuration, check instructions in the documentation: https://29988122.github.io/Fate-Grand-Order_Lua/#/features
 --***************************************************************************
 --AutoRefill Stamina
 Refill_Enabled = 0
@@ -18,6 +18,9 @@ Support_FriendNames = ""
 Support_PreferredServants = "waver4.png, waver3.png, waver2.png, waver1.png"
 Support_PreferredCEs = "*chaldea_lunchtime.png"
 
+--Party Selection
+Party_Number = nil
+
 --AutoSkill
 Enable_Autoskill = 0
 Skill_Confirmation = 0
@@ -29,7 +32,8 @@ Autoskill_List =
 		Skill_Command = "4,#,f5,#,i6",
 		Support_SelectionMode = "preferred",
 		Support_PreferredServants = "",
-		Support_PreferredCEs = "*mona_lisa.png"
+		Support_PreferredCEs = "*mona_lisa.png",
+		Party_Number = 2
 	},
 	{
 		Name = "Dust",
@@ -53,7 +57,7 @@ Battle_NoblePhantasm = "disabled"
 
 -- set to 'true' if needing to debug
 Debug_Mode = false
--- stop the script after retreiving a Bond 10 CE card
+-- stop the script after retrieving a Bond 10 CE card
 StopAfterBond10 = 0
 -- Boost item, possible values: disabled, 1, 2 or 3. Make sure "Confirm Use of Boost Item" is off
 BoostItem_SelectionMode = "disabled"
