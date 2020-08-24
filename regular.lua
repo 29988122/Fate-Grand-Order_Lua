@@ -180,8 +180,8 @@ local function Result()
 
 	wait(1)
 
-	--Only for JP currently. Searches for the Continue option after select Free Quests
-	if (GameRegion == "JP" or GameRegion == "EN") and game.CONTINUE_REGION:exists(GeneralImagePath .. "confirm.png") then
+	--Only for JP, EN and CN currently. Searches for the Continue option after select Free Quests
+	if (GameRegion == "JP" or GameRegion == "EN" or GameRegion == "CN") and game.CONTINUE_REGION:exists(GeneralImagePath .. "confirm.png") then
 		IsContinuing = 1 -- Needed to show we don't need to enter the "StartQuest" function
 	
 		-- Pressing Continue option after completing a quest, reseting the state as would occur in "Menu" function
