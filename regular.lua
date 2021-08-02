@@ -158,10 +158,10 @@ end
 --Click through reward screen, continue if option presents itself, otherwise continue clicking through
 local function Result()
 	--Validator document https://github.com/29988122/Fate-Grand-Order_Lua/wiki/In-Game-Result-Screen-Flow for detail.
-	continueClick(game.RESULT_NEXT_CLICK,55)
+	continueClick(game.RESULT_NEXT_CLICK,50)
 
 	--Checking if there was a Bond CE reward
-	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
+	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png", 1) ~= nil then
 		
 		if StopAfterBond10 == 1 then
 			scriptExit("Bond 10 CE GET!")
@@ -171,17 +171,13 @@ local function Result()
 		continueClick(game.RESULT_NEXT_CLICK,35) --Still need to proceed through reward screen.
 	end
 
-	wait(5)
-
 	--Friend request dialogue. Appears when non-friend support was selected this battle.  Ofc it's defaulted not sending request.
-	if game.RESULT_FRIEND_REQUEST_REGION:exists(GeneralImagePath .. "friendrequest.png") ~= nil then
+	if game.RESULT_FRIEND_REQUEST_REGION:exists(GeneralImagePath .. "friendrequest.png", 1) ~= nil then
 		click(game.RESULT_FRIEND_REQUEST_REJECT_CLICK)
 	end
 
-	wait(1)
-
 	--Only for JP, EN and CN currently. Searches for the Continue option after select Free Quests
-	if (GameRegion == "JP" or GameRegion == "EN" or GameRegion == "CN") and game.CONTINUE_REGION:exists(GeneralImagePath .. "confirm.png") then
+	if (GameRegion == "JP" or GameRegion == "EN" or GameRegion == "CN") and game.CONTINUE_REGION:exists(GeneralImagePath .. "confirm.png", 1) then
 		IsContinuing = 1 -- Needed to show we don't need to enter the "StartQuest" function
 	
 		-- Pressing Continue option after completing a quest, reseting the state as would occur in "Menu" function
@@ -201,29 +197,26 @@ local function Result()
 
 	--Post-battle story is sometimes there.
 	if StorySkip == 1 then
-		if game.MENU_STORY_SKIP_REGION:exists(GeneralImagePath .. "storyskip.png") then
+		if game.MENU_STORY_SKIP_REGION:exists(GeneralImagePath .. "storyskip.png", 2) then
 			click(game.MENU_STORY_SKIP_CLICK)
 			wait(0.5)
 			click(game.MENU_STORY_SKIP_YES_CLICK)
 		end
 	end
 
-	wait(10)
-
 	--Quest Completion reward. Exits the screen when it is presented.
-	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png") ~= nil then
+	if game.RESULT_CE_REWARD_REGION:exists(GeneralImagePath .. "ce_reward.png", 2) ~= nil then
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
 		wait(1)
 		click(game.RESULT_CE_REWARD_CLOSE_CLICK)
 	end
 
-	wait(5)
-
 	--1st time quest reward screen, eg. Mana Prisms, Event CE, Materials, etc.
-	if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png") ~= nil then
+	if game.RESULT_QUEST_REWARD_REGION:exists(GeneralImagePath .. "questreward.png", 2) ~= nil then
 		wait(1)
 		click(game.RESULT_NEXT_CLICK)
 	end
+
 end
 
 --Checks if Support Selection menu is up

@@ -23,7 +23,7 @@ local ResetCloseClick = Location(1270, 1120)
 
 -- script
 local function spin()
-	continueClick(SpinClick,480)
+	continueClick(SpinClick,360)
 end
 
 local function reset()
@@ -38,7 +38,7 @@ local function reset()
 end
 
 FinishedLotteryBoxPattern = Pattern(GeneralImagePath .. "lottery.png")
-FinishedLotteryBoxPattern:similar(0.65)
+FinishedLotteryBoxPattern:similar(0.45)
 while(true) do
 	if FinishedLotteryBoxRegion:exists(FinishedLotteryBoxPattern) then
 		reset()
